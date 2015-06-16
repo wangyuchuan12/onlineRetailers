@@ -19,7 +19,7 @@ public class BaseApi {
 		Enumeration<String> names = servletRequest.getAttributeNames();
 		while(names.hasMoreElements()){
 			String name = names.nextElement();
-			System.out.println(name+":"+servletRequest.getParameter(name));
+			System.out.println(name+":"+servletRequest.getAttribute(name));
 		}
 		return null;
 
