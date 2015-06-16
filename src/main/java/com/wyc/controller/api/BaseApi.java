@@ -1,7 +1,10 @@
 package com.wyc.controller.api;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,15 +15,13 @@ public class BaseApi {
 	private String token = "onlineRetailers";
 
 	@RequestMapping(value = "/api/test")
-	public String test(@RequestParam(value = "signature") String signature,
-			@RequestParam(value = "timestamp") String timestamp,
-			@RequestParam(value = "nonce") String nonce,
-			@RequestParam(value = "echostr") String echostr) {
-		System.out.println(signature);
-		System.out.println(timestamp);
-		System.out.println(nonce);
-		System.out.println(echostr);
-		return echostr;
+	public String test(HttpServletRequest servletRequest) {
+		Enumeration<String> names = servletRequest.getAttributeNames();
+		while(names.hasMoreElements()){
+			String name = names.nextElement();
+			System.out.println(name);
+		}
+		return null;
 
 	}
 
