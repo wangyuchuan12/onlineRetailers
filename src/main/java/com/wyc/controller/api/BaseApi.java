@@ -1,5 +1,7 @@
 package com.wyc.controller.api;
 
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,16 +18,17 @@ public class BaseApi {
 	private String token = "onlineRetailers";
 
 	@RequestMapping(value = "/api/test")
-	public String test(HttpServletRequest servletRequest) {
-		Map<String,String[]> map = servletRequest.getParameterMap();
-		for(Entry<String, String[]> entry:map.entrySet()){
-			System.out.println(entry.getKey());
-			System.out.println("....");
-			for(String str:entry.getValue()){
-				System.out.println(str);
-			}
+	public String test(HttpServletRequest servletRequest)throws Exception {
+		InputStream inputStream = servletRequest.getInputStream();
+		BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+		byte[] b= new byte[1024];
+		int i = 0;
+		while((i=bufferedInputStream.read(b))>0){
+			String string = new String(b,0, i);
+			System.out.println(string);
 		}
-		return "hello";
+		return null;
+		
 
 	}
 }
