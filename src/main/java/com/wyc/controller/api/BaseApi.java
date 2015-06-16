@@ -21,7 +21,9 @@ public class BaseApi {
 		for(Entry<String, String[]> entry:map.entrySet()){
 			System.out.println(entry.getKey());
 			System.out.println("....");
-			System.out.println(entry.getValue());
+			for(String str:entry.getValue()){
+				System.out.println(str);
+			}
 		}
 		return null;
 
