@@ -30,7 +30,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 	    public DispatcherServlet dispatcherServlet() {
 	        return new DispatcherServlet();
 	    }
-
+	    
 	    @Override
 	    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 	        configurer.enable();

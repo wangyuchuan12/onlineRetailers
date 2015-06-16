@@ -3,6 +3,7 @@ package com.wyc.controller.api;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,32 +17,13 @@ public class BaseApi {
 
 	@RequestMapping(value = "/api/test")
 	public String test(HttpServletRequest servletRequest) {
-		Enumeration<String> names = servletRequest.getAttributeNames();
-		while(names.hasMoreElements()){
-			String name = names.nextElement();
-			System.out.println(name+":"+servletRequest.getAttribute(name));
+		Map<String,String[]> map = servletRequest.getParameterMap();
+		for(Entry<String, String[]> entry:map.entrySet()){
+			System.out.println(entry.getKey());
+			System.out.println("....");
+			System.out.println(entry.getValue());
 		}
 		return null;
 
 	}
-
-	private static String byteToStr(byte[] byteArray) {
-		String strDigest = "";
-		for (int i = 0; i < byteArray.length; i++) {
-			strDigest += byteToHexStr(byteArray[i]);
-		}
-		return strDigest;
-	}
-
-	private static String byteToHexStr(byte mByte) {
-		char[] Digit = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A',
-				'B', 'C', 'D', 'E', 'F' };
-		char[] tempArr = new char[2];
-		tempArr[0] = Digit[(mByte >>> 4) & 0X0F];
-		tempArr[1] = Digit[mByte & 0X0F];
-
-		String s = new String(tempArr);
-		return s;
-	}
-
 }
