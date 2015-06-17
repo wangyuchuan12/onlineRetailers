@@ -20,6 +20,7 @@ public class BaseApi {
 		String timestamp = servletRequest.getParameter("timestamp");
 		String nonce = servletRequest.getParameter("nonce");
 		String echostr = servletRequest.getParameter("echostr");
+		System.out.println("ceshi");
 		System.out.println(signature);
 		System.out.println(timestamp);
 		System.out.println(nonce);
