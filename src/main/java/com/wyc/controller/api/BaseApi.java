@@ -10,6 +10,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
+import org.jdom.output.XMLOutputter;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +36,9 @@ public class BaseApi {
 		SAXBuilder saxBuilder = new SAXBuilder();
 		Document document = saxBuilder.build(servletRequest.getInputStream());
 		System.out.println(document.toString());
+		
+		XMLOutputter xmlOutputter = new XMLOutputter();
+		xmlOutputter.output(document, System.out);
 		return echostr;
 
 	}
