@@ -82,6 +82,7 @@ dependencies {
     compile 'ch.qos.logback:logback-classic:1.1.2'
     compile 'com.google.guava:guava:18.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.4'
-
+	
+	compile 'jdom:jdom:1.1'
     testCompile("junit:junit")
 }
