@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="Pragma" content="no-cache">   
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="http://m.yqphh.com/assets/css/style_8f70805.css?v=3">
+    <link rel="stylesheet" href="http://assets.yqphh.com/assets/css/font-awesome.min-4.3.0.css">
+    <!--[if lt IE 9]>
+            <script src="http://assets.yqphh.com/assets/js/html5shiv.min-3.7.2.js"></script>
+        <![endif]-->
+    <script src="http://assets.yqphh.com/assets/js/jquery.min-2.1.3.js"></script>
+</head>
+
+<body>
+  <div>
+    <div ms-include-src="'express.html'"></div>
+    <div class="nav_fixed">
+        <a href="orders.html" class="fixed_nav_item" ms-class="nav_cur: all_status==3" data-status="1"><span class="nav_txt">全部订单</span></a>
+        <a href="orders.html?type=0" class="fixed_nav_item" ms-class="nav_cur: all_status==0" data-status="2"><span class="nav_txt nav_payment">待付款<b class="nav_payment_num" style="display:none;"></b></span></a>
+        <a href="orders.html?type=1" class="fixed_nav_item" ms-class="nav_cur: all_status==1" data-status="3"><span class="nav_txt nav_receiving">待收货<b class="nav_receiving_num" style="display:none;"></b></span></a>
+    </div>
+
+    <div id="dealliststatus1">
+        <div class="order" ms-repeat-order="orders">
+            <div class="order_hd">
+                {{order.order_time}}
+            </div>
+                <div class="order_bd">
+                    <div class="order_glist">
+                        <a ms-href="order.html?id={{order.order_id}}">
+                            <div class="order_goods" data-url="">
+                                <div class="order_goods_img">
+                                    <img alt="" ms-src="{{order.order_goods[0].thumb_url}}">
+                                </div>
+                                <div class="order_goods_info">
+                                    <div class="order_goods_name">{{order.order_goods[0].goods_name}}</div>
+                                    <div class="order_goods_attr">
+                                        <div class="order_goods_attr_item">
+                                            <div class="order_goods_price"><i>¥</i>{{order.order_goods[0].goods_price}}<i>/件</i></div>数量：1
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="order_ft">
+                            <div class="order_total">
+                                <span class="order_total_info">共{{order.order_goods.length}}件商品 ，免运费</span>
+                                <span class="order_price">实付：<b>¥{{order.order_amount}}</b></span>
+                                <span class="coupon_icon" ms-if="order.coupons.length>0"></span>
+                            </div>
+                            <div class="order_opt">
+                                <span class="order_status">{{order.order_status_lang}}</span>
+                                <div class="order_btn" ms-visible="order.total_status==0">
+                                    <a class="order_btn_buy" ms-click="orderBuy(order.order_id)">去支付</a>
+                                    <input name="order_id" type="hidden" ms-attr-value="{{order.order_id}}" />
+                                    <a ms-click="orderCancel(order.order_id)">取消订单</a>
+                                </div>
+                                <div class="order_btn" ms-visible="order.total_status==3">
+                                    <a class="order_btn_receive" ms-click="expressShow(order.order_id)">查看物流</a>
+                                    <a class="order_btn_receive" ms-click="orderReceive(order.order_id)">确认收货</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         <div ms-class="pullUp_hide:pullUp_hide" ms-class="pullUp_show:pullUp_show"><div class="center" id="center_pullup"><span><img class="img_rotate" src="http://m.yqphh.com/assets/images/pull_loading_8eba142.png"/></span><span class="orders_text"></span></div>
+    </div>
+  </div>
+    <div style="height:58px;visibility:hidden "></div>
+    <footer class="footer">
+        <nav>
+            <ul>
+                <li><a href="index.html" class="nav-controller"><i class="fa fa-home"></i>首页</a></li>
+                <li><a href="groups.html" class="nav-controller"><i class="fa fa-group"></i>我的团</a></li>
+                <li><a href="orders.html" class="nav-controller active"><i class="fa fa-list"></i>我的订单</a></li>
+                <li><a href="personal.html" class="nav-controller"><i class="fa fa-user"></i>个人中心</a></li>
+            </ul>
+        </nav>
+    </footer>
+</body>
+<script src="http://assets.yqphh.com/assets/js/jquery.nicescroll.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="http://assets.yqphh.com/assets/js/fastclick.min-1.0.6.js"></script>
+<script src="http://m.yqphh.com/assets/js/lib/config_0804417.js"></script>
+<script src="http://m.yqphh.com/assets/js/lib/all_status_d91c7e4.js"></script>
+<script src="http://m.yqphh.com/assets/js/weixin_eae08a1.js" defer></script>
+<script src="http://m.yqphh.com/assets/js/vendor/avalon/avalon_d1b38eb.js" defer></script>
+<script src="http://m.yqphh.com/assets/js/share_c3d97fd.js?v=1"></script>
+<script src="http://m.yqphh.com/assets/js/orders_6ab6eb4.js" defer></script>
+</html>
