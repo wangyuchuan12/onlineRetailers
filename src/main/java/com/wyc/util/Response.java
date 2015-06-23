@@ -1,4 +1,4 @@
-package com.wyc.controller.util;
+package com.wyc.util;
 
 import java.io.InputStream;
 

@@ -1,6 +1,6 @@
-package com.wyc.controller.service;
+package com.wyc.service;
 
-import com.wyc.controller.util.Request;
+import com.wyc.util.Request;
 
 public class BasicSupportService {
 	public String getAccessToken(String appid,String secret){

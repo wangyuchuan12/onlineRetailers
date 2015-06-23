@@ -7,8 +7,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.wyc.controller.util.Request;
-import com.wyc.controller.util.Response;
+import com.wyc.util.Request;
+import com.wyc.util.Response;
 
 public class RequestResponseTest {
 	public static void main(String[]args)throws Exception{

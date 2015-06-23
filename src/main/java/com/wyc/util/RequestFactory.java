@@ -1,4 +1,4 @@
-package com.wyc.controller.util;
+package com.wyc.util;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -35,7 +35,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 
-	// ÉÏ´«Í¼ÎÄÏûÏ¢ËØ²Ä¡¾¶©ÔÄºÅÓë·şÎñºÅÈÏÖ¤ºó¾ù¿ÉÓÃ¡¿
+	// ä¸Šä¼ å›¾æ–‡æ¶ˆæ¯ç´ æã€è®¢é˜…å·ä¸æœåŠ¡å·è®¤è¯åå‡å¯ç”¨ã€‘
 	public Request uploadnewsRequest(String accessToken) throws Exception {
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token="
@@ -43,7 +43,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 
-	// ¸ù¾İ·Ö×é½øĞĞÈº·¢¡¾¶©ÔÄºÅÓë·şÎñºÅÈÏÖ¤ºó¾ù¿ÉÓÃ¡¿
+	// æ ¹æ®åˆ†ç»„è¿›è¡Œç¾¤å‘ã€è®¢é˜…å·ä¸æœåŠ¡å·è®¤è¯åå‡å¯ç”¨ã€‘
 	public Request massSendallRequest(String accessToken) throws Exception {
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token="
@@ -51,7 +51,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 
-	// ¸ù¾İÊÓÆµÈº·¢ÏûÏ¢
+	// æ ¹æ®è§†é¢‘ç¾¤å‘æ¶ˆæ¯
 	public Request uploadVideoRequest(String accessToken) throws Exception {
 		URL url = new URL(
 				"https://file.api.weixin.qq.com/cgi-bin/media/uploadvideo?access_token="
@@ -59,7 +59,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 
-	// ¸ù¾İOpenIDÁĞ±íÈº·¢¡¾¶©ÔÄºÅ²»¿ÉÓÃ£¬·şÎñºÅÈÏÖ¤ºó¿ÉÓÃ¡¿£¨°üÀ¨£ºÍ¼ÎÄÏûÏ¢£¬ÎÄ±¾£¬ÓïÒô£¬Í¼Æ¬£©
+	// æ ¹æ®OpenIDåˆ—è¡¨ç¾¤å‘ã€è®¢é˜…å·ä¸å¯ç”¨ï¼ŒæœåŠ¡å·è®¤è¯åå¯ç”¨ã€‘ï¼ˆåŒ…æ‹¬ï¼šå›¾æ–‡æ¶ˆæ¯ï¼Œæ–‡æœ¬ï¼Œè¯­éŸ³ï¼Œå›¾ç‰‡ï¼‰
 	public Request massSendRequest(String accessToken) throws Exception {
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token="
@@ -67,7 +67,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 
-	// É¾³ıÈº·¢½Ó¿Ú
+	// åˆ é™¤ç¾¤å‘æ¥å£
 	public Request massDeleteRequest(String accessToken) throws Exception {
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/message/mass/delete?access_token="
@@ -75,7 +75,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 
-	// ¶ÔÖ¸¶¨ÓÃ»§·¢ËÍÏûÏ¢
+	// å¯¹æŒ‡å®šç”¨æˆ·å‘é€æ¶ˆæ¯
 	public Request massPreviewRequest(String accessToken) throws Exception {
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token="
@@ -83,7 +83,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 
-	// »ñÈ¡ÏûÏ¢ÄÚÈİ
+	// è·å–æ¶ˆæ¯å†…å®¹
 	public Request massGetRequest(String accessToken) throws Exception {
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/message/mass/get?access_token="
@@ -91,7 +91,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 
-	// Ä£°åÏûÏ¢½Ó¿Ú
+	// æ¨¡æ¿æ¶ˆæ¯æ¥å£
 	public Request templateSendRequest(String accessToken) throws Exception {
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="
@@ -99,7 +99,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 
-	// ´´½¨·Ö×é
+	// åˆ›å»ºåˆ†ç»„
 	public Request groupsCreateRequest(String accessToken) throws Exception {
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/groups/create?access_token="
@@ -107,7 +107,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 
-	// ²éÑ¯ËùÓĞ·Ö×é
+	// æŸ¥è¯¢æ‰€æœ‰åˆ†ç»„
 	public Request groupsGetRequest(String accessToken) throws Exception {
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/groups/get?access_token="
@@ -115,7 +115,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 
-	// ²éÑ¯ÓÃ»§ËùÔÚ·Ö×é
+	// æŸ¥è¯¢ç”¨æˆ·æ‰€åœ¨åˆ†ç»„
 	public Request groupsGetidRequest(String accessToken) throws Exception {
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/groups/getid?access_token="
@@ -123,7 +123,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 
-	// ĞŞ¸Ä·Ö×éÃû³Æ
+	// ä¿®æ”¹åˆ†ç»„åç§°
 	public Request groupsUpdateRequest(String accessToken) throws Exception {
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/groups/update?access_token="
@@ -131,7 +131,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 
-	// ÒÆ¶¯ÓÃ»§·Ö×é
+	// ç§»åŠ¨ç”¨æˆ·åˆ†ç»„
 	public Request groupsMembersUpdateRequest(String accessToken)
 			throws Exception {
 		URL url = new URL(
@@ -140,7 +140,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 
-	// ÅúÁ¿ÒÆ¶¯ÓÃ»§·Ö×é
+	// æ‰¹é‡ç§»åŠ¨ç”¨æˆ·åˆ†ç»„
 	public Request groupsMembersBatchUpdateRequest(String accessToken)
 			throws Exception {
 		URL url = new URL(
@@ -149,7 +149,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 
-	// É¾³ı·Ö×é
+	// åˆ é™¤åˆ†ç»„
 	public Request groupsDeleteeRequest(String accessToken) throws Exception {
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/groups/delete?access_token="
@@ -157,7 +157,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 	
-	//ÉèÖÃÓÃ»§±¸×¢Ãû
+	//è®¾ç½®ç”¨æˆ·å¤‡æ³¨å
 	public Request userInfoUpdateRemarkRequest(String accessToken)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token="
@@ -165,7 +165,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 	
-	//»ñÈ¡ÓÃ»§¼¸±¾ĞÅÏ¢
+	//è·å–ç”¨æˆ·å‡ æœ¬ä¿¡æ¯
 	public Request userInfoRequest(String accessToken,String openid,String lang)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/user/info?access_token="+accessToken+"&openid="+openid+"&lang="
@@ -173,7 +173,7 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 	
-	//»ñÈ¡ÓÃ»§ÁĞ±í next_openidµÚÒ»¸öÀ­È¡µÄopenid£¬²»ÌîÄ¬ÈÏ´Ó¿ªÍ·¿ªÊ¼À­È¡
+	//è·å–ç”¨æˆ·åˆ—è¡¨ next_openidç¬¬ä¸€ä¸ªæ‹‰å–çš„openidï¼Œä¸å¡«é»˜è®¤ä»å¼€å¤´å¼€å§‹æ‹‰å–
 	public Request userGetRequest(String accessToken,String next_openid)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/user/get?access_token="+accessToken+"&next_openid="
@@ -181,105 +181,105 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 	
-	//×Ô¶¨Òå²Ëµ¥´´½¨½Ó¿Ú
+	//è‡ªå®šä¹‰èœå•åˆ›å»ºæ¥å£
 	public Request menuCreateRequest(String accessToken)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/menu/create?access_token="+accessToken);
 		return getRequestByConnection(url);
 	}
 	
-	//×Ô¶¨Òå²Ëµ¥²éÑ¯
+	//è‡ªå®šä¹‰èœå•æŸ¥è¯¢
 	public Request menuGetRequest(String accessToken)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/menu/get?access_token="+accessToken);
 		return getRequestByConnection(url);
 	}
 	
-	//×Ô¶¨Òå²Ëµ¥É¾³ı
+	//è‡ªå®šä¹‰èœå•åˆ é™¤
 	public Request menuDeleteRequest(String accessToken)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/menu/delete?access_token="+accessToken);
 		return getRequestByConnection(url);
 	}
 	
-	//×Ô¶¨Òå²Ëµ¥ÅäÖÃ½Ó¿Ú
+	//è‡ªå®šä¹‰èœå•é…ç½®æ¥å£
 	public Request menuInfoRequest(String accessToken)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token="+accessToken);
 		return getRequestByConnection(url);
 	}
 	
-	//Éú³É´ø²ÎÊıµÄ¶şÎ¬Âë
+	//ç”Ÿæˆå¸¦å‚æ•°çš„äºŒç»´ç 
 	public Request qrcodeCreateRequest(String accessToken)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token="+accessToken);
 		return getRequestByConnection(url);
 	}
 	
-	//Í¨¹ıticket»»È¡¶şÎ¬Âë
+	//é€šè¿‡ticketæ¢å–äºŒç»´ç 
 	public Request showQrcodeRequest(String ticket)throws Exception{
 		URL url = new URL(
 				"https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket="+ticket);
 		return getRequestByConnection(url);
 	}
 	
-	//³¤Á´½Ó×ª¶ÌÁ´½Ó½Ó¿Ú
+	//é•¿é“¾æ¥è½¬çŸ­é“¾æ¥æ¥å£
 	public Request shortUrlRequest(String accessToken)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/shorturl?access_token="+accessToken);
 		return getRequestByConnection(url);
 	}
 	
-	//»ñÈ¡ÓÃ»§Ôö¼õÊı¾İ
+	//è·å–ç”¨æˆ·å¢å‡æ•°æ®
 	public Request getusersummaryRequest(String accessToken)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/datacube/getusersummary?access_token="+accessToken);
 		return getRequestByConnection(url);
 	}
 	
-	//»ñÈ¡ÀÛ¼ÆÓÃ»§Êı¾İ
+	//è·å–ç´¯è®¡ç”¨æˆ·æ•°æ®
 	public Request getusercumulateRequest(String accessToken)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/datacube/getusercumulate?access_token="+accessToken);
 		return getRequestByConnection(url);
 	}
 	
-	//»ñÈ¡Í¼ÎÄÈº·¢Ã¿ÈÕÊı¾İ
+	//è·å–å›¾æ–‡ç¾¤å‘æ¯æ—¥æ•°æ®
 	public Request getarticlesummaryRequest(String accessToken)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/datacube/getarticlesummary?access_token="+accessToken);
 		return getRequestByConnection(url);
 	}
 	
-	//»ñÈ¡Í¼ÎÄÈº·¢×ÜÊı¾İ
+	//è·å–å›¾æ–‡ç¾¤å‘æ€»æ•°æ®
 	public Request getarticletotalRequest(String accessToken)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/datacube/getarticletotal?access_token="+accessToken);
 		return getRequestByConnection(url);
 	}
 	
-	//»ñÈ¡Í¼ÎÄÍ³¼ÆÊı¾İ
+	//è·å–å›¾æ–‡ç»Ÿè®¡æ•°æ®
 	public Request getuserreadRequest(String accessToken)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/datacube/getuserread?access_token="+accessToken);
 		return getRequestByConnection(url);
 	}
 	
-	//»ñÈ¡Í¼ÎÄÍ³¼Æ·ÖÊ±Êı¾İ
+	//è·å–å›¾æ–‡ç»Ÿè®¡åˆ†æ—¶æ•°æ®
 	public Request getuserreadhourRequest(String accessToken)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/datacube/getuserreadhour?access_token="+accessToken);
 		return getRequestByConnection(url);
 	}
 	
-	//»ñÈ¡Í¼ÎÄ·ÖÏí×ª·¢Êı¾İ
+	//è·å–å›¾æ–‡åˆ†äº«è½¬å‘æ•°æ®
 	public Request getusershareRequest(String accessToken)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/datacube/getusershare?access_token="+accessToken);
 		return getRequestByConnection(url);
 	}
 	
-	//»ñÈ¡Í¼ÎÄ·ÖÏí×ª·¢·ÖÊ±Êı¾İ
+	//è·å–å›¾æ–‡åˆ†äº«è½¬å‘åˆ†æ—¶æ•°æ®
 	public Request getusersharehourRequest(String accessToken)throws Exception{
 		URL url = new URL(
 				"https://api.weixin.qq.com/datacube/getusersharehour?access_token="+accessToken);
