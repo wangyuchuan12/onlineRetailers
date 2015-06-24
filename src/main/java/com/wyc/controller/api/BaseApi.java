@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BaseApi {
-	private String token = "onlineRetailers";
-
 	@RequestMapping(value = "/api/test")
 	public String test(HttpServletRequest servletRequest)throws Exception {
 		String signature = servletRequest.getParameter("signature");

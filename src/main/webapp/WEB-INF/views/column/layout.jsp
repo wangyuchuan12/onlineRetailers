@@ -4,17 +4,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	 <meta name="format-detection" content="telephone=no">
+	 <meta http-equiv="Pragma" content="no-cache">   
+	 <meta http-equiv="Cache-Control" content="no-store">
+	 <meta http-equiv="Expires" content="0">
+	 <title> <tiles:insertAttribute name="title" /></title>
 <tiles:insertAttribute name="resource"/>
 </head>
 <body>
 <div id="wrapper">
    <tiles:insertAttribute name="header" />
    <tiles:insertAttribute name="body" />
+   <div style="height:80px;"></div>
    <tiles:insertAttribute name="footer" />
 </div>
-<!-- /#wrapper -->
-
 </body>
 </html>
