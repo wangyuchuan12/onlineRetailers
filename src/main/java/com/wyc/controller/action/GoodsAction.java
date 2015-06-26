@@ -15,4 +15,9 @@ public class GoodsAction {
 		System.out.println(".............main/goods.jsp");
 		return "main/Goods";
 	}
+	@RequestMapping("/info/good_info")
+	public String goodInfo(){
+	    System.out.println(".............main/goodInfo.jsp");
+            return "info/GoodInfo";
+	}
 }
