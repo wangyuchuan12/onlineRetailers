@@ -20,14 +20,55 @@ war {
     baseName = 'onlineRetailers'
     version =  '0.1.0'
 }
-task myCopy<<{
-	copy{
-  		from('test') {
-   			include('**/*')
- 		 }
+task releaseProject<<{
+	releaseProject();
+}
+def releaseProject(){
+	File file = new File("build");
+	List childFiles = new ArrayList();
+	getAllChildList(childFiles,file);
+	for(int i = 0;i<childFiles.size();i++){
+		copyFile(new File("/root/hhhhhhhhhhhhhhh"),file,childFiles.get(i));
+	}
+}
 
-  		into('mytest')
- 	}
+def copyFile(File toRootFile , File fromRootFile , File file){
+	if(!toRootFile.exists()){
+		toRootFile.getParentFile().mkdirs();
+	}
+	String fileAbstractPath = file.getAbsolutePath();
+	String fromRootPath = fromRootFile.getAbsoluteFile().getParentFile().getAbsolutePath();
+	String subFilePath = fileAbstractPath.substring(fromRootPath.length());
+	File toFile = new File(toRootFile,subFilePath);
+	if(!toFile.getParentFile().exists()){
+		toFile.getParentFile().mkdirs();
+		
+	}
+	if(!toFile.exists()){
+		toFile.createNewFile();
+	}
+	FileOutputStream fileOutputStream = new FileOutputStream(toFile);
+	FileInputStream fileInputStream = new FileInputStream(file);
+	int i = 0 ;
+	byte[] b = new byte[1024];
+	while((i=fileInputStream.read(b))>0){
+		fileOutputStream.write(b,0,i);
+		fileOutputStream.flush();
+	}
+	fileOutputStream.close();
+
+}
+
+def getAllChildList(List files , File parentFile){
+	List childFiles = parentFile.listFiles();
+	for(int i = 0 ;i<childFiles.size();i++){
+		File childFile = childFiles.get(i);
+		if(childFile.isDirectory()){
+			getAllChildList(files,childFile);
+		}else{
+			files.add(childFile);
+		}
+	}
 }
 
 
@@ -91,8 +132,7 @@ dependencies {
     //compile 'org.slf4j:slf4j-log4j12:1.7.7'
     compile 'ch.qos.logback:logback-classic:1.1.2'
     compile 'com.google.guava:guava:18.0'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.4'
-	
-	compile 'jdom:jdom:1.1'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.4'	
+    compile 'jdom:jdom:1.1'
     testCompile("junit:junit")
 }
