@@ -192,13 +192,17 @@ def copyDir(File toRootFile , File fromRootFile , File file){
 
 def getAllChildList(List files , File parentFile){
 	List childFiles = parentFile.listFiles();
-	for(int i = 0 ;i<childFiles.size();i++){
-		File childFile = childFiles.get(i);
-		if(childFile.isDirectory()){
-			getAllChildList(files,childFile);
-		}else{
-			files.add(childFile);
+	if(childFiles!=null||childFiles.size()>0){
+		for(int i = 0 ;i<childFiles.size();i++){
+			File childFile = childFiles.get(i);
+			if(childFile.isDirectory()){
+				getAllChildList(files,childFile);
+			}else{
+				files.add(childFile);
+			}
 		}
+	}else{
+		return new ArrayList();
 	}
 }
 
