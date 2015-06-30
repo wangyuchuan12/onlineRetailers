@@ -20,16 +20,17 @@ war {
     baseName = 'onlineRetailers'
     version =  '0.1.0'
 }
+
 task releaseProject(type:Copy){
-	clearProject();
+	//clearProject();
 	println "clearProject"
 	from configurations.runtime
   	into 'build/lib'
   	println "copy libs to build/lib"
   	releaseProject()
   	println "release project"
-	delete(new File("build/lib"));
-	println "delete build/lib"
+	//delete(new File("build/lib"));
+	//println "delete build/lib"
 }
 def clearProject(){
 	def environment = hasProperty('env') ? env : 'dev'
