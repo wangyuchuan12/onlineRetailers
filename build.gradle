@@ -21,12 +21,37 @@ war {
     version =  '0.1.0'
 }
 task releaseProject(type:Copy){
+	clearProject();
 	from configurations.runtime
   	into 'build/lib'
   	releaseProject()
 
 }
+def clearProject(){
+	def environment = hasProperty('env') ? env : 'dev'
+	def projectPath;
+	if(environment.equals("local")){
+		projectPath = "d:/project/onlineRetailers";
+	}else if(environment.equals("dev")){
+		projectPath = "/root/project/onlineRetailers";
+	}
+	File file = new File(projectPath);
+	delete(file);
+}
 
+def delete(File file){
+	if(file.isDirectory()){
+		List childFiles = file.listFiles();
+		if(childFiles!=null&&childFiles.size()>0){
+			for(File childFile:childFiles){
+				delete(childFile);
+			}
+		}
+		file.delete();
+	}else{
+		file.delete();
+	}
+}
 def releaseProject(){
 	def environment = hasProperty('env') ? env : 'dev'
 	def projectPath;
@@ -103,6 +128,13 @@ def releaseProject(){
 	getAllChildList(childFiles,libsFile);
 	for(int i = 0 ;i<childFiles.size();i++){
 		copyDir(new File(projectPath+"/WEB-INF"),libsFile,childFiles.get(i));
+	}
+	childFiles.clear();
+	
+	File testjquery = new File("build/inplaceWebapp/testjquery");
+	getAllChildList(childFiles,testjquery);
+	for(int i = 0 ;i<childFiles.size();i++){
+		copyDir(new File(projectPath),testjquery,childFiles.get(i));
 	}
 	childFiles.clear();
 	
@@ -208,7 +240,7 @@ configurations {
 dependencies {
     providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
     compile 'jstl:jstl:1.2'
-    compile 'javax.servlet.jsp.jstl:jstl-api:1.2'
+  //  compile 'javax.servlet.jsp.jstl:jstl-api:1.2'
 
     compile 'org.springframework:spring-webmvc:4.0.8.RELEASE'
 
