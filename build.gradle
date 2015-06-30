@@ -37,7 +37,7 @@ def clearProject(){
 	if(environment.equals("local")){
 		projectPath = "d:/project/onlineRetailers";
 	}else if(environment.equals("dev")){
-		projectPath = "/root/project/onlineRetailers";
+		projectPath = "/root/projlsect/onlineRetailers";
 	}
 	File file = new File(projectPath);
 	delete(file);
@@ -155,6 +155,7 @@ def releaseProject(){
 	
 }
 def copyFile(File toDir,File fromFile){
+	println "start copy "+fromFile.getAbstractPath()+" to "+toDir.getAbstractPath()
 	String fileName = fromFile.getName();
 	File toFile = new File(toDir,fileName);
 	FileOutputStream fileOutputStream = new FileOutputStream(toFile);
@@ -168,6 +169,7 @@ def copyFile(File toDir,File fromFile){
 	fileOutputStream.close();
 }
 def copyDir(File toRootFile , File fromRootFile , File file){
+	println "start copy "+file.getAbstractPath()+" to "+toRootFile.getAbstractPath()
 	if(!toRootFile.exists()){
 		toRootFile.getParentFile().mkdirs();
 	}
