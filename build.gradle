@@ -25,7 +25,7 @@ task releaseProject(type:Copy){
 	from configurations.runtime
   	into 'build/lib'
   	releaseProject()
-
+	delete(new File("build/lib"));
 }
 def clearProject(){
 	def environment = hasProperty('env') ? env : 'dev'
@@ -37,6 +37,7 @@ def clearProject(){
 	}
 	File file = new File(projectPath);
 	delete(file);
+	delete(new File("build/lib"));
 }
 
 def delete(File file){
