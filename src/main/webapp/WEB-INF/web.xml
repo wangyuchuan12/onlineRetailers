@@ -11,7 +11,7 @@
         <param-name>contextConfigLocation</param-name>  
         <param-value>
             com.wyc.config.AppConfig,
-            com.wyc.config.DatabaseConfig
+            com.wyc.config.WebConfig
         </param-value>
     </context-param>
 
