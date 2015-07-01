@@ -17,12 +17,10 @@ import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 @Configuration
 @ComponentScan(basePackages="com.wyc",
 				excludeFilters={
-					@Filter(type=FilterType.ASSIGNABLE_TYPE,value=AppConfig.class)
+					@Filter(type=FilterType.ASSIGNABLE_TYPE,value=AppConfig.class),
+					@Filter(type=FilterType.ASSIGNABLE_TYPE,value=DatabaseConfig.class)
 })
 public class WebConfig extends WebMvcConfigurerAdapter{
-    public WebConfig() {
-        System.out.println("...........huhuhu");
-    }
 	@Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();

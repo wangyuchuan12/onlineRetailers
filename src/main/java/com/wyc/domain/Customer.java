@@ -1,5 +1,5 @@
 package com.wyc.domain;
 
-public class BaseBean {
+public class Customer {
 
 }

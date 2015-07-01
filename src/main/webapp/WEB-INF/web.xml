@@ -12,6 +12,7 @@
         <param-value>
             com.wyc.config.AppConfig,
             com.wyc.config.WebConfig
+            com.wyc.config.DatabaseConfig
         </param-value>
     </context-param>
 

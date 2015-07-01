@@ -8,7 +8,8 @@ import org.springframework.context.annotation.FilterType;
 @Configuration
 @ComponentScan(basePackages="com.wyc",
 				excludeFilters={
-					@Filter(type=FilterType.ASSIGNABLE_TYPE,value=WebConfig.class)
+					@Filter(type=FilterType.ASSIGNABLE_TYPE,value=WebConfig.class),
+					@Filter(type=FilterType.ASSIGNABLE_TYPE,value=DatabaseConfig.class)
 })
 public class AppConfig {
 	public AppConfig() {

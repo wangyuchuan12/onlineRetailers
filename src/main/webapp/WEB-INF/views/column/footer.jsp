@@ -11,8 +11,6 @@
 				<li><a href="#" class="nav-controller"><i
 						class="fa fa-list"></i>我的订单</a></li>
 				<li><a href="personal.html" class="nav-controller"><i
-						class="fa fa-user"></i>好友</a></li>
-				<li><a href="personal.html" class="nav-controller"><i
 						class="fa fa-user"></i>个人中心</a></li>
 			</ul>
 		</nav>
