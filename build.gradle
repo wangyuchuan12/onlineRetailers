@@ -75,14 +75,14 @@ def releaseProject(){
 	childFiles.clear();
 	
 	
-	File cssFile = new File("build/inplaceWebapp/css");
+	File cssFile = new File("src/main/webapp/css");
 	getAllChildList(childFiles,cssFile);
 	for(int i = 0 ;i<childFiles.size();i++){
 		copyDir(new File(projectPath),cssFile,childFiles.get(i));
 	}
 	childFiles.clear();
 	
-	File fontsFile = new File("build/inplaceWebapp/fonts");
+	File fontsFile = new File("src/main/webapp/fonts");
 	getAllChildList(childFiles,fontsFile);
 	for(int i = 0 ;i<childFiles.size();i++){
 		copyDir(new File(projectPath),cssFile,childFiles.get(i));
@@ -90,7 +90,7 @@ def releaseProject(){
 	childFiles.clear();
 	
 	
-	File imgFile = new File("build/inplaceWebapp/img");
+	File imgFile = new File("src/main/webapp/img");
 	getAllChildList(childFiles,imgFile);
 	for(int i = 0 ;i<childFiles.size();i++){
 		copyDir(new File(projectPath),imgFile,childFiles.get(i));
@@ -98,7 +98,7 @@ def releaseProject(){
 	childFiles.clear();
 	
 	
-	File jsFile = new File("build/inplaceWebapp/js");
+	File jsFile = new File("src/main/webapp/js");
 	getAllChildList(childFiles,jsFile);
 	for(int i = 0 ;i<childFiles.size();i++){
 		copyDir(new File(projectPath),jsFile,childFiles.get(i));
@@ -106,7 +106,7 @@ def releaseProject(){
 	childFiles.clear();
 	
 	
-	File lessFile = new File("build/inplaceWebapp/less");
+	File lessFile = new File("src/main/webapp/less");
 	getAllChildList(childFiles,lessFile);
 	for(int i = 0 ;i<childFiles.size();i++){
 		copyDir(new File(projectPath),lessFile,childFiles.get(i));
@@ -114,7 +114,7 @@ def releaseProject(){
 	childFiles.clear();
 	
 	
-	File scssFile = new File("build/inplaceWebapp/scss");
+	File scssFile = new File("src/main/webapp/scss");
 	getAllChildList(childFiles,scssFile);
 	for(int i = 0 ;i<childFiles.size();i++){
 		copyDir(new File(projectPath),scssFile,childFiles.get(i));
@@ -122,7 +122,7 @@ def releaseProject(){
 	childFiles.clear();
 	
 	
-	File webInfoFile = new File("build/inplaceWebapp/WEB-INF");
+	File webInfoFile = new File("src/main/webapp/WEB-INF");
 	getAllChildList(childFiles,webInfoFile);
 	for(int i = 0 ;i<childFiles.size();i++){
 		copyDir(new File(projectPath),webInfoFile,childFiles.get(i));
@@ -137,7 +137,7 @@ def releaseProject(){
 	}
 	childFiles.clear();
 	
-	File testjquery = new File("build/inplaceWebapp/testjquery");
+	File testjquery = new File("src/main/webapp/testjquery");
 	getAllChildList(childFiles,testjquery);
 	for(int i = 0 ;i<childFiles.size();i++){
 		copyDir(new File(projectPath),testjquery,childFiles.get(i));
