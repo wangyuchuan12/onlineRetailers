@@ -21,16 +21,16 @@ war {
     version =  '0.1.0'
 }
 
-task releaseProject(type:Copy){
-	//clearProject();
-	println "clearProject"
+
+task copylib(type:Copy){
+	delete(new File("build/lib"));
 	from configurations.runtime
   	into 'build/lib'
   	println "copy libs to build/lib"
+}
+task releaseProject(dependsOn:copylib)<<{
   	releaseProject()
   	println "release project"
-	//delete(new File("build/lib"));
-	//println "delete build/lib"
 }
 def clearProject(){
 	def environment = hasProperty('env') ? env : 'dev'
