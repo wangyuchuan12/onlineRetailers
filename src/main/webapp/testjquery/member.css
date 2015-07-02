@@ -1,0 +1,95 @@
+.container{
+	min-height:100%;
+	padding-bottom:50px;
+	margin:0 auto;
+	position:relative;
+	width:100%;
+	max-width:650px;
+}
+
+.member{
+	 border-radius:25px;
+	 z-index:100;
+	 position:relative;
+	 background-color:black;
+	 text-align:center;
+}
+
+.member img{
+	position:absolute;
+	border-radius:25px;
+	width:50px;
+	height:50px;
+	z-index:0;
+}
+
+
+
+.members{
+	background-color:red;
+	height:100px;
+	width:100%;
+}
+
+
+
+
+.member_obvious{
+	font-size:10px;
+	position:relative;
+	background:red;
+	border-radius:25px;
+	border:3 solid white;
+	color:white;
+	text-indent: 5px;
+	width:15px;
+	height:15px;
+	float:left;
+	left:53px;
+	line-height:20px;
+}
+
+.member_sofa{
+	font-size:10px;
+	position:relative;
+	background:RGB(255,208,  0);
+	border-radius:25px;
+	border:3 solid white;
+	color:white;
+	text-indent: 5px;
+	width:15px;
+	height:15px;
+	float:left;
+	left:53px;
+	line-height:20px;
+}
+
+.member_kind{
+	font-size:5px;
+	position:relative;
+	border-radius:25px;
+	color:white;
+	text-indent: 5px;
+	width:20px;
+	height:20px;
+	float:left;
+	left:30px;
+	line-height:70px;
+}
+
+.members ul{
+	list-style-type:none;
+	top:20px;
+	position:relative;
+	padding-left:50px;
+	
+}
+
+.members ul li{
+	display:inline-block;
+	margin-left:10px;
+	
+}
+
+
+
