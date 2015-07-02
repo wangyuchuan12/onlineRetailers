@@ -9,4 +9,8 @@ public class GroupsAction {
     public String groupList(){
         return "main/Groups";
     }
+    @RequestMapping("/info/group_info")
+    public String groupInfo(){
+        return "info/GroupInfo";
+    }
 }
