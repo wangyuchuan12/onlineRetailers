@@ -20,4 +20,8 @@ public class GoodsAction {
 	    System.out.println(".............main/goodInfo.jsp");
             return "info/GoodInfo";
 	}
+	@RequestMapping("/info/good_info_pay")
+	public String gootInfoPay(){
+	    return "info/GoodInfoPay";
+	}
 }

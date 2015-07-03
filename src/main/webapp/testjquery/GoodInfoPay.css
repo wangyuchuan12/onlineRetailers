@@ -1,0 +1,185 @@
+.good_info_pay{
+	width:100%;
+	position:relative;
+}
+
+.good_info_pay_recipients{
+	width:100%;
+	background-color:white;
+	height:80px;
+}
+
+.good_info_pay_recipients_prefix{
+	font-weight: bold;
+	font-size: 20px;
+	left: 15px;
+	top:5px;
+	position:relative;
+	display:inline-block;
+}
+
+.good_info_pay_recipients_address{
+	display:inline-block;
+	position:relative;
+	left:30px;
+	top:2px;
+}
+
+.good_info_pay_recipients_name{
+	position:relative;
+	left:73px;
+	top:20px;
+}
+
+.good_info_pay_recipients_suffix{
+	display:inline-block;
+	position:relative;
+	float:right;
+	right:10px;
+	font-size: 20px;
+	top:-18px;
+}
+
+
+
+
+.good_info_pay_goodinfo{
+	width:100%;
+	position:relative;
+	background-color: white;
+	padding-top: 10px;
+	margin-top: 10px;
+}
+
+.good_info_pay_goodinfo img{
+	position:relative;
+	width:80px;
+	left:10px;
+	height:80px;
+}
+
+.good_info_pay_goodinfo_detail{
+	display:inline-block;
+	position:relative;
+	left:30px;
+	top:-30px;
+}
+
+.good_info_pay_goodinfo_detail_title{
+	font-weight: bold;
+	font-size: 13px;
+	position:relative;
+}
+
+.good_info_pay_goodinfo_detail_num{
+	position:relative;
+	top:10px;
+}
+
+.good_info_pay_goodinfo_detail_stock{
+	position:relative;
+	top:20px;
+}
+
+.good_info_pay_goodinfo_price{
+	position:relative;
+	float: right;
+	right: 10px;
+	top:30px;
+	color:red;
+}
+
+.good_info_pay_price{
+	background-color:RGBA(124, 66, 67 ,.1);
+	height:50px;
+	margin-top: 5px;
+}
+
+.good_info_pay_price_content{
+	position: relative;
+	float:right;
+	right:10px;
+	top:10px;
+}
+
+.good_info_pay_price_content b{
+	color:red;
+	font-size: 20px;
+}
+
+.good_info_pay_type{
+	display:block;
+	height:100px;
+}
+.good_info_pay_type_head{
+	display:block;
+	height:30px;
+	padding-top:5px;
+	padding-left:10px;
+}
+
+.good_info_pay_type_item{
+}
+
+.good_info_pay_type_item_prefix{
+	background-color: red;
+	position: relative;
+	display: inline-block;
+	width:20px;
+	height:20px;
+	font-size:15px;
+	left:10px;
+	text-align: center;
+	color:white;
+	border-radius:20px;
+}
+.good_info_pay_type_list{
+	border-top: 1px solid RGBA(124,115,114,.4);
+	border-bottom: 1px solid RGBA(124,115,114,.4);
+	height: 40px;
+}
+
+.good_info_pay_type_item_img{
+	display: inline-block;
+	
+}
+
+.good_info_pay_type_item_img img{
+	width:25px;
+	height:25px;
+	position:relative;
+	left:20px;
+	top:5px;
+	
+}
+
+.good_info_pay_type_item_font{
+	display: inline-block;
+	left:30px;
+	position:relative;
+	top:-3px;
+}
+
+.good_info_pay_button{
+	background-color:red;
+	width:95%;
+	text-align: center;
+	left:10px;
+	border-radius:8px;
+	line-height: 40px;
+	position:relative;
+	top:-10px;
+	
+}
+
+.good_info_pay_button a{
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.good_info_pay_trade_flow{
+	background-color:white;
+	height:120px;
+	top:10px;
+	position:relative;
+}
