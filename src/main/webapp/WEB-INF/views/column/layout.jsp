@@ -17,7 +17,7 @@
 <div id="wrapper">
    <tiles:insertAttribute name="header" />
    <tiles:insertAttribute name="body" />
-   <div style="height:80px;"></div>
+   <div style="height:20px;"></div>
    <tiles:insertAttribute name="footer" />
 </div>
 </body>

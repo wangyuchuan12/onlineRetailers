@@ -1,0 +1,139 @@
+.order_header{
+	width:100%;
+	height:30px;
+	background-color:white;
+	border-left:1px solid RGBA(197,200,201,.4);;
+	border-bottom: 1px solid RGBA(197,200,201,.4);;
+	position:relative;
+}
+
+.order_header ul{
+	display:block;
+	height:100%;
+}
+
+.order_header ul li{
+	float:left;
+	display:block;
+	width:33.3%;
+	height:100%;
+
+	text-align: center;
+	line-height:30px;
+}
+
+.order_header_item{
+	border-right:1px solid RGBA(197,200,201,.4);;
+	display:block;
+	height:100%;
+	font-size: 15px;
+	font-weight: bold;
+	color:RGB( 39,131,241);
+}
+
+.order_goods{
+	display:block;
+	top:10px;
+	position:relative;
+}
+
+.order_goods ul li{
+	margin-bottom:10px;
+}
+
+.order_good_time{
+	background-color:RGBA(197,200,201,.4);
+	display:block;
+	width:100%;
+	height:35px;
+	margin-top:-5px;
+	text-indent: 10px;
+	line-height:33px;
+}
+
+.order_good_detail{
+	position:relative;
+	display:inline-block;
+	top:-10px;
+}
+
+.order_good_detail img{
+	width:60px;
+	height:60px;
+	border:1px solid RGBA( 69, 70, 72 ,.4);
+	display:block;
+	top:20px;
+	position:relative;
+	left:10px;
+}
+
+.order_good_p1{
+	background-color:white;
+	margin-top:5px;
+}
+
+.order_good_name{
+	position:relative;
+	left:85px;
+	top:-30px;
+	display:inline-block;;
+	font-weight: bold;
+}
+
+.order_good_num{
+	position:relative;
+	display:inline-block;
+	left:-15px;
+	top:-10px;
+}
+
+.order_good_price{
+	position:relative;
+	display:ineline-block;
+	float:right;
+	right:10px;
+	top:25px;
+	font-weight: 900;
+	color:red;
+}
+
+.order_good_p2{
+	display:inline-block;
+	position:relative;
+	background-color:white;
+	width:100%;
+}
+
+.order_good_logistics{
+	display:inline-block;
+	position:relative;
+	left:10px;
+}
+
+.order_good_payment{
+	display:inline-block;
+	position:relative;
+	float:right;
+	right:10px;
+	
+}
+.order_good_payment b{
+	color:red;
+}
+
+.order_good_p3{
+	background-color:white;
+	display:inline-block;
+	position:relative;
+	width:100%;
+	height:50px;
+}
+.order_good_logistics_status{
+	color:red;
+	position:relative;
+	left:15px;
+	top:10px;
+	width:100%;
+	display:inline-block;
+	font-weight: bold;
+}

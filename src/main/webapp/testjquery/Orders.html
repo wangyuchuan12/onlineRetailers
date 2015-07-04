@@ -1,11 +1,18 @@
-<%@ page contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-<%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
-<tiles:insertDefinition name="adminLayout">
-<tiles:putAttribute name="title">商品列表</tiles:putAttribute>
-<tiles:putAttribute name="body">
-	<div class="container">
+<!doctype html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="Pragma" content="no-cache">   
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="orders.css"/>
+    <link rel="stylesheet" href="/css/core.css"/>
+</head>
+	<body>
+		<div class="container">
 	        <div class="orders">
 	        		<div class="order_header">
 	        			<ul>
@@ -28,7 +35,7 @@
 	        						<div class="order_good_time">2015-07-04 10:45:44</div>
 	        						<div class="order_good_p1">
 	        							<div class="order_good_detail">
-	        								<img src="/img/good.jpg"/>
+	        								<img src="good.jpg"/>
 	        								<div class="order_good_name">广西小台芒2斤9.9</div>
 	        								<div class="order_good_num">数量1</div>
 	        							</div>
@@ -49,5 +56,5 @@
 	        		</div>
 	        </div>
     </div>
-</tiles:putAttribute>
-</tiles:insertDefinition>
+	</body>
+</html>
