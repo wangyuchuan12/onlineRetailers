@@ -9,4 +9,9 @@ public class OrderAction {
     public String orderList(){
         return "main/Orders";
     }
+    
+    @RequestMapping("/info/order_info")
+    public String orderInfo(){
+        return "info/OrderInfo";
+    }
 }
