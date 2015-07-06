@@ -349,6 +349,8 @@
 	border:4px solid RGB(241,241,242);
 	text-align:center;
 	position:relative;
+	display:inline-block;
+	margin-right:5px;
 	float:right;
 	border-radius: 15px 15px 15px 15px;
 	display:inline-block;
@@ -765,7 +767,7 @@
 
 .order_header{
 	width:100%;
-	height:30px;
+	height:50px;
 	background-color:white;
 	border-left:1px solid RGBA(197,200,201,.4);;
 	border-bottom: 1px solid RGBA(197,200,201,.4);;
@@ -784,7 +786,7 @@
 	height:100%;
 
 	text-align: center;
-	line-height:30px;
+	line-height:50px;
 }
 
 .order_header_item{
@@ -890,16 +892,16 @@
 	background-color:white;
 	display:inline-block;
 	position:relative;
-	width:100%;
 	height:50px;
+	padding-left:15px;
+	width:100%;
 }
+
 .order_good_logistics_status{
 	color:red;
 	position:relative;
-	left:15px;
 	top:10px;
-	width:100%;
-	display:inline-block;
+	display:block;
 	font-weight: bold;
 }
 

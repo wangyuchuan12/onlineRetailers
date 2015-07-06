@@ -22,8 +22,8 @@
 							<div class="group_footer">
 								<span class="group_result">团购失败</span>
 								<span class="group_details">查看团详情</span>
+								<span class="group_details">查看订单详情</span>
 							</div>
-
 						</a>
 					</li>
 					
@@ -42,6 +42,7 @@
 							<div class="group_footer">
 								<span class="group_result">团购失败</span>
 								<span class="group_details">查看团详情</span>
+								<span class="group_details">查看订单详情</span>
 							</div>
 
 						</a>
