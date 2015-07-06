@@ -8,6 +8,8 @@
 		<link rel="stylesheet" href="group_info.css" />
 		<link rel="stylesheet" href="/css/core.css" />
 		<link rel="stylesheet" href="/css/mystyle.css" />
+		<link rel="stylesheet"
+	href="/css/font-awesome.min.css">
 		<meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
@@ -68,35 +70,36 @@
 					</li>
 				</ul>
 			</div>
-			<div class="step">
-                <div class="trade_flow">
-			<ul>
-				<li>
-					<span class="step_panel">
-						<i class="trade_flow_choose_colorful"></i><b class="trade_flow_choose_font_colorful">选择商品></b>
-					</span>
-				</li>
-
-				<li>
-					<span class="step_panel">
-						<i class="trade_flow_pay_gray"></i><b class="trade_flow_font_gray">开团支付></b>
-					</span>
-				</li>
-
-				<li>
-					<span class="step_panel">
-						<i class="trade_flow_group_gray"></i><b class="trade_flow_font_gray">正在组团></b>
-					</span>
-				</li>
-
-				<li>
-					<span class="step_panel">
-						<i class="trade_flow_success_gray"></i><b class="trade_flow_font_gray">团购成功></b>
-					</span>
-				</li>
-			</ul>
-		</div>
-		</div>
+			<div class="trade_flow">
+            	<div class="trade_flow_details">查看详情&gt;</div>
+            	<ul>
+            		<li>
+            			<div class="trade_flow_block trade_flow_block_activity">
+            				<i class="fa fa-search"></i><span>选择商品</span>
+            				<div class="trade_flow_num">1</div>
+            			</div>
+            			
+            		</li>
+            		<li>
+            			<div class="trade_flow_block">
+            				<i class="fa fa-shopping-cart"></i><span>开团支付</span>
+            				<div class="trade_flow_num">2</div>
+            			</div>
+            		</li>
+            		<li>
+            			<div class="trade_flow_block">
+            				<i class="fa fa-users"></i><span>等待组团</span>
+            				<div class="trade_flow_num">3</div>
+            			</div>
+            		</li>
+            		<li>
+            			<div class="trade_flow_block">
+            				<i class="fa fa-flag"></i><span>购买完成</span>
+            				<div class="trade_flow_num">4</div>
+            			</div>
+            		</li>
+            	</ul>
+            </div>
 		<div class="footer3">
                 <a class="goto_gootlist">我也开个团，点此回商品列表</a>
      	</div>

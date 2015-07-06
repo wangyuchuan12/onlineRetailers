@@ -43,42 +43,43 @@
                     </div>
                 </div>
             </div>
-            <div class="step">
-                <div class="trade_flow">
-			<ul>
-				<li>
-					<span class="step_panel">
-						<i class="trade_flow_choose_colorful"></i><b class="trade_flow_choose_font_colorful">选择商品></b>
-					</span>
-				</li>
-
-				<li>
-					<span class="step_panel">
-						<i class="trade_flow_pay_gray"></i><b class="trade_flow_font_gray">开团支付></b>
-					</span>
-				</li>
-
-				<li>
-					<span class="step_panel">
-						<i class="trade_flow_group_gray"></i><b class="trade_flow_font_gray">正在组团></b>
-					</span>
-				</li>
-
-				<li>
-					<span class="step_panel">
-						<i class="trade_flow_success_gray"></i><b class="trade_flow_font_gray">团购成功></b>
-					</span>
-				</li>
-			</ul>
-		</div>
+            <div class="trade_flow">
+            	<div class="trade_flow_details">查看详情&gt;</div>
+            	<ul>
+            		<li>
+            			<div class="trade_flow_block trade_flow_block_activity">
+            				<i class="fa fa-search"></i><span>选择商品</span>
+            				<div class="trade_flow_num">1</div>
+            			</div>
+            			
+            		</li>
+            		<li>
+            			<div class="trade_flow_block">
+            				<i class="fa fa-shopping-cart"></i><span>开团支付</span>
+            				<div class="trade_flow_num">2</div>
+            			</div>
+            		</li>
+            		<li>
+            			<div class="trade_flow_block">
+            				<i class="fa fa-users"></i><span>等待组团</span>
+            				<div class="trade_flow_num">3</div>
+            			</div>
+            		</li>
+            		<li>
+            			<div class="trade_flow_block">
+            				<i class="fa fa-flag"></i><span>购买完成</span>
+            				<div class="trade_flow_num">4</div>
+            			</div>
+            		</li>
+            	</ul>
             </div>
 			
-	<div  class="details">
-	<h1>商品简介</h1>
-	<p>就是这么任性，就是这么甜。不用泡盐水，直接削着吃。更没有所谓的涩，自然成熟，8，9成熟采摘，然后直接空运到京城。预计下周到货。大家可以预定了，数量有限，预购从速。
-	<div class="images">
-	<img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-477820d09689d655.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-2e3b34201d00768f.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-08eea6fa41112aa8.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-e83e8cbe95160d57.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-174187a08958982b.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-c6a36b3dd5a01755.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-ec5f73c6c50aa65b.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-0043c1d91d242ef1.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-931b701e04b75674.jpg" alt=""><img id="__mcenew" class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-09efa87ff3533058.jpg" alt=""></p></div>
-	</div>
+		<div class="good_info_details">
+			<h1>商品简介</h1>
+			<p>就是这么任性，就是这么甜。不用泡盐水，直接削着吃。更没有所谓的涩，自然成熟，8，9成熟采摘，然后直接空运到京城。预计下周到货。大家可以预定了，数量有限，预购从速。
+			<div class="images">
+			<img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-477820d09689d655.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-2e3b34201d00768f.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-08eea6fa41112aa8.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-e83e8cbe95160d57.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-174187a08958982b.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-c6a36b3dd5a01755.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-ec5f73c6c50aa65b.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-0043c1d91d242ef1.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-931b701e04b75674.jpg" alt=""><img id="__mcenew" class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-09efa87ff3533058.jpg" alt=""></p></div>
+		</div>
         </section>
     </div>
     <div class="good_info_btns footer2">
