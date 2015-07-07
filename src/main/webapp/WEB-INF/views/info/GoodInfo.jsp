@@ -85,21 +85,21 @@
     <div class="good_info_btns footer2">
     		<ul>
     			<li>
-    				<div class="good_info_btn">
+    				<div class="good_info_btn activityStyle">
     					<div class="good_info_btn_price_group">￥9.22/件</div>
     					<div class="good_info_btn_type">九人团</div>
     				</div>
     			</li>
     			
     			<li>
-    				<div class="good_info_btn">
+    				<div class="good_info_btn activityStyle">
     					<div class="good_info_btn_price_alone">￥18/件</div>
     					<div class="good_info_btn_type">单独买</div>
     				</div>
     			</li>
     			
     			<li>
-    				<div class="good_info_btn">
+    				<div class="good_info_btn activityStyle">
     					<div class="good_info_btn_price_integral">100积分/件</div>
     					<div class="good_info_btn_type">积分开团</div>
     				</div>

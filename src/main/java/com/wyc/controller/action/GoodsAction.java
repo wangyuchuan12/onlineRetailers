@@ -1,5 +1,6 @@
 package com.wyc.controller.action;
 
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,7 +12,7 @@ public class GoodsAction {
 		System.out.println(".....................GoodsAction");
 	}
 	@RequestMapping("/main/good_list")
-	public String goodList(){
+	public String goodList(HttpServletRequest httpRequest){
 		System.out.println(".............main/goods.jsp");
 		return "main/Goods";
 	}

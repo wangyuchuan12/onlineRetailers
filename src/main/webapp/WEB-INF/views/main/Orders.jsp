@@ -10,13 +10,13 @@
 	        		<div class="order_header">
 	        			<ul>
 	        				<li>
-	        					<div class="order_header_item">全部订单</div>
+	        					<div class="order_header_item activityStyle">全部订单</div>
 	        				</li>
 	        				<li>
-	        					<div class="order_header_item">待付款</div>
+	        					<div class="order_header_item activityStyle">待付款</div>
 	        				</li>
 	        				<li>
-	        					<div class="order_header_item">待收货</div>
+	        					<div class="order_header_item activityStyle">待收货</div>
 	        				</li>
 	        			</ul>
 	        		</div>
@@ -24,7 +24,7 @@
 	        		<div class="order_goods">
 	        			<ul>
 	        				<li>
-	        					<div class="order_good">
+	        					<div class="order_good activityStyle">
 	        						<div class="order_good_time">2015-07-04 10:45:44</div>
 	        						<div class="order_good_p1">
 	        							<div class="order_good_detail">

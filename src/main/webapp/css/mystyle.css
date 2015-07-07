@@ -1022,3 +1022,102 @@
 	background-color:red;
 }
 
+
+.personal_center{
+	display:block;
+	width:100%;
+	position:relative;
+}
+
+.personal_center_header{
+	display:inline-block;
+	width:100%;
+	height:150px;
+	background-image: url("/img/personalCenterHeader3.jpg");
+	padding-top:20px;
+	position:relative;
+}
+
+.personal_center_header_img{
+	padding-top:10px;
+	padding-left:50px;
+	display:inline-block;
+}
+
+.personal_center_header_img img{
+	width:80px;
+	height:80px;
+	border-radius:40px;
+	border:2px solid white;
+	
+}
+
+.personal_center_item{
+	display:block;
+	position:relative;
+	
+}
+
+.personal_center_item_icon{
+	color:white;
+	font-size: 25px;
+	display:inline-block;
+	width:35px;
+	height:35px;
+	border-radius:20px;
+	top:10px;
+
+}
+
+.personal_center_item_icon i{
+	display:inline-block;
+	position:relative;
+	top:-5px;
+	left:2px;
+}
+
+.personal_center_item_content{
+	display:inline-block;
+	position:relative;
+	top:-7px;
+	left:10px;
+	font-weight: bold;
+	font-size:15px;
+}
+
+.personal_center_entry{
+	width:100%;
+	display:inline-block;
+}
+
+.personal_center_entry ul li{
+	height:50px;
+	border-bottom: 1px solid RGBA(0,0,0,.1);
+	top:20px;
+	padding-top:10px;
+	padding-left:10px;
+	background-color:white;
+	
+}
+
+.personal_center_item_footer{
+	float:right;
+	position:relative;
+	display:block;
+	font-size:15px;
+	font-weight: bold;
+	right:10px;
+	top:5px;
+}
+
+.personal_center_userinfo{
+	display:inline-block;
+	position:relative;
+	top:-30px;
+	left:10px;
+}
+
+.personal_center_userinfo_name{
+	font-size: 15px;
+}
+

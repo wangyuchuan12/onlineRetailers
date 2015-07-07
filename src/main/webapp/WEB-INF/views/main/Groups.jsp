@@ -9,7 +9,7 @@
         <div class="groups">
 				<ul>
 					<li >
-						<a class="group">
+						<a class="group activityStyle">
 							<div class="group_header">
 								<img src="http://img3.3lian.com/2014/c2/61/d/19.jpg"/>
 								<div class="group_good_info">
@@ -29,7 +29,7 @@
 					
 					
 					<li>
-						<a class="group">
+						<a class="group activityStyle">
 							<div class="group_header">
 								<img src="http://img3.3lian.com/2014/c2/61/d/19.jpg"/>
 								<div class="group_good_info">

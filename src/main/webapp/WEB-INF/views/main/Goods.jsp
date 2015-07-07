@@ -7,7 +7,7 @@
 <tiles:putAttribute name="body">
 	<div class="container">
         <div class="goods">
-            <div class="good">
+            <div class="good activityStyle">
                 <div class="good-img">
                     <a href="group/commodity/555d8e6df0bffff67a023ab0">
                         <img src="/img/good.jpg" />
@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="good">
+            <div class="good activityStyle">
                 <div class="good-img">
                     <a href="group/commodity/555d8e6df0bffff67a023ab0">
                         <img src="/img/good.jpg" />
@@ -49,7 +49,7 @@
                     </div>
                 </div>
             </div>
-            <div class="good">
+            <div class="good activityStyle">
                 <div class="good-img">
                     <a href="group/commodity/555d8e6df0bffff67a023ab0">
                         <img src="/img/order.jpg" />
@@ -70,7 +70,7 @@
                     </div>
                 </div>
             </div>
-            <div class="good">
+            <div class="good activityStyle">
                 <div class="good-img">
                     <a href="group/commodity/555d8e6df0bffff67a023ab0">
                         <img src="/img/good.jpg" />

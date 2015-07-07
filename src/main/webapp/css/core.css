@@ -25,4 +25,8 @@ a{
 }
 img{max-width:100%;width:auto;height:auto;}
 
+.activityStyle:ACTIVE{
+	border:1px solid RGBA(255,255,0,.5);;
+	background-color:RGBA(255,0,0,.1);
+}
 
