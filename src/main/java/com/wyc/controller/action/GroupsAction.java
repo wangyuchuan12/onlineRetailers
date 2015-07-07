@@ -14,4 +14,9 @@ public class GroupsAction {
     public String groupInfo(){
         return "info/GroupInfo";
     }
+    
+    @RequestMapping("/info/trade_flow_info")
+    public String tradeFlowInfo(){
+        return "info/TradeFlowInfo";
+    }
 }
