@@ -20,6 +20,17 @@ public class BaseApi {
 		System.out.println(nonce);
 		System.out.println(echostr);
 		System.out.println("............................post........................................");
+		try {
+		    SAXBuilder saxBuilder = new SAXBuilder();
+	                Document document = saxBuilder.build(servletRequest.getInputStream());
+	                System.out.println(document.toString());
+	                
+	                XMLOutputter xmlOutputter = new XMLOutputter();
+	                xmlOutputter.output(document, System.out);
+                } catch (Exception e) {
+                    System.out.println("。。。。。。出了点小问题。。。。。。。");
+                }
+		
 		return echostr;
 
 	}
