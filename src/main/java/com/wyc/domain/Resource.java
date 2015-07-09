@@ -3,6 +3,7 @@ package com.wyc.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity(name = "resource")
 public class Resource {
@@ -15,6 +16,7 @@ public class Resource {
     @Column(name = "describe")
     private String describe;
     @Column(name = "data")
+    @Lob
     private byte[] data;
     @Column(name = "suffix")
     private String suffix;

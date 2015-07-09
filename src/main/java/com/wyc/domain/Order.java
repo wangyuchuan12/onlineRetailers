@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 @Entity(name = "order")
 public class Order {
@@ -23,9 +24,11 @@ public class Order {
     private int status;
     //订单生成时间
     @Column(name = "create_time")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createTime;
     //发货时间
     @Column(name = "delivery_time")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime deliveryTime;
     
     //签收时间

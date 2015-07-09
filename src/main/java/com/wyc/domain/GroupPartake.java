@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 @Entity(name = "group_partake")
 public class GroupPartake {
@@ -14,6 +15,7 @@ public class GroupPartake {
     @Column(name = "type")
     private int type;
     @Column(name = "date_time")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime dateTime;
     public String getId() {
         return id;

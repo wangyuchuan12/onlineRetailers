@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 @Entity(name = "group")
 public class Group {
@@ -22,9 +23,11 @@ public class Group {
     private String groupSofa;
     //开团时间
     @Column(name = "start_time")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime startTime;
     //组团截止时长
     @Column(name = "time_long")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private int timeLong;
     public DateTime getStartTime() {
         return startTime;
