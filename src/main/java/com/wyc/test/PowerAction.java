@@ -44,9 +44,9 @@ public class PowerAction {
                 return null;
             }
             for (Method methodRef : clazz.getMethods()) {
+                Class<?>[] types = methodRef.getParameterTypes();
                 if (methodRef.getName().equals(method)
-                        && params.length == methodRef.getParameterCount()) {
-                    Class<?>[] types = methodRef.getParameterTypes();
+                        && params.length == types.length) {     
                     if (params.length == 1) {
 
                         return methodRef.invoke(service,

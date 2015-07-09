@@ -22,7 +22,6 @@ import com.wyc.ApplicationContextProvider;
         @Filter(type = FilterType.ASSIGNABLE_TYPE, value = DatabaseConfig.class) })
 public class AppConfig {
     final static Logger logger = LoggerFactory.getLogger(AppConfig.class);
-
     @Bean
     public ApplicationContextProvider applicationContextProvider() {
         return new ApplicationContextProvider();
