@@ -65,6 +65,8 @@ def releaseProject(){
 		projectPath = "d:/project/onlineRetailers";
 	}else if(environment.equals("dev")){
 		projectPath = "/root/project/onlineRetailers";
+	}else{
+		projectPath = "/root/project/onlineRetailers";
 	}
 	List childFiles = new ArrayList();
 	File classesFile = new File("build/classes/main/com");
@@ -260,6 +262,8 @@ def loadConfiguration() {
         sourceSets.main.resources.srcDirs 'src/main/resources/prod'
     else if (environment.equals('dev'))
         sourceSets.main.resources.srcDirs 'src/main/resources/dev'
+    else if(environment.equals('win'))
+    		sourceSets.main.resources.srcDirs 'src/main/resources/win'
     else
         sourceSets.main.resources.srcDirs 'src/main/resources/local'
 }
@@ -292,5 +296,7 @@ dependencies {
     compile 'com.google.guava:guava:18.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.4'	
     compile 'jdom:jdom:1.1'
+    
+    compile 'org.apache.httpcomponents:httpclient:4.5'
     testCompile("junit:junit")
 }

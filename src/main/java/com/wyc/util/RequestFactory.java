@@ -223,6 +223,12 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 	}
 	
+	public Request jsapiTicketRequest(String accessToken , String type)throws Exception{
+	    URL url = new URL(
+                    "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="+accessToken+"&type="+type);
+	    return getRequestByConnection(url);
+	}
+	
 	//长链接转短链接接口
 	public Request shortUrlRequest(String accessToken)throws Exception{
 		URL url = new URL(

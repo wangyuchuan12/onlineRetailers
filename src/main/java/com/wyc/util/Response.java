@@ -1,6 +1,7 @@
 package com.wyc.util;
 
 import java.io.InputStream;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Response {
 	private InputStream inputStream;
@@ -17,5 +18,11 @@ public class Response {
 		inputStream.read(jsonBytes);
 		String message = new String(jsonBytes,charsetName);
 		return message;
+	}
+	
+	public <T>T readObject(Class<T> t)throws Exception{
+	    String message = read();
+	    ObjectMapper objectMapper = new ObjectMapper();
+	    return objectMapper.readValue(message.getBytes(), t);
 	}
 }
