@@ -6,8 +6,8 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-@Entity(name = "group")
-public class Group {
+@Entity(name = "good_group")
+public class GoodGroup {
     @Id
     private String id;
     @Column(name = "step")

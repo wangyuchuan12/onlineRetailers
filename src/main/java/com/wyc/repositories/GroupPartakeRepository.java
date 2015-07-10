@@ -1,8 +1,8 @@
 package com.wyc.repositories;
 
 import org.springframework.data.repository.CrudRepository;
-import com.wyc.domain.Group;
+import com.wyc.domain.GoodGroup;
 
-public interface GroupPartakeRepository extends CrudRepository<Group, String>{
+public interface GroupPartakeRepository extends CrudRepository<GoodGroup, String>{
 
 }

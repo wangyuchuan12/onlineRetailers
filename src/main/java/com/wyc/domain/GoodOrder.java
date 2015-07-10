@@ -6,8 +6,9 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-@Entity(name = "order")
-public class Order {
+import org.springframework.data.annotation.CreatedDate;
+@Entity(name = "good_order")
+public class GoodOrder {
     @Id
     private String id;
     //物流费用
@@ -33,10 +34,12 @@ public class Order {
     
     //签收时间
     @Column(name = "sign_time")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime signTime;
     
     //付款时间
     @Column(name = "payment_time")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime paymentTime;
 
     public float getFlowPrice() {

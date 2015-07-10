@@ -5,16 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
-@Entity(name = "resource")
-public class Resource {
+@Entity(name = "my_resource")
+public class MyResource {
     @Id
     private String id;
     @Column(name = "url")
     private String url;
     @Column(name = "name")
     private String name;
-    @Column(name = "describe")
-    private String describe;
+    @Column(name = "instruction")
+    private String instruction;
     @Column(name = "data")
     @Lob
     private byte[] data;
@@ -44,11 +44,12 @@ public class Resource {
     public void setName(String name) {
         this.name = name;
     }
-    public String getDescribe() {
-        return describe;
+    
+    public String getInstruction() {
+        return instruction;
     }
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setInstruction(String instruction) {
+        this.instruction = instruction;
     }
     public byte[] getData() {
         return data;
