@@ -23,6 +23,7 @@ public class GoodsAction {
         private GoodService goodService;
 	@RequestMapping("/main/good_list")
 	public String goodList(HttpServletRequest httpRequest){
+	        System.out.println(httpRequest.getParameter("code"));
 	        Iterable<Good> databaseGoods = goodService.findAll();
 		List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>();
 		for(Good good:databaseGoods){
