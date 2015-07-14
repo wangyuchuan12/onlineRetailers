@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wyc.defineBean.MyProperties;
+import com.wyc.defineBean.ApplicationProperties;
 import com.wyc.domain.MyResource;
 import com.wyc.repositories.ResourceRepository;
 @Service
@@ -19,7 +19,7 @@ public class MyResourceService {
     @Autowired
     private ResourceRepository resourceRepository;
     @Autowired
-    private MyProperties properties;
+    private ApplicationProperties properties;
     private Logger logger = LoggerFactory.getLogger(MyResourceService.class);
     public void add(MyResource myResource){
         myResource.setCreateAt(new DateTime());  

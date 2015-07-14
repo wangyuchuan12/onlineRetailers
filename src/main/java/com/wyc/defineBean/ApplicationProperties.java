@@ -3,6 +3,6 @@ package com.wyc.defineBean;
 import java.util.Properties;
 
 @SuppressWarnings("serial")
-public class MyProperties extends Properties{
+public class ApplicationProperties extends Properties{
 
 }
