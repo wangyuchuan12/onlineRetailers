@@ -6,7 +6,6 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
-import org.springframework.data.annotation.CreatedDate;
 @Entity(name = "good_order")
 public class GoodOrder {
     @Id
@@ -41,6 +40,36 @@ public class GoodOrder {
     @Column(name = "payment_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime paymentTime;
+    @Column(name = "create_at")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime createAt;
+    @Column(name = "update_at")
+    private DateTime updateAt;
+    
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public DateTime getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(DateTime createAt) {
+        this.createAt = createAt;
+    }
+
+    public DateTime getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(DateTime updateAt) {
+        this.updateAt = updateAt;
+    }
 
     public float getFlowPrice() {
         return flowPrice;

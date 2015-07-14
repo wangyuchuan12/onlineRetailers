@@ -1,12 +1,20 @@
 package com.wyc.controller.action;
 
+import java.util.Enumeration;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class GroupsAction {
     @RequestMapping("/main/group_list")
-    public String groupList(){
+    public String groupList(HttpServletRequest servletRequest){
+        Enumeration<String> attrs = servletRequest.getAttributeNames();
+        while((attrs.hasMoreElements())){
+            System.out.println(attrs.nextElement());
+        }
         return "main/Groups";
     }
     

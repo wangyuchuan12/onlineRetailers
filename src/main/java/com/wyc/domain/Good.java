@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 @Entity(name = "good")
 public class Good {
     @Id
@@ -30,10 +33,30 @@ public class Good {
     @Column(name = "head_img")
     private String headImg;
     //商品说明
+    @Column
     private String instruction;
-    
+    @Column(name="group_num")
+    private int groupNum;
+    @Column(name="flow_price")
     private float flowPrice;
-    
+    @Column(name = "create_at")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime createAt;
+    @Column(name = "update_at")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime updateAt;
+    public DateTime getCreateAt() {
+        return createAt;
+    }
+    public void setCreateAt(DateTime createAt) {
+        this.createAt = createAt;
+    }
+    public DateTime getUpdateAt() {
+        return updateAt;
+    }
+    public void setUpdateAt(DateTime updateAt) {
+        this.updateAt = updateAt;
+    }
     public float getFlowPrice() {
         return flowPrice;
     }
@@ -53,6 +76,12 @@ public class Good {
         this.id = id;
     }
     
+    public int getGroupNum() {
+        return groupNum;
+    }
+    public void setGroupNum(int groupNum) {
+        this.groupNum = groupNum;
+    }
     public float getGroupDiscount() {
         return groupDiscount;
     }

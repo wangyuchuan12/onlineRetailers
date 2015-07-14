@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 
 import com.wyc.ApplicationContextProvider;
+import com.wyc.defineBean.MyProperties;
 
 @Configuration
 @ComponentScan(basePackages = "com.wyc", excludeFilters = {
@@ -28,8 +28,8 @@ public class AppConfig {
     }
 
     @Bean
-    public Properties applicationProperties() {
-        Properties properties = new Properties();
+    public MyProperties applicationProperties() {
+        MyProperties properties = new MyProperties();
         File databaseConfigFile = new File(
                 "/etc/onlineRetailers/application.properties");
 

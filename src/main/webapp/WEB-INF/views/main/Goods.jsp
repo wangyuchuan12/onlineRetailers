@@ -7,90 +7,34 @@
 <tiles:putAttribute name="body">
 	<div class="container">
         <div class="goods">
+        	<c:forEach items="${goods}" var="good">
             <div class="good activityStyle">
+           	 <div class="good_list_groupinfo">
+                	<div class="good_list_groupinfo_discount">2.5折</div>
+                	<div class="good_list_groupinfo_groupnum">5人团</div>
+                </div>
                 <div class="good-img">
-                    <a href="group/commodity/555d8e6df0bffff67a023ab0">
-                        <img src="/img/good.jpg" />
+                    <a href="">
+                        <img src="${good.head_img}" />
                         <div class="good-title">
-                            又甜水分又足的台湾凤梨5-6头/箱，每箱净重20斤，北京包邮
+                          ${good.instruction}
                         </div>
                     </a>
                 </div>
                 <div class="tuan_g_core">
                     <div class="tuan_g_price">
-                    	水电费
+                    	${good.group_num}人团
                         <b>
-                         ¥20
+                         	￥${good.group_original_cost*good.group_discount}
                         </b>
                     </div>
                     <div class="tuan_g_btn">
                         	去开团
                     </div>
                 </div>
+                
             </div>
-            <div class="good activityStyle">
-                <div class="good-img">
-                    <a href="group/commodity/555d8e6df0bffff67a023ab0">
-                        <img src="/img/good.jpg" />
-                        <div class="good-title ng-binding">
-                            又甜水分又足的台湾凤梨5-6头/箱，每箱净重20斤，北京包邮
-                        </div>
-                    </a>
-                </div>
-                <div class="tuan_g_core">
-                    <div class="tuan_g_price">
-                    	水电费
-                        <b>
-                         ¥20
-                        </b>
-                    </div>
-                    <div class="tuan_g_btn">
-                        	去开团
-                    </div>
-                </div>
-            </div>
-            <div class="good activityStyle">
-                <div class="good-img">
-                    <a href="group/commodity/555d8e6df0bffff67a023ab0">
-                        <img src="/img/order.jpg" />
-                        <div class="good-title ng-binding">
-                            又甜水分又足的台湾凤梨5-6头/箱，每箱净重20斤，北京包邮
-                        </div>
-                    </a>
-                </div>
-                <div class="tuan_g_core">
-                    <div class="tuan_g_price">
-                    	水电费
-                        <b>
-                         ¥20
-                        </b>
-                    </div>
-                    <div class="tuan_g_btn">
-                        	去开团
-                    </div>
-                </div>
-            </div>
-            <div class="good activityStyle">
-                <div class="good-img">
-                    <a href="group/commodity/555d8e6df0bffff67a023ab0">
-                        <img src="/img/good.jpg" />
-                        <div class="good-title ng-binding">
-                            又甜水分又足的台湾凤梨5-6头/箱，每箱净重20斤，北京包邮
-                        </div>
-                    </a>
-                </div>
-                <div class="tuan_g_core">
-                    <div class="tuan_g_price">
-                    	水电费
-                        <b>
-                         ¥20
-                        </b>
-                    </div>
-                    <div class="tuan_g_btn">
-                        	去开团
-                    </div>
-                </div>
-            </div>
+            </c:forEach>
         </div>
     </div>
 </tiles:putAttribute>

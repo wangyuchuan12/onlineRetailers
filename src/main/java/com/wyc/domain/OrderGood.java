@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 //订单商品列表
 @Entity(name = "order_good")
 public class OrderGood {
@@ -17,6 +20,24 @@ public class OrderGood {
     private String orderId;
     @Column(name = "order_price")
     private int orderPrice;
+    
+    @Column(name = "create_at")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime createAt;
+    @Column(name = "update_at")
+    private DateTime updateAt;
+    public DateTime getCreateAt() {
+        return createAt;
+    }
+    public void setCreateAt(DateTime createAt) {
+        this.createAt = createAt;
+    }
+    public DateTime getUpdateAt() {
+        return updateAt;
+    }
+    public void setUpdateAt(DateTime updateAt) {
+        this.updateAt = updateAt;
+    }
     public String getId() {
         return id;
     }
