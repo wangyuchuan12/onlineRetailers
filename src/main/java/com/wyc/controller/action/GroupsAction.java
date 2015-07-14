@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class GroupsAction {
     @RequestMapping("/main/group_list")
     public String groupList(HttpServletRequest servletRequest){
-        Enumeration<String> attrs = servletRequest.getAttributeNames();
+        Enumeration<String> attrs = servletRequest.getParameterNames();
         while((attrs.hasMoreElements())){
             System.out.println(attrs.nextElement());
         }
