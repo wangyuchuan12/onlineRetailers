@@ -38,7 +38,7 @@ public class InterceptConfig {
                     ResponseBean responseBean = intercept.response(beforeBean);
                     return proceedingJoinPoint.proceed();
                 }else{
-                    return null;
+                    return "https://open.weixin.qq.com/connect/oauth2/authorize?response_type=code&scope=snsapi_base&state=123&appid=wxd4eccec153e22fcb&redirect_uri=http%3A%2F%2Fm.yqphh.com%2Findex.html&connect_redirect=1#wechat_redirect";
                 }
                 
                 
