@@ -36,9 +36,12 @@ public class InterceptConfig {
                 BeforeBean beforeBean = intercept.before();
                 if(beforeBean.isEnalble()){
                     ResponseBean responseBean = intercept.response(beforeBean);
+                    return proceedingJoinPoint.proceed();
+                }else{
+                    return null;
                 }
                 
-                return proceedingJoinPoint.proceed();
+                
                
             } catch (Throwable e) {
                 // TODO Auto-generated catch block
