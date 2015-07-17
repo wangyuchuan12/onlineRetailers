@@ -29,11 +29,19 @@ public class GoodGroup {
     @Column(name = "time_long")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private int timeLong;
+    @Column(name="good_id")
+    private int goodId;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
     @Column(name = "update_at")
     private DateTime updateAt;
+    public int getGoodId() {
+        return goodId;
+    }
+    public void setGoodId(int goodId) {
+        this.goodId = goodId;
+    }
     public DateTime getCreateAt() {
         return createAt;
     }

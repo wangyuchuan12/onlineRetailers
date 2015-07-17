@@ -20,4 +20,8 @@ public class GoodService {
         return goodRepository.findAll();
     }
     
+    public Good findOne(String id){
+        return goodRepository.findOne(id);
+    }
+    
 }

@@ -1,4 +1,4 @@
-package com.wyc.controller.manager.action;
+package com.wyc.manager.controller.action;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

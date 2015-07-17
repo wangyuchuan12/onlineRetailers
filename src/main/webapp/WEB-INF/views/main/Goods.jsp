@@ -10,8 +10,8 @@
         	<c:forEach items="${goods}" var="good">
             <div class="good activityStyle">
            	 <div class="good_list_groupinfo">
-                	<div class="good_list_groupinfo_discount">2.5折</div>
-                	<div class="good_list_groupinfo_groupnum">5人团</div>
+                	<div class="good_list_groupinfo_discount">${good.group_discount}折</div>
+                	<div class="good_list_groupinfo_groupnum">${good.group_num}人团</div>
                 </div>
                 <div class="good-img">
                     <a href="">

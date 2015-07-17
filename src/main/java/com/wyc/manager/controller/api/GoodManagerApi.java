@@ -1,4 +1,4 @@
-package com.wyc.controller.manager.api;
+package com.wyc.manager.controller.api;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;

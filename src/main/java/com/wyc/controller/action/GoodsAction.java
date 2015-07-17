@@ -38,6 +38,7 @@ public class GoodsAction {
 		    responseGood.put("group_num", good.getGroupNum());
 		    responseGood.put("group_original_cost", good.getGroupOriginalCost());
 		    responseGood.put("market_price", good.getMarketPrice());
+		    responseGood.put("coupon_cost", good.getCouponCost());
 		    MyResource myResource = resourceService.findOne(good.getHeadImg());
 		    if(myResource!=null){
 		        responseGood.put("head_img", myResource.getUrl());
@@ -49,13 +50,60 @@ public class GoodsAction {
 	}
 	
 	@RequestMapping("/info/good_info")
-	public String goodInfo(){
-	    System.out.println(".............main/goodInfo.jsp");
+	public String goodInfo(HttpServletRequest httpRequest){
+	    String goodId = httpRequest.getParameter("id");
+	    Good good = goodService.findOne(goodId);
+	    Map<String, Object> responseGood = new HashMap<String, Object>();
+            responseGood.put("id", good.getId());
+            responseGood.put("instruction", good.getInstruction());
+            responseGood.put("name", good.getName());
+            responseGood.put("alone_discount", good.getAloneDiscount());
+            responseGood.put("alone_original_cost", good.getAloneOriginalCost());
+            responseGood.put("flow_price", good.getFlowPrice());
+            responseGood.put("group_discount", good.getGroupDiscount());
+            responseGood.put("group_num", good.getGroupNum());
+            responseGood.put("group_original_cost", good.getGroupOriginalCost());
+            responseGood.put("market_price", good.getMarketPrice());
+            responseGood.put("coupon_cost", good.getCouponCost());
+            responseGood.put("group_cost", good.getGroupDiscount()*good.getGroupOriginalCost());
+            responseGood.put("alone_cost", good.getAloneDiscount()*good.getAloneOriginalCost());
+            MyResource myResource = resourceService.findOne(good.getHeadImg());
+            if(myResource!=null){
+                responseGood.put("head_img", myResource.getUrl());
+            }
+            httpRequest.setAttribute("good", responseGood);
             return "info/GoodInfo";
 	}
 	
 	@RequestMapping("/info/good_info_pay")
-	public String gootInfoPay(){
+	public String gootInfoPay(HttpServletRequest httpRequest){
+	    String payType=httpRequest.getParameter("pay_type");
+	    String goodId = httpRequest.getParameter("good_id");
+	    String code = httpRequest.getParameter("code");
+	    Good good = goodService.findOne(goodId);
+            Map<String, Object> responseGood = new HashMap<String, Object>();
+            responseGood.put("id", good.getId());
+            responseGood.put("instruction", good.getInstruction());
+            responseGood.put("name", good.getName());
+            responseGood.put("alone_discount", good.getAloneDiscount());
+            responseGood.put("alone_original_cost", good.getAloneOriginalCost());
+            responseGood.put("flow_price", good.getFlowPrice());
+            responseGood.put("group_discount", good.getGroupDiscount());
+            responseGood.put("group_num", good.getGroupNum());
+            responseGood.put("group_original_cost", good.getGroupOriginalCost());
+            responseGood.put("market_price", good.getMarketPrice());
+            responseGood.put("coupon_cost", good.getCouponCost());
+            responseGood.put("group_cost", good.getGroupDiscount()*good.getGroupOriginalCost());
+            responseGood.put("alone_cost", good.getAloneDiscount()*good.getAloneOriginalCost());
+            responseGood.put("pay_type", payType);
+            
+            if(payType.equals("0")){
+                responseGood.put("cost",good.getFlowPrice()+good.getGroupDiscount()*good.getGroupOriginalCost());
+            }else if (payType.equals("1")) {
+                responseGood.put("cost",good.getAloneDiscount()*good.getAloneOriginalCost());
+            }else if (payType.equals("2")) {
+                responseGood.put("cost",good.getFlowPrice());
+            }
 	    return "info/GoodInfoPay";
 	}
 }

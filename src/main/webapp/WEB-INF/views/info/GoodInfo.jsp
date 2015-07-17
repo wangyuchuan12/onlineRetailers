@@ -36,10 +36,10 @@
             </div>
             <div class="good_info">
                 <div class="good_info_introduce">
-                    <div class="good_info_introduce_name"><b>浦江葡萄</b></div>
-                    <div class="good_info_introduce_cx">这种葡萄非常甜，非常好吃</div>
+                    <div class="good_info_introduce_name"><b>${good.name}</b></div>
+                    <div class="good_info_introduce_cx">${good.instruction}</div>
                     <div class="good_info_introduce_info">
-                        <div class="good_info_introduce_price">市场价：<b id="market_price">100</b> <span>已售：<i id="sold_quantity">10</i>件</span></div>
+                        <div class="good_info_introduce_price">市场价：<b id="market_price">${good.market_price}</b> <span>已售：<i id="sold_quantity">10</i>件</span></div>
                         <div class="good_info_introduce_num">支付开团并邀请<span id="tuan_more_need_number"></span>人参团，人数不足自动退款，详见下方拼团玩法</div>
                     </div>
                 </div>
@@ -87,22 +87,22 @@
     		<ul>
     			<li>
     				<div class="good_info_btn activityStyle">
-    					<div class="good_info_btn_price_group">￥9.22/件</div>
-    					<div class="good_info_btn_type">九人团</div>
+    					<div class="good_info_btn_price_group">￥${good.group_cost}/件</div>
+    					<div class="good_info_btn_type">${good.group_num}人团</div>
     				</div>
     			</li>
     			
     			<li>
     				<div class="good_info_btn activityStyle">
-    					<div class="good_info_btn_price_alone">￥18/件</div>
+    					<div class="good_info_btn_price_alone">￥${good.alone_cost}/件</div>
     					<div class="good_info_btn_type">单独买</div>
     				</div>
     			</li>
     			
     			<li>
     				<div class="good_info_btn activityStyle">
-    					<div class="good_info_btn_price_integral">100积分/件</div>
-    					<div class="good_info_btn_type">积分开团</div>
+    					<div class="good_info_btn_price_integral">${good.coupon_cost}张/件</div>
+    					<div class="good_info_btn_type">开团劵开团</div>
     				</div>
     			</li>
     		</ul>

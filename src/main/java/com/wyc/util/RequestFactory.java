@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.springframework.stereotype.Service;
+@Service
 public class RequestFactory {
 	private Request getRequestByConnection(URL url) throws IOException {
 		HttpURLConnection httpURLConnection = (HttpURLConnection) url
@@ -11,7 +13,7 @@ public class RequestFactory {
 		Request request = new Request(httpURLConnection);
 		return request;
 	}
-
+	
 	public Request accessTokenRequest(String appid, String secret)
 			throws IOException {
 		URL url = new URL(
@@ -20,7 +22,14 @@ public class RequestFactory {
 		return getRequestByConnection(url);
 
 	}
-
+	
+	//通过code获取access_token
+	public Request oauth2AccessTokenRequest(String appid,String secret,String code , String grantType)throws Exception{
+	    URL url = new URL(
+	            "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+appid+"&secret="+secret+"&code="+code+"&grant_type="+grantType);
+	    return getRequestByConnection(url);
+	}
+	
 	public Request serveripsRequest(String accessToken) throws Exception {
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token="
@@ -172,6 +181,12 @@ public class RequestFactory {
 						+ lang);
 		return getRequestByConnection(url);
 	}
+	
+	//网页用户获取用户信息，通过code获取的opid
+	public Request snsUserInfoRequest(String accessToken,String openid,String lang)throws Exception{
+            URL url = new URL("https://api.weixin.qq.com/sns/userinfo?access_token="+accessToken+"&openid="+openid+"&lang="+lang);
+            return getRequestByConnection(url);
+        }
 	
 	//获取用户列表 next_openid第一个拉取的openid，不填默认从开头开始拉取
 	public Request userGetRequest(String accessToken,String next_openid)throws Exception{

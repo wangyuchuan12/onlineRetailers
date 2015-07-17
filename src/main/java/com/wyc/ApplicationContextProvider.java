@@ -8,7 +8,7 @@ public class ApplicationContextProvider implements ApplicationContextAware {
 
 
 
-    public ApplicationContext getApplicationContext() {
+    public static ApplicationContext getApplicationContext() {
         return context;
     }
     

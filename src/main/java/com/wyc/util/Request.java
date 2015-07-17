@@ -11,7 +11,7 @@ public class Request {
 	
 	public Request(HttpURLConnection urlConnection){
 		this.urlConnection = urlConnection;
-		urlConnection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+		urlConnection.setRequestProperty("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
 		urlConnection.setDoOutput(true);
 		urlConnection.setDoInput(true);
 	}

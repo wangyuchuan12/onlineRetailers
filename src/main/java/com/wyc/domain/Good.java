@@ -37,6 +37,8 @@ public class Good {
     private String instruction;
     @Column(name="group_num")
     private int groupNum;
+    @Column(name="coupon_cost")
+    private int couponCost=1;
     @Column(name="flow_price")
     private float flowPrice;
     @Column(name = "create_at")
@@ -45,6 +47,12 @@ public class Good {
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
+    public int getCouponCost() {
+        return couponCost;
+    }
+    public void setCouponCost(int couponCost) {
+        this.couponCost = couponCost;
+    }
     public DateTime getCreateAt() {
         return createAt;
     }

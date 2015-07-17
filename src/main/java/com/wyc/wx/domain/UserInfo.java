@@ -8,8 +8,15 @@ public class UserInfo {
     private String city;
     private String country;
     private String headimgurl;
-    private String privilege;
+    private String[] privilege;
     private String unionid;
+    private String language;
+    public String getLanguage() {
+        return language;
+    }
+    public void setLanguage(String language) {
+        this.language = language;
+    }
     public String getOpenid() {
         return openid;
     }
@@ -52,10 +59,10 @@ public class UserInfo {
     public void setHeadimgurl(String headimgurl) {
         this.headimgurl = headimgurl;
     }
-    public String getPrivilege() {
+    public String[] getPrivilege() {
         return privilege;
     }
-    public void setPrivilege(String privilege) {
+    public void setPrivilege(String[] privilege) {
         this.privilege = privilege;
     }
     public String getUnionid() {
