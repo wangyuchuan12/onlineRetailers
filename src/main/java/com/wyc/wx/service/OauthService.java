@@ -48,4 +48,13 @@ public class OauthService {
         Authorize authorize = response.readObject(Authorize.class);
         return authorize;
     }
+    
+    //刷新access_token
+    public Authorize refreshToken(String refreshToken)throws Exception{
+        String appid = wxContext.getAppid();
+        Request request = requestFactory.oauth2RefreshToken(appid, refreshToken);
+        Response response = request.get(null);
+        Authorize authorize = response.readObject(Authorize.class);
+        return authorize;
+    }
 }

@@ -25,7 +25,7 @@ public class GoodManagerApi {
     private MyResourceService resourceService;
     private Logger logger = LoggerFactory.getLogger(GoodManagerApi.class);
     @RequestMapping("/manager/api/add_good")
-    public Object addGood(@RequestParam("head_img")MultipartFile multipartFile , HttpServletRequest servletRequest){
+    public Object addGood(HttpServletRequest servletRequest , @RequestParam("head_img")MultipartFile multipartFile){
         Good good = new Good();
         good.setId(UUID.randomUUID().toString());
         good.setAloneDiscount(Float.parseFloat(servletRequest.getParameter("alone_discount")));

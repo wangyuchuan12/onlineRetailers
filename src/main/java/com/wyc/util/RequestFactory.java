@@ -30,6 +30,13 @@ public class RequestFactory {
 	    return getRequestByConnection(url);
 	}
 	
+	//刷新access_token
+	public Request oauth2RefreshToken(String appid , String refreshToken)throws Exception{
+	    URL url = new URL(
+                    "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid="+appid+"&grant_type=refresh_token&refresh_token="+refreshToken);
+            return getRequestByConnection(url);
+	}
+	
 	public Request serveripsRequest(String accessToken) throws Exception {
 		URL url = new URL(
 				"https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token="
