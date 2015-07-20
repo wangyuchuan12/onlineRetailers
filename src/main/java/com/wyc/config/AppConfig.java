@@ -57,6 +57,7 @@ public class AppConfig {
         wxContext.setAppid(myProperties.getProperty("appid"));
         wxContext.setAppsecret(myProperties.getProperty("appsecret"));
         wxContext.setFilePath(myProperties.getProperty("file_path"));
+        wxContext.setFilePath(myProperties.getProperty("flag"));
         return wxContext;
     }
 }

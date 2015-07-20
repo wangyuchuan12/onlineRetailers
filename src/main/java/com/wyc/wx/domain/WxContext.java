@@ -4,6 +4,13 @@ public class WxContext {
     private String appid;
     private String appsecret;
     private String filePath;
+    private String flag;
+    public String getFlag() {
+        return flag;
+    }
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
     public String getAppid() {
         return appid;
     }

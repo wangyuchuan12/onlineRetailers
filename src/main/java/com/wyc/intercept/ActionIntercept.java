@@ -9,10 +9,10 @@ import com.wyc.wx.domain.Authorize;
 import com.wyc.wx.domain.UserInfo;
 import com.wyc.wx.service.OauthService;
 import com.wyc.wx.service.UserService;
-public  class ResponseUserInfoByCodeIntercept extends BaseIntercept{
+public  class ActionIntercept extends BaseIntercept{
     private OauthService oauthService;
     private UserService userService;
-    private Logger logger = LoggerFactory.getLogger(ResponseUserInfoByCodeIntercept.class);
+    private Logger logger = LoggerFactory.getLogger(ActionIntercept.class);
     public void setOauthService(OauthService oauthService) {
         this.oauthService = oauthService;
     }
