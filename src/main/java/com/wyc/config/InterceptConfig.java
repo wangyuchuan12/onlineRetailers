@@ -26,10 +26,12 @@ public class InterceptConfig {
     private WxContext wxContext;
     @Around(value="execution (* com.wyc.controller.action.*.*(..))")
     public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint){
-            
+            System.out.println(wxContext.getFlag());
             try {
                 if(wxContext.getFlag().equals("1")){
-                    return proceedingJoinPoint.proceed();
+                    Object url = proceedingJoinPoint.proceed();
+                    System.out.println(url);
+                    return url;
                 }
                 actionIntercept = new ActionIntercept();
                 actionIntercept.setOauthService(oauthService);
