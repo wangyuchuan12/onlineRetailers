@@ -8,18 +8,18 @@
 	<div class="container">
         <div class="goods">
         	<c:forEach items="${goods}" var="good">
-            <div class="good activityStyle">
+            <div class="good activityStyle" onclick="location.href='/info/good_info?id=${good.id}'">
            	 <div class="good_list_groupinfo">
                 	<div class="good_list_groupinfo_discount">${good.group_discount}折</div>
                 	<div class="good_list_groupinfo_groupnum">${good.group_num}人团</div>
                 </div>
                 <div class="good-img">
-                    <a href="">
+
                         <img src="${good.head_img}" />
                         <div class="good-title">
                           ${good.instruction}
                         </div>
-                    </a>
+      
                 </div>
                 <div class="tuan_g_core">
                     <div class="tuan_g_price">

@@ -24,4 +24,8 @@ public class GoodService {
         return goodRepository.findOne(id);
     }
     
+    public void delete(String id){
+        goodRepository.delete(id);
+    }
+    
 }

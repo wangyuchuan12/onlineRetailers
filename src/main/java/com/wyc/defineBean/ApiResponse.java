@@ -19,39 +19,19 @@ public class ApiResponse implements Serializable {
     @JsonIgnore
     final static Logger logger = LoggerFactory.getLogger(ApiResponse.class);
     private int code;
-    private String data;
-
-    public static ApiResponse Fail(String dataObject) {
-        return ApiResponse1(ApiResponse.FORBIDDEN, dataObject, false);
+    private Object data;
+    public ApiResponse(int code , Object dataObject) {
+        this.code = code;
+        this.data = dataObject;
+    }
+    public static ApiResponse Fail(Object dataObject) {
+        return new ApiResponse(ApiResponse.FORBIDDEN, dataObject);
+    }
+    
+    public static ApiResponse OK(Object dataObject) {
+        return new ApiResponse(ApiResponse.OK, dataObject);
     }
 
-    private static ApiResponse ApiResponse1(int forbidden2, String dataObject,
-            boolean b) {
-        return new ApiResponse(forbidden2, dataObject, false);
-    }
-
-    public static ApiResponse OK(String dataObject) {
-        return new ApiResponse(ApiResponse.OK, dataObject, false);
-    }
-
-    public static ApiResponse OK(String dataObject, Boolean encrypt) {
-        return new ApiResponse(ApiResponse.OK, dataObject, true);
-    }
-
-    /**
-     * @param encrypted
-     *            数据是否已加密，若未加密则自动加密
-     * @author Jack
-     * @return
-     */
-    public ApiResponse(int statusCode, String dataObject, Boolean encrypted) {
-        this.code = statusCode;
-        this.data=dataObject;
-    }
-
-    public ApiResponse(int statusCode, String dataObject) {
-        this(statusCode, dataObject, false);
-    }
 
     public int getCode() {
         return code;

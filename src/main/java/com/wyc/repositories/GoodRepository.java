@@ -4,5 +4,4 @@ import org.springframework.data.repository.CrudRepository;
 import com.wyc.domain.Good;
 
 public interface GoodRepository extends CrudRepository<Good, String>{
-
 }
