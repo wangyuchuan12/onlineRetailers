@@ -41,12 +41,20 @@ public class Good {
     private int couponCost=1;
     @Column(name="flow_price")
     private float flowPrice;
+    @Column(name="source_id")
+    private String sourceId;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
+    public String getSourceId() {
+        return sourceId;
+    }
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
+    }
     public int getCouponCost() {
         return couponCost;
     }
