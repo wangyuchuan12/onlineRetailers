@@ -25,14 +25,9 @@ public class GoodManagerAction {
         logger.debug("managerGoodList.......................");
         return "manager/GoodList";
     }
-<<<<<<< HEAD
+
     @RequestMapping("/manager/good_list1")
     public String managerGoodImg(){
-    	return "manager/GoodList1";
-=======
-    @RequestMapping("/manager/GoodImg")
-    public String managerGoodImg(){
-        return "manager/GoodImg";
->>>>>>> 967872a26d7e8b48bf29420a3fdbf781f79d71f3
+    	return "manager/GoodImg";
     }
 }
