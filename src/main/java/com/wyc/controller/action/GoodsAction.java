@@ -119,7 +119,7 @@ public class GoodsAction {
 	    }
 	    
 	    @RequestMapping("/manager/good_list")
-	    public String managerGoodList(){
+	    public String managerGoodList(HttpServletRequest httpServletRequest){
 	        logger.debug("managerGoodList.......................");
 	        return "main/GoodList";
 	    }
