@@ -120,6 +120,6 @@ public class GoodsAction {
 	    @RequestMapping("/manager/good_list")
 	    public String managerGoodList(){
 	        logger.debug("managerGoodList.......................");
-	        return "manager/GoodList";
+	        return "main/GoodList";
 	    }
 }
