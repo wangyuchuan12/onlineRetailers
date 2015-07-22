@@ -29,17 +29,17 @@
 	<div class="good_img_imagelist">
 		<table>
 			<tr>
-				<td><img src=""/></td>
-				<td><img src=""/></td>
-				<td><img src=""/></td>
-				<td><img src=""/></td>
+				<td class="img_select"><img src="#"/></td>
+				<td><img src="#"/></td>
+				<td><img src="#"/></td>
+				<td><img src="#"/></td>
 			</tr>
 			
 			<tr>
-				<td><img src=""/></td>
-				<td><img src=""/></td>
-				<td><img src=""/></td>
-				<td><img src=""/></td>
+				<td><img src="#"/></td>
+				<td><img src="#"/></td>
+				<td><img src="#"/></td>
+				<td><img src="#"/></td>
 			</tr>
 
 		</table>
