@@ -27,6 +27,7 @@ public class GoodsAction {
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	public String goodList(HttpServletRequest httpRequest){
+	        logger.debug("..........................goodList");
 	        System.out.println(httpRequest.getParameter("code"));
 	        Iterable<Good> databaseGoods = goodService.findAll();
 		List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>();
