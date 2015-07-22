@@ -1,12 +1,14 @@
-
-div{ border-style:solid;border:2px;black;list-style: none;margin:0;padding:0;
+.top_l{width:100PX;height:300px; border-style:solid;border:2px;black;margin:0;padding:10px;position:absolute; left:400px; top:10px; 
 }
+.top_r{float:right;}
 a {
 margin: 0;
 padding: 0;
 text-decoration: none;
 font-size: 100%;
-vertical-align: baseline;
 background: transparent;
 color: #6c6c6c;
 }
+.img{ float:left}
+li{list-style:none;float:right}
+table{border: 1px solid black;}
