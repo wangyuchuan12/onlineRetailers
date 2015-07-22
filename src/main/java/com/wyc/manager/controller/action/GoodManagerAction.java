@@ -16,11 +16,13 @@ public class GoodManagerAction {
     }
     @RequestMapping("/manager/good_add")
     public String managerGoodAdd(){
+        logger.debug("managerGoodAdd.......................");
         return "manager/GoodAdd";
     }
     
     @RequestMapping("/manager/good_list")
     public String managerGoodList(){
+        logger.debug("managerGoodList.......................");
         return "manager/GoodList";
     }
 }
