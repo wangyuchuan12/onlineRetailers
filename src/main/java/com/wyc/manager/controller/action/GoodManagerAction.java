@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class GoodManagerAction {
+    public GoodManagerAction() {
+        System.out.println("...........................GoodManagerAction");
+    }
     @RequestMapping("/manager/good_add")
     public String managerGoodAdd(){
         return "manager/GoodAdd";
