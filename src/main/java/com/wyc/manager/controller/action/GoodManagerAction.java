@@ -14,4 +14,8 @@ public class GoodManagerAction {
     public String managerGoodList(){
         return "manager/GoodList";
     }
+    @RequestMapping("/manager/GoodImg")
+    public String managerGoodImg(){
+        return "manager/GoodImg";
+    }
 }
