@@ -16,7 +16,7 @@ public class GoodImgService {
     }
     
     public Iterable<GoodImg> findAllByGoodIdOrderByLevel(String goodId){
-        return goodImgRepository.findAllByGoodIdOrderByLevel(goodId);
+        return goodImgRepository.findAllByGoodIdOrderByLevelDesc(goodId);
     }
     
     public void delete(GoodImg goodImg){

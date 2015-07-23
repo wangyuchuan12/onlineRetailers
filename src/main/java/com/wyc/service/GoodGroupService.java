@@ -1,9 +1,12 @@
 package com.wyc.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wyc.domain.GoodGroup;
+import com.wyc.domain.GroupPartake;
 import com.wyc.repositories.GoodGroupRepository;
 
 @Service
@@ -20,5 +23,10 @@ public class GoodGroupService {
     
     public GoodGroup findOne(String id){
         return goodGroupRepository.findOne(id);
+    }
+
+    public Iterable<GoodGroup> findAll(Iterable<String> groupIds) {
+       return goodGroupRepository.findAll(groupIds);
+        
     }
 }

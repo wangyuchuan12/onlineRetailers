@@ -8,45 +8,31 @@
 	<div class="container">
         <div class="groups">
 				<ul>
+				<c:forEach items="${groups}" var="group">
 					<li >
-						<a class="group activityStyle">
-							<div class="group_header">
-								<img src="http://img3.3lian.com/2014/c2/61/d/19.jpg"/>
-								<div class="group_good_info">
-									<div class="group_good_info_title"><b>你好哈哈哈哈哈哈哈哈哈哈哈哈哈哈</b></div>
-									<div class="group_good_info_price">
-										成团价：<b>16.9元2222222</b>
+							<a class="group">
+								<div class="group_header">
+									<img src="${group.head_img}"/>
+									<div class="group_good_info">
+										<div class="group_good_info_title"><b>${group.name}</b></div>
+										<div class="group_good_info_price">
+											成团价：<b>${group.total_price}元</b>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="group_footer">
-								<span class="group_result">团购失败</span>
-								<span class="group_details">查看团详情</span>
-								<span class="group_details">查看订单详情</span>
-							</div>
-						</a>
-					</li>
-					
-					
-					<li>
-						<a class="group activityStyle">
-							<div class="group_header">
-								<img src="http://img3.3lian.com/2014/c2/61/d/19.jpg"/>
-								<div class="group_good_info">
-									<div class="group_good_info_title"><b>你好哈哈哈哈哈哈哈哈哈哈哈哈哈哈</b></div>
-									<div class="group_good_info_price">
-										成团价：<b>16.9元2222222</b>
-									</div>
+								<div class="group_footer">
+									<span class="group_result">
+										<c:if test="${group.result==0}">组团失败</c:if>
+										<c:if test="${group.result==1}">正在组团</c:if>
+										<c:if test="${group.result==2}">组团成功</c:if>
+									</span>
+									<div class="group_details activityStyle">查看团详情</div>
+									<div class="group_details activityStyle">查看订单详情</div>
 								</div>
-							</div>
-							<div class="group_footer">
-								<span class="group_result">团购失败</span>
-								<span class="group_details">查看团详情</span>
-								<span class="group_details">查看订单详情</span>
-							</div>
-
-						</a>
+							</a>
 					</li>
+				</c:forEach>
+					
 				</ul>
 			</div>
     </div>

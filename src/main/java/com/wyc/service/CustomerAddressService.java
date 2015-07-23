@@ -36,7 +36,7 @@ public class CustomerAddressService {
         return customerAddressRepository.findAll();
     }
     
-    public Iterable<CustomerAddress> findByCustomerId(){
-        return customerAddressRepository.findByCustomerId();
+    public Iterable<CustomerAddress> findByCustomerId(String customerId){
+        return customerAddressRepository.findAllByCustomerId(customerId);
     }
 }

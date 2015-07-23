@@ -12,12 +12,14 @@ public class GoodGroup {
     private String id;
     @Column(name = "step")
     private int step;
-    //1表示正在组团 2表示组团成功
+    //0表示组团失败1表示正在组团 2表示组团成功
     @Column(name = "result")
     private int result;
     //团长
     @Column(name = "group_head")
     private String groupHead;
+    @Column(name="total_price")
+    private float totalPrice;
     //沙发
     @Column(name = "group_sofa")
     private String groupSofa;
@@ -27,19 +29,25 @@ public class GoodGroup {
     private DateTime startTime;
     //组团截止时长
     @Column(name = "time_long")
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private int timeLong;
     @Column(name="good_id")
-    private int goodId;
+    private String goodId;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
     @Column(name = "update_at")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
-    public int getGoodId() {
+    public float getTotalPrice() {
+        return totalPrice;
+    }
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+    public String getGoodId() {
         return goodId;
     }
-    public void setGoodId(int goodId) {
+    public void setGoodId(String goodId) {
         this.goodId = goodId;
     }
     public DateTime getCreateAt() {

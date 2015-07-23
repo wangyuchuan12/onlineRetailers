@@ -6,6 +6,6 @@ import com.wyc.domain.GoodImg;
 
 public interface GoodImgRepository extends CrudRepository<GoodImg, String>{
 
-    public Iterable<GoodImg> findAllByGoodIdOrderByLevel(String goodId);
+    public Iterable<GoodImg> findAllByGoodIdOrderByLevelDesc(String goodId);
 
 }

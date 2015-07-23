@@ -10,7 +10,7 @@ import org.joda.time.DateTime;
 @Entity(name = "customer")
 public class Customer {
     @Id
-    private Long id;
+    private String id;
     @Column(name = "open_id")
     private String openId; 
     @Column(name = "phonenumber")
@@ -32,11 +32,18 @@ public class Customer {
     public void setUpdateAt(DateTime updateAt) {
         this.updateAt = updateAt;
     }
-    public Long getId() {
+    
+    public String getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
+    }
+    public String getOpenId() {
+        return openId;
+    }
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
     public String getOpenid() {
         return openId;

@@ -8,4 +8,6 @@ public interface GroupPartakeRepository extends CrudRepository<GroupPartake, Str
 
     public Iterable<GroupPartake> findByCustomerid(String customerId);
 
+    public Iterable<GroupPartake> findAllByGroupId(String id);
+
 }

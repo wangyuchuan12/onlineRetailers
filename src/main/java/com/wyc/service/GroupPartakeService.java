@@ -21,4 +21,9 @@ public class GroupPartakeService {
     public Iterable<GroupPartake> findByCustomerid(String customerId){
         return groupPartakeRepository.findByCustomerid(customerId);
     }
+
+    public Iterable<GroupPartake> findAllByGroupId(String id) {
+        // TODO Auto-generated method stub
+        return groupPartakeRepository.findAllByGroupId(id);
+    }
 }

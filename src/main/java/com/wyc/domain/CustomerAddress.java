@@ -16,7 +16,7 @@ public class CustomerAddress {
     @Column(name = "city")
     private String city;
     @Column(name = "customer_id")
-    private String customerid;
+    private String customerId;
     //1家里 2表示公司
     @Column(name = "type")
     private int type;
@@ -62,10 +62,11 @@ public class CustomerAddress {
     public void setCity(String city) {
         this.city = city;
     }
-    public String getCustomerid() {
-        return customerid;
+    public String getCustomerId() {
+        return customerId;
     }
-    public void setCustomerid(String customerid) {
-        this.customerid = customerid;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
+    
 }

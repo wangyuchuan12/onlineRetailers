@@ -14,6 +14,14 @@ public class OrderDetail {
     private String goodId;
     @Column(name = "num")
     private String num;
+    @Column(name="group_id")
+    private String groupId;
+    public String getGroupId() {
+        return groupId;
+    }
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
     public String getId() {
         return id;
     }
