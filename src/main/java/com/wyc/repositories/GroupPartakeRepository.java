@@ -1,8 +1,11 @@
 package com.wyc.repositories;
 
 import org.springframework.data.repository.CrudRepository;
-import com.wyc.domain.GoodGroup;
 
-public interface GroupPartakeRepository extends CrudRepository<GoodGroup, String>{
+import com.wyc.domain.GroupPartake;
+
+public interface GroupPartakeRepository extends CrudRepository<GroupPartake, String>{
+
+    public Iterable<GroupPartake> findByCustomerid(String customerId);
 
 }

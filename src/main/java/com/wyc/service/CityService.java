@@ -30,4 +30,8 @@ public class CityService {
     public Iterable<City> findAll(){
         return cityRepository.findAll();
     }
+    
+    public Iterable<City> findAllByParentId(String parentId){
+        return cityRepository.findAllByParentId(parentId);
+    }
 }

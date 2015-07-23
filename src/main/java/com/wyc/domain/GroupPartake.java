@@ -14,6 +14,10 @@ public class GroupPartake {
     private String customerid;
     @Column(name = "type")
     private int type;
+    @Column(name = "group_id")
+    private String groupId;
+    @Column(name="order_id")
+    private String orderId;
     @Column(name = "date_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime dateTime;
@@ -23,6 +27,18 @@ public class GroupPartake {
     private DateTime createAt;
     @Column(name = "update_at")
     private DateTime updateAt;
+    public String getOrderId() {
+        return orderId;
+    }
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+    public String getGroupId() {
+        return groupId;
+    }
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
     public DateTime getCreateAt() {
         return createAt;
     }

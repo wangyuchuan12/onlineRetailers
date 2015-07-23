@@ -35,4 +35,8 @@ public class CustomerService {
     public Iterable<Customer> findAll(){
         return customerRepository.findAll();
     }
+    
+    public Customer findByOpenId(String openId){
+        return customerRepository.findByOpenId(openId);
+    }
 }

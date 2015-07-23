@@ -12,7 +12,7 @@ public class Customer {
     @Id
     private Long id;
     @Column(name = "open_id")
-    private String openid; 
+    private String openId; 
     @Column(name = "phonenumber")
     private String phonenumber;
     @Column(name = "create_at")
@@ -39,10 +39,10 @@ public class Customer {
         this.id = id;
     }
     public String getOpenid() {
-        return openid;
+        return openId;
     }
     public void setOpenid(String openid) {
-        this.openid = openid;
+        this.openId = openid;
     }
     public String getPhonenumber() {
         return phonenumber;
