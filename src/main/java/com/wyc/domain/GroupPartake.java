@@ -18,6 +18,8 @@ public class GroupPartake {
     private String groupId;
     @Column(name="order_id")
     private String orderId;
+    //1团长 ， 2，沙发 3普通人
+    private int role;
     @Column(name = "date_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime dateTime;
@@ -27,6 +29,12 @@ public class GroupPartake {
     private DateTime createAt;
     @Column(name = "update_at")
     private DateTime updateAt;
+    public int getRole() {
+        return role;
+    }
+    public void setRole(int role) {
+        this.role = role;
+    }
     public String getOrderId() {
         return orderId;
     }

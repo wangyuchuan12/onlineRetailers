@@ -1,5 +1,6 @@
 package com.wyc.controller.action;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -93,6 +94,8 @@ public class GroupsAction {
     
     @RequestMapping("/info/group_info")
     public String groupInfo(HttpServletRequest httpServletRequest){
+        
+        
         String id = httpServletRequest.getParameter("id");
         System.out.println("id>.....:"+id);
         GoodGroup goodGroup = goodGroupService.findOne(id);
@@ -116,6 +119,9 @@ public class GroupsAction {
                 UserInfo userInfo = userService.getUserInfo(accessTokenBean.getAccess_token(), openid, 1);
                 groupMember.put("name", userInfo.getNickname());
                 groupMember.put("headImg", userInfo.getHeadimgurl());
+                groupMember.put("role", groupPartake.getRole()+"");
+                SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                groupMember.put("datetime", sFormat.format(groupPartake.getDateTime().toDate()));
                 groupMembers.add(groupMember);
             } catch (Exception e) {
                 e.printStackTrace();
