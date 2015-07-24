@@ -11,6 +11,35 @@ public class UserInfo {
     private String[] privilege;
     private String unionid;
     private String language;
+    private String remark;
+    private String subscribe_time;
+    private String groupid;
+    private String subscribe;
+    public String getSubscribe() {
+        return subscribe;
+    }
+    public void setSubscribe(String subscribe) {
+        this.subscribe = subscribe;
+    }
+    public String getRemark() {
+        return remark;
+    }
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+   
+    public String getSubscribe_time() {
+        return subscribe_time;
+    }
+    public void setSubscribe_time(String subscribe_time) {
+        this.subscribe_time = subscribe_time;
+    }
+    public String getGroupid() {
+        return groupid;
+    }
+    public void setGroupid(String groupid) {
+        this.groupid = groupid;
+    }
     public String getLanguage() {
         return language;
     }

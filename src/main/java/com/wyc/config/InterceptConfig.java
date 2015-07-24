@@ -26,11 +26,9 @@ public class InterceptConfig {
     private WxContext wxContext;
     @Around(value="execution (* com.wyc.controller.action.*.*(..))")
     public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint){
-            System.out.println(wxContext.getFlag());
             try {
                 if(wxContext.getFlag().equals("1")){
-                    Object url = proceedingJoinPoint.proceed();
-                    System.out.println(url);
+                    Object url = proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
                     return url;
                 }
                 actionIntercept = new ActionIntercept();
@@ -50,8 +48,7 @@ public class InterceptConfig {
                 
                
             } catch (Throwable e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+               e.printStackTrace();
             }
             return null;
     }

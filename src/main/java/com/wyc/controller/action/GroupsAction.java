@@ -22,7 +22,10 @@ import com.wyc.service.GoodGroupService;
 import com.wyc.service.GoodService;
 import com.wyc.service.GroupPartakeService;
 import com.wyc.service.MyResourceService;
+import com.wyc.wx.domain.AccessTokenBean;
 import com.wyc.wx.domain.Authorize;
+import com.wyc.wx.domain.UserInfo;
+import com.wyc.wx.service.BasicSupportService;
 import com.wyc.wx.service.OauthService;
 import com.wyc.wx.service.UserService;
 
@@ -42,21 +45,22 @@ public class GroupsAction {
     private OauthService oauthService;
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private BasicSupportService basicSupportService;
     final static Logger logger = LoggerFactory.getLogger(GroupsAction.class);
+    public GroupsAction() {
+        System.out.println("GoodsAction......");
+    }
     @RequestMapping("/main/group_list")
-    public String groupList(HttpServletRequest servletRequest){
+    public String groupList(HttpServletRequest servletRequest)throws Exception{
         String code = servletRequest.getParameter("code");
         logger.debug("the code is:{}",code);
         String openId = null;
-        try {
-            Authorize authorize = oauthService.getAuthorizeByCode(code);
-            openId = authorize.getOpenid();
-            logger.debug("get openid {}",openId);
-            if(openId==null||openId.trim().equals("")){
-                return "main/Groups";
-            }
-        } catch (Exception e) {
-            logger.error("get openid error,the code is {}",code);
+        Authorize authorize = oauthService.getAuthorizeByCode(code);
+        openId = authorize.getOpenid();
+        logger.debug("get openid {}",openId);
+        if(openId==null||openId.trim().equals("")){
+            return "main/Groups";
         }
         Customer customer = customerService.findByOpenId(openId);
         if(customer==null){
@@ -76,11 +80,10 @@ public class GroupsAction {
             responseGroup.put("step", goodGroup.getStep()+"");
             responseGroup.put("result", goodGroup.getResult()+"");
             Good good  = goodService.findOne(goodGroup.getGoodId());
-            if(good!=null){
-                responseGroup.put("name", good.getName());
-                responseGroup.put("head_img", myResourceService.findOne(good.getHeadImg()).getUrl());
-                responseGroup.put("total_price", goodGroup.getTotalPrice()+"");
-            }
+            responseGroup.put("name", good.getName());
+            responseGroup.put("head_img", myResourceService.findOne(good.getHeadImg()).getUrl());
+            responseGroup.put("total_price", goodGroup.getTotalPrice()+"");
+            responseGroup.put("group_id", goodGroup.getId());
             responseGroups.add(responseGroup);
         }
         
@@ -90,16 +93,43 @@ public class GroupsAction {
     
     @RequestMapping("/info/group_info")
     public String groupInfo(HttpServletRequest httpServletRequest){
-        
         String id = httpServletRequest.getParameter("id");
+        System.out.println("id>.....:"+id);
         GoodGroup goodGroup = goodGroupService.findOne(id);
+        System.out.println("goodGroup:"+goodGroup);
         int result = goodGroup.getResult();
         Iterable<GroupPartake> groupPartakes = groupPartakeService.findAllByGroupId(id);
         String goodId = goodGroup.getGoodId();
         Good good = goodService.findOne(goodId);
         String goodName = good.getName();
         String headImg = myResourceService.findOne(good.getHeadImg()).getUrl();
-        
+        int groupNum = good.getGroupNum();
+        float totalPrice = goodGroup.getTotalPrice();
+        List<Map<String, String>> groupMembers = new ArrayList<Map<String,String>>();
+        for(GroupPartake groupPartake:groupPartakes){
+            Map<String, String> groupMember = new HashMap<String, String>();
+            String customerId = groupPartake.getCustomerid();
+            Customer customer = customerService.findOne(customerId);
+            String openid = customer.getOpenid();
+            try {
+                AccessTokenBean accessTokenBean = basicSupportService.getAccessTokenBean();
+                UserInfo userInfo = userService.getUserInfo(accessTokenBean.getAccess_token(), openid, 1);
+                groupMember.put("name", userInfo.getNickname());
+                groupMember.put("headImg", userInfo.getHeadimgurl());
+                groupMembers.add(groupMember);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+           
+        }
+        Map<String, Object> groupInfoMap = new HashMap<String, Object>();
+        groupInfoMap.put("result", result);
+        groupInfoMap.put("goodName", goodName);
+        groupInfoMap.put("headImg", headImg);
+        groupInfoMap.put("groupNum", groupNum);
+        groupInfoMap.put("totalPrice", totalPrice);
+        groupInfoMap.put("groupPartake", groupMembers);
+        httpServletRequest.setAttribute("groupInfo", groupInfoMap);
         return "info/GroupInfo";
     }
     
