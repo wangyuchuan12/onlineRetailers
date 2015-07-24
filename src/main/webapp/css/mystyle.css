@@ -322,7 +322,7 @@
 	display:inline-block;
 	position:relative;
 	left:30px;
-	top:5px;
+	top:-5px;
 }
 .group_goodinfo_detail_title{
 	top:-20px;
@@ -370,7 +370,7 @@
 
 .members{	
 	position:relative;
-	top:-10px;
+	top:0px;
 	display:block;
 }
 
@@ -438,7 +438,8 @@
 }
 
 .member_item{
-	background-color:RGBA(215,183, 75,.2);	
+	background-color:RGBA(215,183, 75,.2);
+	padding-left:10px;
 }
 
 .member_item img{
@@ -462,6 +463,10 @@
 	display:inline-block;
 	top:-10px;
 	left:100px;
+}
+
+.member_list{
+	min-height: 20px;
 }
 
 .member_list ul li{

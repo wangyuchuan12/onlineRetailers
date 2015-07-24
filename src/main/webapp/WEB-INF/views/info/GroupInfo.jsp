@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <!doctype html>
 <html>
 	<head>
@@ -23,51 +24,55 @@
 			<div class="group_goodinfo">
 				<a href="">
 					<div class="group_goodinfo_img">
-						<img src="http://img3.fengniao.com/photo2012/710x710/14/926/13538926.jpg"></img>
+						<img src="${groupInfo.headImg}"></img>
 					</div>
 					<div class="group_goodinfo_detail">
-						<div class="group_goodinfo_detail_title">檬梨组合套餐16.9</div>
-						<div class="group_goodinfo_detail_price">3人团：<span class="group_goodinfo_detail_price2">$19.9/件<span></div>
+						<div class="group_goodinfo_detail_title">${groupInfo.name}</div>
+						<div class="group_goodinfo_detail_price">${groupInfo.groupNum}人团：<span class="group_goodinfo_detail_price2">￥${groupInfo.totalPrice}/件<span></div>
 						<div class="group_goodinfo_detail_see">查看详情</div>
 					</div>
 				</a>
 			</div>
 			<div class="members">
 				<ul>
-					<li>
-						<div class="member">
-							<img src="http://img3.fengniao.com/photo2012/710x710/14/926/13538926.jpg"/>
-							<span class="member_obvious">团</span>
-							<span class="member_kind">长</span>
-						</div>
-					</li>
-	
-					<li>
-						<div class="member">
-							<img src="http://img3.fengniao.com/photo2012/710x710/14/926/13538926.jpg"/>
-							<span class="member_sofa">团</span>
-							<span class="member_kind">长</span>
-						</div>
-					</li>
+					<c:forEach items="${groupInfo.groupPartake}" var="member">
+						<li>
+							<div class="member">
+								<img src="${member.headImg}"/>
+								<c:if test="${member.role==1}">
+									<span class="member_obvious">团</span>
+									<span class="member_kind">长</span>
+								</c:if>
+								
+								<c:if test="${member.role==2}">
+									<span class="member_sofa">沙</span>
+									<span class="member_kind">发</span>
+								</c:if>
+								
+							</div>
+						</li>
+					</c:forEach>
+					<c:forEach begin="1" end="${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}">
+						<li>
+							<div class="member">
+								<img src="/img/question_mark.jpg"/>
+							</div>
+						</li>
+					</c:forEach>
 	
 				</ul>
 			</div>
 			<div class="member_list">
 				<ul>
-					<li>
-						<div class="member_item">
-							<img src="http://img3.fengniao.com/photo2012/710x710/14/926/13538926.jpg"/>
-							<div class="member_item_name"><b>团长小迪</b></div>
-							<div class="member_item_time"><b>2015-06-02 18:04:28开团</b></div>
-						</div>
-					</li>
-					<li>
-						<div class="member_item">
-							<img src="http://img3.fengniao.com/photo2012/710x710/14/926/13538926.jpg"/>
-							<div class="member_item_name"><b>团长小迪</b></div>
-							<div class="member_item_time"><b>2015-06-02 18:04:28开团</b></div>
-						</div>
-					</li>
+					<c:forEach items="${groupInfo.groupPartake}" var="member">
+						<li>
+							<div class="member_item">
+								<img src="${member.headImg}"/>
+								<div class="member_item_name"><b>${member.name}</b></div>
+								<div class="member_item_time"><b>${member.datetime}<c:if test="${member.role!=1}">参团</c:if><c:if test="${member.role==1}">开团</c:if></b></div>
+							</div>
+						</li>
+					</c:forEach>
 				</ul>
 			</div>
 			<div class="trade_flow">

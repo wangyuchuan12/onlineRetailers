@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 
+import com.danga.MemCached.MemCachedClient;
+import com.danga.MemCached.SockIOPool;
 import com.wyc.ApplicationContextProvider;
 import com.wyc.defineBean.ApplicationProperties;
 import com.wyc.wx.domain.WxContext;
@@ -28,7 +30,28 @@ public class AppConfig {
     public ApplicationContextProvider applicationContextProvider() {
         return new ApplicationContextProvider();
     }
-
+    
+    @Bean
+    public SockIOPool sockIoPool(){
+        
+        String[] servers =
+        {
+              "127.0.0.1:8888"
+        };
+        SockIOPool sockIOPool = SockIOPool.getInstance();
+        sockIOPool.setServers(servers);
+        sockIOPool.setNagle(false);
+        sockIOPool.setSocketTO(3000);
+        sockIOPool.setSocketConnectTO(0);
+        sockIOPool.initialize();
+        return sockIOPool;
+    }
+   
+    @Bean
+    public MemCachedClient memcachedClient(){
+        return new MemCachedClient();
+    }
+    
     @Bean
     public ApplicationProperties applicationProperties() {
         ApplicationProperties properties = new ApplicationProperties();

@@ -15,7 +15,7 @@ public class OauthService {
     private WxContext wxContext;
     @Autowired
     private RequestFactory requestFactory;
-    public String getWebpageAuthorizeUrl(String redirectUri,int scope,String state){
+    public String getWebpageAuthorizeUrl(String redirectUri,int scope,String state)throws Exception{
         StringBuffer sb = new StringBuffer();
         sb.append("https://open.weixin.qq.com/connect/oauth2/authorize");
         sb.append("?");

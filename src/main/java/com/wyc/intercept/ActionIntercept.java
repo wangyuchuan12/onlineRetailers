@@ -9,7 +9,7 @@ import com.wyc.wx.domain.Authorize;
 import com.wyc.wx.domain.UserInfo;
 import com.wyc.wx.service.OauthService;
 import com.wyc.wx.service.UserService;
-public  class ActionIntercept extends BaseIntercept{
+public  class ActionIntercept extends BaseActionIntercept{
     private OauthService oauthService;
     private UserService userService;
     private Logger logger = LoggerFactory.getLogger(ActionIntercept.class);
@@ -20,7 +20,6 @@ public  class ActionIntercept extends BaseIntercept{
         this.userService = userService;
     }
     
-    @Override
     public BeforeBean before() {
         BeforeBean bean = new BeforeBean();
         try {

@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.wyc.intercept.domain.AfterBean;
 import com.wyc.intercept.domain.BeforeBean;
 import com.wyc.intercept.domain.ResponseBean;
-public abstract class BaseIntercept {
+public abstract class BaseActionIntercept {
     protected HttpServletRequest httpServletRequest;
     protected Map<String, MultipartFile> multipartFiles = new HashMap<String, MultipartFile>();
     public HttpServletRequest getHttpServletRequest() {

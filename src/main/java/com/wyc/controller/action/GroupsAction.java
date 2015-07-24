@@ -93,13 +93,9 @@ public class GroupsAction {
     }
     
     @RequestMapping("/info/group_info")
-    public String groupInfo(HttpServletRequest httpServletRequest){
-        
-        
+    public String groupInfo(HttpServletRequest httpServletRequest)throws Exception{
         String id = httpServletRequest.getParameter("id");
-        System.out.println("id>.....:"+id);
         GoodGroup goodGroup = goodGroupService.findOne(id);
-        System.out.println("goodGroup:"+goodGroup);
         int result = goodGroup.getResult();
         Iterable<GroupPartake> groupPartakes = groupPartakeService.findAllByGroupId(id);
         String goodId = goodGroup.getGoodId();
@@ -114,19 +110,14 @@ public class GroupsAction {
             String customerId = groupPartake.getCustomerid();
             Customer customer = customerService.findOne(customerId);
             String openid = customer.getOpenid();
-            try {
-                AccessTokenBean accessTokenBean = basicSupportService.getAccessTokenBean();
-                UserInfo userInfo = userService.getUserInfo(accessTokenBean.getAccess_token(), openid, 1);
-                groupMember.put("name", userInfo.getNickname());
-                groupMember.put("headImg", userInfo.getHeadimgurl());
-                groupMember.put("role", groupPartake.getRole()+"");
-                SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                groupMember.put("datetime", sFormat.format(groupPartake.getDateTime().toDate()));
-                groupMembers.add(groupMember);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-           
+            AccessTokenBean accessTokenBean = basicSupportService.getAccessTokenBean();
+            UserInfo userInfo = userService.getUserInfo(accessTokenBean.getAccess_token(), openid, 1);
+            groupMember.put("name", userInfo.getNickname());
+            groupMember.put("headImg", userInfo.getHeadimgurl());
+            groupMember.put("role", groupPartake.getRole()+"");
+            SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            groupMember.put("datetime", sFormat.format(groupPartake.getDateTime().toDate()));
+            groupMembers.add(groupMember);
         }
         Map<String, Object> groupInfoMap = new HashMap<String, Object>();
         groupInfoMap.put("result", result);
@@ -140,7 +131,7 @@ public class GroupsAction {
     }
     
     @RequestMapping("/info/trade_flow_info")
-    public String tradeFlowInfo(){
+    public String tradeFlowInfo()throws Exception{
         return "info/TradeFlowInfo";
     }
 }

@@ -36,7 +36,7 @@ public class ServiceTest {
         return null;
     }
     @RequestMapping("/wx/getWebpageAuthorizeUrl_test")
-    public String getWebpageAuthorizeUrl(HttpServletRequest httpRequest){
+    public String getWebpageAuthorizeUrl(HttpServletRequest httpRequest)throws Exception{
         String redirectUri = httpRequest.getParameter("redirectUri");
         String scope = httpRequest.getParameter("scope");
         String state = httpRequest.getParameter("state");

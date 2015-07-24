@@ -43,12 +43,20 @@ public class Good {
     private float flowPrice;
     @Column(name="source_id")
     private String sourceId;
+    @Column(name="group_duration")
+    private int groupDuration;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
+    public int getGroupDuration() {
+        return groupDuration;
+    }
+    public void setGroupDuration(int groupDuration) {
+        this.groupDuration = groupDuration;
+    }
     public String getSourceId() {
         return sourceId;
     }
