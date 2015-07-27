@@ -66,7 +66,7 @@ public class GroupsAction {
         Iterable<GroupPartake> groupPartakes = groupPartakeService.findByCustomerid(customerId);
         List<String> groupIds = new ArrayList<String>();
         for(GroupPartake groupPartake:groupPartakes){
-            groupIds.add(groupPartake.getOrderId());
+            groupIds.add(groupPartake.getGroupId());
         }
        
         Iterable<GoodGroup> goodGroups = goodGroupService.findAll(groupIds);
