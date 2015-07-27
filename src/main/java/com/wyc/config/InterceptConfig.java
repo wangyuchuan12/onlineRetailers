@@ -144,10 +144,7 @@ public class InterceptConfig {
         
         try {
             Object url = proceedingJoinPoint.proceed(args);
-            StringBuffer sb = new StringBuffer();
-            sb.append("redirect:");
-            sb.append("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx7e3ed2dc655c0145&redirect_uri=http://www.chengxi.pub/main/group_list&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect");
-            return sb.toString();
+            return url;
         } catch (Throwable e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
