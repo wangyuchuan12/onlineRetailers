@@ -32,7 +32,7 @@
         	<div class="good_info_pay_goodinfo">
         		<img src="good.jpg"/>
         		<div class="good_info_pay_goodinfo_detail">
-        			<div class="good_info_pay_goodinfo_detail_title">广西小台芒2斤9.9元</div>
+        			<div class="good_info_pay_goodinfo_detail_title">${ }</div>
         			<div class="good_info_pay_goodinfo_detail_num">数量：1</div>
         			<div class="good_info_pay_goodinfo_detail_stock">库存：2000000件</div>
         		</div>

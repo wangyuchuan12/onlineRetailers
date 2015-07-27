@@ -80,7 +80,6 @@ public class GoodsAction {
 	public String gootInfoPay(HttpServletRequest httpRequest){
 	    String payType=httpRequest.getParameter("pay_type");
 	    String goodId = httpRequest.getParameter("good_id");
-	    String code = httpRequest.getParameter("code");
 	    Good good = goodService.findOne(goodId);
             Map<String, Object> responseGood = new HashMap<String, Object>();
             responseGood.put("id", good.getId());
@@ -105,6 +104,7 @@ public class GoodsAction {
             }else if (payType.equals("2")) {
                 responseGood.put("cost",good.getFlowPrice());
             }
+            httpRequest.setAttribute("payGoodInfo", responseGood);
 	    return "info/GoodInfoPay";
 	}
 }
