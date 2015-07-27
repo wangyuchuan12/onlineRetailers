@@ -130,7 +130,7 @@ public class InterceptConfig {
                    }
                 }else{
                     String code = httpServletRequest.getParameter("code");
-                    myHttpServletRequest = autoAuthorize(myHttpServletRequest, code);
+                    myHttpServletRequest = autoAuthorize(httpServletRequest, code);
                     myHttpServletRequest = autoUserInfoFromWeb(httpServletRequest, myHttpServletRequest.getAuthorize());
                 }
             }
