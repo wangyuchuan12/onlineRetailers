@@ -14,10 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.wyc.annotation.AccessTokenAnnotation;
+import com.wyc.annotation.AuthorizeAnnotation;
+import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GroupPartake;
+import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodGroupService;
 import com.wyc.service.GoodService;
@@ -26,9 +30,6 @@ import com.wyc.service.MyResourceService;
 import com.wyc.wx.domain.AccessTokenBean;
 import com.wyc.wx.domain.Authorize;
 import com.wyc.wx.domain.UserInfo;
-import com.wyc.wx.service.BasicSupportService;
-import com.wyc.wx.service.OauthService;
-import com.wyc.wx.service.UserService;
 
 @Controller
 public class GroupsAction {
@@ -41,23 +42,17 @@ public class GroupsAction {
     @Autowired
     private MyResourceService myResourceService;
     @Autowired
-    private UserService userService;
-    @Autowired
-    private OauthService oauthService;
-    @Autowired
     private CustomerService customerService;
-    @Autowired
-    private BasicSupportService basicSupportService;
     final static Logger logger = LoggerFactory.getLogger(GroupsAction.class);
     public GroupsAction() {
         System.out.println("GoodsAction......");
     }
     @RequestMapping("/main/group_list")
+    @AuthorizeAnnotation
     public String groupList(HttpServletRequest servletRequest)throws Exception{
-        String code = servletRequest.getParameter("code");
-        logger.debug("the code is:{}",code);
+        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) servletRequest;
         String openId = null;
-        Authorize authorize = oauthService.getAuthorizeByCode(code);
+        Authorize authorize = myHttpServletRequest.getAuthorize();
         openId = authorize.getOpenid();
         logger.debug("get openid {}",openId);
         if(openId==null||openId.trim().equals("")){
@@ -93,7 +88,10 @@ public class GroupsAction {
     }
     
     @RequestMapping("/info/group_info")
+    @UserInfoFromWebAnnotation
+    @AccessTokenAnnotation
     public String groupInfo(HttpServletRequest httpServletRequest)throws Exception{
+        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         String id = httpServletRequest.getParameter("id");
         GoodGroup goodGroup = goodGroupService.findOne(id);
         int result = goodGroup.getResult();
@@ -110,8 +108,9 @@ public class GroupsAction {
             String customerId = groupPartake.getCustomerid();
             Customer customer = customerService.findOne(customerId);
             String openid = customer.getOpenid();
-            AccessTokenBean accessTokenBean = basicSupportService.getAccessTokenBean();
-            UserInfo userInfo = userService.getUserInfo(accessTokenBean.getAccess_token(), openid, 1);
+            AccessTokenBean accessTokenBean = myHttpServletRequest.getAccessTokenBean();
+            System.out.println(accessTokenBean.getAccess_token()+"..............");
+            UserInfo userInfo = myHttpServletRequest.getUserInfo();
             groupMember.put("name", userInfo.getNickname());
             groupMember.put("headImg", userInfo.getHeadimgurl());
             groupMember.put("role", groupPartake.getRole()+"");
