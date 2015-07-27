@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/css/mystyle.css"/>
     <link rel="stylesheet"
 	href="/css/font-awesome.min.css">
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </head>
 <body>
     <div class="container">
@@ -42,7 +43,7 @@
         		<div class="good_info_pay_price_content">
         			<c:if test="${payGoodInfo.pay_type=='1'}">${payGoodInfo.group_num}人团  &nbsp; &nbsp; </c:if>
         			<c:if test="${payGoodInfo.pay_type==2}">单买 &nbsp; &nbsp; </c:if>
-        			 快递：￥0.00 &nbsp;总价：<b>￥9.90</b></div>
+        			 快递：￥0.00 &nbsp;总价：<b>￥${payGoodInfo.cost}</b></div>
         	</div>
         	
         	<div class="good_info_pay_type">
@@ -68,14 +69,14 @@
             	<div class="trade_flow_details">查看详情&gt;</div>
             	<ul>
             		<li>
-            			<div class="trade_flow_block trade_flow_block_activity">
+            			<div class="trade_flow_block">
             				<i class="fa fa-search"></i><span>选择商品</span>
             				<div class="trade_flow_num">1</div>
             			</div>
             			
             		</li>
             		<li>
-            			<div class="trade_flow_block">
+            			<div class="trade_flow_block trade_flow_block_activity">
             				<i class="fa fa-shopping-cart"></i><span >开团支付</span>
             				<div class="trade_flow_num">2</div>
             			</div>
