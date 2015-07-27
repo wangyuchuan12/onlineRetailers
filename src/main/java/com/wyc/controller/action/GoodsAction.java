@@ -47,7 +47,6 @@ public class GoodsAction {
 		    responseGoods.add(responseGood);
 		}
 		httpRequest.setAttribute("goods", responseGoods);
-		System.out.println(responseGoods.size());
 		return "main/Goods";
 	}
 	

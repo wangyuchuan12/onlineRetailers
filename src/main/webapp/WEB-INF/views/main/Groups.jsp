@@ -9,6 +9,7 @@
         <div class="groups">
 				<ul>
 				<c:forEach items="${groups}" var="group">
+				
 					<li >
 							<a class="group">
 								<div class="group_header">
