@@ -26,10 +26,10 @@ public class GoodsAction {
         private GoodService goodService;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
-	@UserInfoFromWebAnnotation
+//	@UserInfoFromWebAnnotation
 	public String goodList(HttpServletRequest httpRequest){
-	        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpRequest;
-	        System.out.println(myHttpServletRequest.getUserInfo().getNickname());
+//	        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpRequest;
+//	        System.out.println(myHttpServletRequest.getUserInfo().getNickname());
 	        Iterable<Good> databaseGoods = goodService.findAll();
 		List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>();
 		for(Good good:databaseGoods){

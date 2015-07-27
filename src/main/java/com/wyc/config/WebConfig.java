@@ -26,7 +26,7 @@ import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 })
 @EnableAspectJAutoProxy(proxyTargetClass=true)
 public class WebConfig extends WebMvcConfigurerAdapter{
-	@Bean
+    @Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("/WEB-INF/views/");
