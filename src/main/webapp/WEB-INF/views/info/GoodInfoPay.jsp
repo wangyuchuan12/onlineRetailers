@@ -30,16 +30,19 @@
         		
         	</div>
         	<div class="good_info_pay_goodinfo">
-        		<img src="good.jpg"/>
+        		<img src="${payGoodInfo.head_img}"/>
         		<div class="good_info_pay_goodinfo_detail">
-        			<div class="good_info_pay_goodinfo_detail_title">${ }</div>
+        			<div class="good_info_pay_goodinfo_detail_title">${payGoodInfo.name}</div>
         			<div class="good_info_pay_goodinfo_detail_num">数量：1</div>
         			<div class="good_info_pay_goodinfo_detail_stock">库存：2000000件</div>
         		</div>
         		<div class="good_info_pay_goodinfo_price">9.90/件</div>
         	</div>
         	<div class="good_info_pay_price">
-        		<div class="good_info_pay_price_content">快递：￥0.00 总价：<b>￥9.90</b></div>
+        		<div class="good_info_pay_price_content">
+        			<c:if test="${payGoodInfo.pay_type=='1'}">${payGoodInfo.group_num}人团  &nbsp; &nbsp; </c:if>
+        			<c:if test="${payGoodInfo.pay_type==2}">单买 &nbsp; &nbsp; </c:if>
+        			 快递：￥0.00 &nbsp;总价：<b>￥9.90</b></div>
         	</div>
         	
         	<div class="good_info_pay_type">
@@ -58,9 +61,8 @@
         			</ul>
         		</div>
         	</div>
-
 	        	<div class="good_info_pay_button">
-	        		<a>立即支付</a>
+	        		<a href="">立即支付</a>
 	        	</div>
 	        	 <div class="trade_flow">
             	<div class="trade_flow_details">查看详情&gt;</div>
@@ -74,7 +76,7 @@
             		</li>
             		<li>
             			<div class="trade_flow_block">
-            				<i class="fa fa-shopping-cart"></i><span>开团支付</span>
+            				<i class="fa fa-shopping-cart"></i><span >开团支付</span>
             				<div class="trade_flow_num">2</div>
             			</div>
             		</li>

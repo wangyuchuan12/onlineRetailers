@@ -81,6 +81,7 @@ public class GoodsAction {
 	    String payType=httpRequest.getParameter("pay_type");
 	    String goodId = httpRequest.getParameter("good_id");
 	    Good good = goodService.findOne(goodId);
+	    MyResource myResource = resourceService.findOne(good.getHeadImg());
             Map<String, Object> responseGood = new HashMap<String, Object>();
             responseGood.put("id", good.getId());
             responseGood.put("instruction", good.getInstruction());
@@ -96,6 +97,7 @@ public class GoodsAction {
             responseGood.put("group_cost", good.getGroupDiscount()*good.getGroupOriginalCost());
             responseGood.put("alone_cost", good.getAloneDiscount()*good.getAloneOriginalCost());
             responseGood.put("pay_type", payType);
+            responseGood.put("head_img", myResource.getUrl());
             
             if(payType.equals("0")){
                 responseGood.put("cost",good.getFlowPrice()+good.getGroupDiscount()*good.getGroupOriginalCost());
