@@ -29,7 +29,7 @@ public class GoodsAction {
 	@UserInfoFromWebAnnotation
 	public String goodList(HttpServletRequest httpRequest){
 	        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpRequest;
-	        System.out.println(myHttpServletRequest.getAccessTokenBean().getAccess_token());
+	        System.out.println(myHttpServletRequest.getUserInfo().getNickname());
 	        Iterable<Good> databaseGoods = goodService.findAll();
 		List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>();
 		for(Good good:databaseGoods){
