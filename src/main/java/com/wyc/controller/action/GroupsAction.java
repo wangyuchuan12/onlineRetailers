@@ -82,7 +82,7 @@ public class GroupsAction {
             responseGroup.put("group_id", goodGroup.getId());
             responseGroups.add(responseGroup);
         }
-        
+        System.out.println("responseGroups.............."+responseGroups.size());
         servletRequest.setAttribute("groups", responseGroups);
         return "main/Groups";
     }
@@ -118,7 +118,7 @@ public class GroupsAction {
             groupMember.put("datetime", sFormat.format(groupPartake.getDateTime().toDate()));
             groupMembers.add(groupMember);
         }
-        System.out.println("groupMembers.............."+groupMembers.size());
+       
         Map<String, Object> groupInfoMap = new HashMap<String, Object>();
         groupInfoMap.put("result", result);
         groupInfoMap.put("goodName", goodName);
