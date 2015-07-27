@@ -12,10 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.domain.Good;
 import com.wyc.domain.MyResource;
-import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.GoodService;
 import com.wyc.service.MyResourceService;
 @Controller
@@ -26,10 +24,7 @@ public class GoodsAction {
         private GoodService goodService;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
-//	@UserInfoFromWebAnnotation
 	public String goodList(HttpServletRequest httpRequest){
-//	        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpRequest;
-//	        System.out.println(myHttpServletRequest.getUserInfo().getNickname());
 	        Iterable<Good> databaseGoods = goodService.findAll();
 		List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>();
 		for(Good good:databaseGoods){
@@ -52,6 +47,7 @@ public class GoodsAction {
 		    responseGoods.add(responseGood);
 		}
 		httpRequest.setAttribute("goods", responseGoods);
+		System.out.println(responseGoods.size());
 		return "main/Goods";
 	}
 	
