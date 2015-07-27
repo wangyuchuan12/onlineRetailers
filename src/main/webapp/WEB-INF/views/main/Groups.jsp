@@ -3,7 +3,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
 <tiles:insertDefinition name="adminLayout">
-<tiles:putAttribute name="title">商品列表</tiles:putAttribute>
+<tiles:putAttribute name="title">我的团</tiles:putAttribute>
 <tiles:putAttribute name="body">
 	<div class="container">
         <div class="groups">
