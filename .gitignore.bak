@@ -1,0 +1,11 @@
+bin/
+build/
+out/
+repos/
+tmp/
+.*
+*.swp
+*.iml
+*.iws
+*.ipr
+tags
