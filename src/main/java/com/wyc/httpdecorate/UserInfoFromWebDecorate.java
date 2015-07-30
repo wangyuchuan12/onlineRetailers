@@ -16,6 +16,9 @@ public class UserInfoFromWebDecorate implements BaseHttpDecorate{
     }
     
     public MyHttpServletRequest execute()throws Exception{
+        System.out.println("userService......."+userService);
+        System.out.println("authorize......."+authorize);
+        System.out.println("getAccess_token......."+authorize.getAccess_token());
         UserInfo userInfo = userService.getUserInfoFromWeb(authorize.getAccess_token(), authorize.getOpenid(), 0);
         myHttpServletRequest.setUserInfo(userInfo);
         return myHttpServletRequest;
