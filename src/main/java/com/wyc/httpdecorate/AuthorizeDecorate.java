@@ -1,6 +1,4 @@
 package com.wyc.httpdecorate;
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.intercept.domain.MyHttpServletRequest;
@@ -15,10 +13,6 @@ public class AuthorizeDecorate implements BaseHttpDecorate{
     @Autowired
     private UserService userService;
     private MyHttpServletRequest myHttpServletRequest;
-    public AuthorizeDecorate(HttpServletRequest httpServletRequest,String code){
-        this.code = code;
-        this.myHttpServletRequest = new MyHttpServletRequest(httpServletRequest);
-    }
     public AuthorizeDecorate(MyHttpServletRequest myHttpServletRequest, String code){
         this.code = code;
         this.myHttpServletRequest = myHttpServletRequest;

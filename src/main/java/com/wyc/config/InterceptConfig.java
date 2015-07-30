@@ -18,6 +18,7 @@ import com.wyc.annotation.AuthorizeAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.httpdecorate.AccessTokenDecorate;
 import com.wyc.httpdecorate.AuthorizeDecorate;
+import com.wyc.httpdecorate.DecorateFactory;
 import com.wyc.httpdecorate.UserInfoFromWebDecorate;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.wx.domain.Authorize;
@@ -38,7 +39,8 @@ public class InterceptConfig {
     private MemCachedClient memCachedClient;
     @Autowired
     private AutowireCapableBeanFactory factory;
-    
+    @Autowired
+    private DecorateFactory decorateFactory;
     final static Logger logger = LoggerFactory.getLogger(InterceptConfig.class);
     
     @Around(value="execution (* com.wyc.wx.service.*.*(..))")
@@ -73,6 +75,8 @@ public class InterceptConfig {
        
         return object;
     }
+    
+    
     @Around(value="execution (* com.wyc.controller.action.*.*(..))")
     public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint){
         Object target = proceedingJoinPoint.getTarget();
@@ -88,13 +92,13 @@ public class InterceptConfig {
         }
         
         
-        MyHttpServletRequest myHttpServletRequest = null;
+        MyHttpServletRequest myHttpServletRequest = new MyHttpServletRequest(httpServletRequest);
         
       //注入accessToken的逻辑
         try {
             if(method.getAnnotation(AccessTokenAnnotation.class)!=null){
-                myHttpServletRequest = autoAccessToken(httpServletRequest); 
-              
+               AccessTokenDecorate accessTokenDecorate = decorateFactory.accessTokenDecorate(myHttpServletRequest);
+               accessTokenDecorate.execute();
             }
         } catch (Exception e) {
             
@@ -106,12 +110,9 @@ public class InterceptConfig {
         try {
             if(method.getAnnotation(AuthorizeAnnotation.class)!=null){
                 String code = httpServletRequest.getParameter("code");
-                if(myHttpServletRequest!=null){
-                       myHttpServletRequest = autoAuthorize(myHttpServletRequest,code);
-                }else{
-                       myHttpServletRequest = autoAuthorize(httpServletRequest,code);
-                    
-                } 
+                AuthorizeDecorate authorizeDecorate = decorateFactory.authorizeDecorate(myHttpServletRequest, code);
+                authorizeDecorate.execute();
+                
             }
         } catch (Exception e) {
            e.printStackTrace();
@@ -121,23 +122,18 @@ public class InterceptConfig {
         //注入userinfo的逻辑，依赖于authorize
         try {
             if(method.getAnnotation(UserInfoFromWebAnnotation.class)!=null){
-                if(myHttpServletRequest!=null){
-                   if(myHttpServletRequest.getAuthorize()==null){
-                       String code = httpServletRequest.getParameter("code");
-                       myHttpServletRequest = autoAuthorize(myHttpServletRequest, code);
-                       myHttpServletRequest = autoUserInfoFromWeb(httpServletRequest, myHttpServletRequest.getAuthorize());
-                   }else{
-                       myHttpServletRequest = autoUserInfoFromWeb(httpServletRequest, myHttpServletRequest.getAuthorize());
-                   }
-                }else{
-                    String code = httpServletRequest.getParameter("code");
-                    myHttpServletRequest = autoAuthorize(httpServletRequest, code);
-                    myHttpServletRequest = autoUserInfoFromWeb(httpServletRequest, myHttpServletRequest.getAuthorize());
-                }
+                AccessTokenDecorate accessTokenDecorate = decorateFactory.accessTokenDecorate(myHttpServletRequest);
+                accessTokenDecorate.execute();
+                UserInfoFromWebDecorate userInfoFromWebDecorate = decorateFactory.infoFromWebDecorate(myHttpServletRequest, myHttpServletRequest.getAuthorize());
+                userInfoFromWebDecorate.execute();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        
+        
+        
         if(myHttpServletRequest!=null){
             args[0] = myHttpServletRequest;
         }
@@ -152,48 +148,4 @@ public class InterceptConfig {
         }
         return null;
     }
-    
-    private MyHttpServletRequest autoAccessToken(HttpServletRequest httpServletRequest)throws Exception{
-        AccessTokenDecorate accessTokenDecorate = new AccessTokenDecorate(httpServletRequest);
-        factory.autowireBean(accessTokenDecorate);
-        MyHttpServletRequest myHttpServletRequest = accessTokenDecorate.execute();
-        return myHttpServletRequest;
-        
-    }
-    
-//    private MyHttpServletRequest autoAccessToken(MyHttpServletRequest httpServletRequest)throws Exception{
-//        AccessTokenDecorate accessTokenDecorate = new AccessTokenDecorate(httpServletRequest);
-//        factory.autowireBean(accessTokenDecorate);
-//        MyHttpServletRequest myHttpServletRequest = accessTokenDecorate.execute();
-//        return myHttpServletRequest;
-//        
-//    }
-    
-    private MyHttpServletRequest autoAuthorize(HttpServletRequest httpServletRequest,String code)throws Exception{
-        AuthorizeDecorate authorizeDecorate = new AuthorizeDecorate(httpServletRequest, code);
-        factory.autowireBean(authorizeDecorate);
-        MyHttpServletRequest myHttpServletRequest = authorizeDecorate.execute();
-        return myHttpServletRequest;
-    }
-    
-    private MyHttpServletRequest autoAuthorize(MyHttpServletRequest httpServletRequest,String code)throws Exception{
-        AuthorizeDecorate authorizeDecorate = new AuthorizeDecorate(httpServletRequest, code);
-        factory.autowireBean(authorizeDecorate);
-        MyHttpServletRequest myHttpServletRequest = authorizeDecorate.execute();
-        return myHttpServletRequest;
-    }
-    
-    private MyHttpServletRequest autoUserInfoFromWeb(HttpServletRequest httpServletRequest,Authorize authorize)throws Exception{
-        UserInfoFromWebDecorate userInfoFromWebDecorate = new UserInfoFromWebDecorate(httpServletRequest, authorize);
-        factory.autowireBean(userInfoFromWebDecorate);
-        MyHttpServletRequest myHttpServletRequest = userInfoFromWebDecorate.execute();
-        return myHttpServletRequest;
-    }
-    
-//    private MyHttpServletRequest autoUserInfoFromWeb(MyHttpServletRequest httpServletRequest,Authorize authorize)throws Exception{
-//        UserInfoFromWebDecorate userInfoFromWebDecorate = new UserInfoFromWebDecorate(httpServletRequest, authorize);
-//        factory.autowireBean(userInfoFromWebDecorate);
-//        MyHttpServletRequest myHttpServletRequest = userInfoFromWebDecorate.execute();
-//        return myHttpServletRequest;
-//    }
 }
