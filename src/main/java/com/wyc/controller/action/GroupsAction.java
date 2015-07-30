@@ -108,6 +108,7 @@ public class GroupsAction {
             Map<String, String> groupMember = new HashMap<String, String>();
             String customerId = groupPartake.getCustomerid();
             Customer customer = customerService.findOne(customerId);
+            System.out.println(customerId+".............customerId");
             String openid = customer.getOpenid();
             AccessTokenBean accessTokenBean = myHttpServletRequest.getAccessTokenBean();
             System.out.println(accessTokenBean.getAccess_token()+"..............");
