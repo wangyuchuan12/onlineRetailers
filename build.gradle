@@ -1,0 +1,305 @@
+buildscript {
+    repositories {
+        //maven { url "http://maven.oschina.net/content/groups/public/" }
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:1.1.8'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+
+compileJava.options.encoding = 'UTF-8'
+
+war {
+    baseName = 'onlineRetailers'
+    version =  '0.1.0'
+}
+
+
+task copylib(type:Copy){
+	delete(new File("build/lib"));
+	from configurations.runtime
+  	into 'build/lib'
+  	println "copy libs to build/lib"
+}
+task releaseProject(dependsOn:copylib)<<{
+  	releaseProject()
+  	println "release project"
+}
+def clearProject(){
+	def environment = hasProperty('env') ? env : 'dev'
+	def projectPath;
+	if(environment.equals("local")){
+		projectPath = "d:/project/onlineRetailers";
+	}else if(environment.equals("dev")){
+		projectPath = "/root/project/onlineRetailers";
+	}
+	File file = new File(projectPath);
+	delete(file);
+	delete(new File("build/lib"));
+}
+
+def delete(File file){
+	if(file.isDirectory()){
+		List childFiles = file.listFiles();
+		if(childFiles!=null&&childFiles.size()>0){
+			for(File childFile:childFiles){
+				delete(childFile);
+			}
+		}
+		file.delete();
+	}else{
+		file.delete();
+	}
+}
+def releaseProject(){
+	def environment = hasProperty('env') ? env : 'dev'
+	def projectPath;
+	if(environment.equals("local")){
+		projectPath = "d:/project/onlineRetailers";
+	}else if(environment.equals("dev")){
+		projectPath = "/root/project/onlineRetailers";
+	}else{
+		projectPath = "/root/project/onlineRetailers";
+	}
+	List childFiles = new ArrayList();
+	File classesFile = new File("build/classes/main/com");
+	getAllChildList(childFiles,classesFile);
+	for(int i = 0 ;i<childFiles.size();i++){
+		copyDir(new File(projectPath+"/WEB-INF/classes"),classesFile,childFiles.get(i));
+	}
+	childFiles.clear();
+	
+	
+	File cssFile = new File("src/main/webapp/css");
+	getAllChildList(childFiles,cssFile);
+	for(int i = 0 ;i<childFiles.size();i++){
+		copyDir(new File(projectPath),cssFile,childFiles.get(i));
+	}
+	childFiles.clear();
+	
+	File fontsFile = new File("src/main/webapp/fonts");
+	getAllChildList(childFiles,fontsFile);
+	for(int i = 0 ;i<childFiles.size();i++){
+		copyDir(new File(projectPath),cssFile,childFiles.get(i));
+	}
+	childFiles.clear();
+	
+	
+	File imgFile = new File("src/main/webapp/img");
+	getAllChildList(childFiles,imgFile);
+	for(int i = 0 ;i<childFiles.size();i++){
+		copyDir(new File(projectPath),imgFile,childFiles.get(i));
+	}
+	childFiles.clear();
+	
+	
+	File jsFile = new File("src/main/webapp/js");
+	getAllChildList(childFiles,jsFile);
+	for(int i = 0 ;i<childFiles.size();i++){
+		copyDir(new File(projectPath),jsFile,childFiles.get(i));
+	}
+	childFiles.clear();
+	
+	
+	File lessFile = new File("src/main/webapp/less");
+	getAllChildList(childFiles,lessFile);
+	for(int i = 0 ;i<childFiles.size();i++){
+		copyDir(new File(projectPath),lessFile,childFiles.get(i));
+	}
+	childFiles.clear();
+	
+	
+	File scssFile = new File("src/main/webapp/scss");
+	getAllChildList(childFiles,scssFile);
+	for(int i = 0 ;i<childFiles.size();i++){
+		copyDir(new File(projectPath),scssFile,childFiles.get(i));
+	}
+	childFiles.clear();
+	
+	
+	File webInfoFile = new File("src/main/webapp/WEB-INF");
+	getAllChildList(childFiles,webInfoFile);
+	for(int i = 0 ;i<childFiles.size();i++){
+		copyDir(new File(projectPath),webInfoFile,childFiles.get(i));
+	}
+	childFiles.clear();
+	
+	
+	File libsFile = new File("build/lib");
+	getAllChildList(childFiles,libsFile);
+	for(int i = 0 ;i<childFiles.size();i++){
+		copyDir(new File(projectPath+"/WEB-INF"),libsFile,childFiles.get(i));
+	}
+	childFiles.clear();
+	
+	File testjquery = new File("src/main/webapp/testjquery");
+	getAllChildList(childFiles,testjquery);
+	for(int i = 0 ;i<childFiles.size();i++){
+		copyDir(new File(projectPath),testjquery,childFiles.get(i));
+	}
+	childFiles.clear();
+	
+	File resultFiles = new File("build/resources/main/");
+	getAllChildList(childFiles,resultFiles);
+	
+	for(int i = 0 ;i<childFiles.size();i++){
+		copyFile(new File(projectPath+"/WEB-INF/classes"),childFiles.get(i));
+	}
+	childFiles.clear();
+	
+	
+	
+}
+def copyFile(File toDir,File fromFile){
+	println "copy "+fromFile.getName()+" to "+toDir.getName()
+	String fileName = fromFile.getName();
+	File toFile = new File(toDir,fileName);
+	FileOutputStream fileOutputStream = new FileOutputStream(toFile);
+	FileInputStream fileInputStream = new FileInputStream(fromFile);
+	int i = 0 ;
+	byte[] b = new byte[1024];
+	while((i=fileInputStream.read(b))>0){
+		fileOutputStream.write(b,0,i);
+		fileOutputStream.flush();
+	}
+	fileOutputStream.close();
+}
+def copyDir(File toRootFile , File fromRootFile , File file){
+	println "copy "+file.getName()+" to "+toRootFile.getName()
+	if(!toRootFile.exists()){
+		toRootFile.getParentFile().mkdirs();
+		println toRootFile.getName()+" mkdir "
+	}
+	String fileAbstractPath = file.getAbsolutePath();
+	String fromRootPath = fromRootFile.getAbsoluteFile().getParentFile().getAbsolutePath();
+	String subFilePath = fileAbstractPath.substring(fromRootPath.length());
+	File toFile = new File(toRootFile,subFilePath);
+	if(!toFile.getParentFile().exists()){
+		toFile.getParentFile().mkdirs();
+		
+	}
+	if(!toFile.exists()){
+		toFile.createNewFile();
+	}
+	FileOutputStream fileOutputStream = new FileOutputStream(toFile);
+	FileInputStream fileInputStream = new FileInputStream(file);
+	int i = 0 ;
+	byte[] b = new byte[1024];
+	while((i=fileInputStream.read(b))>0){
+		fileOutputStream.write(b,0,i);
+		fileOutputStream.flush();
+	}
+	fileOutputStream.close();
+
+}
+
+def getAllChildList(List files , File parentFile){
+	List childFiles = parentFile.listFiles();
+	if(childFiles!=null&&childFiles.size()>0){
+		for(int i = 0 ;i<childFiles.size();i++){
+			File childFile = childFiles.get(i);
+			if(childFile.isDirectory()){
+				getAllChildList(files,childFile);
+			}else{
+				files.add(childFile);
+			}
+		}
+	}else{
+		return new ArrayList();
+	}
+}
+
+
+gretty {
+    servletContainer = 'jetty9'
+    managedClassReload = true
+    contextPath = "/"
+    fileLogEnabled = false
+    loggingLevel = "ALL"
+    httpPort = 80
+}
+
+allprojects {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:deprecation"
+    }
+}
+uploadArchives {
+	repositories {
+	   flatDir {
+		   dirs 'repos'
+	   }
+	}
+}
+repositories {
+    mavenLocal()
+    //maven {
+        //url "http://maven.oschina.net/content/groups/public/"
+    //}
+    mavenCentral()
+}
+
+configurations {
+    compile.exclude module: "commons-logging"
+    providedRuntime
+    providedCompile
+}
+
+
+loadConfiguration()
+def loadConfiguration() {
+    def environment = hasProperty('env') ? env : 'dev'
+    sourceSets.main.resources.srcDirs = [ 'src/main/resources/global' ]
+    //setProperty 'environment', environment
+    if (environment.equals('prod'))
+        sourceSets.main.resources.srcDirs 'src/main/resources/prod'
+    else if (environment.equals('dev'))
+        sourceSets.main.resources.srcDirs 'src/main/resources/dev'
+    else if(environment.equals('win'))
+    		sourceSets.main.resources.srcDirs 'src/main/resources/win'
+    else
+        sourceSets.main.resources.srcDirs 'src/main/resources/local'
+}
+
+
+dependencies {
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    compile 'jstl:jstl:1.2'
+  //  compile 'javax.servlet.jsp.jstl:jstl-api:1.2'
+    compile 'org.springframework:spring-aspects:4.1.6.RELEASE'
+    compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
+
+    compile 'mysql:mysql-connector-java:5.1.33'
+    compile 'com.alibaba:druid:1.0.12'
+    compile 'org.springframework.data:spring-data-jpa:1.7.1.RELEASE'
+    compile 'org.hibernate:hibernate-entitymanager:4.3.6.Final'
+    //compile 'com.zaxxer:HikariCP:2.2.5'
+
+    compile 'org.apache.tiles:tiles-servlet:3.0.5'
+    compile 'org.apache.tiles:tiles-jsp:3.0.5'
+
+    compile 'org.apache.shiro:shiro-spring:1.2.3'
+
+    compile 'joda-time:joda-time:2.5'
+    compile 'joda-time:joda-time-jsptags:1.1.1'
+    compile 'org.jadira.usertype:usertype.core:3.2.0.GA'
+
+    //compile 'org.slf4j:slf4j-log4j12:1.7.7'
+    compile 'ch.qos.logback:logback-classic:1.1.2'
+    compile 'com.google.guava:guava:18.0'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.4'	
+    compile 'jdom:jdom:1.1'
+    
+    compile 'org.apache.httpcomponents:httpclient:4.5'
+    
+    compile 'commons-fileupload:commons-fileupload:1.3.1'
+    compile fileTree(dir:'lib',include:'*.jar')
+    testCompile("junit:junit")
+}

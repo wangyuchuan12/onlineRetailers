@@ -1,0 +1,44 @@
+@charset "utf-8";
+.address_item{
+	width:100%;
+	position:relative;
+	margin-bottom: 10px;
+}
+.address_label{
+	display:inline-block;
+	width:80px;
+	
+}
+.address_item select{
+	height:50px;
+	width:200px;
+	font-size:20px;
+}
+.address_item input{
+	height:50px;
+	width:200px;
+	font-size:20px;
+}
+
+.address_head{
+	font-size: large;	
+}
+
+.address{ 
+	top:10px;
+	position:relative;
+	left:25px;
+}
+
+.address_submit{
+	width:80%;
+	position:relative;
+	background:blue;
+	height:50px;
+	color:red;
+	border-radius:10px;
+	font-size:20px;
+	line-height:50px;
+	text-align: center;
+	
+}

@@ -1,0 +1,32 @@
+body{margin:0 auto;min-width:320px;max-width:500px;height:100%;background:#FFF;font-size:12px;font-family:Helvetica,STHeiti STXihei,Microsoft JhengHei,Microsoft YaHei,Arial;line-height:1.5;color:#666;-webkit-text-size-adjust:100%!important;-webkit-user-select:none;user-select:none;background-color:#F1F1F2}
+ul,li,dl,dt,dd,p,h1,h2,h3,h4,h5,form,img,div{border:0 none;list-style:outside none none;margin:0;padding:0}
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,dl,dt,dd{margin:0;padding:0;border:0}
+body{background:#f7f7f7;color:#555;font-size:18px;margin:0 auto;max-width:640px}
+body{color:#666;font-family:Helvetica,STHeiti STXihei,Microsoft JhengHei,Microsoft YaHei,Arial;font-size:14px;line-height:1.5}
+body{margin:0 auto;min-width:320px;max-width:640px;height:100%;background:#FFF;font-size:12px;font-family:Helvetica,STHeiti STXihei,Microsoft JhengHei,Microsoft YaHei,Arial;line-height:1.5;color:#666;-webkit-text-size-adjust:100%!important;-webkit-user-select:none;user-select:none;background-color:#F1F1F2}
+body{background:#f7f7f7;color:#555;font-size:18px;margin:0 auto;max-width:640px}
+body{color:#666;font-family:Helvetica,STHeiti STXihei,Microsoft JhengHei,Microsoft YaHei,Arial;font-size:14px;line-height:1.5}
+body{margin:0 auto;min-width:320px;max-width:640px;height:100%;background:#FFF;font-size:12px;font-family:Helvetica,STHeiti STXihei,Microsoft JhengHei,Microsoft YaHei,Arial;line-height:1.5;color:#666;-webkit-text-size-adjust:100%!important;-webkit-user-select:none;user-select:none;background-color:#F1F1F2}
+.container{
+	min-height:100%;
+	padding-bottom:50px;
+	margin:0 auto;
+	position:relative;
+	width:100%;
+	max-width:650px;
+}
+
+*{-webkit-box-sizing:border-box;box-sizing:border-box}
+ul,li,dl,dt,dd,p,h1,h2,h3,h4,h5,form,img,div{border:0 none;list-style:outside none none;margin:0;padding:0}
+img{max-width:100%;}
+a{
+	color: #fff;
+	text-decoration: none;
+}
+img{max-width:100%;width:auto;height:auto;}
+
+.activityStyle:ACTIVE{
+	border:1px solid RGBA(255,255,0,.5);;
+	background-color:RGBA(255,0,0,.1);
+}
+
