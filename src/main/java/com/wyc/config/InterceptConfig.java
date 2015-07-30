@@ -43,7 +43,7 @@ public class InterceptConfig {
     private DecorateFactory decorateFactory;
     final static Logger logger = LoggerFactory.getLogger(InterceptConfig.class);
     
-    @Around(value="execution (* com.wyc.wx.service.*.*(..))")
+ //   @Around(value="execution (* com.wyc.wx.service.*.*(..))")
     public Object aroundWxService(ProceedingJoinPoint proceedingJoinPoint){
             logger.debug("execution (* com.wyc.wx.service.*.*(..))");
             Object[] args = proceedingJoinPoint.getArgs();
