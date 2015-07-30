@@ -125,7 +125,10 @@ public class InterceptConfig {
                 AccessTokenDecorate accessTokenDecorate = decorateFactory.accessTokenDecorate(myHttpServletRequest);
                 accessTokenDecorate.execute();
                 UserInfoFromWebDecorate userInfoFromWebDecorate = decorateFactory.infoFromWebDecorate(myHttpServletRequest, myHttpServletRequest.getAuthorize());
+                               
                 userInfoFromWebDecorate.execute();
+                System.out.println(myHttpServletRequest.getUserInfo()+"...........userInfo");
+                System.out.println(myHttpServletRequest.getAccessTokenBean()+"...........getAccessTokenBean");
             }
         } catch (Exception e) {
             e.printStackTrace();

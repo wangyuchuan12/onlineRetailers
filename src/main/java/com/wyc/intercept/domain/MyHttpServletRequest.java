@@ -465,7 +465,7 @@ public class MyHttpServletRequest implements HttpServletRequest{
     @Override
     public boolean isRequestedSessionIdFromUrl() {
         // TODO Auto-generated method stub
-        return httpServletRequest.isRequestedSessionIdFromUrl();
+        return httpServletRequest.isRequestedSessionIdFromURL();
     }
 
     @Override
