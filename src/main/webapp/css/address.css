@@ -28,8 +28,8 @@
 	top:10px;
 	position:relative;
 	left:25px;
+	width:100%;
 }
-
 .address_submit{
 	width:80%;
 	position:relative;
@@ -42,3 +42,81 @@
 	text-align: center;
 	
 }
+
+
+.Address_list>ul{
+	top:10px;
+	position:relative;
+}
+
+.Address_list>ul>li{
+	background-color:white;
+	border-bottom: 2px solid black;
+	height:120px;
+}
+
+.Address_list_botton{
+	position:relative;
+	display:inline-block;
+	top:-10px;
+	left:10px;
+}
+
+.address_mark_default{
+	display:inline-block;	
+	padding-right:30px;
+}
+
+.address_mark_type{
+	display:inline-block;
+	position:relative;	
+	border: 1px solid red;
+	border-radius:14px;
+    padding:0px 3px 6px 4px;
+	width:35px;
+	height:16px; 
+	font-size:1px;
+}
+
+.address_mark{
+	display:block;
+	position:relative;
+	float: right;
+	right:130px;
+	top:20px;
+	color:red;
+	
+}
+.Address_edit{
+	display:inline-block;
+	position:relative;
+	float: right;
+	top:40px;
+}
+
+
+.Address_list_information{
+	position:relative;
+	display:inline-block;
+	left:20px;
+	top:20px;
+}
+.Address_add{
+	width:390px; 
+	height:75px;
+	padding:10px;
+	color:red;
+}
+.address_add_button{
+	width:600px;
+	height:43px; 
+	background-color:#ff0000;
+	font-size:14px;
+	position:relative;
+    bottom:60px;
+    left:30px;
+    font-weight: bold;
+    font-size:large;
+    color:white;
+}
+
