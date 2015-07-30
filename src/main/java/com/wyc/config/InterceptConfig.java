@@ -122,11 +122,7 @@ public class InterceptConfig {
         //注入userinfo的逻辑，依赖于authorize
         try {
             if(method.getAnnotation(UserInfoFromWebAnnotation.class)!=null){
-                String code = httpServletRequest.getParameter("code");
-                AuthorizeDecorate authorizeDecorate = decorateFactory.authorizeDecorate(myHttpServletRequest, code);
-                authorizeDecorate.execute();
-                UserInfoFromWebDecorate userInfoFromWebDecorate = decorateFactory.infoFromWebDecorate(myHttpServletRequest, myHttpServletRequest.getAuthorize());
-                               
+                UserInfoFromWebDecorate userInfoFromWebDecorate = decorateFactory.infoFromWebDecorate(myHttpServletRequest, myHttpServletRequest.getAuthorize());               
                 userInfoFromWebDecorate.execute();
                 System.out.println(myHttpServletRequest.getUserInfo()+"...........userInfo");
                 System.out.println(myHttpServletRequest.getAccessTokenBean()+"...........getAccessTokenBean");
