@@ -116,10 +116,10 @@ public class InterceptConfig {
         logger.debug("invoke the method is {}",method);
         MyHttpServletRequest myHttpServletRequest = new MyHttpServletRequest(httpServletRequest);
         String tokenId = myHttpServletRequest.getParameter("token");
+        Token token = tokenService.findByIdAndInvalidDateGreaterThan(tokenId, new DateTime());
       //注入accessToken的逻辑
         try {
             if(method.getAnnotation(AccessTokenAnnotation.class)!=null){
-               Token token = tokenService.findByIdAndInvalidDateGreaterThan(tokenId, new DateTime());
                if(token==null){
                    AccessTokenDecorate accessTokenDecorate = decorateFactory.accessTokenDecorate(myHttpServletRequest);
                    accessTokenDecorate.execute();
@@ -127,6 +127,8 @@ public class InterceptConfig {
                    token = new Token();
                    token.setStatus(1);
                    tokenService.add(token);
+                   wxAccessTokenService.add(myHttpServletRequest.getAccessTokenBean());
+                   logger.debug("save token success,the token is {}",token);
                    
                }else{
                    AccessTokenBean accessTokenBean = wxAccessTokenService.findByToken(tokenId);
