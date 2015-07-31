@@ -62,12 +62,12 @@
 			   </ul>
 		 </div>
 				
-				
+		 <div class="Address_add "><input type="button" value="新增地址" class="address_add_button"/></div>		
       </div>  
        
  
   </div>
-  <div class="Address_add "><input type="button" value="新增地址" class="address_add_button"/></div>
+ 
 	
  
 

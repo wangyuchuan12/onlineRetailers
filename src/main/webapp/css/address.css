@@ -42,17 +42,27 @@
 	text-align: center;
 	
 }
-
+.Address{
+    width:100%;	
+    position:relative;
+}
+.Address_list{
+    width:100%;
+    position:relative;
+}
 
 .Address_list>ul{
 	top:10px;
 	position:relative;
+	
 }
 
 .Address_list>ul>li{
 	background-color:white;
 	border-bottom: 2px solid black;
 	height:120px;
+	width:100%;
+	
 }
 
 .Address_list_botton{
@@ -60,6 +70,7 @@
 	display:inline-block;
 	top:-10px;
 	left:10px;
+	
 }
 
 .address_mark_default{
@@ -108,15 +119,15 @@
 	color:red;
 }
 .address_add_button{
-	width:600px;
+	width:80%;
 	height:43px; 
 	background-color:#ff0000;
 	font-size:14px;
 	position:relative;
-    bottom:60px;
-    left:30px;
+	bottom:-200px;
     font-weight: bold;
     font-size:large;
     color:white;
+    text-align: center;      
 }
 
