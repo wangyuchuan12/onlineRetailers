@@ -84,45 +84,46 @@ public class GroupsAction {
         return "main/Groups";
     }
     
-    @RequestMapping("/info/group_info")
-
+    @RequestMapping("/info/group_info2")
+    @UserInfoFromWebAnnotation
+    @AccessTokenAnnotation
+    @AuthorizeAnnotation
     public String groupInfo(HttpServletRequest httpServletRequest)throws Exception{
-//        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
-//        String id = httpServletRequest.getParameter("id");
-//        GoodGroup goodGroup = goodGroupService.findOne(id);
-//        int result = goodGroup.getResult();
-//        Iterable<GroupPartake> groupPartakes = groupPartakeService.findAllByGroupId(id);
-//        String goodId = goodGroup.getGoodId();
-//        Good good = goodService.findOne(goodId);
-//        String goodName = good.getName();
-//        String headImg = myResourceService.findOne(good.getHeadImg()).getUrl();
-//        int groupNum = good.getGroupNum();
-//        float totalPrice = goodGroup.getTotalPrice();
-//        List<Map<String, String>> groupMembers = new ArrayList<Map<String,String>>();
-//        for(GroupPartake groupPartake:groupPartakes){
-//            Map<String, String> groupMember = new HashMap<String, String>();
-//            String customerId = groupPartake.getCustomerid();
-//            Customer customer = customerService.findOne(customerId);
-//            String openid = customer.getOpenid();
-//            AccessTokenBean accessTokenBean = myHttpServletRequest.getAccessTokenBean();
-//            UserInfo userInfo = myHttpServletRequest.getUserInfo();
-//            groupMember.put("name", userInfo.getNickname());
-//            groupMember.put("headImg", userInfo.getHeadimgurl());
-//            groupMember.put("role", groupPartake.getRole()+"");
-//            SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//            groupMember.put("datetime", sFormat.format(groupPartake.getDateTime().toDate()));
-//            groupMembers.add(groupMember);
-//        }
-//       
-//        Map<String, Object> groupInfoMap = new HashMap<String, Object>();
-//        groupInfoMap.put("result", result);
-//        groupInfoMap.put("goodName", goodName);
-//        groupInfoMap.put("headImg", headImg);
-//        groupInfoMap.put("groupNum", groupNum);
-//        groupInfoMap.put("totalPrice", totalPrice);
-//        groupInfoMap.put("groupPartake", groupMembers);
-//        httpServletRequest.setAttribute("groupInfo", groupInfoMap);
-        logger.debug("......................groupInfo");
+        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
+        String id = httpServletRequest.getParameter("id");
+        GoodGroup goodGroup = goodGroupService.findOne(id);
+        int result = goodGroup.getResult();
+        Iterable<GroupPartake> groupPartakes = groupPartakeService.findAllByGroupId(id);
+        String goodId = goodGroup.getGoodId();
+        Good good = goodService.findOne(goodId);
+        String goodName = good.getName();
+        String headImg = myResourceService.findOne(good.getHeadImg()).getUrl();
+        int groupNum = good.getGroupNum();
+        float totalPrice = goodGroup.getTotalPrice();
+        List<Map<String, String>> groupMembers = new ArrayList<Map<String,String>>();
+        for(GroupPartake groupPartake:groupPartakes){
+            Map<String, String> groupMember = new HashMap<String, String>();
+            String customerId = groupPartake.getCustomerid();
+            Customer customer = customerService.findOne(customerId);
+            String openid = customer.getOpenid();
+            AccessTokenBean accessTokenBean = myHttpServletRequest.getAccessTokenBean();
+            UserInfo userInfo = myHttpServletRequest.getUserInfo();
+            groupMember.put("name", userInfo.getNickname());
+            groupMember.put("headImg", userInfo.getHeadimgurl());
+            groupMember.put("role", groupPartake.getRole()+"");
+            SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            groupMember.put("datetime", sFormat.format(groupPartake.getDateTime().toDate()));
+            groupMembers.add(groupMember);
+        }
+       
+        Map<String, Object> groupInfoMap = new HashMap<String, Object>();
+        groupInfoMap.put("result", result);
+        groupInfoMap.put("goodName", goodName);
+        groupInfoMap.put("headImg", headImg);
+        groupInfoMap.put("groupNum", groupNum);
+        groupInfoMap.put("totalPrice", totalPrice);
+        groupInfoMap.put("groupPartake", groupMembers);
+        httpServletRequest.setAttribute("groupInfo", groupInfoMap);
         return "info/GroupInfo";
     }
     
