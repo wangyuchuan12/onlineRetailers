@@ -20,7 +20,6 @@
  <meta http-equiv="Expires" content="0">
 	</head>
 	<body>
-	 ........ "${token}"
 		<div class="container">
 			<div class="group_goodinfo">
 				<a href="">
