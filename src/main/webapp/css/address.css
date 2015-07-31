@@ -45,8 +45,7 @@
 .Address{ 
 	top:10px;
 	position:relative;
-	left:25px;
-	width:100%;
+	width:90%;
 }
 
 .Address_list>ul{
