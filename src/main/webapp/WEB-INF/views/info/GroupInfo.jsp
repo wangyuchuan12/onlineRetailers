@@ -20,7 +20,8 @@
  <meta http-equiv="Expires" content="0">
 	</head>
 	<body>
-		<div class="container">
+		groupInfo
+		<%-- <div class="container">
 			<div class="group_goodinfo">
 				<a href="">
 					<div class="group_goodinfo_img">
@@ -107,6 +108,6 @@
             </div>
 		<div class="footer3">
                 <a class="goto_gootlist">我也开个团，点此回商品列表</a>
-     	</div>
+     	</div> --%>
 	</body>
 </html>
