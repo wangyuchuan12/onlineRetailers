@@ -1,5 +1,7 @@
 package com.wyc.service;
 
+import java.util.UUID;
+
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ public class TokenService {
     }
     
     public Token add(Token token){
+        token.setId(UUID.randomUUID().toString());
         token.setCreateAt(new DateTime());
         token.setUpdateAt(new DateTime());
         return tokenRepository.save(token);
