@@ -2,13 +2,16 @@ package com.wyc.wx.controller.action.test;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wyc.service.TokenService;
 import com.wyc.wx.domain.AccessTokenBean;
 import com.wyc.wx.domain.Authorize;
 import com.wyc.wx.domain.Result;
+import com.wyc.wx.domain.Token;
 import com.wyc.wx.domain.UserInfo;
 import com.wyc.wx.service.BasicSupportService;
 import com.wyc.wx.service.MenuService;
@@ -25,6 +28,8 @@ public class ServiceTest {
     private UserService userService;
     @Autowired
     private MenuService menuService;
+    @Autowired
+    private TokenService tokenservice;
     @RequestMapping("/wx/getAccessTokenBean_test")
     public AccessTokenBean getAccessTokenBeanTest(HttpServletRequest httpRequest){
         try {
@@ -106,5 +111,10 @@ public class ServiceTest {
             e.printStackTrace();
         }
         return null;
+    }
+    
+    @RequestMapping("/service/get_token")
+    public Token getToken(){
+        return tokenservice.findByIdAndInvalidDateGreaterThan("2",new DateTime());
     }
 }

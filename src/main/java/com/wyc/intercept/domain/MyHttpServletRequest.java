@@ -29,6 +29,7 @@ import com.wyc.wx.domain.Authorize;
 import com.wyc.wx.domain.Button;
 import com.wyc.wx.domain.JsapiTicketBean;
 import com.wyc.wx.domain.Result;
+import com.wyc.wx.domain.Token;
 import com.wyc.wx.domain.UserInfo;
 
 public class MyHttpServletRequest implements HttpServletRequest{
@@ -39,6 +40,13 @@ public class MyHttpServletRequest implements HttpServletRequest{
     private AccessTokenBean accessTokenBean;
     private Authorize authorize;
     private Button button;
+    private Token token;
+    public Token getToken() {
+        return token;
+    }
+    public void setToken(Token token) {
+        this.token = token;
+    }
     public void setHttpServletRequest(HttpServletRequest httpServletRequest) {
         this.httpServletRequest = httpServletRequest;
     }

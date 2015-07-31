@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,13 @@ import com.wyc.httpdecorate.AuthorizeDecorate;
 import com.wyc.httpdecorate.DecorateFactory;
 import com.wyc.httpdecorate.UserInfoFromWebDecorate;
 import com.wyc.intercept.domain.MyHttpServletRequest;
+import com.wyc.service.TokenService;
+import com.wyc.service.WxAccessTokenService;
+import com.wyc.service.WxAuthorizeService;
+import com.wyc.service.WxUserInfoService;
+import com.wyc.wx.domain.AccessTokenBean;
 import com.wyc.wx.domain.Authorize;
+import com.wyc.wx.domain.Token;
 import com.wyc.wx.domain.WxContext;
 import com.wyc.wx.service.OauthService;
 import com.wyc.wx.service.UserService;
@@ -41,6 +48,15 @@ public class InterceptConfig {
     private AutowireCapableBeanFactory factory;
     @Autowired
     private DecorateFactory decorateFactory;
+    @Autowired
+    private TokenService tokenService;
+    
+    @Autowired
+    private WxAccessTokenService wxAccessTokenService;
+    @Autowired
+    private WxAuthorizeService wxAuthorizeService;
+    @Autowired
+    private WxUserInfoService wxUserInfoService;
     final static Logger logger = LoggerFactory.getLogger(InterceptConfig.class);
     
  //   @Around(value="execution (* com.wyc.wx.service.*.*(..))")
@@ -89,7 +105,7 @@ public class InterceptConfig {
         logger.debug("the args is {}",str);
         HttpServletRequest httpServletRequest = (HttpServletRequest)args[0];
         Method method = null;
-        
+      
         for(Method oneMethod:target.getClass().getMethods()){
             if(oneMethod.getName().equals(proceedingJoinPoint.getSignature().getName())){
                 method = oneMethod;
@@ -99,13 +115,32 @@ public class InterceptConfig {
         
         logger.debug("invoke the method is {}",method);
         MyHttpServletRequest myHttpServletRequest = new MyHttpServletRequest(httpServletRequest);
-        
+        String tokenId = myHttpServletRequest.getParameter("token");
       //注入accessToken的逻辑
         try {
             if(method.getAnnotation(AccessTokenAnnotation.class)!=null){
-               AccessTokenDecorate accessTokenDecorate = decorateFactory.accessTokenDecorate(myHttpServletRequest);
-               accessTokenDecorate.execute();
-               logger.debug("inject accessToken to myHttpServletRequest the acessToken is {}",myHttpServletRequest.getAccessTokenBean());
+               Token token = tokenService.findByIdAndInvalidDateGreaterThan(tokenId, new DateTime());
+               if(token==null){
+                   AccessTokenDecorate accessTokenDecorate = decorateFactory.accessTokenDecorate(myHttpServletRequest);
+                   accessTokenDecorate.execute();
+                   logger.debug("inject accessToken to myHttpServletRequest the acessToken is {}",myHttpServletRequest.getAccessTokenBean());
+                   token = new Token();
+                   token.setStatus(1);
+                   tokenService.add(token);
+                   
+               }else{
+                   AccessTokenBean accessTokenBean = wxAccessTokenService.findByToken(tokenId);
+                   if(accessTokenBean!=null){
+                       myHttpServletRequest.setAccessTokenBean(accessTokenBean);
+                   }else{
+                       AccessTokenDecorate accessTokenDecorate = decorateFactory.accessTokenDecorate(myHttpServletRequest);
+                       accessTokenDecorate.execute();
+                       accessTokenBean = myHttpServletRequest.getAccessTokenBean();
+                       wxAccessTokenService.add(accessTokenBean);
+                   }
+                   accessTokenBean.setToken(token.getId());
+               }
+               myHttpServletRequest.setToken(token);
                
             }
         } catch (Exception e) {

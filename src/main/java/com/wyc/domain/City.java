@@ -22,6 +22,7 @@ public class City {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
     @Column(name = "update_at")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
     public DateTime getCreateAt() {
         return createAt;

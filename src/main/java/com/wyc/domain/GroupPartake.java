@@ -28,6 +28,7 @@ public class GroupPartake {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
     @Column(name = "update_at")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
     public int getRole() {
         return role;
