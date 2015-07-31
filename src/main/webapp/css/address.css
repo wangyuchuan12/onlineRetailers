@@ -46,7 +46,7 @@
 	top:10px;
 	position:relative;
 	 background:red;
-	width:100%;
+	width:390px; 
 }
 .Address_list{
     background:green;
@@ -119,9 +119,10 @@
 	background:#00ffff;
 }
 .Address_add{
-	width:100%; 
+	width:390px; 
 	height:75px;
 	padding:10px;
+	color:red;
 }
 .address_add_button{
 	width:80%;
