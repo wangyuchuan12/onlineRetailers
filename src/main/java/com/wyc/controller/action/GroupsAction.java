@@ -44,9 +44,6 @@ public class GroupsAction {
     @Autowired
     private CustomerService customerService;
     final static Logger logger = LoggerFactory.getLogger(GroupsAction.class);
-    public GroupsAction() {
-        System.out.println("GoodsAction......");
-    }
     @RequestMapping("/main/group_list")
     @AuthorizeAnnotation
     public String groupList(HttpServletRequest servletRequest)throws Exception{
@@ -59,6 +56,7 @@ public class GroupsAction {
             return "main/Groups";
         }
         Customer customer = customerService.findByOpenId(openId);
+        logger.debug("get the customer is {}",customer);
         if(customer==null){
             return "main/Groups";
         }
@@ -68,7 +66,7 @@ public class GroupsAction {
         for(GroupPartake groupPartake:groupPartakes){
             groupIds.add(groupPartake.getGroupId());
         }
-       
+        logger.debug("current customer group id list is {}",groupIds);
         Iterable<GoodGroup> goodGroups = goodGroupService.findAll(groupIds);
         List<Map<String, String>> responseGroups = new ArrayList<Map<String,String>>();
         for(GoodGroup goodGroup:goodGroups){
@@ -82,7 +80,6 @@ public class GroupsAction {
             responseGroup.put("group_id", goodGroup.getId());
             responseGroups.add(responseGroup);
         }
-        System.out.println("responseGroups.............."+responseGroups.size());
         servletRequest.setAttribute("groups", responseGroups);
         return "main/Groups";
     }
@@ -108,10 +105,8 @@ public class GroupsAction {
             Map<String, String> groupMember = new HashMap<String, String>();
             String customerId = groupPartake.getCustomerid();
             Customer customer = customerService.findOne(customerId);
-            System.out.println(customerId+".............customerId");
             String openid = customer.getOpenid();
             AccessTokenBean accessTokenBean = myHttpServletRequest.getAccessTokenBean();
-            System.out.println(accessTokenBean.getAccess_token()+"..............");
             UserInfo userInfo = myHttpServletRequest.getUserInfo();
             groupMember.put("name", userInfo.getNickname());
             groupMember.put("headImg", userInfo.getHeadimgurl());

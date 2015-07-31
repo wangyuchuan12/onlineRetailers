@@ -64,7 +64,7 @@ public class InterceptConfig {
                 } catch (Throwable e) {
                     StringBuffer sb2 = new StringBuffer();
                     for(StackTraceElement stackTraceElement:e.getStackTrace()){
-                        sb2.append(stackTraceElement);
+                        sb2.append(stackTraceElement+"\r\n");
                     }
                     logger.error(sb2.toString());
                 }
@@ -80,7 +80,13 @@ public class InterceptConfig {
     @Around(value="execution (* com.wyc.controller.action.*.*(..))")
     public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint){
         Object target = proceedingJoinPoint.getTarget();
+        logger.debug("around target is {}",target);
         Object[] args  = proceedingJoinPoint.getArgs();
+        String str = null;
+        for(Object arg:args){
+            str+=arg+",";
+        }
+        logger.debug("the args is {}",str);
         HttpServletRequest httpServletRequest = (HttpServletRequest)args[0];
         Method method = null;
         
@@ -91,7 +97,7 @@ public class InterceptConfig {
             }
         }
         
-        
+        logger.debug("invoke the method is {}",method);
         MyHttpServletRequest myHttpServletRequest = new MyHttpServletRequest(httpServletRequest);
         
       //注入accessToken的逻辑
@@ -99,9 +105,11 @@ public class InterceptConfig {
             if(method.getAnnotation(AccessTokenAnnotation.class)!=null){
                AccessTokenDecorate accessTokenDecorate = decorateFactory.accessTokenDecorate(myHttpServletRequest);
                accessTokenDecorate.execute();
+               logger.debug("inject accessToken to myHttpServletRequest the acessToken is {}",myHttpServletRequest.getAccessTokenBean());
+               
             }
         } catch (Exception e) {
-            
+            logger.debug("inject accessToken to myHttpServletRequest has error");
             e.printStackTrace();
         }
         
@@ -110,11 +118,14 @@ public class InterceptConfig {
         try {
             if(method.getAnnotation(AuthorizeAnnotation.class)!=null){
                 String code = httpServletRequest.getParameter("code");
+               
                 AuthorizeDecorate authorizeDecorate = decorateFactory.authorizeDecorate(myHttpServletRequest, code);
                 authorizeDecorate.execute();
-                
+                logger.debug("the code is {}",code);
+                logger.debug("inject Authorize to myHttpServletRequest success , the Authorize is {}",myHttpServletRequest.getAuthorize());
             }
         } catch (Exception e) {
+            logger.debug("inject Authorize to myHttpServletRequest has error");
            e.printStackTrace();
         }
         
@@ -124,10 +135,10 @@ public class InterceptConfig {
             if(method.getAnnotation(UserInfoFromWebAnnotation.class)!=null){
                 UserInfoFromWebDecorate userInfoFromWebDecorate = decorateFactory.infoFromWebDecorate(myHttpServletRequest, myHttpServletRequest.getAuthorize());               
                 userInfoFromWebDecorate.execute();
-                System.out.println(myHttpServletRequest.getUserInfo()+"...........userInfo");
-                System.out.println(myHttpServletRequest.getAccessTokenBean()+"...........getAccessTokenBean");
+                logger.debug("inject UserInfo to myHttpServletRequest success , the UserInfo is {}",myHttpServletRequest.getUserInfo());
             }
         } catch (Exception e) {
+            logger.debug("inject UserInfo from web to myHttpServletRequest has error");
             e.printStackTrace();
         }
         
@@ -141,9 +152,11 @@ public class InterceptConfig {
         
         try {
             Object url = proceedingJoinPoint.proceed(args);
+            logger.debug("return url is {}",url);
             return url;
         } catch (Throwable e) {
             // TODO Auto-generated catch block
+            logger.error("invoke action method has error");
             e.printStackTrace();
         }
         return null;
