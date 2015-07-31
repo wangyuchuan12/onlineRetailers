@@ -127,6 +127,7 @@ public class InterceptConfig {
                    token = new Token();
                    token.setStatus(1);
                    tokenService.add(token);
+                   myHttpServletRequest.getAccessTokenBean().setToken(token.getId());
                    wxAccessTokenService.add(myHttpServletRequest.getAccessTokenBean());
                    logger.debug("save token success,the token is {}",token);
                    
