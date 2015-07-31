@@ -20,9 +20,11 @@
  <meta http-equiv="Expires" content="0">
 	</head>
 	<body>
+	 ........ $(token)
 		<div class="container">
 			<div class="group_goodinfo">
 				<a href="">
+				
 					<div class="group_goodinfo_img">
 						<img src="${groupInfo.headImg}"></img>
 					</div>
@@ -40,7 +42,7 @@
 							<div class="member">
 								<img src="${member.headImg}"/>
 								<c:if test="${member.role==1}">
-									<span class="member_obvious">团</span>
+									<span class="member_obvious">团 </span>
 									<span class="member_kind">长</span>
 								</c:if>
 								

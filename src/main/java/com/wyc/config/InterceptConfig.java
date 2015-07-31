@@ -186,8 +186,7 @@ public class InterceptConfig {
         if(myHttpServletRequest!=null){
             args[0] = myHttpServletRequest;
         }
-        
-        
+        myHttpServletRequest.setAttribute("token", token.getId());
         try {
             Object url = proceedingJoinPoint.proceed(args);
             logger.debug("return url is {}",url);
