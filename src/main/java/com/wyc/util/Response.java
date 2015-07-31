@@ -22,12 +22,12 @@ public class Response {
 		byte[] jsonBytes = new byte[this.inputStream.available()];
 		inputStream.read(jsonBytes);
 		String message = new String(jsonBytes,charsetName);
+		logger.debug("readMessageFromWx:"+message);
 		return message;
 	}
 	
 	public <T>T readObject(Class<T> t)throws Exception{
 	    String message = read();
-	    logger.debug("readMessageFromWx:"+message);
 	    ObjectMapper objectMapper = new ObjectMapper();
 	    return objectMapper.readValue(message, t);
 	}
