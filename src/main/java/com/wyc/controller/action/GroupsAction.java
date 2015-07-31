@@ -92,6 +92,7 @@ public class GroupsAction {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         String id = httpServletRequest.getParameter("id");
         GoodGroup goodGroup = goodGroupService.findOne(id);
+        logger.debug("the group id is {}",id);
         int result = goodGroup.getResult();
         Iterable<GroupPartake> groupPartakes = groupPartakeService.findAllByGroupId(id);
         String goodId = goodGroup.getGoodId();
