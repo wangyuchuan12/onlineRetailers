@@ -42,16 +42,12 @@
 	text-align: center;
 	
 }
-.Address{ 
-	top:10px;
-	position:relative;
-	width:90%;
-}
+
 
 .Address_list>ul{
 	top:10px;
 	position:relative;
-	
+	width:100%;
 }
 
 .Address_list>ul>li{
