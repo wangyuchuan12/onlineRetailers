@@ -55,17 +55,16 @@
 						</div>
 						<div class="address_mark">
 							<div class="address_mark_default">默认</div>
-							<div class="address_mark_type">公司</div>
 						</div>
 						<div class="Address_edit">编辑</div>
 					</li>
-						</div>
+			   </ul>
+		 </div>
 					</li>
-				</ul>
-            </div>  
-		</div>
-		
-	     <div class="Address_add "><input type="button" value="新增地址" class="address_add_button"/></div>
+				
+      </div>  
+  </div>
+	 <div class="Address_add "><input type="button" value="新增地址" class="address_add_button"/></div>
     </div>
  
 

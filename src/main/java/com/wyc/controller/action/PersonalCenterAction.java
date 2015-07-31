@@ -16,4 +16,9 @@ public class PersonalCenterAction {
     public String addressAdd(HttpServletRequest httpServletRequest){
         return "info/AddressInfo";
     }
+    
+    @RequestMapping("/info/address")
+    public String address(HttpServletRequest httpServletRequest){
+        return "info/Address";
+    }
 }
