@@ -42,19 +42,16 @@
 	text-align: center;
 	
 }
-.Address{
-    width:100%;	
-    position:relative;
-}
-.Address_list{
-    width:100%;
-    position:relative;
+.Address{ 
+	top:10px;
+	position:relative;
+	
 }
 
 .Address_list>ul{
 	top:10px;
 	position:relative;
-	
+	width:100%;
 }
 
 .Address_list>ul>li{
@@ -93,7 +90,7 @@
 	display:block;
 	position:relative;
 	float: right;
-	right:130px;
+	right:30px;
 	top:20px;
 	color:red;
 	
