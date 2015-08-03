@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,8 @@ public class UserInterceptService implements InterceptService<UserInfo>{
     private AccessTokenInterceptService accessTokenService;
     @Autowired
     private TokenService tokenService;
+    
+    final static Logger logger = LoggerFactory.getLogger(UserInterceptService.class);
     public void setCode(String code){
         this.code = code;
     }
@@ -37,6 +41,7 @@ public class UserInterceptService implements InterceptService<UserInfo>{
         authorizeInterceptService.setCode(code);
         Authorize authorize = authorizeInterceptService.getFromWx();
         UserInfo userInfo = userService.getUserInfoFromWeb(accessTokenBean.getAccess_token(), authorize.getOpenid(), 1);
+        logger.debug("get UserInfo from wx,the object is {}",userInfo);
         return userInfo;
     }
 
@@ -44,16 +49,19 @@ public class UserInterceptService implements InterceptService<UserInfo>{
     public boolean localValid(String tokenId) {
         Token token = tokenService.findByIdAndInvalidDateGreaterThan(tokenId, new DateTime());
         if(token==null){
+            logger.debug("check local token is null");
             return false;
         }else{
+            logger.debug("check local token is null");
             return true;
         }
     }
 
     @Override
     public UserInfo getFromDatabase(String token) {
-        // TODO Auto-generated method stub
-        return wxUserInfoService.findByToken(token);
+        UserInfo userInfo = wxUserInfoService.findByToken(token);
+        logger.debug("get UserInfo from database,the object is {}",userInfo);
+        return userInfo;
     }
 
     @Override
@@ -67,6 +75,7 @@ public class UserInterceptService implements InterceptService<UserInfo>{
         token = tokenService.add(token);
         t.setToken(token.getId());
         wxUserInfoService.add(t);
+        logger.debug("save the userInfo to database,the UserInfo is {},the token is {}",t,token.getId());
         return token;
     }
 

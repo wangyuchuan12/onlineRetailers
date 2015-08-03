@@ -35,10 +35,11 @@ public class AccessTokenInterceptService implements InterceptService<AccessToken
     public boolean localValid(String tokenId) {
         Token token = tokenService.findByIdAndInvalidDateGreaterThan(tokenId, new DateTime());
         if(token!=null){
-            logger.debug("check local token is null");
+            logger.debug("check local token is not null");
+            
             return true;
         }else{
-            logger.debug("check local token is not null");
+            logger.debug("check local token is null");
             return false;
         }
     }

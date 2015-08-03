@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,7 @@ public class AuthorizeInterceptService implements InterceptService<Authorize>{
     private WxAuthorizeService wxAuthorizeService;
     @Autowired
     private TokenService tokenService;
+    final static Logger logger = LoggerFactory.getLogger(AuthorizeInterceptService.class);
     public void setCode(String code) {
         this.code = code;
     }
@@ -29,6 +32,7 @@ public class AuthorizeInterceptService implements InterceptService<Authorize>{
     @Override
     public Authorize getFromWx() throws Exception {
         Authorize authorize = oauthService.getAuthorizeByCode(code);
+        logger.debug("get authorize from wx,the object is {}",authorize);
         return authorize;
     }
 
@@ -37,8 +41,10 @@ public class AuthorizeInterceptService implements InterceptService<Authorize>{
         Token token = tokenService.findByIdAndInvalidDateGreaterThan(tokenId, new DateTime());
         if(token==null)
         {
+            logger.debug("check local token is null");
             return false;
         }else{
+            logger.debug("check local token is not null");
             return true;
         }
     }
@@ -46,6 +52,7 @@ public class AuthorizeInterceptService implements InterceptService<Authorize>{
     @Override
     public Authorize getFromDatabase(String token) {
         Authorize authorize = wxAuthorizeService.findByToken(token);
+        logger.debug("get authorize from database,the object is {}",authorize);
         return authorize;
     }
 
@@ -60,6 +67,7 @@ public class AuthorizeInterceptService implements InterceptService<Authorize>{
         token = tokenService.add(token);
         t.setToken(token.getId());
         wxAuthorizeService.add(t);
+        logger.debug("save the Authorize to database,the Authorize is {},the token is {}",t,token.getId());
         return token;
     }
 
