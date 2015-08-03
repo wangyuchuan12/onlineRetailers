@@ -64,7 +64,7 @@ public class UserInterceptService implements InterceptService<UserInfo>{
         Token token = new Token();
         token.setStatus(1);
         token.setInvalidDate(new DateTime(calendar.getTime()));
-        token = tokenService.save(token);
+        token = tokenService.add(token);
         t.setToken(token.getId());
         wxUserInfoService.add(t);
         return token;
