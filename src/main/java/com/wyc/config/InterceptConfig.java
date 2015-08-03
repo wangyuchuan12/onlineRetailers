@@ -111,7 +111,10 @@ public class InterceptConfig {
         logger.debug("invoke the method is {}",method);
         MyHttpServletRequest myHttpServletRequest = new MyHttpServletRequest(httpServletRequest);
         String tokenId = myHttpServletRequest.getParameter("token");
-        Token token = tokenService.findByIdAndInvalidDateGreaterThan(tokenId, new DateTime());
+        Token token = null;
+        if(tokenId!=null){
+            token = tokenService.findByIdAndInvalidDateGreaterThan(tokenId, new DateTime());
+        }
         
         if(method.getAnnotation(AccessTokenAnnotation.class)!=null){
             if(token!=null){
