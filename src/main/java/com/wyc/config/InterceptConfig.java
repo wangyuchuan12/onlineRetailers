@@ -18,10 +18,10 @@ import com.wyc.annotation.AccessTokenAnnotation;
 import com.wyc.annotation.AuthorizeAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.intercept.domain.MyHttpServletRequest;
-import com.wyc.intercept.service.AccessTokenInterceptService;
-import com.wyc.intercept.service.AuthorizeInterceptService;
-import com.wyc.intercept.service.UserInterceptService;
 import com.wyc.service.TokenService;
+import com.wyc.smart.service.AccessTokenSmartService;
+import com.wyc.smart.service.AuthorizeSmartService;
+import com.wyc.smart.service.UserSmartService;
 import com.wyc.wx.domain.AccessTokenBean;
 import com.wyc.wx.domain.Authorize;
 import com.wyc.wx.domain.Token;
@@ -47,14 +47,14 @@ public class InterceptConfig {
     @Autowired
     private TokenService tokenService;
     @Autowired
-    private AccessTokenInterceptService accessTokenInterceptService;
+    private AccessTokenSmartService accessTokenSmartService;
     @Autowired
-    private AuthorizeInterceptService authorizeInterceptService;
+    private AuthorizeSmartService authorizeSmartService;
     @Autowired
-    private UserInterceptService userInterceptService;
+    private UserSmartService userSmartService;
     final static Logger logger = LoggerFactory.getLogger(InterceptConfig.class);
     
- //   @Around(value="execution (* com.wyc.wx.service.*.*(..))")
+    @Around(value="execution (* com.wyc.wx.service.*.*(..))")
     public Object aroundWxService(ProceedingJoinPoint proceedingJoinPoint){
             logger.debug("execution (* com.wyc.wx.service.*.*(..))");
             Object[] args = proceedingJoinPoint.getArgs();
@@ -118,13 +118,13 @@ public class InterceptConfig {
         
         if(method.getAnnotation(AccessTokenAnnotation.class)!=null){
             if(token!=null){
-                myHttpServletRequest.setAccessTokenBean(accessTokenInterceptService.getFromDatabase(token.getId()));
+                myHttpServletRequest.setAccessTokenBean(accessTokenSmartService.getFromDatabase(token.getId()));
             }else{
                 try {
-                    AccessTokenBean accessTokenBean = accessTokenInterceptService.getFromWx();
+                    AccessTokenBean accessTokenBean = accessTokenSmartService.getFromWx();
                     if(accessTokenBean!=null){
                         myHttpServletRequest.setAccessTokenBean(accessTokenBean);
-                        token = accessTokenInterceptService.saveToDatabase(accessTokenBean);
+                        token = accessTokenSmartService.saveToDatabase(accessTokenBean);
                     }
                 } catch (Exception e) {
                    logger.error("get accessToken from wx error");
@@ -135,14 +135,14 @@ public class InterceptConfig {
         }
         if(method.getAnnotation(AuthorizeAnnotation.class)!=null){
             if(token!=null){
-                Authorize authorize = authorizeInterceptService.getFromDatabase(token.getId());
+                Authorize authorize = authorizeSmartService.getFromDatabase(token.getId());
                 myHttpServletRequest.setAuthorize(authorize);
             }else{
                 try {
-                    Authorize authorize = authorizeInterceptService.getFromWx();
+                    Authorize authorize = authorizeSmartService.getFromWx();
                     if(authorize!=null){
                         myHttpServletRequest.setAuthorize(authorize);
-                        token = authorizeInterceptService.saveToDatabase(authorize);
+                        token = authorizeSmartService.saveToDatabase(authorize);
                     }
                 } catch (Exception e) {
                     logger.error("get authorize from wx error");
@@ -154,25 +154,26 @@ public class InterceptConfig {
         
         if(method.getAnnotation(UserInfoFromWebAnnotation.class)!=null){
             logger.debug("the method has UserInfoFromWebAnnotation");
-            
-            if(token!=null){
-                UserInfo userInfo = userInterceptService.getFromDatabase(token.getId());
-                myHttpServletRequest.setUserInfo(userInfo);
-            }else{
+            String openid = myHttpServletRequest.getParameter("openid");
+            if(openid!=null){
+                userSmartService.setOpenid(openid);
+            }
+            UserInfo userInfo = userSmartService.getFromDatabase(token.getId());
+            if(userInfo==null){
                 try {
-                    userInterceptService.setCode(myHttpServletRequest.getParameter("code"));
-                    UserInfo userInfo = userInterceptService.getFromWx();
+                    userSmartService.setCode(myHttpServletRequest.getParameter("code"));
+                    userInfo = userSmartService.getFromWx();
                     if(userInfo!=null){
-                        myHttpServletRequest.setUserInfo(userInfo);
-                        token = userInterceptService.saveToDatabase(userInfo);
+                        
+                        token = userSmartService.saveToDatabase(userInfo);
                     }
                 } catch (Exception e) {
                     logger.error("get userInfo from wx error");
                     e.printStackTrace();
                     
                 }
-                
             }
+            myHttpServletRequest.setUserInfo(userInfo);
         }
         
         

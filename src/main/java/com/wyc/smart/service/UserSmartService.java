@@ -1,4 +1,4 @@
-package com.wyc.intercept.service;
+package com.wyc.smart.service;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -17,23 +17,29 @@ import com.wyc.wx.domain.Token;
 import com.wyc.wx.domain.UserInfo;
 import com.wyc.wx.service.UserService;
 @Service
-public class UserInterceptService implements InterceptService<UserInfo>{
+public class UserSmartService implements SmartService<UserInfo>{
     private String code;
+    private String openid;
     @Autowired
     private UserService userService;
     @Autowired
     private WxUserInfoService wxUserInfoService;
     @Autowired
-    private AuthorizeInterceptService authorizeInterceptService;
+    private AuthorizeSmartService authorizeInterceptService;
     @Autowired
-    private AccessTokenInterceptService accessTokenService;
+    private AccessTokenSmartService accessTokenService;
     @Autowired
     private TokenService tokenService;
     
-    final static Logger logger = LoggerFactory.getLogger(UserInterceptService.class);
+    final static Logger logger = LoggerFactory.getLogger(UserSmartService.class);
     public void setCode(String code){
         this.code = code;
     }
+    
+    public void setOpenid(String openid){
+        this.openid = openid;
+    }
+    
     @Override
     public UserInfo getFromWx() throws Exception{
         authorizeInterceptService.setCode(code);
@@ -50,15 +56,22 @@ public class UserInterceptService implements InterceptService<UserInfo>{
             logger.debug("check local token is null");
             return false;
         }else{
-            logger.debug("check local token is null");
+            logger.debug("check local token is not null");
             return true;
         }
     }
 
     @Override
     public UserInfo getFromDatabase(String token) {
-        UserInfo userInfo = wxUserInfoService.findByToken(token);
-        logger.debug("get UserInfo from database,the object is {}",userInfo);
+        UserInfo userInfo = null;
+        if(token!=null){
+            userInfo = wxUserInfoService.findByToken(token);
+            logger.debug("get UserInfo from database by token,the object is {},the token is {}",userInfo,token);
+        }
+        if(userInfo==null){
+            logger.debug("get UserInfo from database by openid,the object is {},the openid is {}",userInfo , openid);
+            userInfo = wxUserInfoService.findByOpenid(openid);
+        }
         return userInfo;
     }
 

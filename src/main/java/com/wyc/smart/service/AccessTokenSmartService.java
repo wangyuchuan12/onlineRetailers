@@ -1,4 +1,4 @@
-package com.wyc.intercept.service;
+package com.wyc.smart.service;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -16,14 +16,14 @@ import com.wyc.wx.domain.AccessTokenBean;
 import com.wyc.wx.domain.Token;
 import com.wyc.wx.service.BasicSupportService;
 @Service
-public class AccessTokenInterceptService implements InterceptService<AccessTokenBean>{
+public class AccessTokenSmartService implements SmartService<AccessTokenBean>{
     @Autowired
     private BasicSupportService basicSuppertService;
     @Autowired
     private WxAccessTokenService wxAccessTokenService;
     @Autowired
     private TokenService tokenService;
-    final static Logger logger = LoggerFactory.getLogger(AccessTokenInterceptService.class);
+    final static Logger logger = LoggerFactory.getLogger(AccessTokenSmartService.class);
     @Override
     public AccessTokenBean getFromWx()throws Exception{
         AccessTokenBean accessTokenBean = basicSuppertService.getAccessTokenBean();

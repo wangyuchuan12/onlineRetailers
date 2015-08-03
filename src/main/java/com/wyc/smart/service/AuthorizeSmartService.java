@@ -1,4 +1,4 @@
-package com.wyc.intercept.service;
+package com.wyc.smart.service;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -16,7 +16,7 @@ import com.wyc.wx.domain.Authorize;
 import com.wyc.wx.domain.Token;
 import com.wyc.wx.service.OauthService;
 @Service
-public class AuthorizeInterceptService implements InterceptService<Authorize>{
+public class AuthorizeSmartService implements SmartService<Authorize>{
     private String code;
     @Autowired
     private OauthService oauthService;
@@ -24,7 +24,7 @@ public class AuthorizeInterceptService implements InterceptService<Authorize>{
     private WxAuthorizeService wxAuthorizeService;
     @Autowired
     private TokenService tokenService;
-    final static Logger logger = LoggerFactory.getLogger(AuthorizeInterceptService.class);
+    final static Logger logger = LoggerFactory.getLogger(AuthorizeSmartService.class);
     public void setCode(String code) {
         this.code = code;
     }

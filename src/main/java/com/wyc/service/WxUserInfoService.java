@@ -27,4 +27,8 @@ public class WxUserInfoService {
     public UserInfo findByToken(String token){
         return userInfoRepository.findByToken(token);
     }
+    
+    public UserInfo findByOpenid(String openid){
+        return userInfoRepository.findByOpenid(openid);
+    }
 }

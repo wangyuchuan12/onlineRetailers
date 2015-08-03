@@ -13,6 +13,8 @@ public class Token {
     private String id;
     @Column
     private int status;
+    @Column(unique=true)
+    private String key;
     @Column
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime invalidDate;
@@ -23,6 +25,13 @@ public class Token {
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
+    
+    public String getKey() {
+        return key;
+    }
+    public void setKey(String key) {
+        this.key = key;
+    }
     public DateTime getInvalidDate() {
         return invalidDate;
     }
