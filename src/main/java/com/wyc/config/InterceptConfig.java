@@ -151,11 +151,13 @@ public class InterceptConfig {
         
         if(method.getAnnotation(UserInfoFromWebAnnotation.class)!=null){
             logger.debug("the method has UserInfoFromWebAnnotation");
+            
             if(token!=null){
                 UserInfo userInfo = userInterceptService.getFromDatabase(token.getId());
                 myHttpServletRequest.setUserInfo(userInfo);
             }else{
                 try {
+                    userInterceptService.setCode(myHttpServletRequest.getParameter("code"));
                     UserInfo userInfo = userInterceptService.getFromWx();
                     if(userInfo!=null){
                         myHttpServletRequest.setUserInfo(userInfo);
