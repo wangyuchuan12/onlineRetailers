@@ -21,4 +21,9 @@ public class PersonalCenterAction {
     public String address(HttpServletRequest httpServletRequest){
         return "info/Address";
     }
+   
+    @RequestMapping("/info/coupon")
+    public String coupon(HttpServletRequest httpServletRequest){
+        return "info/coupon";
+    }
 }
