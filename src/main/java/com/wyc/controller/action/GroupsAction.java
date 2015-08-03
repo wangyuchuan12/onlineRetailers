@@ -85,7 +85,7 @@ public class GroupsAction {
     }
     
     @RequestMapping("/info/group_info2")
-    @AccessTokenAnnotation
+    @UserInfoFromWebAnnotation
     public String groupInfo(HttpServletRequest httpServletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         String id = httpServletRequest.getParameter("id");

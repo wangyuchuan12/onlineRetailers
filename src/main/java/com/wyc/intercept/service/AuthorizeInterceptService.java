@@ -44,7 +44,7 @@ public class AuthorizeInterceptService implements InterceptService<Authorize>{
     }
 
     @Override
-    public Authorize getFromDatabase(String token) throws Exception {
+    public Authorize getFromDatabase(String token) {
         Authorize authorize = wxAuthorizeService.findByToken(token);
         return authorize;
     }

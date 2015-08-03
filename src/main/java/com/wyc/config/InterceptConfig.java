@@ -17,21 +17,15 @@ import com.danga.MemCached.MemCachedClient;
 import com.wyc.annotation.AccessTokenAnnotation;
 import com.wyc.annotation.AuthorizeAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
-import com.wyc.httpdecorate.AccessTokenDecorate;
-import com.wyc.httpdecorate.AuthorizeDecorate;
-import com.wyc.httpdecorate.DecorateFactory;
-import com.wyc.httpdecorate.UserInfoFromWebDecorate;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.intercept.service.AccessTokenInterceptService;
 import com.wyc.intercept.service.AuthorizeInterceptService;
 import com.wyc.intercept.service.UserInterceptService;
 import com.wyc.service.TokenService;
-import com.wyc.service.WxAccessTokenService;
-import com.wyc.service.WxAuthorizeService;
-import com.wyc.service.WxUserInfoService;
 import com.wyc.wx.domain.AccessTokenBean;
 import com.wyc.wx.domain.Authorize;
 import com.wyc.wx.domain.Token;
+import com.wyc.wx.domain.UserInfo;
 import com.wyc.wx.domain.WxContext;
 import com.wyc.wx.service.OauthService;
 import com.wyc.wx.service.UserService;
@@ -132,6 +126,44 @@ public class InterceptConfig {
                 } catch (Exception e) {
                    logger.error("get accessToken from wx error");
                    e.printStackTrace();
+                }
+                
+            }
+        }
+        if(method.getAnnotation(AuthorizeAnnotation.class)!=null){
+            if(token!=null){
+                Authorize authorize = authorizeInterceptService.getFromDatabase(token.getId());
+                myHttpServletRequest.setAuthorize(authorize);
+            }else{
+                try {
+                    Authorize authorize = authorizeInterceptService.getFromWx();
+                    if(authorize!=null){
+                        myHttpServletRequest.setAuthorize(authorize);
+                        token = authorizeInterceptService.saveToDatabase(authorize);
+                    }
+                } catch (Exception e) {
+                    logger.error("get authorize from wx error");
+                    e.printStackTrace();
+                }
+                
+            }
+        }
+        
+        if(method.getAnnotation(UserInfoFromWebAnnotation.class)!=null){
+            if(token!=null){
+                UserInfo userInfo = userInterceptService.getFromDatabase(token.getId());
+                myHttpServletRequest.setUserInfo(userInfo);
+            }else{
+                try {
+                    UserInfo userInfo = userInterceptService.getFromWx();
+                    if(userInfo!=null){
+                        myHttpServletRequest.setUserInfo(userInfo);
+                        token = userInterceptService.saveToDatabase(userInfo);
+                    }
+                } catch (Exception e) {
+                    logger.error("get userInfo from wx error");
+                    e.printStackTrace();
+                    
                 }
                 
             }

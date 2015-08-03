@@ -54,31 +54,28 @@ public class GoodsAction {
 	}
 	
 	@RequestMapping("/info/good_info")
-	@AccessTokenAnnotation
 	public String goodInfo(HttpServletRequest httpRequest){
-	    MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpRequest;
-	    logger.debug("accessToken is {}",myHttpServletRequest.getAccessTokenBean());
-//	    String goodId = httpRequest.getParameter("id");
-//	    Good good = goodService.findOne(goodId);
-//	    Map<String, Object> responseGood = new HashMap<String, Object>();
-//            responseGood.put("id", good.getId());
-//            responseGood.put("instruction", good.getInstruction());
-//            responseGood.put("name", good.getName());
-//            responseGood.put("alone_discount", good.getAloneDiscount());
-//            responseGood.put("alone_original_cost", good.getAloneOriginalCost());
-//            responseGood.put("flow_price", good.getFlowPrice());
-//            responseGood.put("group_discount", good.getGroupDiscount());
-//            responseGood.put("group_num", good.getGroupNum());
-//            responseGood.put("group_original_cost", good.getGroupOriginalCost());
-//            responseGood.put("market_price", good.getMarketPrice());
-//            responseGood.put("coupon_cost", good.getCouponCost());
-//            responseGood.put("group_cost", good.getGroupDiscount()*good.getGroupOriginalCost());
-//            responseGood.put("alone_cost", good.getAloneDiscount()*good.getAloneOriginalCost());
-//            MyResource myResource = resourceService.findOne(good.getHeadImg());
-//            if(myResource!=null){
-//                responseGood.put("head_img", myResource.getUrl());
-//            }
-//            httpRequest.setAttribute("good", responseGood);
+	    String goodId = httpRequest.getParameter("id");
+	    Good good = goodService.findOne(goodId);
+	    Map<String, Object> responseGood = new HashMap<String, Object>();
+            responseGood.put("id", good.getId());
+            responseGood.put("instruction", good.getInstruction());
+            responseGood.put("name", good.getName());
+            responseGood.put("alone_discount", good.getAloneDiscount());
+            responseGood.put("alone_original_cost", good.getAloneOriginalCost());
+            responseGood.put("flow_price", good.getFlowPrice());
+            responseGood.put("group_discount", good.getGroupDiscount());
+            responseGood.put("group_num", good.getGroupNum());
+            responseGood.put("group_original_cost", good.getGroupOriginalCost());
+            responseGood.put("market_price", good.getMarketPrice());
+            responseGood.put("coupon_cost", good.getCouponCost());
+            responseGood.put("group_cost", good.getGroupDiscount()*good.getGroupOriginalCost());
+            responseGood.put("alone_cost", good.getAloneDiscount()*good.getAloneOriginalCost());
+            MyResource myResource = resourceService.findOne(good.getHeadImg());
+            if(myResource!=null){
+                responseGood.put("head_img", myResource.getUrl());
+            }
+            httpRequest.setAttribute("good", responseGood);
             return "info/GoodInfo";
 	}
 	
