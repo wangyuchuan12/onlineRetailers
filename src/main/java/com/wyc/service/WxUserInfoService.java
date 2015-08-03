@@ -1,5 +1,8 @@
 package com.wyc.service;
 
+import java.util.UUID;
+
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +14,9 @@ public class WxUserInfoService {
     @Autowired
     private WxUserInfoRepository userInfoRepository;
     public void add(UserInfo userInfo){
+        userInfo.setUpdateAt(new DateTime());
+        userInfo.setCreateAt(new DateTime());
+        userInfo.setId(UUID.randomUUID().toString());
         userInfoRepository.save(userInfo);
     }
     
