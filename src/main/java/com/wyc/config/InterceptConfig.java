@@ -150,6 +150,7 @@ public class InterceptConfig {
         }
         
         if(method.getAnnotation(UserInfoFromWebAnnotation.class)!=null){
+            logger.debug("the method has UserInfoFromWebAnnotation");
             if(token!=null){
                 UserInfo userInfo = userInterceptService.getFromDatabase(token.getId());
                 myHttpServletRequest.setUserInfo(userInfo);
@@ -174,7 +175,9 @@ public class InterceptConfig {
         if(myHttpServletRequest!=null){
             args[0] = myHttpServletRequest;
         }
-        myHttpServletRequest.setAttribute("token", token.getId());
+        if(token!=null){
+            myHttpServletRequest.setAttribute("token", token.getId());
+        }
         try {
             Object url = proceedingJoinPoint.proceed(args);
             logger.debug("return url is {}",url);
