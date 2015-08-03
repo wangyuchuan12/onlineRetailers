@@ -23,6 +23,12 @@ public class Token {
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
+    public DateTime getInvalidDate() {
+        return invalidDate;
+    }
+    public void setInvalidDate(DateTime invalidDate) {
+        this.invalidDate = invalidDate;
+    }
     public DateTime getCreateAt() {
         return createAt;
     }

@@ -22,6 +22,9 @@ import com.wyc.httpdecorate.AuthorizeDecorate;
 import com.wyc.httpdecorate.DecorateFactory;
 import com.wyc.httpdecorate.UserInfoFromWebDecorate;
 import com.wyc.intercept.domain.MyHttpServletRequest;
+import com.wyc.intercept.service.AccessTokenInterceptService;
+import com.wyc.intercept.service.AuthorizeInterceptService;
+import com.wyc.intercept.service.UserInterceptService;
 import com.wyc.service.TokenService;
 import com.wyc.service.WxAccessTokenService;
 import com.wyc.service.WxAuthorizeService;
@@ -46,17 +49,15 @@ public class InterceptConfig {
     private MemCachedClient memCachedClient;
     @Autowired
     private AutowireCapableBeanFactory factory;
-    @Autowired
-    private DecorateFactory decorateFactory;
+
     @Autowired
     private TokenService tokenService;
-    
     @Autowired
-    private WxAccessTokenService wxAccessTokenService;
+    private AccessTokenInterceptService accessTokenInterceptService;
     @Autowired
-    private WxAuthorizeService wxAuthorizeService;
+    private AuthorizeInterceptService authorizeInterceptService;
     @Autowired
-    private WxUserInfoService wxUserInfoService;
+    private UserInterceptService userInterceptService;
     final static Logger logger = LoggerFactory.getLogger(InterceptConfig.class);
     
  //   @Around(value="execution (* com.wyc.wx.service.*.*(..))")
@@ -117,69 +118,20 @@ public class InterceptConfig {
         MyHttpServletRequest myHttpServletRequest = new MyHttpServletRequest(httpServletRequest);
         String tokenId = myHttpServletRequest.getParameter("token");
         Token token = tokenService.findByIdAndInvalidDateGreaterThan(tokenId, new DateTime());
-      //注入accessToken的逻辑
-        try {
-            if(method.getAnnotation(AccessTokenAnnotation.class)!=null){
-               if(token==null){
-                   AccessTokenDecorate accessTokenDecorate = decorateFactory.accessTokenDecorate(myHttpServletRequest);
-                   accessTokenDecorate.execute();
-                   logger.debug("inject accessToken to myHttpServletRequest the acessToken is {}",myHttpServletRequest.getAccessTokenBean());
-                   token = new Token();
-                   token.setStatus(1);
-                   tokenService.add(token);
-                   myHttpServletRequest.getAccessTokenBean().setToken(token.getId());
-                   wxAccessTokenService.add(myHttpServletRequest.getAccessTokenBean());
-                   logger.debug("save token success,the token is {}",token);
-                   
-               }else{
-                   AccessTokenBean accessTokenBean = wxAccessTokenService.findByToken(tokenId);
-                   if(accessTokenBean!=null){
-                       myHttpServletRequest.setAccessTokenBean(accessTokenBean);
-                   }else{
-                       AccessTokenDecorate accessTokenDecorate = decorateFactory.accessTokenDecorate(myHttpServletRequest);
-                       accessTokenDecorate.execute();
-                       accessTokenBean = myHttpServletRequest.getAccessTokenBean();
-                       wxAccessTokenService.add(accessTokenBean);
-                   }
-                   accessTokenBean.setToken(token.getId());
-               }
-               myHttpServletRequest.setToken(token);
-               
+        
+        if(method.getAnnotation(AccessTokenAnnotation.class)!=null){
+            if(token!=null){
+                myHttpServletRequest.setAccessTokenBean(accessTokenInterceptService.getFromDatabase(token.getId()));
+            }else{
+                try {
+                    myHttpServletRequest.setAccessTokenBean(accessTokenInterceptService.getFromWx());
+                } catch (Exception e) {
+                   logger.error("get accessToken from wx error");
+                   e.printStackTrace();
+                }
+                
             }
-        } catch (Exception e) {
-            logger.debug("inject accessToken to myHttpServletRequest has error");
-            e.printStackTrace();
         }
-        
-        
-        //注入authorize的逻辑
-        try {
-            if(method.getAnnotation(AuthorizeAnnotation.class)!=null){
-                String code = httpServletRequest.getParameter("code");
-               
-                AuthorizeDecorate authorizeDecorate = decorateFactory.authorizeDecorate(myHttpServletRequest, code);
-                authorizeDecorate.execute();
-                logger.debug("the code is {}",code);
-                logger.debug("inject Authorize to myHttpServletRequest success , the Authorize is {}",myHttpServletRequest.getAuthorize());
-            }
-        } catch (Exception e) {
-            logger.debug("inject Authorize to myHttpServletRequest has error");
-           e.printStackTrace();
-        }
-        
-        
-        //注入userinfo的逻辑，依赖于authorize
-        try {
-            if(method.getAnnotation(UserInfoFromWebAnnotation.class)!=null){
-                UserInfoFromWebDecorate userInfoFromWebDecorate = decorateFactory.infoFromWebDecorate(myHttpServletRequest, myHttpServletRequest.getAuthorize());               
-                userInfoFromWebDecorate.execute();
-                logger.debug("inject UserInfo to myHttpServletRequest success , the UserInfo is {}",myHttpServletRequest.getUserInfo());
-            }
-        } catch (Exception e) {
-            logger.debug("inject UserInfo from web to myHttpServletRequest has error");
-            e.printStackTrace();
-        }
-        
         
         
         
