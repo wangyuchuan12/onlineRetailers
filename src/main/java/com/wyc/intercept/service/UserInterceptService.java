@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.wyc.service.TokenService;
 import com.wyc.service.WxUserInfoService;
-import com.wyc.wx.domain.AccessTokenBean;
 import com.wyc.wx.domain.Authorize;
 import com.wyc.wx.domain.Token;
 import com.wyc.wx.domain.UserInfo;
@@ -37,10 +36,9 @@ public class UserInterceptService implements InterceptService<UserInfo>{
     }
     @Override
     public UserInfo getFromWx() throws Exception{
-        AccessTokenBean accessTokenBean = accessTokenService.getFromWx();
         authorizeInterceptService.setCode(code);
         Authorize authorize = authorizeInterceptService.getFromWx();
-        UserInfo userInfo = userService.getUserInfoFromWeb(accessTokenBean.getAccess_token(), authorize.getOpenid(), 1);
+        UserInfo userInfo = userService.getUserInfoFromWeb(authorize.getAccess_token(), authorize.getOpenid(), 1);
         logger.debug("get UserInfo from wx,the object is {}",userInfo);
         return userInfo;
     }
