@@ -59,7 +59,7 @@ public class AuthorizeInterceptService implements InterceptService<Authorize>{
         token.setInvalidDate(new DateTime(calendar.getTime()));
         token = tokenService.save(token);
         t.setToken(token.getId());
-        wxAuthorizeService.save(t);
+        wxAuthorizeService.add(t);
         return token;
     }
 

@@ -60,7 +60,7 @@ public class AccessTokenInterceptService implements InterceptService<AccessToken
         token.setInvalidDate(new DateTime(calendar.getTime()));
         token = tokenService.save(token);
         t.setToken(token.getId());
-        wxAccessTokenService.save(t);
+        wxAccessTokenService.add(t);
         logger.debug("save the accessTokenBean to database,the accessTokenbean is {},the token is {}",t,token.getId());
         return token;
     }
