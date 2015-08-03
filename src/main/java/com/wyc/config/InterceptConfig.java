@@ -127,7 +127,7 @@ public class InterceptConfig {
                     AccessTokenBean accessTokenBean = accessTokenInterceptService.getFromWx();
                     if(accessTokenBean!=null){
                         myHttpServletRequest.setAccessTokenBean(accessTokenBean);
-                        accessTokenInterceptService.saveToDatabase(accessTokenBean);
+                        token = accessTokenInterceptService.saveToDatabase(accessTokenBean);
                     }
                 } catch (Exception e) {
                    logger.error("get accessToken from wx error");
