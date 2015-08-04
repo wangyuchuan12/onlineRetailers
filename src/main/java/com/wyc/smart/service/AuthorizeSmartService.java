@@ -47,18 +47,40 @@ public class AuthorizeSmartService implements SmartService<Authorize>{
     }
 
     @Override
-    public Token saveToDatabase(Authorize t , String tokenKey) throws Exception {
+    public Token saveToDatabase(Authorize t , String tokenKey){
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(new Date());
         calendar.add(Calendar.SECOND, Integer.parseInt(t.getExpires_in())-100);
-        Token token = new Token();
-        token.setStatus(1);
-        token.setInvalidDate(new DateTime(calendar.getTime()));
-        token.setTokenKey(tokenKey);
-        token = tokenService.add(token);
-        t.setToken(token.getId());
-       
-        wxAuthorizeService.add(t);
+        Token token = tokenService.findByTokenKey(tokenKey);
+        if(token==null){
+            token = new Token();
+            token.setStatus(1);
+            token.setInvalidDate(new DateTime(calendar.getTime()));
+            token.setTokenKey(tokenKey);
+            t.setToken(token.getId());
+            token = tokenService.add(token);
+        }else{
+            token.setStatus(1);
+            token.setInvalidDate(new DateTime(calendar.getTime()));
+            token.setTokenKey(tokenKey);
+            t.setToken(token.getId());
+            token = tokenService.save(token);
+        }
+        Authorize authorize = wxAuthorizeService.findByToken(token.getId());
+        if(authorize==null){
+            authorize = new Authorize();
+            authorize.setAccess_token(t.getAccess_token());
+            authorize.setExpires_in(t.getExpires_in());
+            authorize.setOpenid(t.getOpenid());
+            authorize.setRefresh_token(t.getRefresh_token());
+            authorize.setScope(t.getScope());
+            authorize.setToken(t.getId());
+            authorize.setUnionid(t.getUnionid());
+            wxAuthorizeService.add(authorize);
+        }else{
+            t.setToken(t.getId());
+            wxAuthorizeService.save(t);
+        }
         logger.debug("save the Authorize to database,the Authorize is {},the token is {}",t,token.getId());
         return token;
     }

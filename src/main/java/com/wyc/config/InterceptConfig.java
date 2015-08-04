@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,11 +148,53 @@ public class InterceptConfig {
             myHttpServletRequest.setAccessTokenBean(accessTokenBean);
         }
         if(method.getAnnotation(AuthorizeAnnotation.class)!=null){
-            
+            Authorize authorize = null;
+            if(tokenId!=null){
+                authorize = authorizeSmartService.getFromDatabase(tokenId);
+                logger.debug("get authorize from database by token {} , return object is {}",tokenId , authorize);
+            }
+            String key = authorizeSmartService.generateKey();
+            if(authorize==null){
+                authorize = authorizeSmartService.getFromDatabaseByKey(key);
+                logger.debug("get authorize from database by key {} , return object is {}",key , authorize);
+            }
+            if(authorize==null){
+                try {
+                    authorize = authorizeSmartService.getFromWx();
+                } catch (Exception e) {
+                    logger.error("get authorize from wx has error");
+                    e.printStackTrace();
+                }
+                
+                token = authorizeSmartService.saveToDatabase(authorize, key);
+                logger.debug("save to database success ,the key is {} , the token is " , key , token);
+            }
+            myHttpServletRequest.setAuthorize(authorize);
         }
         
         if(method.getAnnotation(UserInfoFromWebAnnotation.class)!=null){
-            logger.debug("the method has UserInfoFromWebAnnotation");
+            UserInfo userInfo = null;
+            if(tokenId!=null){
+                userInfo = userSmartService.getFromDatabase(tokenId);
+                logger.debug("get userInfo from database by token {} , return object is {}",tokenId , userInfo);
+            }
+            String key = userSmartService.generateKey();
+            if(userInfo==null){
+                userInfo = userSmartService.getFromDatabaseByKey(key);
+                logger.debug("get userInfo from database by key {} , return object is {}",key , userInfo);
+            }
+            if(userInfo==null){
+                try {
+                    userInfo = userSmartService.getFromWx();
+                } catch (Exception e) {
+                    logger.error("get userInfo from wx has error");
+                    e.printStackTrace();
+                }
+                
+                token = userSmartService.saveToDatabase(userInfo, key);
+                logger.debug("save to database success ,the key is {} , the token is " , key , token);
+            }
+            myHttpServletRequest.setUserInfo(userInfo);
         }
         
         

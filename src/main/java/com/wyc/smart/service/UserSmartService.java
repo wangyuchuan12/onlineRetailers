@@ -71,13 +71,43 @@ public class UserSmartService implements SmartService<UserInfo>{
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(new Date());
         calendar.add(Calendar.HOUR, 24);
-        Token token = new Token();
-        token.setStatus(1);
-        token.setInvalidDate(new DateTime(calendar.getTime()));
-        token.setTokenKey(tokenKey);
-        token = tokenService.add(token);
-        t.setToken(token.getId());
-        wxUserInfoService.add(t);
+        Token token = tokenService.findByTokenKey(tokenKey);
+        if(token==null){
+            token = new Token();
+            token.setStatus(1);
+            token.setInvalidDate(new DateTime(calendar.getTime()));
+            token.setTokenKey(tokenKey);
+            token = tokenService.add(token);
+        }else{
+            token.setStatus(1);
+            token.setInvalidDate(new DateTime(calendar.getTime()));
+            token.setTokenKey(tokenKey);
+            token = tokenService.save(token);
+        }
+       
+        UserInfo userInfo = wxUserInfoService.findByToken(token.getId());
+        if(userInfo==null){
+            t.setToken(token.getId());
+            wxUserInfoService.add(t);
+        }else{
+            userInfo.setCity(t.getCity());
+            userInfo.setCountry(t.getCountry());
+            userInfo.setGroupid(t.getGroupid());
+            userInfo.setHeadimgurl(t.getHeadimgurl());
+            userInfo.setLanguage(t.getLanguage());
+            userInfo.setNickname(t.getNickname());
+            userInfo.setOpenid(t.getOpenid());
+            userInfo.setPrivilege(t.getPrivilege());
+            userInfo.setProvince(t.getProvince());
+            userInfo.setRemark(t.getRemark());
+            userInfo.setSex(t.getSex());
+            userInfo.setSubscribe(t.getSubscribe());
+            userInfo.setSubscribe_time(t.getSubscribe_time());
+            userInfo.setUnionid(t.getUnionid());
+            userInfo.setToken(token.getId());
+            wxUserInfoService.save(userInfo);
+        }
+        
         logger.debug("save the userInfo to database,the UserInfo is {},the token is {}",t,token.getId());
         return token;
     }
