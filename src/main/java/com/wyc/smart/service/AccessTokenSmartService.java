@@ -57,11 +57,17 @@ public class AccessTokenSmartService implements SmartService<AccessTokenBean>{
         Token token = tokenService.findByTokenKey(tokenKey);
         if(token==null){
             token = new Token();
+            token.setStatus(1);
+            token.setInvalidDate(new DateTime(calendar.getTime()));
+            token.setTokenKey(tokenKey);
+            token = tokenService.add(token);
+        }else{
+            token.setStatus(1);
+            token.setInvalidDate(new DateTime(calendar.getTime()));
+            token.setTokenKey(tokenKey);
+            token = tokenService.add(token);
         }
-        token.setStatus(1);
-        token.setInvalidDate(new DateTime(calendar.getTime()));
-        token.setTokenKey(tokenKey);
-        token = tokenService.add(token);
+        
         t.setToken(token.getId());
         wxAccessTokenService.add(t);
         logger.debug("save the accessTokenBean to database,the accessTokenbean is {},the token is {}",t,token.getId());
