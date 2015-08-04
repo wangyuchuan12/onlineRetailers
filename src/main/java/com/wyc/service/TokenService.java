@@ -18,6 +18,10 @@ public class TokenService {
         return tokenRepository.findByIdAndInvalidDateGreaterThan(id , dateTime);
     }
     
+    public Token findByKeyAndInvalidDateGreaterThan(String key , DateTime dateTime){
+        return tokenRepository.findByTokenKeyAndInvalidDateGreaterThan(key , dateTime);
+    }
+    
     public Token add(Token token){
         token.setId(UUID.randomUUID().toString());
         token.setCreateAt(new DateTime());

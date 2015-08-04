@@ -15,6 +15,8 @@
         <link rel="stylesheet" href="/css/core.css" />
         <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js">
         </script>
+        <link rel="stylesheet"
+	href="/css/font-awesome.min.css">
     </head>
 <body>
 	<div class="container">
@@ -23,38 +25,48 @@
 				我的优惠券
 			</div>
 			
-			<div class="coupon_rule"><a href="#">使用规则</a></div>
-			
 			<div class="coupon_list">
-				<div class="coupon_list_goods">哈密瓜</div>
-				<div class="coupon_list_limit">
-					<ul>
-						<li>免单团券
-						<li>有效期:2015-8-10至2015-8-15
-						<li>团长免费开团
-				    </ul>
-				</div>
-			</div>
-			
-			<div class="coupon_list">
-				<div class="coupon_list_goods">￥25</div>
-				<div class="coupon_list_limit">
-					<ul>
-						<li>满减券
-						<li>有效期:2015-8-10至2015-8-15
-						<li>单独购买满66元使用
-				    </ul>
-				</div>
-			</div>
-			<div class="coupon_footer">
-			<ul>
-						<li>没有更多优惠券了,
-						<li class="coupon_footer_check"><a href="#">查看过期券</a>
-				    </ul>
+				<ul>
+					<li>
+						<div class="coupon_list_goods">哈密瓜</div>
+						<div class="coupon_list_limit">
+							<ul>
+								<li>免单团券
+								<li>有效期:2015-8-10至2015-8-15
+								<li>团长免费开团
+								<li><b style="color:red">已使用</b>
+						    </ul>
+						</div>
+					</li>
+					<li>
+						<div class="coupon_list_goods">￥25</div>
+						<div class="coupon_list_limit">
+							<ul>
+								<li>满减券
+								<li>有效期:2015-8-10至2015-8-15
+								<li>单独购买满66元使用
+								<li><b style="color:red">已到期</b></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>
-
+<footer class="footer">
+		<nav>
+			<ul>
+				<li><a href="#" class="nav-controller active"><i
+						class="fa fa-home"></i>首页</a></li>
+				<li><a href="groups.html" class="nav-controller"><i
+						class="fa fa-group"></i>我的团</a></li>
+				<li><a href="#" class="nav-controller"><i
+						class="fa fa-list"></i>我的订单</a></li>
+				<li><a href="personal.html" class="nav-controller"><i
+						class="fa fa-user"></i>个人中心</a></li>
+			</ul>
+		</nav>
+</footer>
 
 
 </body>

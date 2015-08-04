@@ -21,4 +21,8 @@ public class WxAuthorizeService {
     public Authorize findByToken(String token){
         return wxAuthorizeRepository.findByToken(token);
     }
+
+    public Authorize findByOpenid(String openid) {
+        return wxAuthorizeRepository.findByOpenid(openid);
+    }
 }

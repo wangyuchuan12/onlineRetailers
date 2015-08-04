@@ -14,7 +14,7 @@ import com.wyc.service.TokenService;
 import com.wyc.service.WxAccessTokenService;
 import com.wyc.wx.domain.AccessTokenBean;
 import com.wyc.wx.domain.Token;
-import com.wyc.wx.domain.UserInfo;
+import com.wyc.wx.domain.WxContext;
 import com.wyc.wx.service.BasicSupportService;
 @Service
 public class AccessTokenSmartService implements SmartService<AccessTokenBean>{
@@ -24,27 +24,24 @@ public class AccessTokenSmartService implements SmartService<AccessTokenBean>{
     private WxAccessTokenService wxAccessTokenService;
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    private WxContext wxContext;
+    
+    private String accessToken;
     final static Logger logger = LoggerFactory.getLogger(AccessTokenSmartService.class);
+    
+    
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
     @Override
     public AccessTokenBean getFromWx()throws Exception{
         AccessTokenBean accessTokenBean = basicSuppertService.getAccessTokenBean();
         logger.debug("get accessTokenBean from wx,the object is {}",accessTokenBean);
         return accessTokenBean;
     }
-
-    @Override
-    public boolean localValid(String tokenId) {
-        Token token = tokenService.findByIdAndInvalidDateGreaterThan(tokenId, new DateTime());
-        if(token!=null){
-            logger.debug("check local token is not null");
-            
-            return true;
-        }else{
-            logger.debug("check local token is null");
-            return false;
-        }
-    }
-
+    
     @Override
     public AccessTokenBean getFromDatabase(String token) {
         AccessTokenBean accessTokenBean = wxAccessTokenService.findByToken(token);
@@ -53,13 +50,15 @@ public class AccessTokenSmartService implements SmartService<AccessTokenBean>{
     }
 
     @Override
-    public Token saveToDatabase(AccessTokenBean t) {
+    public Token saveToDatabase(AccessTokenBean t,String tokenKey) {
+        
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(new Date());
-        calendar.add(Calendar.HOUR, 24);
+        calendar.add(Calendar.SECOND, Integer.parseInt(t.getExpires_in())-100);
         Token token = new Token();
         token.setStatus(1);
         token.setInvalidDate(new DateTime(calendar.getTime()));
+        token.setToken_key(tokenKey);
         token = tokenService.add(token);
         t.setToken(token.getId());
         wxAccessTokenService.add(t);
@@ -68,26 +67,35 @@ public class AccessTokenSmartService implements SmartService<AccessTokenBean>{
     }
 
     @Override
-    public UserInfo getFromDatabaseByOther() {
-        // TODO Auto-generated method stub
-        return null;
+    public AccessTokenBean getFromDatabaseByOther() {
+        return wxAccessTokenService.findByAccessToken(accessToken);
     }
 
     @Override
     public String generateKey(String... args) {
-        // TODO Auto-generated method stub
-        return null;
+        String appid = wxContext.getAppid();
+        String appscret = wxContext.getAppsecret();
+        StringBuffer sb = new StringBuffer();
+        sb.append("accessToken_");
+        sb.append(appid);
+        sb.append(appscret);
+        sb.append("_");
+        for(String str:args){
+            sb.append(str);
+            sb.append("-");
+        }
+        return sb.toString();
     }
 
-    @Override
-    public boolean duplicate(String key) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+
 
     @Override
-    public UserInfo getFromDatabaseByKey(String key) {
-        // TODO Auto-generated method stub
+    public AccessTokenBean getFromDatabaseByKey(String key) {
+        Token token = tokenService.findByKeyAndInvalidDateGreaterThan(key, new DateTime());
+        if(token!=null){
+            AccessTokenBean accessTokenBean = wxAccessTokenService.findByToken(token.getId());
+            return accessTokenBean;
+        }
         return null;
     }
 }

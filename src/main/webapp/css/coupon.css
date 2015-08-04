@@ -29,29 +29,18 @@
 	position: relative;
 	display: block;
 }
-
-.coupon_rule {
-	width: 100%;
-	height: 25px;
-	border-bottom: 1px solid #c0c0c0;
-	float: left;
-	padding-right:10px;
-	text-align: right;
-	vertical-align: middle;
-	position: relative;
-}
-
-.coupon_rule>a {
-	color: blue;
-}
-
 .coupon_list {
 	width: 100%;
-	height: 130px;
-	border-bottom: 1px solid #c0c0c0;
 	position: relative;
 	float: left;
 	display: block;
+}
+
+.coupon_list>ul>li{
+	border-bottom: 1px solid #c0c0c0;
+	display:block;
+	margin-top:10px;
+	height:100px;
 }
 
 .coupon_list_goods {
@@ -60,32 +49,15 @@
 	float: left;
 	text-align: center;
 	font-size: xx-large;
-	top: 34px
+	top: 20px
 }
 
 .coupon_list_limit {
 	width: 65%;
 	position: relative;
 	float: left;
-	top: 30px;
+	top: 10px;
 	text-align: center line-height: 300%;
 }
 
-.coupon_footer {
-	width: 100%;
-}
 
-.coupon_footer>ul{
-	padding-left:10px;	
-}
-
-.coupon_footer>ul>li {
-	float: left;
-	display: inline-block;
-	position: relative;
-	padding-right: 10px;
-}
-
-.coupon_footer_check>a {
-	color: blue;
-}

@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.wyc.annotation.AccessTokenAnnotation;
 import com.wyc.domain.Good;
 import com.wyc.domain.MyResource;
 import com.wyc.service.GoodService;
@@ -24,6 +26,7 @@ public class GoodsAction {
         private GoodService goodService;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
+	@AccessTokenAnnotation
 	public String goodList(HttpServletRequest httpRequest){
 	        Iterable<Good> databaseGoods = goodService.findAll();
 		List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>();

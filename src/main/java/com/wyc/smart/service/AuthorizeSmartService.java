@@ -14,11 +14,11 @@ import com.wyc.service.TokenService;
 import com.wyc.service.WxAuthorizeService;
 import com.wyc.wx.domain.Authorize;
 import com.wyc.wx.domain.Token;
-import com.wyc.wx.domain.UserInfo;
 import com.wyc.wx.service.OauthService;
 @Service
 public class AuthorizeSmartService implements SmartService<Authorize>{
     private String code;
+    private String openid;
     @Autowired
     private OauthService oauthService;
     @Autowired
@@ -29,25 +29,14 @@ public class AuthorizeSmartService implements SmartService<Authorize>{
     public void setCode(String code) {
         this.code = code;
     }
-
+    public void setOpenid(String openid){
+        this.openid = openid;
+    }
     @Override
     public Authorize getFromWx() throws Exception {
         Authorize authorize = oauthService.getAuthorizeByCode(code);
         logger.debug("get authorize from wx,the object is {}",authorize);
         return authorize;
-    }
-
-    @Override
-    public boolean localValid(String tokenId) throws Exception {
-        Token token = tokenService.findByIdAndInvalidDateGreaterThan(tokenId, new DateTime());
-        if(token==null)
-        {
-            logger.debug("check local token is null");
-            return false;
-        }else{
-            logger.debug("check local token is not null");
-            return true;
-        }
     }
 
     @Override
@@ -58,41 +47,48 @@ public class AuthorizeSmartService implements SmartService<Authorize>{
     }
 
     @Override
-    public Token saveToDatabase(Authorize t) throws Exception {
+    public Token saveToDatabase(Authorize t , String tokenKey) throws Exception {
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(new Date());
-        calendar.add(Calendar.HOUR, 24);
+        calendar.add(Calendar.SECOND, Integer.parseInt(t.getExpires_in())-100);
         Token token = new Token();
         token.setStatus(1);
         token.setInvalidDate(new DateTime(calendar.getTime()));
+        token.setToken_key(tokenKey);
         token = tokenService.add(token);
         t.setToken(token.getId());
+       
         wxAuthorizeService.add(t);
         logger.debug("save the Authorize to database,the Authorize is {},the token is {}",t,token.getId());
         return token;
     }
 
     @Override
-    public UserInfo getFromDatabaseByOther() {
-        // TODO Auto-generated method stub
-        return null;
+    public Authorize getFromDatabaseByOther() {
+        Authorize authorize = wxAuthorizeService.findByOpenid(openid);
+        return authorize;
     }
 
     @Override
     public String generateKey(String... args) {
-        // TODO Auto-generated method stub
-        return null;
+        StringBuffer sb = new StringBuffer();
+        sb.append("authorize_");
+        sb.append(code+"_");
+        for(String arg:args){
+            sb.append(arg);
+            sb.append("-");
+        }
+        return sb.toString();
     }
 
-    @Override
-    public boolean duplicate(String key) {
-        // TODO Auto-generated method stub
-        return false;
-    }
 
     @Override
-    public UserInfo getFromDatabaseByKey(String key) {
-        // TODO Auto-generated method stub
+    public Authorize getFromDatabaseByKey(String key) {
+        Token token = tokenService.findByKeyAndInvalidDateGreaterThan(key, new DateTime());
+        if(token!=null){
+            Authorize authorize = wxAuthorizeService.findByToken(token.getId());
+            return authorize;
+        }
         return null;
     }
 

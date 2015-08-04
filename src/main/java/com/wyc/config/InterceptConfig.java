@@ -112,67 +112,48 @@ public class InterceptConfig {
         MyHttpServletRequest myHttpServletRequest = new MyHttpServletRequest(httpServletRequest);
         String tokenId = myHttpServletRequest.getParameter("token");
         Token token = null;
-        if(tokenId!=null){
-            token = tokenService.findByIdAndInvalidDateGreaterThan(tokenId, new DateTime());
-        }
         
         if(method.getAnnotation(AccessTokenAnnotation.class)!=null){
-            if(token!=null){
-                myHttpServletRequest.setAccessTokenBean(accessTokenSmartService.getFromDatabase(token.getId()));
-            }else{
-                try {
-                    AccessTokenBean accessTokenBean = accessTokenSmartService.getFromWx();
-                    if(accessTokenBean!=null){
-                        myHttpServletRequest.setAccessTokenBean(accessTokenBean);
-                        token = accessTokenSmartService.saveToDatabase(accessTokenBean);
-                    }
-                } catch (Exception e) {
-                   logger.error("get accessToken from wx error");
-                   e.printStackTrace();
-                }
-                
+            
+            AccessTokenBean accessTokenBean = null;
+            if(tokenId!=null){
+                accessTokenBean = accessTokenSmartService.getFromDatabase(tokenId);
+                logger.debug("get accessTokenBean from database by token {} , return object is {}",tokenId , accessTokenBean);
             }
-        }
-        if(method.getAnnotation(AuthorizeAnnotation.class)!=null){
-            if(token!=null){
-                Authorize authorize = authorizeSmartService.getFromDatabase(token.getId());
-                myHttpServletRequest.setAuthorize(authorize);
-            }else{
+            String accessToken = myHttpServletRequest.getParameter("access_token");
+            accessTokenSmartService.setAccessToken(accessToken);
+            if(accessTokenBean==null&&accessToken!=null){
+                accessTokenBean = accessTokenSmartService.getFromDatabaseByOther();
+                logger.debug("get accessTokenBean from database by accessToken {} , return object is {}",accessToken , accessTokenBean);
+            }
+            String key = accessTokenSmartService.generateKey();
+            if(accessTokenBean==null){
+                
+                accessTokenBean = accessTokenSmartService.getFromDatabaseByKey(key);
+                logger.debug("get accessTokenBean from database by key {} , return object is {}",key , accessTokenBean);
+            }
+            
+            if(accessTokenBean==null){
                 try {
-                    Authorize authorize = authorizeSmartService.getFromWx();
-                    if(authorize!=null){
-                        myHttpServletRequest.setAuthorize(authorize);
-                        token = authorizeSmartService.saveToDatabase(authorize);
-                    }
+                    accessTokenBean = accessTokenSmartService.getFromWx();
+                    logger.debug("get accessTokenBean from wx , return object is {}", accessTokenBean);
                 } catch (Exception e) {
-                    logger.error("get authorize from wx error");
+                    logger.error("get accessTokenBean from wx has error");
                     e.printStackTrace();
                 }
                 
+                token = accessTokenSmartService.saveToDatabase(accessTokenBean, key);
+                logger.debug("save to database success ,the key is {} , the token is " , key , token);
+                
             }
+            myHttpServletRequest.setAccessTokenBean(accessTokenBean);
+        }
+        if(method.getAnnotation(AuthorizeAnnotation.class)!=null){
+            
         }
         
         if(method.getAnnotation(UserInfoFromWebAnnotation.class)!=null){
             logger.debug("the method has UserInfoFromWebAnnotation");
-            
-            if(token!=null){
-                UserInfo userInfo = userSmartService.getFromDatabase(token.getId());
-                myHttpServletRequest.setUserInfo(userInfo);
-            }else{
-                try {
-                    userSmartService.setCode(myHttpServletRequest.getParameter("code"));
-                    UserInfo userInfo = userSmartService.getFromWx();
-                    if(userInfo!=null){
-                        myHttpServletRequest.setUserInfo(userInfo);
-                        token = userSmartService.saveToDatabase(userInfo);
-                    }
-                } catch (Exception e) {
-                    logger.error("get userInfo from wx error");
-                    e.printStackTrace();
-                    
-                }
-                
-            }
         }
         
         

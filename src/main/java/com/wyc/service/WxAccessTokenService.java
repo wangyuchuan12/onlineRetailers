@@ -24,4 +24,9 @@ public class WxAccessTokenService {
     public AccessTokenBean findByToken(String token){
         return wxAccessTokenRepository.findByToken(token);
     }
+
+    public AccessTokenBean findByAccessToken(String accessToken) {
+
+        return wxAccessTokenRepository.findByAccessToken(accessToken);
+    }
 }
