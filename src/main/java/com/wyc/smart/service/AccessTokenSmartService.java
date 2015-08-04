@@ -65,7 +65,7 @@ public class AccessTokenSmartService implements SmartService<AccessTokenBean>{
             token.setStatus(1);
             token.setInvalidDate(new DateTime(calendar.getTime()));
             token.setTokenKey(tokenKey);
-            token = tokenService.add(token);
+            token = tokenService.save(token);
         }
         
         t.setToken(token.getId());
