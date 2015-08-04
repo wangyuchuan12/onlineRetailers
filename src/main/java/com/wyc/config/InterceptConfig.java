@@ -185,6 +185,8 @@ public class InterceptConfig {
             }
             if(userInfo==null){
                 try {
+                    String code = myHttpServletRequest.getParameter("code");
+                    userSmartService.setCode(code);
                     userInfo = userSmartService.getFromWx();
                 } catch (Exception e) {
                     logger.error("get userInfo from wx has error");
