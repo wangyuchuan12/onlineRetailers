@@ -14,6 +14,7 @@ import com.wyc.service.TokenService;
 import com.wyc.service.WxAccessTokenService;
 import com.wyc.wx.domain.AccessTokenBean;
 import com.wyc.wx.domain.Token;
+import com.wyc.wx.domain.UserInfo;
 import com.wyc.wx.service.BasicSupportService;
 @Service
 public class AccessTokenSmartService implements SmartService<AccessTokenBean>{
@@ -64,5 +65,29 @@ public class AccessTokenSmartService implements SmartService<AccessTokenBean>{
         wxAccessTokenService.add(t);
         logger.debug("save the accessTokenBean to database,the accessTokenbean is {},the token is {}",t,token.getId());
         return token;
+    }
+
+    @Override
+    public UserInfo getFromDatabaseByOther() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String generateKey(String... args) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean duplicate(String key) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public UserInfo getFromDatabaseByKey(String key) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

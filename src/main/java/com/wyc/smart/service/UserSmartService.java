@@ -68,13 +68,15 @@ public class UserSmartService implements SmartService<UserInfo>{
             userInfo = wxUserInfoService.findByToken(token);
             logger.debug("get UserInfo from database by token,the object is {},the token is {}",userInfo,token);
         }
-        if(userInfo==null){
-            logger.debug("get UserInfo from database by openid,the object is {},the openid is {}",userInfo , openid);
-            userInfo = wxUserInfoService.findByOpenid(openid);
-        }
         return userInfo;
     }
+    
+    @Override
+    public UserInfo getFromDatabaseByOther(){
+        return wxUserInfoService.findByOpenid(openid);
+    }
 
+    
     @Override
     public Token saveToDatabase(UserInfo t) {
         Calendar calendar = new GregorianCalendar();
@@ -88,6 +90,24 @@ public class UserSmartService implements SmartService<UserInfo>{
         wxUserInfoService.add(t);
         logger.debug("save the userInfo to database,the UserInfo is {},the token is {}",t,token.getId());
         return token;
+    }
+
+    @Override
+    public String generateKey(String ... args) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean duplicate(String key) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public UserInfo getFromDatabaseByKey(String key) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     

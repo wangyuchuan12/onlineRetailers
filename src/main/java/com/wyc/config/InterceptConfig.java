@@ -154,17 +154,16 @@ public class InterceptConfig {
         
         if(method.getAnnotation(UserInfoFromWebAnnotation.class)!=null){
             logger.debug("the method has UserInfoFromWebAnnotation");
-            String openid = myHttpServletRequest.getParameter("openid");
-            if(openid!=null){
-                userSmartService.setOpenid(openid);
-            }
-            UserInfo userInfo = userSmartService.getFromDatabase(token.getId());
-            if(userInfo==null){
+            
+            if(token!=null){
+                UserInfo userInfo = userSmartService.getFromDatabase(token.getId());
+                myHttpServletRequest.setUserInfo(userInfo);
+            }else{
                 try {
                     userSmartService.setCode(myHttpServletRequest.getParameter("code"));
-                    userInfo = userSmartService.getFromWx();
+                    UserInfo userInfo = userSmartService.getFromWx();
                     if(userInfo!=null){
-                        
+                        myHttpServletRequest.setUserInfo(userInfo);
                         token = userSmartService.saveToDatabase(userInfo);
                     }
                 } catch (Exception e) {
@@ -172,8 +171,8 @@ public class InterceptConfig {
                     e.printStackTrace();
                     
                 }
+                
             }
-            myHttpServletRequest.setUserInfo(userInfo);
         }
         
         

@@ -14,6 +14,7 @@ import com.wyc.service.TokenService;
 import com.wyc.service.WxAuthorizeService;
 import com.wyc.wx.domain.Authorize;
 import com.wyc.wx.domain.Token;
+import com.wyc.wx.domain.UserInfo;
 import com.wyc.wx.service.OauthService;
 @Service
 public class AuthorizeSmartService implements SmartService<Authorize>{
@@ -69,6 +70,30 @@ public class AuthorizeSmartService implements SmartService<Authorize>{
         wxAuthorizeService.add(t);
         logger.debug("save the Authorize to database,the Authorize is {},the token is {}",t,token.getId());
         return token;
+    }
+
+    @Override
+    public UserInfo getFromDatabaseByOther() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String generateKey(String... args) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean duplicate(String key) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public UserInfo getFromDatabaseByKey(String key) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
