@@ -11,10 +11,10 @@ import org.joda.time.DateTime;
 public class AccessTokenBean {
     @Id
     private String id;
-    @Column
-    private String access_token;
-    @Column
-    private String expires_in;
+    @Column(name="access_token")
+    private String accessToken;
+    @Column(name="expires_in")
+    private String expiresIn;
     @Column(unique=true)
     private String token;
     
@@ -48,16 +48,16 @@ public class AccessTokenBean {
     public void setToken(String token) {
         this.token = token;
     }
-    public String getAccess_token() {
-        return access_token;
+    public String getAccessToken() {
+        return accessToken;
     }
-    public void setAccess_token(String access_token) {
-        this.access_token = access_token;
+    public void setAccessToken(String access_token) {
+        this.accessToken = access_token;
     }
-    public String getExpires_in() {
-        return expires_in;
+    public String getExpiresIn() {
+        return expiresIn;
     }
-    public void setExpires_in(String expires_in) {
-        this.expires_in = expires_in;
+    public void setExpiresIn(String expires_in) {
+        this.expiresIn = expires_in;
     }
 }

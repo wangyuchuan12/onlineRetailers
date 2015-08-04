@@ -106,7 +106,7 @@ public class ServiceTest {
                     "]"+
                 "}";
             AccessTokenBean accessToken = basicSupportService.getAccessTokenBean();
-            return menuService.createMenu(responeJsonStr, accessToken.getAccess_token());
+            return menuService.createMenu(responeJsonStr, accessToken.getAccessToken());
         } catch (Exception e) {
             e.printStackTrace();
         }

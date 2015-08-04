@@ -54,11 +54,11 @@ public class AccessTokenSmartService implements SmartService<AccessTokenBean>{
         
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(new Date());
-        calendar.add(Calendar.SECOND, Integer.parseInt(t.getExpires_in())-100);
+        calendar.add(Calendar.SECOND, Integer.parseInt(t.getExpiresIn())-100);
         Token token = new Token();
         token.setStatus(1);
         token.setInvalidDate(new DateTime(calendar.getTime()));
-        token.setToken_key(tokenKey);
+        token.setTokenKey(tokenKey);
         token = tokenService.add(token);
         t.setToken(token.getId());
         wxAccessTokenService.add(t);

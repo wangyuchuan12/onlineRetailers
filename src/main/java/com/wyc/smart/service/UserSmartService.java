@@ -74,7 +74,7 @@ public class UserSmartService implements SmartService<UserInfo>{
         Token token = new Token();
         token.setStatus(1);
         token.setInvalidDate(new DateTime(calendar.getTime()));
-        token.setToken_key(tokenKey);
+        token.setTokenKey(tokenKey);
         token = tokenService.add(token);
         t.setToken(token.getId());
         wxUserInfoService.add(t);
