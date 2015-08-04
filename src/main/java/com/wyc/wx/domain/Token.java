@@ -14,7 +14,7 @@ public class Token {
     @Column
     private int status;
     @Column(unique=true)
-    private String key;
+    private String token_key;
     @Column
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime invalidDate;
@@ -26,11 +26,12 @@ public class Token {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
     
-    public String getKey() {
-        return key;
+   
+    public String getToken_key() {
+        return token_key;
     }
-    public void setKey(String key) {
-        this.key = key;
+    public void setToken_key(String token_key) {
+        this.token_key = token_key;
     }
     public DateTime getInvalidDate() {
         return invalidDate;
