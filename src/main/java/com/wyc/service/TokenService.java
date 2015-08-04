@@ -33,4 +33,9 @@ public class TokenService {
         token.setUpdateAt(new DateTime());
         return tokenRepository.save(token);
     }
+
+    public void deleteByTokenKey(String tokenKey) {
+       tokenRepository.deleteByTokenKey(tokenKey);
+        
+    }
 }

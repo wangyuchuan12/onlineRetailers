@@ -29,4 +29,5 @@ public class WxAccessTokenService {
 
         return wxAccessTokenRepository.findByAccessToken(accessToken);
     }
+
 }
