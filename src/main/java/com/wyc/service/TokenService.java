@@ -34,8 +34,11 @@ public class TokenService {
         return tokenRepository.save(token);
     }
 
-    public void deleteByTokenKey(String tokenKey) {
-       tokenRepository.deleteByTokenKey(tokenKey);
-        
+    public void delete(String id) {
+       tokenRepository.delete(id);
+    }
+    
+    public Token findByTokenKey(String tokenKey){
+        return tokenRepository.findByTokenKey(tokenKey);
     }
 }

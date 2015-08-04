@@ -10,5 +10,5 @@ import com.wyc.wx.domain.Token;
 public interface TokenRepository extends CrudRepository<Token, String>{
     public Token findByIdAndInvalidDateGreaterThan(String id , DateTime dateTime);
     public Token findByTokenKeyAndInvalidDateGreaterThan(String tokenKey , DateTime dateTime);
-    public void deleteByTokenKey(String tokenKey);
+    public Token findByTokenKey(String tokenKey);
 }

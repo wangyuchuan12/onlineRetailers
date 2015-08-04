@@ -54,8 +54,10 @@ public class AccessTokenSmartService implements SmartService<AccessTokenBean>{
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(new Date());
         calendar.add(Calendar.SECOND, Integer.parseInt(t.getExpiresIn())-100);
-        tokenService.deleteByTokenKey(tokenKey);
-        Token token = new Token();
+        Token token = tokenService.findByTokenKey(tokenKey);
+        if(token==null){
+            token = new Token();
+        }
         token.setStatus(1);
         token.setInvalidDate(new DateTime(calendar.getTime()));
         token.setTokenKey(tokenKey);
