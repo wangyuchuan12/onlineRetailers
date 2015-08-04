@@ -7,13 +7,17 @@ import javax.persistence.Id;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity(name = "access_token_bean")
 public class AccessTokenBean {
     @Id
     private String id;
     @Column(name="access_token")
+    @JsonProperty(value="access_token")
     private String accessToken;
     @Column(name="expires_in")
+    @JsonProperty(value="expires_in")
     private String expiresIn;
     @Column(unique=true)
     private String token;
