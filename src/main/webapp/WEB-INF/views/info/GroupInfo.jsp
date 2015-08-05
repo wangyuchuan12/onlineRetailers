@@ -21,10 +21,7 @@
 	<body>
 		<div class="container">
 			<div class="group_goodinfo">
-			       
-					<div class="group_goodinfo_img"></div>
-				<a href=""></a>
-					
+			      
 					<div class="group_goodinfo_img">
 						<img src="${groupInfo.headImg}"></img>
 					</div>
