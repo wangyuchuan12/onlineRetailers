@@ -83,6 +83,9 @@ public class GoodsAction {
 	public String gootInfoPay(HttpServletRequest httpRequest){
 	    logger.debug(httpRequest.getParameter("state"));
 	    String payType=httpRequest.getParameter("pay_type");
+	    if(payType==null){
+	        payType = httpRequest.getParameter("state");
+	    }
 	    String goodId = httpRequest.getParameter("good_id");
 	    Good good = goodService.findOne(goodId);
 	    MyResource myResource = resourceService.findOne(good.getHeadImg());
