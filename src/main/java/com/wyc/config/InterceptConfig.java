@@ -102,7 +102,8 @@ public class InterceptConfig {
             if(customer==null){
                 customer = new Customer();
                 customer.setOpenId(openid);
-                customerService.add(customer);
+                customer = customerService.add(customer);
+                logger.debug("add customer to database and openid = {},id = {}",openid,customer.getId());
             }
         }
     }

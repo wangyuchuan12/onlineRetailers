@@ -12,16 +12,16 @@ import com.wyc.repositories.CustomerRepository;
 public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
-    public void add(Customer customer){
+    public Customer add(Customer customer){
         customer.setId(UUID.randomUUID().toString());
         customer.setCreateAt(new DateTime());
         customer.setUpdateAt(new DateTime());
-        customerRepository.save(customer);
+        return customerRepository.save(customer);
     }
     
-    public void update(Customer customer){
+    public Customer update(Customer customer){
         customer.setUpdateAt(new DateTime());
-        customerRepository.save(customer);
+        return customerRepository.save(customer);
     }
     
     public void delete(Customer customer){
