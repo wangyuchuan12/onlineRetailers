@@ -101,7 +101,7 @@ public class GoodsAction {
             responseGood.put("alone_cost", good.getAloneDiscount()*good.getAloneOriginalCost());
             responseGood.put("pay_type", payType);
             responseGood.put("head_img", myResource.getUrl());
-            
+            //0表示团购，1表示单独买，2表示开团劵
             if(payType.equals("0")){
                 responseGood.put("cost",good.getFlowPrice()+good.getGroupDiscount()*good.getGroupOriginalCost());
             }else if (payType.equals("1")) {

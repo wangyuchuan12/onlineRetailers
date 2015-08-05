@@ -86,7 +86,7 @@
     <div class="good_info_btns footer2">
     		<ul>
     			<li>
-    				<div class="good_info_btn activityStyle">
+    				<div class="good_info_btn activityStyle" onclick="toPayOnClick('${good.id}',0)">
     					<div class="good_info_btn_price_group">￥${good.group_cost}/件</div>
     					<div class="good_info_btn_type">${good.group_num}人团</div>
     				</div>
