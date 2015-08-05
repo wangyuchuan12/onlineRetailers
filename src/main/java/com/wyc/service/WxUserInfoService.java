@@ -21,6 +21,7 @@ public class WxUserInfoService {
     }
     
     public void save(UserInfo userInfo){
+        userInfo.setUpdateAt(new DateTime());
         userInfoRepository.save(userInfo);
     }
     

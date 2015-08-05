@@ -2,6 +2,7 @@ package com.wyc.service;
 
 import java.util.UUID;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,13 @@ public class WxAccessTokenService {
     private WxAccessTokenRepository wxAccessTokenRepository;
     public void add(AccessTokenBean accessTokenBean){
         accessTokenBean.setId(UUID.randomUUID().toString());
+        accessTokenBean.setCreateAt(new DateTime());
+        accessTokenBean.setUpdateAt(new DateTime());
         wxAccessTokenRepository.save(accessTokenBean);
     }
     
     public void save(AccessTokenBean accessTokenBean){
+        accessTokenBean.setUpdateAt(new DateTime());
         wxAccessTokenRepository.save(accessTokenBean);
     }
     

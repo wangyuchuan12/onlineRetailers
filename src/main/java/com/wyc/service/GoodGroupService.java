@@ -1,12 +1,11 @@
 package com.wyc.service;
+import java.util.UUID;
 
-import java.util.List;
-
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wyc.domain.GoodGroup;
-import com.wyc.domain.GroupPartake;
 import com.wyc.repositories.GoodGroupRepository;
 
 @Service
@@ -14,6 +13,9 @@ public class GoodGroupService {
     @Autowired
     private GoodGroupRepository goodGroupRepository;
     public void add(GoodGroup goodGroup){
+        goodGroup.setId(UUID.randomUUID().toString());
+        goodGroup.setCreateAt(new DateTime());
+        goodGroup.setUpdateAt(new DateTime());
         goodGroupRepository.save(goodGroup);
     }
     

@@ -3,14 +3,19 @@ import java.lang.reflect.Method;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.danga.MemCached.MemCachedClient;
 import com.wyc.annotation.AccessTokenAnnotation;
@@ -84,6 +89,12 @@ public class InterceptConfig {
             }
        
         return object;
+    }
+    
+    @After(value="execution (* com.wyc.controller.action.*.*(..))")
+    public void beforeAction(JoinPoint joinPoint){
+        HttpServletRequest httpServletRequest = (HttpServletRequest)joinPoint.getArgs()[0];
+        System.out.println(httpServletRequest.getClass());
     }
     
     

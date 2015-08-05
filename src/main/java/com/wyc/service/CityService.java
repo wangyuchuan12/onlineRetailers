@@ -1,5 +1,8 @@
 package com.wyc.service;
 
+import java.util.UUID;
+
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +14,9 @@ public class CityService {
     @Autowired
     private CityRepository cityRepository;
     public void add(City city){
-        
+        city.setId(UUID.randomUUID().toString());
+        city.setCreateAt(new DateTime());
+        city.setUpdateAt(new DateTime());
         cityRepository.save(city);
     }
     

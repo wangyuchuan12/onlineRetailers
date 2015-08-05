@@ -1,5 +1,7 @@
 package com.wyc.service;
 
+import java.util.UUID;
+
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +13,9 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
     public void add(Customer customer){
+        customer.setId(UUID.randomUUID().toString());
         customer.setCreateAt(new DateTime());
+        customer.setUpdateAt(new DateTime());
         customerRepository.save(customer);
     }
     

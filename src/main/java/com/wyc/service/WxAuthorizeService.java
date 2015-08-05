@@ -1,5 +1,8 @@
 package com.wyc.service;
 
+import java.util.UUID;
+
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +14,14 @@ public class WxAuthorizeService {
     @Autowired
     private WxAuthorizeRepository wxAuthorizeRepository;
     public void add(Authorize authorize){
+        authorize.setId(UUID.randomUUID().toString());
+        authorize.setCreateAt(new DateTime());
+        authorize.setUpdateAt(new DateTime());
         wxAuthorizeRepository.save(authorize);
     }
     
     public void save(Authorize authorize){
+        authorize.setUpdateAt(new DateTime());
         wxAuthorizeRepository.save(authorize);
     }
     

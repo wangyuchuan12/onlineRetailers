@@ -1,8 +1,11 @@
 package com.wyc.service;
 
+import java.util.UUID;
+
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.wyc.domain.CustomerAddress;
 import com.wyc.repositories.CustomerAddressRepository;
 
@@ -11,7 +14,9 @@ public class CustomerAddressService {
     @Autowired
     private CustomerAddressRepository customerAddressRepository;
     public void add(CustomerAddress customerAddress){
+        customerAddress.setId(UUID.randomUUID().toString());
         customerAddress.setCreateAt(new DateTime());
+        customerAddress.setUpdateAt(new DateTime());
         customerAddressRepository.save(customerAddress);
     }
     
