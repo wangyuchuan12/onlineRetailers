@@ -1,4 +1,4 @@
-var webPath = "http://localhost";
+var webPath = "http://www.chengxi.pub";
 function goodItemOnClick(id,token){
 	var url;
 	if(!token&&!localStorage.token){
