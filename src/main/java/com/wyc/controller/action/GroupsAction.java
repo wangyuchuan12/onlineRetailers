@@ -124,7 +124,7 @@ public class GroupsAction {
         return "info/GroupInfo";
     }
     @RequestMapping("/info/trade_flow_info")
-    public String tradeFlowInfo()throws Exception{
+    public String tradeFlowInfo(HttpServletRequest httpServletRequest)throws Exception{
         
         return "info/TradeFlowInfo";
     }
