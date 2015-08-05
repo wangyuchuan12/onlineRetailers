@@ -40,17 +40,13 @@ public class Customer {
     public void setId(String id) {
         this.id = id;
     }
+  
+    
     public String getOpenId() {
         return openId;
     }
     public void setOpenId(String openId) {
         this.openId = openId;
-    }
-    public String getOpenid() {
-        return openId;
-    }
-    public void setOpenid(String openid) {
-        this.openId = openid;
     }
     public String getPhonenumber() {
         return phonenumber;

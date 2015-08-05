@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -14,14 +13,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.danga.MemCached.MemCachedClient;
 import com.wyc.annotation.AccessTokenAnnotation;
 import com.wyc.annotation.AuthorizeAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
+import com.wyc.domain.Customer;
 import com.wyc.intercept.domain.MyHttpServletRequest;
+import com.wyc.service.CustomerService;
 import com.wyc.service.TokenService;
 import com.wyc.smart.service.AccessTokenSmartService;
 import com.wyc.smart.service.AuthorizeSmartService;
@@ -56,6 +55,8 @@ public class InterceptConfig {
     private AuthorizeSmartService authorizeSmartService;
     @Autowired
     private UserSmartService userSmartService;
+    @Autowired
+    private CustomerService customerService;
     final static Logger logger = LoggerFactory.getLogger(InterceptConfig.class);
     
     @Around(value="execution (* com.wyc.wx.service.*.*(..))")
@@ -93,10 +94,18 @@ public class InterceptConfig {
     
     @Before(value="execution (* com.wyc.controller.action.*.*(..))")
     public void beforeAction(JoinPoint joinPoint){
-        HttpServletRequest httpServletRequest = (HttpServletRequest)joinPoint.getArgs()[0];
-        System.out.println("before:"+httpServletRequest.getClass());
+        MyHttpServletRequest httpServletRequest = (MyHttpServletRequest)joinPoint.getArgs()[0];
+        UserInfo userInfo = httpServletRequest.getUserInfo();
+        if(userInfo==null){
+            String openid = userInfo.getOpenid();
+            Customer customer = customerService.findByOpenId(openid);
+            if(customer==null){
+                customer = new Customer();
+                customer.setOpenId(openid);
+                customerService.add(customer);
+            }
+        }
     }
-    
     
     @Around(value="execution (* com.wyc.controller.action.*.*(..))")
     public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint){
