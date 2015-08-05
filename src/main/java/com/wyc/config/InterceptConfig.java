@@ -91,10 +91,10 @@ public class InterceptConfig {
         return object;
     }
     
-    @After(value="execution (* com.wyc.controller.action.*.*(..))")
+    @Before(value="execution (* com.wyc.controller.action.*.*(..))")
     public void beforeAction(JoinPoint joinPoint){
         HttpServletRequest httpServletRequest = (HttpServletRequest)joinPoint.getArgs()[0];
-        System.out.println(httpServletRequest.getClass());
+        System.out.println("before:"+httpServletRequest.getClass());
     }
     
     
