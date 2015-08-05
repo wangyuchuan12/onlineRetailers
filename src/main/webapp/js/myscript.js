@@ -24,9 +24,8 @@ function toPayOnClick(goodId , payType){
 		url = webPath+"/info/good_info_pay?pay_type="+payType+"&good_id="+goodId+"&token="+window.localStorage.getItem("userToken");
 	}else{
 		url = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
-		"appid=wx7e3ed2dc655c0145&redirect_uri="+webPath+"/info/good_info_pay?good_id="+goodId+"&pay_type="+payType+"&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect";
+		"appid=wx7e3ed2dc655c0145&redirect_uri="+webPath+"/info/good_info_pay?good_id="+goodId+"&pay_type="+payType+"&response_type=code&scope=snsapi_userinfo&state="+payType+"&connect_redirect=1#wechat_redirect";
 	}
-	alert(url);
 	window.location.href=url;
 }
 
