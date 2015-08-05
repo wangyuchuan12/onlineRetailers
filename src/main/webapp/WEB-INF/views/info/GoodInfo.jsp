@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="/css/mystyle.css">
 	<link rel="stylesheet" href="/css/core.css">
 	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-	<script type="text/javascript"></script>
+	<script type="text/javascript" src="/js/myscript.js"></script>
 </head>
 
 <body >
@@ -93,14 +93,14 @@
     			</li>
     			
     			<li>
-    				<div class="good_info_btn activityStyle">
+    				<div class="good_info_btn activityStyle" onclick="toPayOnClick('${good.id}',1)">
     					<div class="good_info_btn_price_alone">￥${good.alone_cost}/件</div>
     					<div class="good_info_btn_type">单独买</div>
     				</div>
     			</li>
     			
     			<li>
-    				<div class="good_info_btn activityStyle">
+    				<div class="good_info_btn activityStyle" onclick="toPayOnClick('${good.id}',2)">
     					<div class="good_info_btn_price_integral">${good.coupon_cost}张/件</div>
     					<div class="good_info_btn_type">开团劵开团</div>
     				</div>
