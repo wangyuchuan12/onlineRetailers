@@ -199,6 +199,8 @@ public class InterceptConfig {
                 userInfo = userSmartService.getFromDatabase(tokenId);
                 logger.debug("get userInfo from database by token {} , return object is {}",tokenId , userInfo);
             }
+            String code = httpServletRequest.getParameter("code");
+            userSmartService.setCode(code);
             String key = userSmartService.generateKey();
             if(userInfo==null){
                 userInfo = userSmartService.getFromDatabaseByKey(key);
@@ -206,8 +208,6 @@ public class InterceptConfig {
             }
             if(userInfo==null){
                 try {
-                    String code = myHttpServletRequest.getParameter("code");
-                    userSmartService.setCode(code);
                     userInfo = userSmartService.getFromWx();
                 } catch (Exception e) {
                     logger.error("get userInfo from wx has error");
