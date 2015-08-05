@@ -20,7 +20,6 @@
 	</head>
 	<body>
 		<div class="container">
-		<div class="group_goodinfo_head group_goodinfo_succeed">	</div>
 			<div class="group_goodinfo">
 			       
 					<div class="group_goodinfo_img"></div>
@@ -75,13 +74,14 @@
 								<div class="member_item_time"><b>${member.datetime}<c:if test="${member.role!=1}">参团</c:if><c:if test="${member.role==1}">开团</c:if></b></div>
 							</div>
 						</li>
-							<div class="member_item_situation">还差4人，让小伙伴们来组团吧！
-						    </div>
-						<li>
-						</li>
+							
 						
 					</c:forEach>
 				</ul>
+			</div>
+			<div class="groupinfo_situation">
+				<div class="groupinfo_situation_title">还差<b>4</b>人，盼你如南方人盼暖气</div>
+				<div class="groupinfo_situation_time">剩余<b>05</b><b>19</b><b>20</b>结束</div>
 			</div>
 			<div class="trade_flow">
             	<div class="trade_flow_details">查看详情&gt;</div>

@@ -1154,3 +1154,21 @@
 	font-size:13px;
 	position: relative;
 }
+
+.groupinfo_situation{
+	text-align: center;
+}
+.groupinfo_situation_time{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.groupinfo_situation_title>b{
+	color:red;
+}
+
+.groupinfo_situation_time>b{
+	display:inline-block;
+	background:black;
+	color:white;
+	margin-left:5px;
+}
