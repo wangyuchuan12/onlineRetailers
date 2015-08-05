@@ -102,7 +102,7 @@ public class GroupsAction {
             Map<String, String> groupMember = new HashMap<String, String>();
             String customerId = groupPartake.getCustomerid();
             Customer customer = customerService.findOne(customerId);
-            String openid = customer.getOpenid();
+            String openid = customer.getOpenId();
             AccessTokenBean accessTokenBean = myHttpServletRequest.getAccessTokenBean();
             UserInfo userInfo = myHttpServletRequest.getUserInfo();
             groupMember.put("name", userInfo.getNickname());
