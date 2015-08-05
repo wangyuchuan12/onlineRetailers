@@ -96,7 +96,7 @@ public class InterceptConfig {
     public void beforeAction(JoinPoint joinPoint){
         MyHttpServletRequest httpServletRequest = (MyHttpServletRequest)joinPoint.getArgs()[0];
         UserInfo userInfo = httpServletRequest.getUserInfo();
-        if(userInfo==null){
+        if(userInfo!=null){
             String openid = userInfo.getOpenid();
             Customer customer = customerService.findByOpenId(openid);
             if(customer==null){
