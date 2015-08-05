@@ -81,6 +81,7 @@ public class GoodsAction {
 	
 	@RequestMapping("/info/good_info_pay")
 	public String gootInfoPay(HttpServletRequest httpRequest){
+	    logger.debug(httpRequest.getParameter("status"));
 	    String payType=httpRequest.getParameter("pay_type");
 	    String goodId = httpRequest.getParameter("good_id");
 	    Good good = goodService.findOne(goodId);
