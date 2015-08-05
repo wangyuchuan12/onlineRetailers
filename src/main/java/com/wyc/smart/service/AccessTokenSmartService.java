@@ -88,6 +88,9 @@ public class AccessTokenSmartService implements SmartService<AccessTokenBean>{
 
     @Override
     public String generateKey(String... args) {
+        if(wxContext==null){
+            return null;
+        }
         String appid = wxContext.getAppid();
         String appscret = wxContext.getAppsecret();
         StringBuffer sb = new StringBuffer();

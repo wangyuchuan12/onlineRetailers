@@ -93,6 +93,9 @@ public class AuthorizeSmartService implements SmartService<Authorize>{
 
     @Override
     public String generateKey(String... args) {
+        if(code==null){
+            return null;
+        }
         StringBuffer sb = new StringBuffer();
         sb.append("authorize_");
         sb.append(code+"_");

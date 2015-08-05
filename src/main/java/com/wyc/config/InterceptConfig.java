@@ -22,6 +22,7 @@ import com.wyc.domain.Customer;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CustomerService;
 import com.wyc.service.TokenService;
+import com.wyc.service.WxUserInfoService;
 import com.wyc.smart.service.AccessTokenSmartService;
 import com.wyc.smart.service.AuthorizeSmartService;
 import com.wyc.smart.service.UserSmartService;
@@ -57,6 +58,8 @@ public class InterceptConfig {
     private UserSmartService userSmartService;
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private WxUserInfoService wxUserInfoService;
     final static Logger logger = LoggerFactory.getLogger(InterceptConfig.class);
     
     @Around(value="execution (* com.wyc.wx.service.*.*(..))")
@@ -147,7 +150,7 @@ public class InterceptConfig {
                 logger.debug("get accessTokenBean from database by accessToken {} , return object is {}",accessToken , accessTokenBean);
             }
             String key = accessTokenSmartService.generateKey();
-            if(accessTokenBean==null){
+            if(accessTokenBean==null&&key!=null){
                 
                 accessTokenBean = accessTokenSmartService.getFromDatabaseByKey(key);
                 logger.debug("get accessTokenBean from database by key {} , return object is {}",key , accessTokenBean);
@@ -175,7 +178,7 @@ public class InterceptConfig {
                 logger.debug("get authorize from database by token {} , return object is {}",tokenId , authorize);
             }
             String key = authorizeSmartService.generateKey();
-            if(authorize==null){
+            if(authorize==null&&key!=null){
                 authorize = authorizeSmartService.getFromDatabaseByKey(key);
                 logger.debug("get authorize from database by key {} , return object is {}",key , authorize);
             }
@@ -202,7 +205,7 @@ public class InterceptConfig {
             String code = httpServletRequest.getParameter("code");
             userSmartService.setCode(code);
             String key = userSmartService.generateKey();
-            if(userInfo==null){
+            if(userInfo==null&&key!=null){
                 userInfo = userSmartService.getFromDatabaseByKey(key);
                 logger.debug("get userInfo from database by key {} , return object is {}",key , userInfo);
             }
@@ -213,9 +216,6 @@ public class InterceptConfig {
                     logger.error("get userInfo from wx has error");
                     e.printStackTrace();
                 }
-                
-                token = userSmartService.saveToDatabase(userInfo, key);
-                logger.debug("save to database success ,the key is {} , the token is " , key , token);
             }
             myHttpServletRequest.setUserInfo(userInfo);
         }

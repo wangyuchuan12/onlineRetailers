@@ -114,6 +114,9 @@ public class UserSmartService implements SmartService<UserInfo>{
 
     @Override
     public String generateKey(String ... args) {
+        if(code==null||code.trim().equals("")){
+            return null;
+        }
         StringBuffer sb = new StringBuffer();
         sb.append("userInfo_");
         sb.append(code+"_");
