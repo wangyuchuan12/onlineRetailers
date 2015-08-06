@@ -37,5 +37,8 @@
 				</ul>
 			</div>
     </div>
+    <script type="text/javascript">
+    		footActive("foot_group_List");
+    </script>
 </tiles:putAttribute>
 </tiles:insertDefinition>
