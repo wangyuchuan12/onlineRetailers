@@ -107,5 +107,8 @@
     			</li>
     		</ul>
     </div>
+    <script type="text/javascript">
+    		alert("${token}");
+    </script>
 </body>
 </html>
