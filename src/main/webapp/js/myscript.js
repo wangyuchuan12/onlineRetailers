@@ -1,5 +1,4 @@
 var webPath = "http://www.chengxi.pub";
-window.localStorage.setItem("userToken","28cf76cc-9410-447e-a529-baa108e231fa");
 function goodItemOnClick(id,token){
 	var url;
 	
@@ -14,7 +13,6 @@ function goodItemOnClick(id,token){
 			url = webPath+"/info/good_info?id="+id+"&token="+window.localStorage.getItem("userToken");
 		}
 	}
-	alert(userToken);
 	window.location.href=url;
 }
 

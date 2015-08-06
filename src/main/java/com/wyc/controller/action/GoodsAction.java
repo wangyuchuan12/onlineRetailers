@@ -85,6 +85,7 @@ public class GoodsAction {
             return "info/GoodInfo";
 	}
 	
+	@UserInfoFromWebAnnotation
 	@RequestMapping("/info/good_info_pay")
 	public String gootInfoPay(HttpServletRequest httpRequest){
 	    logger.debug(httpRequest.getParameter("state"));
