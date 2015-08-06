@@ -14,8 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wyc.annotation.AccessTokenAnnotation;
+import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.domain.Good;
 import com.wyc.domain.MyResource;
+import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.GoodService;
 import com.wyc.service.MyResourceService;
 @Controller
@@ -53,8 +55,10 @@ public class GoodsAction {
 		return "main/Goods";
 	}
 	
+	@UserInfoFromWebAnnotation
 	@RequestMapping("/info/good_info")
 	public String goodInfo(HttpServletRequest httpRequest){
+	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	    String goodId = httpRequest.getParameter("id");
 	    Good good = goodService.findOne(goodId);
 	    Map<String, Object> responseGood = new HashMap<String, Object>();
@@ -76,6 +80,8 @@ public class GoodsAction {
                 responseGood.put("head_img", myResource.getUrl());
             }
             httpRequest.setAttribute("good", responseGood);
+            httpRequest.setAttribute("token", myHttpServletRequest.getToken());
+            logger.debug("the token is :{}",myHttpServletRequest.getToken());
             return "info/GoodInfo";
 	}
 	

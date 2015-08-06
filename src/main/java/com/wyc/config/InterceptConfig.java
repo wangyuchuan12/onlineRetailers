@@ -1,6 +1,8 @@
 package com.wyc.config;
 import java.lang.reflect.Method;
+import java.util.Map.Entry;
 
+import javax.persistence.Entity;
 import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.JoinPoint;
@@ -8,6 +10,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -134,12 +137,12 @@ public class InterceptConfig {
         logger.debug("invoke the method is {}",method);
         MyHttpServletRequest myHttpServletRequest = new MyHttpServletRequest(httpServletRequest);
         String tokenId = myHttpServletRequest.getParameter("token");
-        Token token = null;
+        Token token = tokenService.findByIdAndInvalidDateGreaterThan(tokenId, new DateTime());
         
         if(method.getAnnotation(AccessTokenAnnotation.class)!=null){
             
             AccessTokenBean accessTokenBean = null;
-            if(tokenId!=null){
+            if(token!=null){
                 accessTokenBean = accessTokenSmartService.getFromDatabase(tokenId);
                 logger.debug("get accessTokenBean from database by token {} , return object is {}",tokenId , accessTokenBean);
             }
@@ -173,7 +176,7 @@ public class InterceptConfig {
         }
         if(method.getAnnotation(AuthorizeAnnotation.class)!=null){
             Authorize authorize = null;
-            if(tokenId!=null){
+            if(token!=null){
                 authorize = authorizeSmartService.getFromDatabase(tokenId);
                 logger.debug("get authorize from database by token {} , return object is {}",tokenId , authorize);
             }
@@ -198,7 +201,7 @@ public class InterceptConfig {
         
         if(method.getAnnotation(UserInfoFromWebAnnotation.class)!=null){
             UserInfo userInfo = null;
-            if(tokenId!=null){
+            if(token!=null){
                 userInfo = userSmartService.getFromDatabase(tokenId);
                 logger.debug("get userInfo from database by token {} , return object is {}",tokenId , userInfo);
             }
@@ -209,15 +212,32 @@ public class InterceptConfig {
                 userInfo = userSmartService.getFromDatabaseByKey(key);
                 logger.debug("get userInfo from database by key {} , return object is {}",key , userInfo);
             }
-            if(userInfo==null){
+            if(userInfo==null&&code!=null){
                 try {
                     userInfo = userSmartService.getFromWx();
                 } catch (Exception e) {
                     logger.error("get userInfo from wx has error");
                     e.printStackTrace();
                 }
+                token = userSmartService.saveToDatabase(userInfo, key);
+                logger.debug("save to database success ,the key is {} , the token is " , key , token);
+            }
+            
+            if(userInfo==null){
+                String requestUrl = myHttpServletRequest.getRequestURL().toString();
+                java.util.Map<String, String[]> paramMap = myHttpServletRequest.getParameterMap();
+                for(Entry<String, String[]> entry:paramMap.entrySet()){
+                    if(entry.getValue()!=null&&entry.getValue().length>0){
+                        requestUrl+="&"+entry.getKey()+"="+entry.getValue()[0];
+                    }
+                }
+                String wxRequestUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
+                "appid=wx7e3ed2dc655c0145&redirect_uri="+requestUrl+"&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect";
+                logger.debug("redirect to url [{}]",wxRequestUrl);
+                return "redirect:"+wxRequestUrl;
             }
             myHttpServletRequest.setUserInfo(userInfo);
+            myHttpServletRequest.setToken(token);
         }
         
         
