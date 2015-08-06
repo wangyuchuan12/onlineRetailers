@@ -230,7 +230,7 @@ public class InterceptConfig {
                     e.printStackTrace();
                 }
                 token = userSmartService.saveToDatabase(userInfo, key);
-                logger.debug("save to database success ,the key is {} , the token is " , key , token);
+                logger.debug("save to database success ,the key is {} , the token is {}" , key , token);
             }
             
             if(userInfo==null){
