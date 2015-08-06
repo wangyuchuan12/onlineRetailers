@@ -1,8 +1,6 @@
 package com.wyc.config;
 import java.lang.reflect.Method;
 import java.util.Map.Entry;
-
-import javax.persistence.Entity;
 import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.JoinPoint;

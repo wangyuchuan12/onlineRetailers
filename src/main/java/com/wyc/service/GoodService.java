@@ -1,6 +1,8 @@
 package com.wyc.service;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.wyc.domain.Good;
@@ -8,6 +10,7 @@ import com.wyc.repositories.GoodRepository;
 
 @Service
 public class GoodService {
+    final static Logger logger = LoggerFactory.getLogger(GoodService.class);
     @Autowired
     private GoodRepository goodRepository;
     
@@ -21,10 +24,12 @@ public class GoodService {
     }
     
     public Good findOne(String id){
+        logger.debug("findOne by id {}",id);
         return goodRepository.findOne(id);
     }
     
     public void delete(String id){
+        logger.debug("delete by id {}",id);
         goodRepository.delete(id);
     }
     
