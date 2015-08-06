@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.wyc.annotation.AuthorizeAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
@@ -43,7 +42,7 @@ public class GroupsAction {
     private CustomerService customerService;
     final static Logger logger = LoggerFactory.getLogger(GroupsAction.class);
     @RequestMapping("/main/group_list")
-    @AuthorizeAnnotation
+    @UserInfoFromWebAnnotation
     public String groupList(HttpServletRequest servletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) servletRequest;
         String openId = null;

@@ -151,66 +151,64 @@ public class InterceptConfig {
             }
         }
         logger.debug(sb.toString());
-        if(method.getAnnotation(AccessTokenAnnotation.class)!=null){
-            
-            AccessTokenBean accessTokenBean = null;
-            if(token!=null){
-                accessTokenBean = accessTokenSmartService.getFromDatabase(tokenId);
-                logger.debug("get accessTokenBean from database by token {} , return object is {}",tokenId , accessTokenBean);
-            }
-            String accessToken = myHttpServletRequest.getParameter("access_token");
-            accessTokenSmartService.setAccessToken(accessToken);
-            if(accessTokenBean==null&&accessToken!=null){
-                accessTokenBean = accessTokenSmartService.getFromDatabaseByOther();
-                logger.debug("get accessTokenBean from database by accessToken {} , return object is {}",accessToken , accessTokenBean);
-            }
-            String key = accessTokenSmartService.generateKey();
-            if(accessTokenBean==null&&key!=null){
-                
-                accessTokenBean = accessTokenSmartService.getFromDatabaseByKey(key);
-                logger.debug("get accessTokenBean from database by key {} , return object is {}",key , accessTokenBean);
-            }
-            
-            if(accessTokenBean==null){
-                try {
-                    accessTokenBean = accessTokenSmartService.getFromWx();
-                    logger.debug("get accessTokenBean from wx , return object is {}", accessTokenBean);
-                } catch (Exception e) {
-                    logger.error("get accessTokenBean from wx has error");
-                    e.printStackTrace();
-                }
-                
-                token = accessTokenSmartService.saveToDatabase(accessTokenBean, key);
-                logger.debug("save to database success ,the key is {} , the token is " , key , token);
-                
-            }
-            myHttpServletRequest.setAccessTokenBean(accessTokenBean);
-        }
-        if(method.getAnnotation(AuthorizeAnnotation.class)!=null){
-            Authorize authorize = null;
-            if(token!=null){
-                authorize = authorizeSmartService.getFromDatabase(tokenId);
-                logger.debug("get authorize from database by token {} , return object is {}",tokenId , authorize);
-            }
-            String key = authorizeSmartService.generateKey();
-            if(authorize==null&&key!=null){
-                authorize = authorizeSmartService.getFromDatabaseByKey(key);
-                logger.debug("get authorize from database by key {} , return object is {}",key , authorize);
-            }
-            if(authorize==null){
-                try {
-                    authorize = authorizeSmartService.getFromWx();
-                } catch (Exception e) {
-                    logger.error("get authorize from wx has error");
-                    e.printStackTrace();
-                }
-                
-                token = authorizeSmartService.saveToDatabase(authorize, key);
-                logger.debug("save to database success ,the key is {} , the token is " , key , token);
-            }
-            myHttpServletRequest.setAuthorize(authorize);
-        }
-        
+//        if(method.getAnnotation(AccessTokenAnnotation.class)!=null){
+//            
+//            AccessTokenBean accessTokenBean = null;
+//            if(token!=null){
+//                accessTokenBean = accessTokenSmartService.getFromDatabase(tokenId);
+//                logger.debug("get accessTokenBean from database by token {} , return object is {}",tokenId , accessTokenBean);
+//            }
+//            String accessToken = myHttpServletRequest.getParameter("access_token");
+//            accessTokenSmartService.setAccessToken(accessToken);
+//            if(accessTokenBean==null&&accessToken!=null){
+//                accessTokenBean = accessTokenSmartService.getFromDatabaseByOther();
+//                logger.debug("get accessTokenBean from database by accessToken {} , return object is {}",accessToken , accessTokenBean);
+//            }
+//            String key = accessTokenSmartService.generateKey();
+//            if(accessTokenBean==null&&key!=null){
+//                
+//                accessTokenBean = accessTokenSmartService.getFromDatabaseByKey(key);
+//                logger.debug("get accessTokenBean from database by key {} , return object is {}",key , accessTokenBean);
+//            }
+//            
+//            if(accessTokenBean==null){
+//                try {
+//                    accessTokenBean = accessTokenSmartService.getFromWx();
+//                    logger.debug("get accessTokenBean from wx , return object is {}", accessTokenBean);
+//                } catch (Exception e) {
+//                    logger.error("get accessTokenBean from wx has error");
+//                    e.printStackTrace();
+//                }
+//                
+//                token = accessTokenSmartService.saveToDatabase(accessTokenBean, key);
+//                logger.debug("save to database success ,the key is {} , the token is " , key , token);
+//                
+//            }
+//            myHttpServletRequest.setAccessTokenBean(accessTokenBean);
+//        }
+//        if(method.getAnnotation(AuthorizeAnnotation.class)!=null){
+//            Authorize authorize = null;
+//            if(token!=null){
+//                authorize = authorizeSmartService.getFromDatabase(tokenId);
+//                logger.debug("get authorize from database by token {} , return object is {}",tokenId , authorize);
+//            }
+//            String key = authorizeSmartService.generateKey();
+//            if(authorize==null&&key!=null){
+//                authorize = authorizeSmartService.getFromDatabaseByKey(key);
+//                logger.debug("get authorize from database by key {} , return object is {}",key , authorize);
+//            }
+//            if(authorize==null){
+//                try {
+//                    authorize = authorizeSmartService.getFromWx();
+//                } catch (Exception e) {
+//                    logger.error("get authorize from wx has error");
+//                    e.printStackTrace();
+//                }
+//                token = authorizeSmartService.saveToDatabase(authorize, key);
+//                logger.debug("save to database success ,the key is {} , the token is " , key , token);
+//            }
+//            myHttpServletRequest.setAuthorize(authorize);
+//        }        
         if(method.getAnnotation(UserInfoFromWebAnnotation.class)!=null){
             UserInfo userInfo = null;
             if(token!=null){
