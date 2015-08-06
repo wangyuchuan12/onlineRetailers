@@ -124,7 +124,7 @@ public class InterceptConfig {
         logger.debug("the args is {}",str);
         HttpServletRequest httpServletRequest = (HttpServletRequest)args[0];
         Method method = null;
-      
+        
         for(Method oneMethod:target.getClass().getMethods()){
             if(oneMethod.getName().equals(proceedingJoinPoint.getSignature().getName())){
                 method = oneMethod;
@@ -136,7 +136,19 @@ public class InterceptConfig {
         MyHttpServletRequest myHttpServletRequest = new MyHttpServletRequest(httpServletRequest);
         String tokenId = myHttpServletRequest.getParameter("token");
         Token token = tokenService.findByIdAndInvalidDateGreaterThan(tokenId, new DateTime());
-        
+        logger.debug("the request url is {}",myHttpServletRequest.getRequestURI());
+        java.util.Map<String, String[]> paramMap = myHttpServletRequest.getParameterMap();
+        StringBuffer sb = new StringBuffer();
+        sb.append("the parameter is ");
+        for(Entry<String, String[]> entry:paramMap.entrySet()){
+            if(entry.getValue()!=null&&entry.getValue().length>0){
+                sb.append("&");
+                sb.append(entry.getKey());
+                sb.append("=");
+                sb.append(entry.getValue()[0]);
+            }
+        }
+        logger.debug(sb.toString());
         if(method.getAnnotation(AccessTokenAnnotation.class)!=null){
             
             AccessTokenBean accessTokenBean = null;
@@ -223,7 +235,6 @@ public class InterceptConfig {
             
             if(userInfo==null){
                 String requestUrl = myHttpServletRequest.getRequestURL().toString();
-                java.util.Map<String, String[]> paramMap = myHttpServletRequest.getParameterMap();
                 for(Entry<String, String[]> entry:paramMap.entrySet()){
                     if(entry.getValue()!=null&&entry.getValue().length>0){
                         requestUrl+="&"+entry.getKey()+"="+entry.getValue()[0];
