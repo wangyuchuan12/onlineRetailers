@@ -243,7 +243,9 @@ public class InterceptConfig {
                         urlBuffer.append("&"+entry.getKey()+"="+entry.getValue()[0]);
                     }
                 }
-                urlBuffer.deleteCharAt(urlBuffer.indexOf("&"));
+                if(urlBuffer.toString().contains("&")){
+                    urlBuffer.deleteCharAt(urlBuffer.indexOf("&"));
+                }
                 
                 String wxRequestUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
                 "appid=wx7e3ed2dc655c0145&redirect_uri="+urlBuffer.toString()+"&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect";
