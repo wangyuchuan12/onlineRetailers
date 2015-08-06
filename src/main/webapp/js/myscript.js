@@ -2,6 +2,7 @@ var webPath = "http://www.chengxi.pub";
 window.localStorage.setItem("userToken","28cf76cc-9410-447e-a529-baa108e231fa");
 function goodItemOnClick(id,token){
 	var url;
+	
 	if(!token&&!localStorage.getItem("userToken")){
 		url = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
 				"appid=wx7e3ed2dc655c0145&redirect_uri="+webPath+"/info/good_info?id="+id+"&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect";
@@ -13,6 +14,7 @@ function goodItemOnClick(id,token){
 			url = webPath+"/info/good_info?id="+id+"&token="+window.localStorage.getItem("userToken");
 		}
 	}
+	alert(userToken);
 	window.location.href=url;
 }
 
