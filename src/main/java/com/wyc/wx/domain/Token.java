@@ -25,7 +25,10 @@ public class Token {
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
-    
+    @Override
+    public String toString() {
+        return "id:"+id+",token_key:"+tokenKey;
+    }
    
     public String getTokenkey() {
         return tokenKey;
