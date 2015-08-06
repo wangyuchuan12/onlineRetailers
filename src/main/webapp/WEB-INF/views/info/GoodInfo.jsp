@@ -108,7 +108,7 @@
     		</ul>
     </div>
     <script type="text/javascript">
-    		setUserToken("${token}");
+    		setUserToken("${token.id}");
     </script>
 </body>
 </html>
