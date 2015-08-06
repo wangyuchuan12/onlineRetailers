@@ -32,7 +32,6 @@ function setUserToken(userToken){
 }
 
 function footActive(id){
-	alert(id);
 	var footGoodList = $("#foot_good_list");	
 	var footGroupList = $("#foot_group_List");
 	var footOrderList = $("#foot_order_list");
