@@ -39,7 +39,7 @@
     </div>
     <script type="text/javascript">
     		$(document).ready(function(){
-    			footActive("foot_group_List");
+    			footActive("foot_group_list");
     		});
     </script>
 </tiles:putAttribute>
