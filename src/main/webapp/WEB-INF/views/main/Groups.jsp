@@ -38,7 +38,9 @@
 			</div>
     </div>
     <script type="text/javascript">
-    		footActive("foot_group_List");
+    		$(document).ready(function(){
+    			footActive("foot_group_List");
+    		});
     </script>
 </tiles:putAttribute>
 </tiles:insertDefinition>

@@ -32,13 +32,15 @@ function setUserToken(userToken){
 }
 
 function footActive(id){
-	var footGoodList = $("#foot_good_list");
+	var footGoodList = $("#foot_good_list");	
 	var footGroupList = $("#foot_group_List");
 	var footOrderList = $("#foot_order_list");
 	var foot_personal_center_list = $("#foot_personal_center_list");
 	footGoodList.removeClass("active");
 	footGroupList.removeClass("active");
 	footOrderList.removeClass("active");
+	
 	foot_personal_center_list.removeClass("active");
+	
 	$("#"+id).addClass("active");
 }

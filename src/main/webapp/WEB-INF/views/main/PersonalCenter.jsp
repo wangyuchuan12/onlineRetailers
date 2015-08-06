@@ -52,5 +52,10 @@
         	</div>
         </div>
     </div>
+    <script type="text/javascript">
+    		$(document).ready(function(){
+    			footActive("foot_personal_center_list");
+    		});
+    </script>
 </tiles:putAttribute>
 </tiles:insertDefinition>

@@ -38,5 +38,10 @@
             </c:forEach>
         </div>
     </div>
+    <script type="text/javascript">
+    		$(document).ready(function(){
+    			footActive("foot_good_list");
+    		});
+    </script>
 </tiles:putAttribute>
 </tiles:insertDefinition>
