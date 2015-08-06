@@ -123,6 +123,8 @@ public class InterceptConfig {
         }
         logger.debug("the args is {}",str);
         HttpServletRequest httpServletRequest = (HttpServletRequest)args[0];
+        String remoteAddress = httpServletRequest.getRemoteAddr();
+        logger.debug("remoteAddress is {}",remoteAddress);
         Method method = null;
         
         for(Method oneMethod:target.getClass().getMethods()){
