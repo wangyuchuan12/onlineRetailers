@@ -46,8 +46,8 @@ public class GroupsAction {
     public String groupList(HttpServletRequest servletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) servletRequest;
         String openId = null;
-        Authorize authorize = myHttpServletRequest.getAuthorize();
-        openId = authorize.getOpenid();
+        UserInfo userInfo = myHttpServletRequest.getUserInfo();
+        openId = userInfo.getOpenid();
         logger.debug("get openid {}",openId);
         if(openId==null||openId.trim().equals("")){
             return "main/Groups";
