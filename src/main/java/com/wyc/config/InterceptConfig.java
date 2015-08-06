@@ -235,13 +235,18 @@ public class InterceptConfig {
             
             if(userInfo==null){
                 String requestUrl = myHttpServletRequest.getRequestURL().toString();
+                StringBuffer urlBuffer = new StringBuffer();
+                urlBuffer.append(requestUrl);
+                urlBuffer.append("?");
                 for(Entry<String, String[]> entry:paramMap.entrySet()){
                     if(entry.getValue()!=null&&entry.getValue().length>0){
-                        requestUrl+="&"+entry.getKey()+"="+entry.getValue()[0];
+                        urlBuffer.append("&"+entry.getKey()+"="+entry.getValue()[0]);
                     }
                 }
+                urlBuffer.deleteCharAt(urlBuffer.indexOf("&"));
+                
                 String wxRequestUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
-                "appid=wx7e3ed2dc655c0145&redirect_uri="+requestUrl+"&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect";
+                "appid=wx7e3ed2dc655c0145&redirect_uri="+urlBuffer.toString()+"&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect";
                 logger.debug("redirect to url [{}]",wxRequestUrl);
                 return "redirect:"+wxRequestUrl;
             }
