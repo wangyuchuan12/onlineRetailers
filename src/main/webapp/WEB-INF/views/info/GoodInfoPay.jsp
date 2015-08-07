@@ -37,7 +37,20 @@
         			<div class="good_info_pay_goodinfo_detail_num">数量：1</div>
         			<div class="good_info_pay_goodinfo_detail_stock">库存：2000000件</div>
         		</div>
-        		<div class="good_info_pay_goodinfo_price">9.90/件</div>
+        		<div class="good_info_pay_goodinfo_price">	
+        			<c:if test="${payGoodInfo.pay_type==0}">
+        				${payGoodInfo.group_cost}
+        			</c:if>
+        			
+        			<c:if test="${payGoodInfo.pay_type==1}">
+        				${payGoodInfo.alone_cost}
+        			</c:if>
+        			
+        			<c:if test="${payGoodInfo.pay_type==2}">
+        				${payGoodInfo.coupon_cost}
+        			</c:if>
+        			/件
+        		</div>
         	</div>
         	<div class="good_info_pay_price">
         		<div class="good_info_pay_price_content">
