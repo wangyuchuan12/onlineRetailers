@@ -37,13 +37,27 @@
         			<div class="good_info_pay_goodinfo_detail_num">数量：1</div>
         			<div class="good_info_pay_goodinfo_detail_stock">库存：2000000件</div>
         		</div>
-        		<div class="good_info_pay_goodinfo_price">9.90/件</div>
+        		<div class="good_info_pay_goodinfo_price">	
+        			<c:if test="${payGoodInfo.pay_type==0}">
+        				￥${payGoodInfo.group_cost}
+        			</c:if>
+        			
+        			<c:if test="${payGoodInfo.pay_type==1}">
+        				￥${payGoodInfo.alone_cost}
+        			</c:if>
+        			
+        			<c:if test="${payGoodInfo.pay_type==2}">
+        				${payGoodInfo.coupon_cost}张开团劵
+        			</c:if>
+        			/件
+        		</div>
         	</div>
         	<div class="good_info_pay_price">
         		<div class="good_info_pay_price_content">
-        			<c:if test="${payGoodInfo.pay_type=='1'}">${payGoodInfo.group_num}人团  &nbsp; &nbsp; </c:if>
-        			<c:if test="${payGoodInfo.pay_type==2}">单买 &nbsp; &nbsp; </c:if>
-        			 快递：￥0.00 &nbsp;总价：<b>￥${payGoodInfo.cost}</b></div>
+        			<c:if test="${payGoodInfo.pay_type=='0'}">${payGoodInfo.group_num}人团  &nbsp; &nbsp; </c:if>
+        			<c:if test="${payGoodInfo.pay_type==1}">单买 &nbsp; &nbsp; </c:if>
+        			<c:if test="${payGoodInfo.pay_type==2}">使用开团劵 &nbsp; &nbsp; </c:if>
+        			 快递：￥${payGoodInfo.flow_price} &nbsp;总价：<b>￥${payGoodInfo.cost}</b></div>
         	</div>
         	
         	<div class="good_info_pay_type">

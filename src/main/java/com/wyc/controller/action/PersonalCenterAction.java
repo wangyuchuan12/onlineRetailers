@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.wyc.annotation.UserInfoFromWebAnnotation;
+
 @Controller
 public class PersonalCenterAction {
     @RequestMapping("/main/personal_center")
@@ -18,6 +20,7 @@ public class PersonalCenterAction {
     }
     
     @RequestMapping("/info/address")
+    @UserInfoFromWebAnnotation
     public String address(HttpServletRequest httpServletRequest){
         return "info/Address";
     }

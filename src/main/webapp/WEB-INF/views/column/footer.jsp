@@ -4,13 +4,13 @@
 <footer class="footer">
 		<nav>
 			<ul>
-				<li><a href="#" class="nav-controller active"><i
+				<li><a href="javascript:skipToGoodList()" class="nav-controller active" id="foot_good_list"><i
 						class="fa fa-home"></i>首页</a></li>
-				<li><a href="groups.html" class="nav-controller"><i
+				<li><a href="javascript:skipToGroupList()" class="nav-controller" id="foot_group_list"><i
 						class="fa fa-group"></i>我的团</a></li>
-				<li><a href="#" class="nav-controller"><i
+				<li><a href="javascript:skipToOrderList()" class="nav-controller" id="foot_order_list"><i
 						class="fa fa-list"></i>我的订单</a></li>
-				<li><a href="personal.html" class="nav-controller"><i
+				<li><a href="javascript:skipToPersonCenter()" class="nav-controller" id="foot_personal_center_list"><i
 						class="fa fa-user"></i>个人中心</a></li>
 			</ul>
 		</nav>

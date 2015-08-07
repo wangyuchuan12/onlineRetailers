@@ -8,7 +8,7 @@
 	<div class="container">
         <div class="goods">
         	<c:forEach items="${goods}" var="good">
-            <div class="good activityStyle" onclick="goodItemOnClick('${good.id}'<c:if test="${token!=null}">,'${token}'</c:if>)">
+            <div class="good activityStyle" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
             
            	 <div class="good_list_groupinfo">
                 	<div class="good_list_groupinfo_discount">${good.group_discount}折</div>
@@ -38,5 +38,10 @@
             </c:forEach>
         </div>
     </div>
+    <script type="text/javascript">
+    		$(document).ready(function(){
+    			footActive("foot_good_list");
+    		});
+    </script>
 </tiles:putAttribute>
 </tiles:insertDefinition>
