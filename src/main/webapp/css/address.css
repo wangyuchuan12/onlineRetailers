@@ -97,9 +97,9 @@
 .Address_edit{
 	display:inline-block;
 	position:relative;
-	float: right;
-	top:-20px;
-	padding-right:30px;
+	left:80px;
+	font-size: 30px;
+	color:red;
 }
 
 

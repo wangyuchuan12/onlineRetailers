@@ -26,7 +26,7 @@
 							<div class="address_mark_default">默认</div>
 							<div class="address_mark_type">家庭</div>
 						</div>
-						<div class="Address_edit">编辑</div>
+						<div class="fa fa-pencil-square Address_edit"></div>
 					</li>
 					<li>
 						<div class="Address_list_botton">
@@ -45,7 +45,7 @@
 							<div class="address_mark_default">默认</div>
 							<div class="address_mark_type">公司</div>
 						</div>
-						<div class="Address_edit">编辑</div>
+						<div class="fa fa-pencil-square Address_edit"></div>
 					</li>
 			   </ul>
 		 </div>
