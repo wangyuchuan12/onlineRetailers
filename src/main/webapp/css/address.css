@@ -78,8 +78,8 @@
 	position:relative;	
 	border: 1px solid #ff0000;
 	border-radius:14px;
-    padding:0px 3px 6px 4px;
 	width:35px;
+	text-align:center;
 	height:16px; 
 	font-size:1px;
 	letter-spacing : 1px;
@@ -108,24 +108,5 @@
 	display:inline-block;
 	left:20px;
 	top:20px;
-}
-.Address_add{
-	width:360px; 
-	height:75px;
-	color:red;
-	margin:auto;
-    padding:0; 
-}
-.address_add_button{
-	width:90%;
-	height:43px; 
-	background-color:#ff0000;
-	font-size:14px;
-	position:relative;
-	bottom:-180px;
-    font-weight: bold;
-    font-size:large;
-    color:white;
-    left:5%;
 }
 

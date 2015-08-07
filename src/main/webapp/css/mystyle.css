@@ -506,7 +506,20 @@
 	border-radius:5px;
 }
 
-
+.foot4{
+	background-color:red;
+	margin:0 auto;
+	position: fixed;
+	border-radius:5px;
+	width:90%;
+	left:5%;
+	height:50px;
+	font-size:larger;
+	bottom:100px;
+	line-height:50px;
+	text-align:center;
+	display: block;
+}
 
 
 .good_info_pay{

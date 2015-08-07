@@ -2,23 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
-<html>
-<head>
-        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-        <meta name="format-detection" content="telephone=no">
-        <meta http-equiv="Pragma" content="no-cache">
-        <meta http-equiv="Cache-Control" content="no-store">
-        <meta http-equiv="Expires" content="0">
-        <meta name="description" content="" />
-        <link rel="stylesheet" href="/css/address.css" />
-        <link rel="stylesheet" href="/css/mystyle.css" />
-        <link rel="stylesheet" href="/css/core.css" />
-        <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js">
-        </script>
-    </head>
-<body>
+<tiles:insertDefinition name="adminLayout">
+<tiles:putAttribute name="title">商品列表</tiles:putAttribute>
+<tiles:putAttribute name="body">
 <div class="container">
-	<div class="Address">
+	<div class="address">
 		<div class="Address_list">
 			<ul>
 					<li>
@@ -62,8 +50,10 @@
 			   </ul>
 		 </div>
 				
-		 <div class="Address_add "><input type="button" value="新增地址" class="address_add_button"/></div>		
+		
       </div>  
+       	
   </div>
-</body>
-</html>
+  <div class="foot4"><a href="">新增地址</a></div>
+</tiles:putAttribute>
+</tiles:insertDefinition>

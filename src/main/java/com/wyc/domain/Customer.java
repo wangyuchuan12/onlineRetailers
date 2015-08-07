@@ -15,6 +15,8 @@ public class Customer {
     private String openId; 
     @Column(name = "phonenumber")
     private String phonenumber;
+    @Column(name="default_address")
+    private String defaultAddress;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
