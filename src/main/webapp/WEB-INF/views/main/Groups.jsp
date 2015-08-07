@@ -40,6 +40,7 @@
     <script type="text/javascript">
     		$(document).ready(function(){
     			footActive("foot_group_list");
+    			setUserToken("${token.id}");
     		});
     </script>
 </tiles:putAttribute>

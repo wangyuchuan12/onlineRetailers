@@ -52,6 +52,7 @@
     <script type="text/javascript">
     		$(document).ready(function(){
     			footActive("foot_order_list");
+    			setUserToken("${token.id}");
     		});
     </script>
 </tiles:putAttribute>

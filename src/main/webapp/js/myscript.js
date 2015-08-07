@@ -1,36 +1,42 @@
 var webPath = "http://www.chengxi.pub";
-function goodItemOnClick(id,token){
-	var url;
-	
-	if(!token&&!localStorage.getItem("userToken")){
-		url = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
-				"appid=wx7e3ed2dc655c0145&redirect_uri="+webPath+"/info/good_info?id="+id+"&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect";
-	}else{
-		if(token){
-			url = webPath+"/info/good_info?id="+id+"&token="+token;
-			window.localStorage.setItem("userToken",token);
-		}else{
-			url = webPath+"/info/good_info?id="+id+"&token="+window.localStorage.getItem("userToken");
-		}
-	}
-	window.location.href=url;
-}
-
-function toPayOnClick(goodId , payType){
-	var url;
-	if(window.localStorage.getItem("userToken")){
-		url = webPath+"/info/good_info_pay?pay_type="+payType+"&good_id="+goodId+"&token="+window.localStorage.getItem("userToken");
-	}else{
-		url = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
-		"appid=wx7e3ed2dc655c0145&redirect_uri="+webPath+"/info/good_info_pay?good_id="+goodId+"&pay_type="+payType+"&response_type=code&scope=snsapi_userinfo&state="+payType+"&connect_redirect=1#wechat_redirect";
-	}
-	window.location.href=url;
-}
-
 function setUserToken(userToken){
-	window.localStorage.setItem("userToken",userToken);
+	if(userToken){
+		window.localStorage.setItem("userToken",userToken);
+
+	}
 }
 
+function skipToUrl(url,token){
+	if(!token&&window.localStorage.getItem("userToken")){
+		token = window.localStorage.getItem("userToken");
+	}
+	if(url.indexOf("?")>0){
+		window.location.href=url+"&token="+token;
+	}else{
+		window.location.href=url+"?token="+token;
+	}
+	
+}
+
+function skipToGoodInfo(id , token){
+	skipToUrl("/info/good_info?id='"+id+"'",token);
+}
+
+function skipToGoodList(){
+	skipToUrl("/main/good_list");
+}
+
+function skipToGroupList(token){
+	skipToUrl("/main/group_list",token);
+}
+
+function skipToOrderList(token){
+	skipToUrl("/main/order_list",token);
+}
+
+function skipToPersonCenter(token){
+	skipToUrl("/main/personal_center",token);
+}
 function footActive(id){
 	var footGoodList = $("#foot_good_list");	
 	var footGroupList = $("#foot_group_List");

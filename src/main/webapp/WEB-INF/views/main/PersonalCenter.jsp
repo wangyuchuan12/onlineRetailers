@@ -55,6 +55,7 @@
     <script type="text/javascript">
     		$(document).ready(function(){
     			footActive("foot_personal_center_list");
+    			setUserToken("${token.id}");
     		});
     </script>
 </tiles:putAttribute>
