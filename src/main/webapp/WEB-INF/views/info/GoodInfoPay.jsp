@@ -39,15 +39,15 @@
         		</div>
         		<div class="good_info_pay_goodinfo_price">	
         			<c:if test="${payGoodInfo.pay_type==0}">
-        				${payGoodInfo.group_cost}
+        				￥${payGoodInfo.group_cost}
         			</c:if>
         			
         			<c:if test="${payGoodInfo.pay_type==1}">
-        				${payGoodInfo.alone_cost}
+        				￥${payGoodInfo.alone_cost}
         			</c:if>
         			
         			<c:if test="${payGoodInfo.pay_type==2}">
-        				${payGoodInfo.coupon_cost}
+        				${payGoodInfo.coupon_cost}张开团劵
         			</c:if>
         			/件
         		</div>
