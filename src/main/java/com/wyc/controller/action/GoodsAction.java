@@ -61,6 +61,7 @@ public class GoodsAction {
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	    String goodId = httpRequest.getParameter("id");
 	    Good good = goodService.findOne(goodId);
+	    logger.debug("get the good object is {}",good);
 	    Map<String, Object> responseGood = new HashMap<String, Object>();
             responseGood.put("id", good.getId());
             responseGood.put("instruction", good.getInstruction());
