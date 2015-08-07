@@ -11,9 +11,17 @@ function skipToUrl(url,token){
 		token = window.localStorage.getItem("userToken");
 	}
 	if(url.indexOf("?")>0){
-		window.location.href=url+"&token="+token;
+		if(token){
+			window.location.href=url+"&token="+token;
+		}else{
+			window.location.href=url;
+		}
 	}else{
-		window.location.href=url+"?token="+token;
+		if(token){
+			window.location.href=url+"?token="+token;
+		}else{
+			window.location.href=url;
+		}
 	}
 	
 }
