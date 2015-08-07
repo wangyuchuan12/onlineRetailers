@@ -12,15 +12,15 @@ function skipToUrl(url,token){
 	}
 	if(url.indexOf("?")>0){
 		if(token){
-			window.location.href=url+"&token="+token;
+			window.location.href=webPath+url+"&token="+token;
 		}else{
-			window.location.href=url;
+			window.location.href=webPath+url;
 		}
 	}else{
 		if(token){
-			window.location.href=url+"?token="+token;
+			window.location.href=webPath+url+"?token="+token;
 		}else{
-			window.location.href=url;
+			window.location.href=webPath+url;
 		}
 	}
 	
