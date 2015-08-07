@@ -27,7 +27,7 @@ function skipToUrl(url,token){
 }
 
 function skipToGoodInfo(id , token){
-	skipToUrl("/info/good_info?id='"+id+"'",token);
+	skipToUrl("/info/good_info?id="+id,token);
 }
 
 function skipToGoodList(){
