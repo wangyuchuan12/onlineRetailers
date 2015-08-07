@@ -117,9 +117,9 @@ public class GoodsAction {
             if(payType.equals("0")){
                 responseGood.put("cost",good.getFlowPrice()+good.getGroupDiscount()*good.getGroupOriginalCost());
             }else if (payType.equals("1")) {
-                responseGood.put("cost",good.getAloneDiscount()*good.getAloneOriginalCost());
+                responseGood.put("cost",good.getFlowPrice()+good.getAloneDiscount()*good.getAloneOriginalCost());
             }else if (payType.equals("2")) {
-                responseGood.put("cost",good.getFlowPrice());
+                responseGood.put("cost",good.getFlowPrice()+good.getFlowPrice());
             }
             httpRequest.setAttribute("payGoodInfo", responseGood);
 	    return "info/GoodInfoPay";
