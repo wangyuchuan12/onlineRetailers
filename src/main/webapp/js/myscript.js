@@ -47,7 +47,7 @@ function skipToPersonCenter(token){
 }
 
 function skipToGoodPay(id,pay_type,token){
-	skipToUrl("/info/good_info_pay?id="+id+"&pay_type="+pay_type,token);
+	skipToUrl("/info/good_info_pay?good_id="+id+"&pay_type="+pay_type,token);
 }
 function footActive(id){
 	var footGoodList = $("#foot_good_list");	
