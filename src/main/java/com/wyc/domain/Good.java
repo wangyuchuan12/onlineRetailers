@@ -7,24 +7,31 @@ import javax.persistence.Id;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity(name = "good")
 public class Good {
     @Id
     private String id;
     //组团打折
     @Column(name = "group_discount")
+    @JsonProperty(value="group_discount")
     private float groupDiscount;
     //单卖打折
     @Column(name = "alone_discount")
+    @JsonProperty(value = "alone_discount")
     private float aloneDiscount;
     //组团原来价格
     @Column(name = "group_original_cost")
+    @JsonProperty(value = "group_original_cost")
     private float groupOriginalCost;
     //单卖原来价格
     @Column(name = "alone_original_cost")
+    @JsonProperty(value = "alone_original_cost")
     private float aloneOriginalCost;
     //市场价
     @Column(name = "market_price")
+    @JsonProperty(value = "market_price")
     private float marketPrice;
     //商品名称
     @Column(name = "name")
@@ -36,14 +43,19 @@ public class Good {
     @Column
     private String instruction;
     @Column(name="group_num")
+    @JsonProperty(value = "group_num")
     private int groupNum;
     @Column(name="coupon_cost")
+    @JsonProperty(value = "coupon_cost")
     private int couponCost=1;
     @Column(name="flow_price")
+    @JsonProperty(value = "flow_price")
     private float flowPrice;
     @Column(name="source_id")
+    @JsonProperty(value = "source_id")
     private String sourceId;
     @Column(name="group_duration")
+    @JsonProperty(value = "group_duration")
     private int groupDuration;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")

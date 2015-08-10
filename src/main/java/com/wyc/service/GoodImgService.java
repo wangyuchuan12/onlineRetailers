@@ -1,4 +1,5 @@
 package com.wyc.service;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wyc.domain.GoodImg;
@@ -6,6 +7,7 @@ import com.wyc.repositories.GoodImgRepository;
 
 @Service
 public class GoodImgService {
+    @Autowired
     private GoodImgRepository goodImgRepository;
     public void add(GoodImg goodImg){
         goodImgRepository.save(goodImg);
