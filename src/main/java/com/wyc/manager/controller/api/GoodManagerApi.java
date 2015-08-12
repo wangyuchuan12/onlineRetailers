@@ -158,6 +158,12 @@ public class GoodManagerApi {
         return "{'success':true}";
     }
     
+    @RequestMapping("/manager/api/delete_img")
+    public Object deleteGoodImg(HttpServletRequest servletRequest){
+        String img_id = servletRequest.getParameter("img_id");
+        goodImgService.delete(img_id);
+        return "{'success':true}";
+    }
     @RequestMapping("/manager/api/good_info")
     public Object goodInfo(HttpServletRequest httpServletRequest){
         String id = httpServletRequest.getParameter("id");

@@ -56,7 +56,7 @@ var GoodController = Ext.extend(Ext.util.Observable,{
 				goodUpdateFormWin.show();
 				var record=selectionModel.getSelected();
 				Ext.Ajax.request({
-					url:"http://localhost/manager/api/good_info?id="+record.get('id'),
+					url:"/manager/api/good_info?id="+record.get('id'),
 					success:function(resp){
 						var content = resp.responseText;
 						var obj = eval("("+content+")");
@@ -86,7 +86,7 @@ var GoodController = Ext.extend(Ext.util.Observable,{
 					if(btn=='yes'){
 							var record=selectionModel.getSelected();
 							Ext.Ajax.request({
-								url:"http://localhost/manager/api/good_delete?id="+record.get('id'),
+								url:"/manager/api/good_delete?id="+record.get('id'),
 								success:function(){
 									goodMainGrid.getStore().load();
 								},
@@ -111,7 +111,7 @@ var GoodController = Ext.extend(Ext.util.Observable,{
 				imageManagerWin.show();
 				var record = selectionModel.getSelected();
 				Ext.Ajax.request({
-					url:"http://localhost/manager/api/good_imgs?good_id="+record.id,
+					url:"/manager/api/good_imgs?good_id="+record.id,
 					success:function(response){
 						imageManager.clearItem();
 						var array = eval("("+response.responseText+")");
@@ -131,7 +131,7 @@ var GoodController = Ext.extend(Ext.util.Observable,{
 		});
 		this.goodAddForm.buttons[0].on("click",function(){
 			goodAddForm.getForm().submit({
-				url:"http://localhost/manager/api/add_good",
+				url:"/manager/api/add_good",
 				method:"POST",
 				scope:this,
 				 success: function(form, action) {
@@ -162,7 +162,7 @@ var GoodController = Ext.extend(Ext.util.Observable,{
 		
 		this.goodUpdateForm.buttons[0].on("click",function(){
 			goodUpdateForm.getForm().submit({
-				url:"http://localhost/manager/api/update_good",
+				url:"/manager/api/update_good",
 				method:"POST",
 				scope:this,
 				 success: function(form, action) {
@@ -196,12 +196,59 @@ var GoodController = Ext.extend(Ext.util.Observable,{
 			
 			var selectionModel = goodMainGrid.getSelectionModel();
 			var selectRecord = selectionModel.getSelected();
-			var fileUploadWin = new FileUploadWin("http://localhost/manager/api/add_img?good_id="+selectRecord.id);
+			var fileUploadWin = new FileUploadWin("/manager/api/add_img?good_id="+selectRecord.id);
 			fileUploadWin.show();
 			fileUploadWin.on("submitSuccess",function(){
-				outThis.init();
 				fileUploadWin.close();
+				var record = selectionModel.getSelected();
+				Ext.Ajax.request({
+					url:"/manager/api/good_imgs?good_id="+record.id,
+					success:function(response){
+						imageManager.clearItem();
+						var array = eval("("+response.responseText+")");
+						if(array){
+							for(var i = 0 ;i<array.length;i++){
+								var obj = array[i];
+								imageManager.addItem(obj.src,obj.id);
+							}
+							
+						}
+						imageManager.doLayout();
+					}
+				});
 			});
+		});
+		
+		imageManager.on("removeClick",function(id , panel){
+			if(id){
+				Ext.Ajax.request({
+					url:"/manager/api/delete_img?img_id="+id,
+					success:function(){
+						var selectionModel = goodMainGrid.getSelectionModel();
+						var record = selectionModel.getSelected();
+						Ext.Ajax.request({
+							url:"/manager/api/good_imgs?good_id="+record.id,
+							success:function(response){
+								imageManager.clearItem();
+								var array = eval("("+response.responseText+")");
+								if(array){
+									for(var i = 0 ;i<array.length;i++){
+										var obj = array[i];
+										imageManager.addItem(obj.src,obj.id);
+									}
+									
+								}
+								imageManager.doLayout();
+							}
+						});
+					},
+					failure:function(){
+						alert("failure");
+					}
+				});
+			}else{
+				Ext.Msg.alert("系统提示","请选中一张图片");
+			}
 		});
 		GoodController.superclass.constructor.call(this,{
 			

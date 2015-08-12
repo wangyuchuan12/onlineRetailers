@@ -30,4 +30,8 @@ public class GoodImgService {
     public void delete(GoodImg goodImg){
         goodImgRepository.delete(goodImg);
     }
+    public void delete(String img_id) {
+        goodImgRepository.delete(img_id);
+        
+    }
 }

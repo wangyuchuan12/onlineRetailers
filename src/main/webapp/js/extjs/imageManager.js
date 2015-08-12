@@ -21,8 +21,8 @@ var ImageManager = Ext.extend(Ext.Panel,{
 					outThis.items.each(function(item){
 						if(item){
 							item.body.update("<img id='"+id+"' src='"+src+"' style='width:300;height:300;border:1px solid black'></img>");
-							selectId = id;
-							selectItem = panel;
+							outThis.selectId = id;
+							outThis.selectItem = panel;
 							outThis.fireEvent("imageItemOnClick",id,panel);
 							
 						}

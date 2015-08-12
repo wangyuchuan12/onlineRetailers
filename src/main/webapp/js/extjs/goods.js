@@ -17,7 +17,7 @@
 																		autoScroll:true,
 																		height:800,
 																		store:new Ext.data.JsonStore({
-																										url:"http://localhost/manager/api/good_list",
+																										url:"/manager/api/good_list",
 																									 	root:"root",
 																										fields:['id',"name","alone_original_cost","alone_discount",
 																											"group_original_cost","group_discount","market_price","group_num","","source_address"]
