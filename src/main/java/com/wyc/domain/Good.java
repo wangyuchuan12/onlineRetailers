@@ -56,6 +56,7 @@ public class Good {
     private String sourceId;
     @Column(name="group_duration")
     @JsonProperty(value = "group_duration")
+
     private int groupDuration;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")

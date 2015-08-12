@@ -25,7 +25,6 @@ import com.wyc.service.GoodService;
 import com.wyc.service.GroupPartakeService;
 import com.wyc.service.MyResourceService;
 import com.wyc.wx.domain.AccessTokenBean;
-import com.wyc.wx.domain.Authorize;
 import com.wyc.wx.domain.UserInfo;
 
 @Controller

@@ -2,6 +2,8 @@ package com.wyc.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.Type;
@@ -16,6 +18,7 @@ public class GoodImg {
     @Column(name = "img_id")
     private String imgId;
     @Column(name = "level")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int level;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
