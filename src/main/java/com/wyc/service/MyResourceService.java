@@ -44,6 +44,7 @@ public class MyResourceService {
         String fileName = UUID.randomUUID()+"."+myResource.getSuffix();
         File resource = new File(file.getAbsoluteFile(),fileName);
         myResource.setUrl("/file/"+fileName);
+        logger.debug("save image to {}",resource.getAbsoluteFile());
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream(resource);
