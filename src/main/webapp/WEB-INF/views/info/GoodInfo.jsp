@@ -77,9 +77,12 @@
 			
 		<div class="good_info_details">
 			<h1>商品简介</h1>
-			<p>${good.instruction}
+			<p>${good.instruction}</p>
 			<div class="images">
-			<img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-477820d09689d655.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-2e3b34201d00768f.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-08eea6fa41112aa8.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-e83e8cbe95160d57.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-174187a08958982b.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-c6a36b3dd5a01755.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-ec5f73c6c50aa65b.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-0043c1d91d242ef1.jpg" alt=""><img class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-931b701e04b75674.jpg" alt=""><img id="__mcenew" class="img-responsive" src="http://img1.ifindu.cn/photo/2015-5/group-commodity-09efa87ff3533058.jpg" alt=""></p></div>
+				<c:forEach items="${imgs}" var="img">
+					<img class="img-responsive" src="${img.url}" alt="">
+				</c:forEach>
+			</div>
 		</div>
         </section>
     </div>

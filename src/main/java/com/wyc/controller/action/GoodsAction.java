@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.wyc.annotation.AccessTokenAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.domain.Good;
+import com.wyc.domain.GoodImg;
 import com.wyc.domain.MyResource;
 import com.wyc.intercept.domain.MyHttpServletRequest;
+import com.wyc.service.GoodImgService;
 import com.wyc.service.GoodService;
 import com.wyc.service.MyResourceService;
 @Controller
@@ -26,6 +28,8 @@ public class GoodsAction {
         private MyResourceService resourceService;
         @Autowired
         private GoodService goodService;
+        @Autowired
+        private GoodImgService goodImgService;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
@@ -60,6 +64,7 @@ public class GoodsAction {
 	public String goodInfo(HttpServletRequest httpRequest){
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	    String goodId = httpRequest.getParameter("id");
+	    
 	    Good good = goodService.findOne(goodId);
 	    logger.debug("get the good object is {}",good);
 	    Map<String, Object> responseGood = new HashMap<String, Object>();
@@ -80,7 +85,14 @@ public class GoodsAction {
             if(myResource!=null){
                 responseGood.put("head_img", myResource.getUrl());
             }
+            List<String> resourceIds = new ArrayList<>();
+            Iterable<GoodImg> iterable = goodImgService.findAllByGoodIdOrderByLevel(goodId);
+            for(GoodImg goodImg:iterable){
+                resourceIds.add(goodImg.getImgId());
+            }
+            Iterable<MyResource> myResources = resourceService.findAll(resourceIds);
             httpRequest.setAttribute("good", responseGood);
+            httpRequest.setAttribute("imgs", myResources);
             httpRequest.setAttribute("token", myHttpServletRequest.getToken());
             logger.debug("the token is :{}",myHttpServletRequest.getToken());
             return "info/GoodInfo";

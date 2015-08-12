@@ -8,6 +8,8 @@ import javax.persistence.Lob;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "my_resource")
 public class MyResource {
     @Id
@@ -18,6 +20,7 @@ public class MyResource {
     private String name;
     @Column(name = "instruction")
     private String instruction;
+    @JsonIgnore
     @Column(name = "data")
     @Lob
     private byte[] data;
@@ -25,9 +28,11 @@ public class MyResource {
     private String suffix;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @JsonIgnore
     private DateTime createAt;
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @JsonIgnore
     private DateTime updateAt;
     public DateTime getCreateAt() {
         return createAt;

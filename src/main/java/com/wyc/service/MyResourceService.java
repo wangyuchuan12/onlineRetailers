@@ -66,4 +66,8 @@ public class MyResourceService {
             }
         } 
     }
+
+    public Iterable<MyResource> findAll(Iterable<String> resourceIds) {
+       return resourceRepository.findAll(resourceIds);
+    }
 }
