@@ -40,7 +40,7 @@ public class Good {
     @Column(name = "head_img")
     private String headImg;
     //商品说明
-    @Column
+    @Column(length=5000)
     private String instruction;
     @Column(name="group_num")
     @JsonProperty(value = "group_num")
