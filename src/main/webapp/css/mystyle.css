@@ -9,7 +9,6 @@
 	font-size: 13px;
 	top:-40px;
 	position:relative;
-	margin-top:10px;
 	font-weight: lighter;
 	text-decoration:line-through;
 	
@@ -446,7 +445,9 @@
 	display:inline-block;
 	
 }
-
+.images{
+	margin-top: 15px;
+}
 .images img{
 	max-width:100%;
 }
