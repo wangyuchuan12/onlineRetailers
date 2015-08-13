@@ -449,7 +449,8 @@
 	margin-top: 15px;
 }
 .images img{
-	max-width:100%;
+	width:95%;
+	height:300px;
 }
 
 .member_item{
