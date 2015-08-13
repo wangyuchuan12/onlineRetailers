@@ -1,10 +1,13 @@
 package com.wyc.service;
 
+import java.util.UUID;
+
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.wyc.domain.Good;
 import com.wyc.repositories.GoodRepository;
 
@@ -16,6 +19,8 @@ public class GoodService {
     
     public void add(Good good){
         good.setCreateAt(new DateTime());
+        good.setUpdateAt(new DateTime());
+        good.setId(UUID.randomUUID().toString());
         goodRepository.save(good);
     }
     
@@ -31,6 +36,12 @@ public class GoodService {
     public void delete(String id){
         logger.debug("delete by id {}",id);
         goodRepository.delete(id);
+    }
+
+    public void save(Good good) {
+        good.setUpdateAt(new DateTime());
+        goodRepository.save(good);
+        
     }
     
 }
