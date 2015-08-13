@@ -47,6 +47,7 @@ public class GoodManagerApi {
         good.setFlowPrice(Float.parseFloat(servletRequest.getParameter("flow_price")));
         good.setGroupDiscount(Float.parseFloat(servletRequest.getParameter("group_discount")));
         good.setGroupOriginalCost(Float.parseFloat(servletRequest.getParameter("group_original_cost")));
+        good.setGroupNum(Integer.parseInt(servletRequest.getParameter("group_num")));
        
         good.setInstruction(servletRequest.getParameter("instruction"));
         good.setMarketPrice(Float.parseFloat(servletRequest.getParameter("market_price")));
