@@ -22,4 +22,9 @@ public class GoodOrderService {
    public void save(GoodOrder goodOrder){
        goodOrderRepository.save(goodOrder);
    }
+
+    public Iterable<GoodOrder> findAll() {
+        return goodOrderRepository.findAll();
+        
+    }
 }

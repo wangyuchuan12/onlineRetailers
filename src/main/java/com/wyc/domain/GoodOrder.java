@@ -16,6 +16,8 @@ public class GoodOrder {
     //总共付款
     @Column(name = "cost")
     private float cost;
+    @Column
+    private String goodId;
     //商品价格
     @Column(name = "good_price")
     private float goodPrice;
@@ -46,6 +48,14 @@ public class GoodOrder {
     @Column(name = "update_at")
     private DateTime updateAt;
     
+   
+    public String getGoodId() {
+        return goodId;
+    }
+
+    public void setGoodId(String goodId) {
+        this.goodId = goodId;
+    }
 
     public String getId() {
         return id;

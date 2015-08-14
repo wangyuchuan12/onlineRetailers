@@ -14,11 +14,12 @@
 		<script src="/js/goodManager/imageManager.js"></script>
 		<script src="/js/goodManager/fiewUploadWin.js"></script>
 		<script src="/js/goodManager/sourceForm.js"></script>
+		<script src="/js/orderManager/orders.js"></script>
 	</head>
 	<body>
 		<script>
 		Ext.onReady(function(){
-	
+			/*
 			var goodMainGrid = new GoodMainGrid();
 			var goodAddForm = new GoodInfo();
 			var goodUpdateForm = new GoodInfo();
@@ -26,6 +27,12 @@
 			var sourceForm = new SourceForm();
 			goodMainGrid.render(Ext.getBody());
 			var controller = new GoodController(goodMainGrid,goodAddForm,goodUpdateForm,imageManager,sourceForm);
+			*/
+			
+			var orderMainGrid = new OrderMainGrid();
+			orderMainGrid.render(Ext.getBody());
+			
+			orderMainGrid.on("sendClick",function(record){alert("sendClick"+record);});
 			
 		});
 	</script>
