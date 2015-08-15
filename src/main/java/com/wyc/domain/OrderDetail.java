@@ -11,13 +11,13 @@ import org.joda.time.DateTime;
 public class OrderDetail {
     @Id
     private String id;
-    @Column(name = "order_id")
+    @Column(name = "order_id",unique=true)
     private String orderId;
     @Column(name = "good_id")
     private String goodId;
     @Column(name = "num")
-    private String num;
-    @Column(name="group_id")
+    private int num;
+    @Column(name="group_id",unique = true)
     private String groupId;
     
     @Column(name = "create_at")
@@ -62,10 +62,11 @@ public class OrderDetail {
     public void setGoodId(String goodId) {
         this.goodId = goodId;
     }
-    public String getNum() {
-        return num;
-    }
-    public void setNum(String num) {
-        this.num = num;
-    }
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
+   
 }

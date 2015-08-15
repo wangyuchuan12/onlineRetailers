@@ -12,15 +12,16 @@ import com.wyc.repositories.GoodGroupRepository;
 public class GoodGroupService {
     @Autowired
     private GoodGroupRepository goodGroupRepository;
-    public void add(GoodGroup goodGroup){
+    public GoodGroup add(GoodGroup goodGroup){
         goodGroup.setId(UUID.randomUUID().toString());
         goodGroup.setCreateAt(new DateTime());
         goodGroup.setUpdateAt(new DateTime());
-        goodGroupRepository.save(goodGroup);
+        return goodGroupRepository.save(goodGroup);
     }
     
-    public void save(GoodGroup goodGroup){
-        goodGroupRepository.save(goodGroup);
+    public GoodGroup save(GoodGroup goodGroup){
+    	goodGroup.setUpdateAt(new DateTime());
+        return goodGroupRepository.save(goodGroup);
     }
     
     public GoodGroup findOne(String id){

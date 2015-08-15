@@ -19,9 +19,11 @@ import com.wyc.defineBean.ApiResponse;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodImg;
 import com.wyc.domain.MyResource;
+import com.wyc.domain.Source;
 import com.wyc.service.GoodImgService;
 import com.wyc.service.GoodService;
 import com.wyc.service.MyResourceService;
+import com.wyc.service.SourceService;
 
 @RestController
 public class GoodManagerApi {
@@ -31,6 +33,8 @@ public class GoodManagerApi {
     private MyResourceService resourceService;
     @Autowired
     private GoodImgService goodImgService;
+    @Autowired
+    private SourceService sourceService;
     private Logger logger = LoggerFactory.getLogger(GoodManagerApi.class);
     @RequestMapping("/manager/api/add_good")
     public Object addGood(MultipartHttpServletRequest servletRequest){
@@ -38,12 +42,12 @@ public class GoodManagerApi {
         CommonsMultipartFile commonsMultipartFile = (CommonsMultipartFile) multipartHttpServletRequest.getFile("head_img");
         
         Good good = new Good();
-        good.setId(UUID.randomUUID().toString());
         good.setAloneDiscount(Float.parseFloat(servletRequest.getParameter("alone_discount")));
         good.setAloneOriginalCost(Float.parseFloat(servletRequest.getParameter("alone_original_cost")));
         good.setFlowPrice(Float.parseFloat(servletRequest.getParameter("flow_price")));
         good.setGroupDiscount(Float.parseFloat(servletRequest.getParameter("group_discount")));
         good.setGroupOriginalCost(Float.parseFloat(servletRequest.getParameter("group_original_cost")));
+        good.setGroupNum(Integer.parseInt(servletRequest.getParameter("group_num")));
        
         good.setInstruction(servletRequest.getParameter("instruction"));
         good.setMarketPrice(Float.parseFloat(servletRequest.getParameter("market_price")));
@@ -76,7 +80,8 @@ public class GoodManagerApi {
         good.setFlowPrice(Float.parseFloat(servletRequest.getParameter("flow_price")));
         good.setGroupDiscount(Float.parseFloat(servletRequest.getParameter("group_discount")));
         good.setGroupOriginalCost(Float.parseFloat(servletRequest.getParameter("group_original_cost")));
-       
+        good.setCouponCost(Integer.parseInt(servletRequest.getParameter("coupon_cost")));
+        good.setGroupNum(Integer.parseInt(servletRequest.getParameter("group_num")));
         good.setInstruction(servletRequest.getParameter("instruction"));
         good.setMarketPrice(Float.parseFloat(servletRequest.getParameter("market_price")));
         good.setName(servletRequest.getParameter("name"));
@@ -91,8 +96,7 @@ public class GoodManagerApi {
             good.setHeadImg(resourceId);
             
         }
-        
-        goodService.add(good);
+        goodService.save(good);
         try {
             resourceService.addToWebpath(myResource, commonsMultipartFile.getInputStream());
         } catch (Exception e) {
@@ -127,6 +131,54 @@ public class GoodManagerApi {
             imgs.add(goodImgMap);
         }
         return imgs;
+    }
+    
+    @RequestMapping("/manager/api/get_source")
+    public Source getSource(HttpServletRequest httpServletRequest){
+        String good_id = httpServletRequest.getParameter("good_id");
+        Good good = goodService.findOne(good_id);
+        if(good==null||good.getSourceId()==null||good.getSourceId().trim().equals("")){
+            return null;
+        }else{
+            String sourceId = good.getSourceId();
+            Source source = sourceService.findOne(sourceId);
+            return source;
+        }
+    }
+    
+    @RequestMapping("/manager/api/save_source")
+    public Object saveSource(HttpServletRequest httpServletRequest){
+        String id = httpServletRequest.getParameter("id");
+        String price = httpServletRequest.getParameter("price");
+        String type = httpServletRequest.getParameter("type");
+        String url = httpServletRequest.getParameter("url");
+        String address = httpServletRequest.getParameter("address");
+        String name = httpServletRequest.getParameter("name");
+        String goodId = httpServletRequest.getParameter("good_id");
+        Source source = null;
+        if(id!=null&&!id.trim().equals("")){
+            source = sourceService.findOne(id);
+            source.setPrice(Float.parseFloat(price));
+            source.setAddress(address);
+            source.setName(name);
+            source.setType(Integer.parseInt(type));
+            source.setUrl(url);
+            sourceService.save(source);
+            return "{'success':true,'type':0}";
+        }else{
+            source = new Source();
+            source.setPrice(Float.parseFloat(price));
+            source.setAddress(address);
+            source.setName(httpServletRequest.getParameter("name"));
+            source.setType(Integer.parseInt(type));
+            source.setUrl(url);
+            source.setName(name);
+            source = sourceService.add(source);
+            Good good = goodService.findOne(goodId);
+            good.setSourceId(source.getId());
+            goodService.save(good);
+            return "{'success':true,'type':1}";
+        }
     }
     
     @RequestMapping("/manager/api/add_img")

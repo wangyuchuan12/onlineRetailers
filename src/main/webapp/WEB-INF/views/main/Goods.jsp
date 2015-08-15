@@ -33,7 +33,7 @@
                         	去开团
                     </div>
                 </div>
-                
+                <div class="good_market_price">市场价：￥${good.market_price}</div>
             </div>
             </c:forEach>
         </div>

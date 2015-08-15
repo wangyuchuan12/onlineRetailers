@@ -1,9 +1,18 @@
 .goods{margin:8px 10px}
-.good{padding:5px;font-size:18px;background-color:white;margin:10px;display:inline-block;border-color: red;max-height:230px;}
-.good-img{max-width:100%;width:auto;height:auto;position:relative;overflow:hidden;border:0;top:-50px;max-height: 80%;}
-.good-img img{max-width:100%;max-height: 95%;}
+.good{padding:5px;font-size:18px;background-color:white;margin:10px;display:inline-block;border-color: red;height:265px;}
+.good-img{width:100%;width:auto;height:auto;position:relative;overflow:hidden;border:0;top:-50px;height: 80%;}
+.good-img img{width:100%;height: 90%;}
 .good-img .good-title{width:100%;height:24px;z-index:100;position:absolute;color:#fff;font-size:16px;font-family:initial;bottom:0;left:0;background-color:rgba(0,0,0,.4);padding:0 5px;}
-
+.good_market_price{
+	text-align: left;
+	float:left;
+	font-size: 13px;
+	top:-40px;
+	position:relative;
+	font-weight: lighter;
+	text-decoration:line-through;
+	
+}
 .tuan_g_core{color:white;display:block;line-height:34px;top:-45px;position:relative;width:290px}
 .tuan_g_price{background-color:#3E3E3E;float:left;height:34px;margin-left:0px;overflow:hidden;padding-left:10px;width:145px;left:-20px;}
 .tuan_g_price b{font-size:18px;font-weight:400;margin-left:5px;margin-right:2px}
@@ -436,9 +445,12 @@
 	display:inline-block;
 	
 }
-
+.images{
+	margin-top: 15px;
+}
 .images img{
-	max-width:100%;
+	width:95%;
+	height:300px;
 }
 
 .member_item{
@@ -854,11 +866,6 @@
 	display:block;
 	font-weight: bold;
 }
-
-
-
-
-
 
 .order_info_flow{
 	display:block;
