@@ -69,9 +69,13 @@ public class GoodsApi {
 				goodGroup.setTotalPrice(cost);
 				goodGroup = goodGroupService.add(goodGroup);
 				orderDetail.setGroupId(goodGroup.getGoodId());
-				
+				goodGroupService.add(goodGroup);
 			}
+			orderDetailService.add(orderDetail);
+			return goodOrder;
+		}else{
+			return null;
 		}
-		return null;
+		
 	}
 }

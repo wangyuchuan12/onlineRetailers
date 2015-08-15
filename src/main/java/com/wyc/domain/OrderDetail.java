@@ -11,13 +11,13 @@ import org.joda.time.DateTime;
 public class OrderDetail {
     @Id
     private String id;
-    @Column(name = "order_id",unique=true)
+    @Column(name = "order_id",unique=true,nullable=false)
     private String orderId;
-    @Column(name = "good_id")
+    @Column(name = "good_id",nullable=false)
     private String goodId;
     @Column(name = "num")
     private int num;
-    @Column(name="group_id",unique = true)
+    @Column(name="group_id",unique = true,nullable=false)
     private String groupId;
     
     @Column(name = "create_at")

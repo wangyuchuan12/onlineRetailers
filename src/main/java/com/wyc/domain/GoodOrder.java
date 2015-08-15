@@ -45,6 +45,7 @@ public class GoodOrder {
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "update_at")
     private DateTime updateAt;
     

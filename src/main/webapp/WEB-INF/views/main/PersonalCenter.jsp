@@ -33,7 +33,7 @@
         					<div class="personal_center_item_icon" style="background-color:red;padding-top:5px;padding-left:3px;">
         						<i class="fa fa-shopping-cart"></i>
         					</div>
-        					<div class="personal_center_item_content">我的地址</div>
+        					<div class="personal_center_item_content" onclick="skipToAddress();">我的地址</div>
         					<div class="personal_center_item_footer">&gt</div>
         				</div>
         			</li>
