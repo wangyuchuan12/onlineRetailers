@@ -17,52 +17,71 @@ var GoodInfo = Ext.extend(Ext.form.FormPanel,{
 																						readOnly:true,
 																						name:"id"
 																				  });
-												this.aloneDiscountText = new Ext.form.TextField({
+												this.aloneDiscountText = new Ext.form.NumberField({
 																						fieldLabel:"单卖折扣",
-																						name:"alone_discount"
+																						name:"alone_discount",
+																						value:1,
+																						maxValue:1
 																					});
-												this.aloneOriginalCostText = new Ext.form.TextField({
+												this.aloneOriginalCostText = new Ext.form.NumberField({
 																						fieldLabel:"单卖原价",
-																						name:"alone_original_cost"
+																						name:"alone_original_cost",
+																						allowBlank:false
 
 																					});
-												this.couponCostText = new Ext.form.TextField({
+												this.couponCostText = new Ext.form.NumberField({
 																						fieldLabel:"需要开团劵",
-																						name:"coupon_cost"
+																						name:"coupon_cost",
+																						value:1,
+																						allowBlank:false,
+																						minValue:0,
+																						decimalPrecision:0
 																					});
-												this.flowPriceText = new Ext.form.TextField({
+												this.flowPriceText = new Ext.form.NumberField({
 																						fieldLabel:"物流费",
-																						name:"flow_price"
+																						name:"flow_price",
+																						allowBlank:false,
+																						value:0
 																					});
-												this.groupDiscountText = new Ext.form.TextField({
+												this.groupDiscountText = new Ext.form.NumberField({
 																						fieldLabel:"团购折扣",
-																						name:"group_discount"
+																						name:"group_discount",
+																						value:1,
+																						allowBlank:false,
+																						maxValue:1
 																					});
-												this.groupNumText = new Ext.form.TextField({
+												this.groupNumText = new Ext.form.NumberField({
 																						fieldLabel:"需要组团数量",
-																						name:"group_num"
+																						name:"group_num",
+																						value:5,
+																						minValue:1,
+																						decimalPrecision:0,
+																						allowBlank:false
 																					});
-												this.groupOriginalCostText = new Ext.form.TextField({
+												this.groupOriginalCostText = new Ext.form.NumberField({
 																						fieldLabel:"团购原价",
-																						name:"group_original_cost"
+																						name:"group_original_cost",
+																						allowBlank:false
 																					});
 												this.instructionText = new Ext.form.TextField({
 																						fieldLabel:"介绍",
-																						name:"instruction"
+																						name:"instruction",
+																						allowBlank:false
 																					});
 												this.fileText = new Ext.form.TextField({
 																						fieldLabel:"商品图片",
 																						inputType:"file",
 																						name:"head_img"
 																					});
-												this.marketPriceText = new Ext.form.TextField({
+												this.marketPriceText = new Ext.form.NumberField({
 																						fieldLabel:"市场价",
-																						name:"market_price"		
+																						name:"market_price",
+																						allowBlank:false
 																					});
 												this.nameText = new Ext.form.TextField({
 																						fieldLabel:"商品名称",
 																						name:"name",
-																						value:"123"
+																						allowBlank:false
 																					});
 												GoodInfo.superclass.constructor.call(this,{
 																							   		frame:true,

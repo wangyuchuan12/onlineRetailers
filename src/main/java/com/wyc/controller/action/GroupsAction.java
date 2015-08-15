@@ -67,7 +67,6 @@ public class GroupsAction {
         List<Map<String, String>> responseGroups = new ArrayList<Map<String,String>>();
         for(GoodGroup goodGroup:goodGroups){
             Map<String, String> responseGroup = new HashMap<String, String>();
-            responseGroup.put("step", goodGroup.getStep()+"");
             responseGroup.put("result", goodGroup.getResult()+"");
             Good good  = goodService.findOne(goodGroup.getGoodId());
             responseGroup.put("name", good.getName());

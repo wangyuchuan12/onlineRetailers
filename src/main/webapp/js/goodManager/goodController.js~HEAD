@@ -5,7 +5,7 @@ var GoodController = Ext.extend(Ext.util.Observable,{
 	init:function(){
 		this.goodMainGrid.getStore().load();
 	},
-	constructor:function(goodMainGrid,goodAddForm,goodUpdateForm,imageManager){
+	constructor:function(goodMainGrid,goodAddForm,goodUpdateForm,imageManager,sourceForm){
 		var outThis = this;
 		var goodAddFormWin = new Ext.Window({
 			title : '商品新增',
@@ -42,6 +42,15 @@ var GoodController = Ext.extend(Ext.util.Observable,{
 			layout : 'fit',
 			closeAction:"hide",
 			items:[imageManager]
+		});
+		
+		var sourceFormWin = new Ext.Window({
+			width:350,
+			height:300,
+			title : '货源管理',
+			layout : 'fit',
+			closeAction:"hide",
+			items:[sourceForm]
 		});
 		this.goodMainGrid = goodMainGrid;
 		this.goodAddForm = goodAddForm;
@@ -129,6 +138,41 @@ var GoodController = Ext.extend(Ext.util.Observable,{
 				Ext.Msg.alert("提示提醒","请选中一行");
 			}
 		});
+		
+		this.goodMainGrid.getTopToolbar().items.itemAt(9).on("click",function(){
+			var selectionModel = goodMainGrid.getSelectionModel();
+			
+			sourceForm.idText.setValue(null);
+			sourceForm.priceText.setValue(null);
+			sourceForm.typeText.setValue(null);
+			sourceForm.urlText.setValue(null);
+			sourceForm.nameText.setValue(null);
+			sourceForm.addressText.setValue(null);
+			if(selectionModel.hasSelection()){
+				var record = selectionModel.getSelected();
+				sourceFormWin.show();
+				Ext.Ajax.request({
+					url:"/manager/api/get_source?good_id="+record.id,
+					success:function(response){
+						if(response&&response.responseText){
+							var obj = eval("("+response.responseText+")");
+							sourceForm.idText.setValue(obj.id);
+							sourceForm.priceText.setValue(obj.price);
+							sourceForm.typeText.setValue(obj.type);
+							sourceForm.urlText.setValue(obj.url);
+							sourceForm.nameText.setValue(obj.name);
+							sourceForm.addressText.setValue(obj.address);
+						}
+						
+					},
+					failure:function(){
+						alert("failure");
+					}
+				});
+			}else{
+				Ext.Msg.alert("提示提醒","请选中一行");
+			}
+		});
 		this.goodAddForm.buttons[0].on("click",function(){
 			goodAddForm.getForm().submit({
 				url:"/manager/api/add_good",
@@ -192,6 +236,23 @@ var GoodController = Ext.extend(Ext.util.Observable,{
 			
 		},this);
 		
+		sourceForm.buttons[0].on("click",function(){
+			var selectionModel = goodMainGrid.getSelectionModel();
+			var record = selectionModel.getSelected();
+
+			sourceForm.getForm().submit({
+				url:"/manager/api/save_source?good_id="+record.get("id"),
+				method:"post",
+				success:function(form, action){
+					if(action.result.success){
+						sourceFormWin.hide();
+					}
+				},
+				failure:function(){
+					Ext.Msg.alert("系统提醒","保存失败，找出问题或者联系大王");
+				}
+			});
+		});
 		imageManager.on("uploadClick",function(){
 			
 			var selectionModel = goodMainGrid.getSelectionModel();
