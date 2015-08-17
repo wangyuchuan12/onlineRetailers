@@ -4,8 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class OrderManagerAction {
-	@RequestMapping("/manager/order")
+	@RequestMapping("/manager/orders")
     public String order(){
-        return "manager/order";
+        return "manager/OrderManager";
     }
 }

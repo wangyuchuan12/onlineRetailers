@@ -17,6 +17,8 @@
     <link rel="stylesheet"
 	href="/css/font-awesome.min.css">
 	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script type="text/javascript" src="/js/myscript.js"></script>
+	<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -77,7 +79,7 @@
         		</div>
         	</div>
 	        	<div class="good_info_pay_button">
-	        		<a href="">立即支付</a>
+	        		<a href="javascript:paySuccess('${payGoodInfo.id}','${payGoodInfo.pay_type}',1,'${token.id}')">立即支付</a>
 	        	</div>
 	        	 <div class="trade_flow">
             	<div class="trade_flow_details">查看详情&gt;</div>

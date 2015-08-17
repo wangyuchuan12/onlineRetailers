@@ -26,6 +26,35 @@ function skipToUrl(url,token){
 	
 }
 
+function request(url,token,callback){
+	if(!token&&window.localStorage.getItem("userToken")){
+		token = window.localStorage.getItem("userToken");
+	}
+	if(url.indexOf("?")>0){
+		if(token){
+			url=webPath+url+"&token="+token;
+		}else{
+			url=webPath+url;
+		}
+	}else{
+		if(token){
+			url=webPath+url+"?token="+token;
+		}else{
+			url=webPath+url;
+		}
+	}
+	$.ajax({
+		url:url,
+		method:"POST",
+		success:function(resp){
+			var content = resp.responseText;
+			if(callback){
+				callback.call(content);
+			}
+		}
+	});
+}
+
 function skipToGoodInfo(id , token){
 	skipToUrl("/info/good_info?id="+id,token);
 }
@@ -57,6 +86,15 @@ function skipToPersonCenter(){
 function skipToAddress(){
 	skipToUrl("/info/address");
 }
+
+function paySuccess(goodId,payType,status,token){
+	var callback = new Object();
+	callback.call=function(response){
+		alert(response);
+	};
+	request("/api/pay_success?pay_type="+payType+"&good_id="+goodId+"&status="+status,token);
+}
+
 function footActive(id){
 	var footGoodList = $("#foot_good_list");	
 	var footGroupList = $("#foot_group_List");

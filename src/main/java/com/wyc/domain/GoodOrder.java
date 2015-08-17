@@ -21,6 +21,15 @@ public class GoodOrder {
     //商品价格
     @Column(name = "good_price")
     private float goodPrice;
+    @Column(name = "refund_time")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime refundTime;
+    @Column(name = "refund_devivery_time")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime refundDeviveryTime;
+    @Column(name = "refund_sign_time")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime refundSignTime;
     //1表示未付款 2表示已付款 3表示未发货 4表示已发货但未签收 5已签收 6退款中 7退款成功
     @Column(name = "status")
     private int status;
@@ -33,6 +42,30 @@ public class GoodOrder {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime deliveryTime;
     
+    public DateTime getRefundTime() {
+        return refundTime;
+    }
+
+    public void setRefundTime(DateTime refundTime) {
+        this.refundTime = refundTime;
+    }
+
+    public DateTime getRefundDeviveryTime() {
+        return refundDeviveryTime;
+    }
+
+    public void setRefundDeviveryTime(DateTime refundDeviveryTime) {
+        this.refundDeviveryTime = refundDeviveryTime;
+    }
+
+    public DateTime getRefundSignTime() {
+        return refundSignTime;
+    }
+
+    public void setRefundSignTime(DateTime refundSignTime) {
+        this.refundSignTime = refundSignTime;
+    }
+
     //签收时间
     @Column(name = "sign_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")

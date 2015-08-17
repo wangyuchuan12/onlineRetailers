@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import com.danga.MemCached.MemCachedClient;
 import com.danga.MemCached.SockIOPool;
 import com.wyc.ApplicationContextProvider;
 import com.wyc.defineBean.ApplicationProperties;
+import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.wx.domain.WxContext;
 
 @Configuration
@@ -82,5 +82,11 @@ public class AppConfig {
         wxContext.setFilePath(myProperties.getProperty("file_path"));
         wxContext.setFlag(myProperties.getProperty("flag"));
         return wxContext;
+    }
+    
+    @Bean
+    public MySimpleDateFormat mySimpleDateFormat(){
+        MySimpleDateFormat sdf = new MySimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf;
     }
 }

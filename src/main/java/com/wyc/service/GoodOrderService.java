@@ -1,5 +1,6 @@
 package com.wyc.service;
 
+import java.util.Collection;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
@@ -30,8 +31,16 @@ public class GoodOrderService {
 	   return goodOrderRepository.save(goodOrder);
    }
 
-    public Iterable<GoodOrder> findAll() {
+    public Iterable<GoodOrder> findAllOrderByCreateTimeDesc() {
         return goodOrderRepository.findAll();
         
+    }
+    
+    public Iterable<GoodOrder> findAllByStatusInOrderByCreateTimeDesc(Collection<Integer> statuses){
+        return goodOrderRepository.findAllByStatusIn(statuses);
+    }
+    
+    public Iterable<GoodOrder> findAllByStatusOrderByCreateTimeDesc(int status){
+        return goodOrderRepository.findAllByStatusOrderByCreateTimeDesc(status);
     }
 }

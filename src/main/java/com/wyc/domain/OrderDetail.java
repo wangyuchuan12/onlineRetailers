@@ -17,7 +17,7 @@ public class OrderDetail {
     private String goodId;
     @Column(name = "num")
     private int num;
-    @Column(name="group_id",unique = true,nullable=false)
+    @Column(name="group_id",unique = true)
     private String groupId;
     
     @Column(name = "create_at")
