@@ -1,5 +1,10 @@
 package com.wyc.wx.controller.action.test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.joda.time.DateTime;
@@ -91,17 +96,14 @@ public class ServiceTest {
         try {
             String responeJsonStr = "{"+
                     "\"button\":["+
-                        "{\"name\":\"菜单名称1\","+
-                        "\"type\":\"click\"," +
+                        "{\"name\":\"进入商城\","+
+                        "\"type\":\"view\"," +
+                        "\"url\":\"http://www.chengxi.pub/main/good_list\"," +
                         "\"key\":\"V01_S01\"" +
                         "},"+
-                        "{\"name\":\"菜单名称2\","+
+                        "{\"name\":\"商城须知\","+
                         "\"type\":\"click\"," +
                         "\"key\":\"V02_S01\"" +
-                        "},"+
-                        "{\"name\":\"菜单名称1\","+
-                        "\"type\":\"click\"," +
-                        "\"key\":\"V03_S01\"" +
                         "}"+
                     "]"+
                 "}";
@@ -116,5 +118,17 @@ public class ServiceTest {
     @RequestMapping("/service/get_token")
     public Token getToken(){
         return tokenservice.findByIdAndInvalidDateGreaterThan("2",new DateTime());
+    }
+    
+    @RequestMapping("/data/json_store_data")
+    public Object jsonStoreTest(HttpServletRequest httpServletRequest){
+        Map<String, Object> map = new HashMap<>();
+        List<Map<String, String>> list = new ArrayList<>();
+        Map<String, String> item = new HashMap<String, String>();
+        item.put("id", 123+"");
+        item.put("name", "wyc2");
+        list.add(item);
+        map.put("root", list);
+        return map;
     }
 }
