@@ -56,8 +56,9 @@ public class Good {
     private String sourceId;
     @Column(name="group_duration")
     @JsonProperty(value = "group_duration")
-
     private int groupDuration;
+    @Column
+    private int status;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
@@ -96,6 +97,13 @@ public class Good {
     }
     public float getFlowPrice() {
         return flowPrice;
+    }
+    
+    public int getStatus() {
+        return status;
+    }
+    public void setStatus(int status) {
+        this.status = status;
     }
     public void setFlowPrice(float flowPrice) {
         this.flowPrice = flowPrice;

@@ -12,15 +12,16 @@
 																				 {header:"市场价"},
 																				 {header:"几人团"},
 																				 {header:"创建时间"},
-																				 {header:"货源地址"}],
-																		width:1050,
+																				 {header:"货源地址"},
+																				 {header:"启用"}],
+																		width:1100,
 																		autoScroll:true,
 																		height:800,
 																		store:new Ext.data.JsonStore({
 																										url: "/manager/api/good_list",
 																									 	root:"root",
 																										fields:['id',"name","alone_original_cost","alone_discount",
-																											"group_original_cost","group_discount","market_price","group_num","","source_address"]
+																											"group_original_cost","group_discount","market_price","group_num","","source_address","status"]
 																									 })
 													
 																	 });

@@ -10,6 +10,7 @@ var GoodInfo = Ext.extend(Ext.form.FormPanel,{
 										instructionText:null,
 										marketPriceText:null,
 										nameText:null,
+										statusPanel:null,
 										constructor:function(){
 												
 												this.idText = new Ext.form.TextField({
@@ -83,13 +84,31 @@ var GoodInfo = Ext.extend(Ext.form.FormPanel,{
 																						name:"name",
 																						allowBlank:false
 																					});
+												this.statusPanel = new Ext.form.RadioGroup({
+													layout: 'table',
+													fieldLabel: '启用',
+													defaultType: 'radio',
+													isFormField: true,
+													items:[{
+														name:"status",
+														boxLabel:"启用",
+														inputValue:1
+													},{
+														name:"status",
+														boxLabel:"禁用",
+														inputValue:0,
+														checked:true
+												
+													}]
+												});
 												GoodInfo.superclass.constructor.call(this,{
 																							   		frame:true,
 																									width:350,
+																									height:400,
 																									fileUpload:true,
 																							   		items:[this.idText,this.nameText,this.aloneDiscountText,this.aloneOriginalCostText,
 																										this.couponCostText,this.flowPriceText,this.groupDiscountText,
-																										this.groupNumText,this.groupOriginalCostText,this.instructionText,this.marketPriceText,this.fileText],
+																										this.groupNumText,this.groupOriginalCostText,this.instructionText,this.marketPriceText,this.fileText,this.statusPanel],
 																									buttons:[{text:"确定",scope:this,handler:function(){
 																										
 																									}}]

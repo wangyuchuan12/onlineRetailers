@@ -48,7 +48,7 @@ public class GoodManagerApi {
         good.setGroupDiscount(Float.parseFloat(servletRequest.getParameter("group_discount")));
         good.setGroupOriginalCost(Float.parseFloat(servletRequest.getParameter("group_original_cost")));
         good.setGroupNum(Integer.parseInt(servletRequest.getParameter("group_num")));
-       
+        good.setStatus(Integer.parseInt(servletRequest.getParameter("status")));
         good.setInstruction(servletRequest.getParameter("instruction"));
         good.setMarketPrice(Float.parseFloat(servletRequest.getParameter("market_price")));
         good.setName(servletRequest.getParameter("name"));
@@ -85,6 +85,7 @@ public class GoodManagerApi {
         good.setInstruction(servletRequest.getParameter("instruction"));
         good.setMarketPrice(Float.parseFloat(servletRequest.getParameter("market_price")));
         good.setName(servletRequest.getParameter("name"));
+        good.setStatus(Integer.parseInt(servletRequest.getParameter("status")));
         MyResource myResource = new MyResource();
         String resourceId = UUID.randomUUID().toString();
         myResource.setId(resourceId);
