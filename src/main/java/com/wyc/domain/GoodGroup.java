@@ -10,8 +10,6 @@ import org.joda.time.DateTime;
 public class GoodGroup {
     @Id
     private String id;
-    @Column(name = "step")
-    private int step;
     //0表示组团失败1表示正在组团 2表示组团成功
     @Column(name = "result")
     private int result;
@@ -79,12 +77,6 @@ public class GoodGroup {
     }
     public void setId(String id) {
         this.id = id;
-    }
-    public int getStep() {
-        return step;
-    }
-    public void setStep(int step) {
-        this.step = step;
     }
     public int getResult() {
         return result;

@@ -112,6 +112,11 @@ public class InterceptConfig {
         }
     }
     
+    @Around(value="execution (* com.wyc.controller.api.*.*(..))")
+    public Object aroundApi(ProceedingJoinPoint proceedingJoinPoint){
+    	return aroundAction(proceedingJoinPoint);
+    }
+    
     @Around(value="execution (* com.wyc.controller.action.*.*(..))")
     public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint){
         Object target = proceedingJoinPoint.getTarget();

@@ -1,4 +1,4 @@
-var webPath = "http://www.chengxi.pub";
+var webPath = "";
 function setUserToken(userToken){
 	if(userToken){
 		window.localStorage.setItem("userToken",userToken);
@@ -48,6 +48,14 @@ function skipToPersonCenter(token){
 
 function skipToGoodPay(id,pay_type,token){
 	skipToUrl("/info/good_info_pay?good_id="+id+"&pay_type="+pay_type,token);
+}
+
+function skipToPersonCenter(){
+	skipToUrl("/main/personal_center");
+}
+
+function skipToAddress(){
+	skipToUrl("/info/address");
 }
 function footActive(id){
 	var footGoodList = $("#foot_good_list");	
