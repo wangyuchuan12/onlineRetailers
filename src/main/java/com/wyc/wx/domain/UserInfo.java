@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class UserInfo {
     @Id
     private String id;
-    @Column
+    @Column(unique=true,updatable=false)
     private String openid;
     @Column
     private String nickname;
