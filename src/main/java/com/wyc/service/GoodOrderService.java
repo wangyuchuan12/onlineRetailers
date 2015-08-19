@@ -43,4 +43,8 @@ public class GoodOrderService {
     public Iterable<GoodOrder> findAllByStatusOrderByCreateTimeDesc(int status){
         return goodOrderRepository.findAllByStatusOrderByCreateTimeDesc(status);
     }
+
+    public GoodOrder findOne(String orderId) {
+        return goodOrderRepository.findOne(orderId);
+    }
 }

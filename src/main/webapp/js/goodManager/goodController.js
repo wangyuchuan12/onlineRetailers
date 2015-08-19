@@ -5,8 +5,25 @@ var GoodController = Ext.extend(Ext.util.Observable,{
 	init:function(){
 		this.goodMainGrid.getStore().load();
 	},
-	constructor:function(goodMainGrid,goodAddForm,goodUpdateForm,imageManager,sourceForm){
+	constructor:function(goodMainGrid,goodAddForm,goodUpdateForm,imageManager,sourceForm,distributionTree){
 		var outThis = this;
+		
+		var distributionWin = new Ext.Window({
+			title : '配送地管理',
+			width:400,
+			height:400,
+			layout:"fit",
+			closeAction:"hide",
+			buttonAlign : 'center',
+			items:[distributionTree]
+		});
+		
+		distributionTree.on("beforeload",function(node){
+			var selectionModel = goodMainGrid.getSelectionModel();
+			var record = selectionModel.getSelected();
+			distributionTree.loader.dataUrl = "/manager/api/get_distribution?good_id="+record.get("id");
+		});
+		
 		var goodAddFormWin = new Ext.Window({
 			title : '商品新增',
 			 width : 400,
@@ -171,6 +188,15 @@ var GoodController = Ext.extend(Ext.util.Observable,{
 						alert("failure");
 					}
 				});
+			}else{
+				Ext.Msg.alert("提示提醒","请选中一行");
+			}
+		});
+		
+		this.goodMainGrid.getTopToolbar().items.itemAt(11).on("click",function(){
+			var selectionModel = goodMainGrid.getSelectionModel();
+			if(selectionModel.hasSelection()){
+				distributionWin.show();
 			}else{
 				Ext.Msg.alert("提示提醒","请选中一行");
 			}

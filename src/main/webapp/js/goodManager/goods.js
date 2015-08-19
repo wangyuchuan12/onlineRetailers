@@ -1,7 +1,7 @@
 ﻿var GoodMainGrid = Ext.extend(Ext.grid.GridPanel,{
 		constructor:function(){
 			GoodMainGrid.superclass.constructor.call(this,{
-																	 	tbar:["-",{text:"新增"},"-",{text:"修改"},"-",{text:"删除"},"-",{text:"图片管理"},"-",{text:"货源管理"}],
+																	 	tbar:["-",{text:"新增"},"-",{text:"修改"},"-",{text:"删除"},"-",{text:"图片管理"},"-",{text:"货源管理"},"-",{text:"配送地管理"},"-"],
 																		
 																		columns:[{header:"id"},
 																				 {header:"名称"},

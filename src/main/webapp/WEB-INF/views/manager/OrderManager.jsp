@@ -16,6 +16,9 @@
 		<script src="/js/goodManager/sourceForm.js"></script>
 		<script src="/js/orderManager/orders.js"></script>
 		<script src="/js/orderManager/orderController.js"></script>
+		<script src="/js/orderManager/SendFormPanel.js"></script>
+		<script src="/js/orderManager/SignFormPanel.js"></script>
+		<script src="/js/orderManager/RefundFormPanel.js"></script>
 	</head>
 	<body>
 		<script>
@@ -23,8 +26,11 @@
 
 			var orderMainGrid = new OrderMainGrid();
 			orderMainGrid.render(Ext.getBody());
-			var orderController = new OrderController(orderMainGrid);
-			
+			var sendFormPanel = new SendFormPanel();
+			var signFormPanel = new SignFormPanel();
+			var refundFormPanel = new RefundFormPanel();
+			var goodInfoFormPanel = new GoodInfo();
+			var orderController = new OrderController(orderMainGrid,sendFormPanel,signFormPanel,refundFormPanel,goodInfoFormPanel);
 		});
 	</script>
 	</body>

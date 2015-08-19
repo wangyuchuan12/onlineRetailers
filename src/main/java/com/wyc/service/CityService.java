@@ -28,8 +28,8 @@ public class CityService {
         cityRepository.delete(city);
     }
     
-    public void findOne(String id){
-        cityRepository.findOne(id);
+    public City findOne(String id){
+        return cityRepository.findOne(id);
     }
     
     public Iterable<City> findAll(){

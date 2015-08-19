@@ -63,9 +63,7 @@ public class UserSmartService implements SmartService<UserInfo>{
     @Override
     public UserInfo getFromDatabaseByOther(){
         return wxUserInfoService.findByOpenid(openid);
-    }
-
-    
+    }  
     @Override
     public Token saveToDatabase(UserInfo t , String tokenKey) {
         Calendar calendar = new GregorianCalendar();
@@ -88,7 +86,14 @@ public class UserSmartService implements SmartService<UserInfo>{
         UserInfo userInfo = wxUserInfoService.findByToken(token.getId());
         if(userInfo==null){
             t.setToken(token.getId());
-            wxUserInfoService.add(t);
+            userInfo = wxUserInfoService.findByOpenid(t.getOpenid());
+            if(userInfo!=null){
+                t.setId(userInfo.getId());
+                wxUserInfoService.save(t);
+            }else{
+                wxUserInfoService.add(t);
+            }
+            
         }else{
             userInfo.setCity(t.getCity());
             userInfo.setCountry(t.getCountry());

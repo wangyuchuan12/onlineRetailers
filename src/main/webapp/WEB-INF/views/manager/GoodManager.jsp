@@ -15,6 +15,7 @@
 		<script src="/js/goodManager/fiewUploadWin.js"></script>
 		<script src="/js/goodManager/sourceForm.js"></script>
 		<script src="/js/orderManager/orders.js"></script>
+		<script src="/js/goodManager/distributionTree.js"></script>
 	</head>
 	<body>
 		<script>
@@ -25,9 +26,11 @@
 			var goodUpdateForm = new GoodInfo();
 			var imageManager = new ImageManager();
 			var sourceForm = new SourceForm();
+			var distributionTree = new DistributionTree();
 			goodMainGrid.render(Ext.getBody());
-			var controller = new GoodController(goodMainGrid,goodAddForm,goodUpdateForm,imageManager,sourceForm);
-
+			var controller = new GoodController(goodMainGrid,goodAddForm,goodUpdateForm,imageManager,sourceForm,distributionTree);
+		
+			
 			/*
 			var orderMainGrid = new OrderMainGrid();
 			orderMainGrid.render(Ext.getBody());

@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +18,12 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.wyc.defineBean.ApiResponse;
 import com.wyc.domain.Good;
+import com.wyc.domain.GoodDistribution;
 import com.wyc.domain.GoodImg;
 import com.wyc.domain.MyResource;
 import com.wyc.domain.Source;
+import com.wyc.service.CityService;
+import com.wyc.service.GoodDistributionService;
 import com.wyc.service.GoodImgService;
 import com.wyc.service.GoodService;
 import com.wyc.service.MyResourceService;
@@ -35,6 +39,10 @@ public class GoodManagerApi {
     private GoodImgService goodImgService;
     @Autowired
     private SourceService sourceService;
+    @Autowired
+    private GoodDistributionService goodDistributionService;
+    @Autowired
+    private CityService cityService;
     private Logger logger = LoggerFactory.getLogger(GoodManagerApi.class);
     @RequestMapping("/manager/api/add_good")
     public Object addGood(MultipartHttpServletRequest servletRequest){
@@ -147,6 +155,36 @@ public class GoodManagerApi {
         }
     }
     
+    @RequestMapping("/manager/api/get_distribution")
+    public Object getProvinceDistribution(HttpServletRequest httpServletRequest){
+        Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
+        for(Entry<String, String[]> entry:parameterMap.entrySet()){
+            logger.debug("{}:{}",entry.getKey(),entry.getValue()[0]);
+        }
+        String goodId = httpServletRequest.getParameter("good_id");
+        String node = httpServletRequest.getParameter("node");
+        String parentCity = null;
+        if(node.equals("root")){
+            parentCity = "root";
+        }else{
+            GoodDistribution goodDistribution = goodDistributionService.findOne(node);
+            parentCity = goodDistribution.getCity();
+        }
+        logger.debug("parentCity is {}",parentCity);
+        Iterable<GoodDistribution> provinceIterable = goodDistributionService.findAllByGoodIdAndParentCity(goodId, parentCity);
+        List<Map<String, Object>> citys = new ArrayList<Map<String,Object>>();
+        for(GoodDistribution provinceDistribution:provinceIterable){
+            Map<String, Object> responseProvince = new HashMap<String, Object>();
+            responseProvince.put("text", provinceDistribution.getCityName());
+            responseProvince.put("id", provinceDistribution.getId());
+            responseProvince.put("parentCity", provinceDistribution.getParentCity());
+            responseProvince.put("city", provinceDistribution.getCity());
+            responseProvince.put("leaf", false);
+            citys.add(responseProvince);
+        }
+        return citys;
+    }
+    
     @RequestMapping("/manager/api/save_source")
     public Object saveSource(HttpServletRequest httpServletRequest){
         String id = httpServletRequest.getParameter("id");
@@ -239,6 +277,5 @@ public class GoodManagerApi {
         String id = servletRequest.getParameter("id");
         goodService.delete(id);
         return "{'success':true,'items':{'servername':'测试一区','result':1}}";
-    }
-    
+    } 
 }
