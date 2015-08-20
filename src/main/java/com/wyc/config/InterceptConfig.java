@@ -286,7 +286,7 @@ public class InterceptConfig {
             StackTraceElement[] stackTraceElements = e.getStackTrace();
             StringBuffer errorBuffer = new StringBuffer();
             for(StackTraceElement stackTraceElement:stackTraceElements){
-                errorBuffer.append("in line"+stackTraceElement.getLineNumber()+",the method is："+stackTraceElement.getMethodName()+"errinfo："+stackTraceElement.toString());
+                errorBuffer.append("in line"+stackTraceElement.getLineNumber()+"errinfo："+stackTraceElement.toString());
                 errorBuffer.append("\r\n");
             }
             logger.error(errorBuffer.toString());
