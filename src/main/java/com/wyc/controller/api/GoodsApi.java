@@ -1,7 +1,4 @@
 package com.wyc.controller.api;
-
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
@@ -11,10 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.mysql.fabric.xmlrpc.base.Array;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
-import com.wyc.controller.action.GoodsAction;
 import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodGroup;
@@ -89,7 +83,7 @@ public class GoodsApi {
                 goodGroup.setTimeLong(24);
                 goodGroup.setTotalPrice(cost);
                 goodGroup = goodGroupService.add(goodGroup);
-                orderDetail.setGroupId(goodGroup.getGoodId());
+                orderDetail.setGroupId(goodGroup.getId());
                 GroupPartake groupPartake = new GroupPartake();
                 
                 logger.debug("get customer by openid {}"+userInfo.getOpenid());

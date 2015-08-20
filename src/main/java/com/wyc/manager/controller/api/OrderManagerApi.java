@@ -8,10 +8,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
@@ -50,6 +51,7 @@ public class OrderManagerApi {
     private TokenService tokenService;
     @Autowired
     private GroupPartakeService groupPartakeService;
+    final static Logger logger = LoggerFactory.getLogger(OrderManagerApi.class);
     @RequestMapping("/manager/api/order_handle")
     public Object orderHandle(HttpServletRequest httpServletRequest)throws Exception{
         //1发货，2签收，3退款处理
@@ -237,9 +239,10 @@ public class OrderManagerApi {
         String orderId = httpServletRequest.getParameter("order_id");
         OrderDetail orderDetail = orderDetailService.findByOrderId(orderId);
         String groupId = orderDetail.getGroupId();
+        logger.debug("the groupid is {}"+groupId);
         List<Map<String, Object>> responseGroupDetails = new ArrayList<Map<String,Object>>();
         Map<String, Object> response = new HashMap<String, Object>();
-        response.put("root",responseGroupDetails);
+        
         if(groupId!=null){
             Iterable<GroupPartake> groupPartakes = groupPartakeService.findAllByGroupId(groupId);
             for(GroupPartake groupPartake:groupPartakes){
@@ -248,8 +251,6 @@ public class OrderManagerApi {
                 Customer customer = customerService.findOne(customerId);
                 String openId = customer.getOpenId();
                 UserInfo userInfo = userInfoService.findByOpenid(openId);
-                
-                
                 responseGroupDetail.put("datetime", mySimpleDateFormat.format(groupPartake.getDateTime().toDate()));
                 responseGroupDetail.put("id", groupPartake.getId());
                 responseGroupDetail.put("role", groupPartake.getRole());
@@ -274,6 +275,7 @@ public class OrderManagerApi {
                 responseGroupDetails.add(responseGroupDetail);
             }
         }
+        response.put("root",responseGroupDetails);
         return response;
     }
 }
