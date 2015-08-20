@@ -66,7 +66,7 @@ public class GoodsApi {
             orderDetail.setGoodId(good.getId());
             orderDetail.setNum(good.getGroupNum());
             orderDetail.setOrderId(goodOrder.getId());
-         //   orderDetail.setCustomerId(customerService.findByOpenId(userInfo.getOpenid()).getId());
+            orderDetail.setCustomerId(customerService.findByOpenId(userInfo.getOpenid()).getId());
             if (status.equals("2")) {
                 GoodGroup goodGroup = new GoodGroup();
                 goodGroup.setGoodId(good.getId());
