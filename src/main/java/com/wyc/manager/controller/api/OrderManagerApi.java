@@ -253,7 +253,6 @@ public class OrderManagerApi {
                 responseGroupDetail.put("datetime", mySimpleDateFormat.format(groupPartake.getDateTime().toDate()));
                 responseGroupDetail.put("id", groupPartake.getId());
                 responseGroupDetail.put("role", groupPartake.getRole());
-                responseGroupDetail.put("type", groupPartake.getType());
                 responseGroupDetail.put("orderId", orderId);
                 responseGroupDetail.put("defaultAdress", customer.getDefaultAddress());
                 responseGroupDetail.put("phonenumber", customer.getPhonenumber());

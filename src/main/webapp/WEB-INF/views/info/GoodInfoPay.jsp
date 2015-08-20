@@ -79,7 +79,7 @@
         		</div>
         	</div>
 	        	<div class="good_info_pay_button">
-	        		<a href="javascript:paySuccess('${payGoodInfo.id}','${payGoodInfo.pay_type}',1,'${token.id}')">立即支付</a>
+	        		<a href="javascript:paySuccess('${payGoodInfo.id}','${payGoodInfo.pay_type}',2,'${token.id}')">立即支付</a>
 	        	</div>
 	        	 <div class="trade_flow">
             	<div class="trade_flow_details">查看详情&gt;</div>
