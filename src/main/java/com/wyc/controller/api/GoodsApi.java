@@ -93,13 +93,9 @@ public class GoodsApi {
                 goodGroupService.add(goodGroup);
                 GroupPartake groupPartake = new GroupPartake();
                 
-                for(Customer customer:customerService.findAll()){
-                    logger.debug("customer is {}",customer);
-                }
-                
                 logger.debug("get customer by openid {}"+userInfo.getOpenid());
-                Customer customer = customerService.findByOpenId(userInfo.getOpenid());
-                groupPartake.setCustomerid(customer.getId());
+           //     Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+            //    groupPartake.setCustomerid(customer.getId());
                 groupPartake.setDateTime(new DateTime());
                 groupPartake.setGroupId(goodGroup.getId());
                 groupPartake.setOrderId(goodOrder.getId());
