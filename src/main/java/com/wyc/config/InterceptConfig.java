@@ -291,7 +291,7 @@ public class InterceptConfig {
             }
             logger.error(errorBuffer.toString());
             e.printStackTrace();
-            throw e;
         }
+        return null;
     }
 }
