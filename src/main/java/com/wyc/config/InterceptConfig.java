@@ -290,7 +290,6 @@ public class InterceptConfig {
                 errorBuffer.append("\r\n");
             }
             logger.error(errorBuffer.toString());
-            e.printStackTrace();
         }
         return null;
     }
