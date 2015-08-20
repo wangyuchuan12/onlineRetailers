@@ -9,15 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wyc.annotation.UserInfoFromWebAnnotation;
+import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodOrder;
+import com.wyc.domain.GroupPartake;
 import com.wyc.domain.OrderDetail;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodGroupService;
 import com.wyc.service.GoodOrderService;
 import com.wyc.service.GoodService;
+import com.wyc.service.GroupPartakeService;
 import com.wyc.service.OrderDetailService;
 import com.wyc.wx.domain.UserInfo;
 
@@ -33,6 +36,8 @@ public class GoodsApi {
     private OrderDetailService orderDetailService;
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private GroupPartakeService groupPartakeService;
     @RequestMapping(value = "/api/pay_success")
     @UserInfoFromWebAnnotation
     @Transactional
@@ -78,6 +83,14 @@ public class GoodsApi {
                 goodGroup = goodGroupService.add(goodGroup);
                 orderDetail.setGroupId(goodGroup.getGoodId());
                 goodGroupService.add(goodGroup);
+                GroupPartake groupPartake = new GroupPartake();
+                Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+                groupPartake.setCustomerid(customer.getId());
+                groupPartake.setDateTime(new DateTime());
+                groupPartake.setGroupId(goodGroup.getId());
+                groupPartake.setOrderId(goodOrder.getId());
+                groupPartake.setRole(1);
+                groupPartakeService.add(groupPartake);
             }
             orderDetailService.add(orderDetail);
             return goodOrder;

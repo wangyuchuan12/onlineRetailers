@@ -12,8 +12,6 @@ public class GroupPartake {
     private String id;
     @Column(name = "customerid")
     private String customerid;
-    @Column(name = "type")
-    private int type;
     @Column(name = "group_id")
     private String groupId;
     @Column(name="order_id")
@@ -71,12 +69,6 @@ public class GroupPartake {
     }
     public void setCustomerid(String customerid) {
         this.customerid = customerid;
-    }
-    public int getType() {
-        return type;
-    }
-    public void setType(int type) {
-        this.type = type;
     }
     public DateTime getDateTime() {
         return dateTime;
