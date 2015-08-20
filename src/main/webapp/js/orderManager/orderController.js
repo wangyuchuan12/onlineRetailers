@@ -7,7 +7,7 @@ var OrderController = Ext.extend(Ext.util.Observable,{
 		obj.status = status;
 		this.orderMainGrid.getStore().load({params:obj});
 	},
-	constructor:function(orderMainGrid,sendFormPanel,signFormPanel,refundFormPanel,goodInfoFormPanel,customerFormPanel){
+	constructor:function(orderMainGrid,sendFormPanel,signFormPanel,refundFormPanel,goodInfoFormPanel,customerFormPanel,orderDetailGridPanel){
 		var outThis = this;
 		this.orderMainGrid = orderMainGrid;
 		this.loadData(0);
@@ -105,6 +105,15 @@ var OrderController = Ext.extend(Ext.util.Observable,{
 			title:"顾客信息",
 			items:[customerFormPanel]
 		});
+		
+		var orderDetailGridWin = new Ext.Window({
+			closeAction:"hide",
+			layout:"fit",
+			width:1600,
+			height:500,
+			title:"订单明细",
+			items:[orderDetailGridPanel]
+		});
 		sendFormPanel.buttons[0].on("click",function(){
 			var selectionModel = orderMainGrid.getSelectionModel();
 			var record = selectionModel.getSelected();
@@ -175,6 +184,10 @@ var OrderController = Ext.extend(Ext.util.Observable,{
 		goodInfoFormPanel.buttons[0].on("click",function(){
 			goodInfoFormWin.hide();
 		});
+		
+		customerFormPanel.buttons[0].on("click",function(){
+			customerFormWin.hide();
+		});
 		orderMainGrid.on("statusSelected",function(status){
 			outThis.selectStatus = status;
 			outThis.loadData(status);
@@ -234,10 +247,6 @@ var OrderController = Ext.extend(Ext.util.Observable,{
 		});
 		orderMainGrid.on("customerInfoClick",function(){
 			customerFormWin.show();
-		});
-		
-		orderMainGrid.on("groupInfoClick",function(){
-			alert("groupInfoClick");
 			var selectionModel = orderMainGrid.getSelectionModel();
 			var record = selectionModel.getSelected();
 			Ext.Ajax.request({
@@ -245,7 +254,35 @@ var OrderController = Ext.extend(Ext.util.Observable,{
 				success:function(resp){
 					var responseText = resp.responseText;
 					var obj = eval("("+responseText+")");
-					alert(obj);
+					
+					
+					customerFormPanel.openidTextField.setValue(obj.openId);
+					customerFormPanel.phonenumberTextField.setValue(obj.phonenumber);
+					customerFormPanel.defaultAddressTextField.setValue(obj.defaultAddress);
+					customerFormPanel.cityTextField.setValue(obj.city);
+					customerFormPanel.countryTextField.setValue(obj.country);
+					customerFormPanel.groupIdTextField.setValue(obj.groupid);
+					customerFormPanel.headimgUrlTextField.setValue(obj.headimgurl);
+					customerFormPanel.languageTextField.setValue(obj.language);
+					customerFormPanel.nicknameTextField.setValue(obj.nickname);
+					customerFormPanel.provinceTextField.setValue(obj.province);
+					customerFormPanel.sexTextField.setValue(obj.sex);
+					customerFormPanel.tokenTextField.setValue(obj.token);
+					customerFormPanel.invalidDateTextField.setValue(obj.invalidDate);
+					
+				}
+			});
+		});
+		
+		orderMainGrid.on("orderDetailClick",function(){
+			orderDetailGridWin.show();
+			var selectionModel = orderMainGrid.getSelectionModel();
+			var record = selectionModel.getSelected();
+			Ext.Ajax.request({
+				url:"/manager/api/get_orderdetail_by_order?order_id="+record.get("id"),
+				success:function(resp){
+					var obj = eval("("+resp.responseText+")");
+					orderDetailGridPanel.getStore().loadData(obj);
 				}
 			});
 		});

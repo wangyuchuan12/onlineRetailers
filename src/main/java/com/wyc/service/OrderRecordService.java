@@ -1,5 +1,4 @@
 package com.wyc.service;
-
 import java.util.UUID;
 
 import org.joda.time.DateTime;
@@ -24,5 +23,9 @@ public class OrderRecordService {
     public OrderRecord save(OrderRecord orderRecord){
         orderRecord.setUpdateAt(new DateTime());
         return orderRecordRespository.save(orderRecord);
+    }
+
+    public Iterable<OrderRecord> findAllByOrderId(String orderId) {
+        return orderRecordRespository.findAllByOrderId(orderId);
     }
 }

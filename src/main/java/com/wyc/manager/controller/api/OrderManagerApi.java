@@ -16,11 +16,13 @@ import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodOrder;
+import com.wyc.domain.GroupPartake;
 import com.wyc.domain.OrderDetail;
 import com.wyc.domain.OrderRecord;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodOrderService;
 import com.wyc.service.GoodService;
+import com.wyc.service.GroupPartakeService;
 import com.wyc.service.OrderDetailService;
 import com.wyc.service.OrderRecordService;
 import com.wyc.service.TokenService;
@@ -46,6 +48,8 @@ public class OrderManagerApi {
     private WxUserInfoService userInfoService;
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    private GroupPartakeService groupPartakeService;
     @RequestMapping("/manager/api/order_handle")
     public Object orderHandle(HttpServletRequest httpServletRequest)throws Exception{
         //1发货，2签收，3退款处理
@@ -206,5 +210,71 @@ public class OrderManagerApi {
             responseCustomerInfo.put("invalidDate", mySimpleDateFormat.format(token.getInvalidDate().toDate()));
         }
         return responseCustomerInfo;
+    }
+    @RequestMapping("/manager/api/get_orderdetail_by_order")
+    public Object orderDetail(HttpServletRequest httpServletRequest){
+        String orderId = httpServletRequest.getParameter("order_id");
+        Iterable<OrderRecord> orderRecords = orderRecordService.findAllByOrderId(orderId);
+        List<Map<String, Object>> responseOrderRecords = new ArrayList<Map<String,Object>>();
+        for(OrderRecord orderRecord:orderRecords){
+            Map<String, Object> responseOrderRecord = new HashMap<String, Object>();
+            responseOrderRecord.put("createAt", mySimpleDateFormat.format(orderRecord.getCreateAt().toDate()));
+            responseOrderRecord.put("id", orderRecord.getId());
+            responseOrderRecord.put("logisticsOrder", orderRecord.getLogisticsOrder());
+            responseOrderRecord.put("orderId", orderRecord.getOrderId());
+            responseOrderRecord.put("remark", orderRecord.getRemark());
+            responseOrderRecord.put("way", orderRecord.getWay());
+            responseOrderRecords.add(responseOrderRecord);
+        }
+        Map<String, Object> response = new HashMap<String, Object>();
+        response.put("root", responseOrderRecords);
+        return response;
+    }
+    
+    
+    @RequestMapping("/manager/api/get_groupdetail_by_order")
+    public Object groupDetail(HttpServletRequest httpServletRequest){
+        String orderId = httpServletRequest.getParameter("order_id");
+        OrderDetail orderDetail = orderDetailService.findByOrderId(orderId);
+        String groupId = orderDetail.getGroupId();
+        List<Map<String, Object>> responseGroupDetails = new ArrayList<Map<String,Object>>();
+        Map<String, Object> response = new HashMap<String, Object>();
+        response.put("root",responseGroupDetails);
+        if(groupId!=null){
+            Iterable<GroupPartake> groupPartakes = groupPartakeService.findAllByGroupId(groupId);
+            for(GroupPartake groupPartake:groupPartakes){
+                Map<String, Object> responseGroupDetail = new HashMap<String, Object>();
+                String customerId = groupPartake.getCustomerid();
+                Customer customer = customerService.findOne(customerId);
+                String openId = customer.getOpenId();
+                UserInfo userInfo = userInfoService.findByOpenid(openId);
+                
+                
+                responseGroupDetail.put("datetime", mySimpleDateFormat.format(groupPartake.getDateTime().toDate()));
+                responseGroupDetail.put("id", groupPartake.getId());
+                responseGroupDetail.put("role", groupPartake.getRole());
+                responseGroupDetail.put("type", groupPartake.getType());
+                responseGroupDetail.put("orderId", orderId);
+                responseGroupDetail.put("defaultAdress", customer.getDefaultAddress());
+                responseGroupDetail.put("phonenumber", customer.getPhonenumber());
+                responseGroupDetail.put("city", userInfo.getCity());
+                
+                responseGroupDetail.put("country", userInfo.getCountry());
+                responseGroupDetail.put("groupid", userInfo.getGroupid());
+                responseGroupDetail.put("headimgurl", userInfo.getHeadimgurl());
+                responseGroupDetail.put("language", userInfo.getLanguage());
+                responseGroupDetail.put("userinfoId", userInfo.getId());
+                responseGroupDetail.put("nickname", userInfo.getNickname());
+                responseGroupDetail.put("province", userInfo.getProvince());
+                responseGroupDetail.put("remark", userInfo.getRemark());
+                responseGroupDetail.put("sex", userInfo.getSex());
+                responseGroupDetail.put("subscribe", userInfo.getSubscribe());
+                responseGroupDetail.put("subscribeTime", userInfo.getSubscribe_time());
+                responseGroupDetail.put("token", userInfo.getToken());
+                responseGroupDetail.put("unionid", userInfo.getUnionid());
+                responseGroupDetails.add(responseGroupDetail);
+            }
+        }
+        return response;
     }
 }

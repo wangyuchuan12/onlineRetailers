@@ -20,6 +20,7 @@
 		<script src="/js/orderManager/SignFormPanel.js"></script>
 		<script src="/js/orderManager/RefundFormPanel.js"></script>
 		<script src="/js/orderManager/customerFormPanel.js"></script>
+		<script src="/js/orderManager/orderDetailGridPanel.js"></script>
 	</head>
 	<body>
 		<script>
@@ -32,7 +33,8 @@
 			var refundFormPanel = new RefundFormPanel();
 			var goodInfoFormPanel = new GoodInfo();
 			var customerFormPanel = new CustomerFormPanel();
-			var orderController = new OrderController(orderMainGrid,sendFormPanel,signFormPanel,refundFormPanel,goodInfoFormPanel,customerFormPanel);
+			var orderDetailGridPanel = new OrderDetailGridPanel();
+			var orderController = new OrderController(orderMainGrid,sendFormPanel,signFormPanel,refundFormPanel,goodInfoFormPanel,customerFormPanel,orderDetailGridPanel);
 		});
 	</script>
 	</body>

@@ -6,4 +6,6 @@ import com.wyc.domain.OrderRecord;
 
 public interface OrderRecordRespository extends CrudRepository<OrderRecord, String>{
 
+    public Iterable<OrderRecord> findAllByOrderId(String orderId);
+
 }
