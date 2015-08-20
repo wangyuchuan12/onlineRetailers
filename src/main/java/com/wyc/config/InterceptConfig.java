@@ -279,7 +279,8 @@ public class InterceptConfig {
             StackTraceElement[] stackTraceElements = e.getStackTrace();
             StringBuffer errorBuffer = new StringBuffer();
             for(StackTraceElement stackTraceElement:stackTraceElements){
-                errorBuffer.append("第"+stackTraceElement.getLineNumber()+"行，方法为："+stackTraceElement.getMethodName()+"错误信息："+stackTraceElement.toString());
+                errorBuffer.append("in line"+stackTraceElement.getLineNumber()+",the method is："+stackTraceElement.getMethodName()+"errinfo："+stackTraceElement.toString());
+                errorBuffer.append("\r\n");
             }
             logger.debug(errorBuffer.toString());
             e.printStackTrace();
