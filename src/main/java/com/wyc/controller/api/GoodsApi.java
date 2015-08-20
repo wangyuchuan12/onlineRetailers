@@ -1,6 +1,7 @@
 package com.wyc.controller.api;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodOrder;
 import com.wyc.domain.OrderDetail;
 import com.wyc.intercept.domain.MyHttpServletRequest;
+import com.wyc.service.CustomerService;
 import com.wyc.service.GoodGroupService;
 import com.wyc.service.GoodOrderService;
 import com.wyc.service.GoodService;
@@ -29,9 +31,11 @@ public class GoodsApi {
     private GoodGroupService goodGroupService;
     @Autowired
     private OrderDetailService orderDetailService;
-
+    @Autowired
+    private CustomerService customerService;
     @RequestMapping(value = "/api/pay_success")
     @UserInfoFromWebAnnotation
+    @Transactional
     public Object paySouccess(HttpServletRequest httpServletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) httpServletRequest;
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
@@ -62,6 +66,7 @@ public class GoodsApi {
             orderDetail.setGoodId(good.getId());
             orderDetail.setNum(good.getGroupNum());
             orderDetail.setOrderId(goodOrder.getId());
+         //   orderDetail.setCustomerId(customerService.findByOpenId(userInfo.getOpenid()).getId());
             if (status.equals("2")) {
                 GoodGroup goodGroup = new GoodGroup();
                 goodGroup.setGoodId(good.getId());
