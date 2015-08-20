@@ -1,6 +1,7 @@
 package com.wyc.config;
 import java.lang.reflect.Method;
 import java.util.Map.Entry;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.JoinPoint;
@@ -14,6 +15,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.danga.MemCached.MemCachedClient;
 import com.wyc.annotation.AccessTokenAnnotation;
@@ -61,6 +66,8 @@ public class InterceptConfig {
     private CustomerService customerService;
     @Autowired
     private WxUserInfoService wxUserInfoService;
+    @Autowired
+    private PlatformTransactionManager platformTransactionManager;
     final static Logger logger = LoggerFactory.getLogger(InterceptConfig.class);
     
     @Around(value="execution (* com.wyc.wx.service.*.*(..))")
@@ -119,6 +126,9 @@ public class InterceptConfig {
     
     @Around(value="execution (* com.wyc.controller.action.*.*(..))")
     public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint){
+        DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
+        defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_MANDATORY);
+        TransactionStatus status = platformTransactionManager.getTransaction(defaultTransactionDefinition);
         Object target = proceedingJoinPoint.getTarget();
         logger.debug("around target is {}",target);
         Object[] args  = proceedingJoinPoint.getArgs();
@@ -272,8 +282,10 @@ public class InterceptConfig {
         try {
             Object url = proceedingJoinPoint.proceed(args);
             logger.debug("return url is {}",url);
+            platformTransactionManager.commit(status);
             return url;
         } catch (Throwable e) {
+            platformTransactionManager.rollback(status);
             // TODO Auto-generated catch block
             logger.error("invoke action method has error");
             StackTraceElement[] stackTraceElements = e.getStackTrace();
@@ -282,8 +294,9 @@ public class InterceptConfig {
                 errorBuffer.append("in line"+stackTraceElement.getLineNumber()+",the method is："+stackTraceElement.getMethodName()+"errinfo："+stackTraceElement.toString());
                 errorBuffer.append("\r\n");
             }
-            logger.debug(errorBuffer.toString());
+            logger.error(errorBuffer.toString());
             e.printStackTrace();
+            
         }
         return null;
     }
