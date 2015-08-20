@@ -120,15 +120,12 @@ public class InterceptConfig {
     }
     
     @Around(value="execution (* com.wyc.controller.api.*.*(..))")
-    public Object aroundApi(ProceedingJoinPoint proceedingJoinPoint){
+    public Object aroundApi(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
     	return aroundAction(proceedingJoinPoint);
     }
     
     @Around(value="execution (* com.wyc.controller.action.*.*(..))")
-    public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint){
-        DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
-        defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_MANDATORY);
-        TransactionStatus status = platformTransactionManager.getTransaction(defaultTransactionDefinition);
+    public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
         Object target = proceedingJoinPoint.getTarget();
         logger.debug("around target is {}",target);
         Object[] args  = proceedingJoinPoint.getArgs();
@@ -282,10 +279,8 @@ public class InterceptConfig {
         try {
             Object url = proceedingJoinPoint.proceed(args);
             logger.debug("return url is {}",url);
-            platformTransactionManager.commit(status);
             return url;
         } catch (Throwable e) {
-            platformTransactionManager.rollback(status);
             // TODO Auto-generated catch block
             logger.error("invoke action method has error");
             StackTraceElement[] stackTraceElements = e.getStackTrace();
@@ -296,8 +291,7 @@ public class InterceptConfig {
             }
             logger.error(errorBuffer.toString());
             e.printStackTrace();
-            
+            throw e;
         }
-        return null;
     }
 }
