@@ -21,6 +21,7 @@
 		<script src="/js/orderManager/RefundFormPanel.js"></script>
 		<script src="/js/orderManager/customerFormPanel.js"></script>
 		<script src="/js/orderManager/orderDetailGridPanel.js"></script>
+		<script src="/js/orderManager/groupDetailGridPanel.js"></script>
 	</head>
 	<body>
 		<script>
@@ -34,7 +35,8 @@
 			var goodInfoFormPanel = new GoodInfo();
 			var customerFormPanel = new CustomerFormPanel();
 			var orderDetailGridPanel = new OrderDetailGridPanel();
-			var orderController = new OrderController(orderMainGrid,sendFormPanel,signFormPanel,refundFormPanel,goodInfoFormPanel,customerFormPanel,orderDetailGridPanel);
+			var groupDetailGridPanel = new GroupDetailGridPanel();
+			var orderController = new OrderController(orderMainGrid,sendFormPanel,signFormPanel,refundFormPanel,goodInfoFormPanel,customerFormPanel,orderDetailGridPanel,groupDetailGridPanel);
 		});
 	</script>
 	</body>

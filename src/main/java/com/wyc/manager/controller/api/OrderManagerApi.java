@@ -272,6 +272,7 @@ public class OrderManagerApi {
                 responseGroupDetail.put("subscribeTime", userInfo.getSubscribe_time());
                 responseGroupDetail.put("token", userInfo.getToken());
                 responseGroupDetail.put("unionid", userInfo.getUnionid());
+                responseGroupDetail.put("type",groupPartake.getType());
                 responseGroupDetails.add(responseGroupDetail);
             }
         }

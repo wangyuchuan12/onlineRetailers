@@ -7,7 +7,7 @@ var OrderController = Ext.extend(Ext.util.Observable,{
 		obj.status = status;
 		this.orderMainGrid.getStore().load({params:obj});
 	},
-	constructor:function(orderMainGrid,sendFormPanel,signFormPanel,refundFormPanel,goodInfoFormPanel,customerFormPanel,orderDetailGridPanel){
+	constructor:function(orderMainGrid,sendFormPanel,signFormPanel,refundFormPanel,goodInfoFormPanel,customerFormPanel,orderDetailGridPanel,groupDetailGridPanel){
 		var outThis = this;
 		this.orderMainGrid = orderMainGrid;
 		this.loadData(0);
@@ -113,6 +113,15 @@ var OrderController = Ext.extend(Ext.util.Observable,{
 			height:500,
 			title:"订单明细",
 			items:[orderDetailGridPanel]
+		});
+		
+		var groupDetailGridWin = new Ext.Window({
+			closeAction:"hide",
+			layout:"fit",
+			width:1700,
+			height:500,
+			title:"订单明细",
+			items:[groupDetailGridPanel]
 		});
 		sendFormPanel.buttons[0].on("click",function(){
 			var selectionModel = orderMainGrid.getSelectionModel();
@@ -283,6 +292,20 @@ var OrderController = Ext.extend(Ext.util.Observable,{
 				success:function(resp){
 					var obj = eval("("+resp.responseText+")");
 					orderDetailGridPanel.getStore().loadData(obj);
+				}
+			});
+		});
+		
+		
+		orderMainGrid.on("groupInfoClick",function(){
+			groupDetailGridWin.show();
+			var selectionModel = orderMainGrid.getSelectionModel();
+			var record = selectionModel.getSelected();
+			Ext.Ajax.request({
+				url:"/manager/api/get_groupdetail_by_order?order_id="+record.get("id"),
+				success:function(resp){
+					var obj = eval("("+resp.responseText+")");
+					groupDetailGridPanel.getStore().loadData(obj);
 				}
 			});
 		});
