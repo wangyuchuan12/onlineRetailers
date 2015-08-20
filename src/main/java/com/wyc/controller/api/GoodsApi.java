@@ -4,11 +4,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wyc.annotation.UserInfoFromWebAnnotation;
+import com.wyc.controller.action.GoodsAction;
 import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodGroup;
@@ -38,6 +41,8 @@ public class GoodsApi {
     private CustomerService customerService;
     @Autowired
     private GroupPartakeService groupPartakeService;
+    
+    final static Logger logger = LoggerFactory.getLogger(GoodsApi.class);
     @RequestMapping(value = "/api/pay_success")
     @UserInfoFromWebAnnotation
     @Transactional
@@ -84,6 +89,7 @@ public class GoodsApi {
                 orderDetail.setGroupId(goodGroup.getGoodId());
                 goodGroupService.add(goodGroup);
                 GroupPartake groupPartake = new GroupPartake();
+                logger.debug("get customer by openid {}"+userInfo.getOpenid());
                 Customer customer = customerService.findByOpenId(userInfo.getOpenid());
                 groupPartake.setCustomerid(customer.getId());
                 groupPartake.setDateTime(new DateTime());
