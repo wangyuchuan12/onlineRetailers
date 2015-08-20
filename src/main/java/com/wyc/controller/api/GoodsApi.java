@@ -90,17 +90,16 @@ public class GoodsApi {
                 goodGroup.setTotalPrice(cost);
                 goodGroup = goodGroupService.add(goodGroup);
                 orderDetail.setGroupId(goodGroup.getGoodId());
-                goodGroupService.add(goodGroup);
                 GroupPartake groupPartake = new GroupPartake();
                 
                 logger.debug("get customer by openid {}"+userInfo.getOpenid());
-           //     Customer customer = customerService.findByOpenId(userInfo.getOpenid());
-            //    groupPartake.setCustomerid(customer.getId());
-//                groupPartake.setDateTime(new DateTime());
-//                groupPartake.setGroupId(goodGroup.getId());
-//                groupPartake.setOrderId(goodOrder.getId());
-//                groupPartake.setRole(1);
-//                groupPartakeService.add(groupPartake);
+                Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+                groupPartake.setCustomerid(customer.getId());
+                groupPartake.setDateTime(new DateTime());
+                groupPartake.setGroupId(goodGroup.getId());
+                groupPartake.setOrderId(goodOrder.getId());
+                groupPartake.setRole(1);
+                groupPartakeService.add(groupPartake);
             }
             orderDetailService.add(orderDetail);
             return goodOrder;
