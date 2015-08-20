@@ -7,7 +7,7 @@ var OrderController = Ext.extend(Ext.util.Observable,{
 		obj.status = status;
 		this.orderMainGrid.getStore().load({params:obj});
 	},
-	constructor:function(orderMainGrid,sendFormPanel,signFormPanel,refundFormPanel,goodInfoFormPanel){
+	constructor:function(orderMainGrid,sendFormPanel,signFormPanel,refundFormPanel,goodInfoFormPanel,customerFormPanel){
 		var outThis = this;
 		this.orderMainGrid = orderMainGrid;
 		this.loadData(0);
@@ -95,6 +95,15 @@ var OrderController = Ext.extend(Ext.util.Observable,{
 			height:450,
 			title:"商品信息",
 			items:[goodInfoFormPanel]
+		});
+		
+		var customerFormWin = new Ext.Window({
+			closeAction:"hide",
+			layout:"fit",
+			width:400,
+			height:500,
+			title:"顾客信息",
+			items:[customerFormPanel]
 		});
 		sendFormPanel.buttons[0].on("click",function(){
 			var selectionModel = orderMainGrid.getSelectionModel();
@@ -224,11 +233,21 @@ var OrderController = Ext.extend(Ext.util.Observable,{
 			}
 		});
 		orderMainGrid.on("customerInfoClick",function(){
-			alert("customerInfoClick");
+			customerFormWin.show();
 		});
 		
 		orderMainGrid.on("groupInfoClick",function(){
 			alert("groupInfoClick");
+			var selectionModel = orderMainGrid.getSelectionModel();
+			var record = selectionModel.getSelected();
+			Ext.Ajax.request({
+				url:"/manager/api/get_customerinfo_by_order?order_id="+record.get("id"),
+				success:function(resp){
+					var responseText = resp.responseText;
+					var obj = eval("("+responseText+")");
+					alert(obj);
+				}
+			});
 		});
 		OrderController.superclass.constructor.call(this,{
 			

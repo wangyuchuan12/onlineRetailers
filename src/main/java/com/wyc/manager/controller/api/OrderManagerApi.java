@@ -13,12 +13,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wyc.defineBean.MySimpleDateFormat;
+import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodOrder;
+import com.wyc.domain.OrderDetail;
 import com.wyc.domain.OrderRecord;
+import com.wyc.service.CustomerService;
 import com.wyc.service.GoodOrderService;
 import com.wyc.service.GoodService;
+import com.wyc.service.OrderDetailService;
 import com.wyc.service.OrderRecordService;
+import com.wyc.service.TokenService;
+import com.wyc.service.WxUserInfoService;
+import com.wyc.wx.domain.Token;
+import com.wyc.wx.domain.UserInfo;
 
 @RestController
 public class OrderManagerApi {
@@ -30,7 +38,14 @@ public class OrderManagerApi {
     private MySimpleDateFormat mySimpleDateFormat;
     @Autowired
     private OrderRecordService orderRecordService;
-    
+    @Autowired
+    private OrderDetailService orderDetailService;
+    @Autowired
+    private CustomerService customerService;
+    @Autowired
+    private WxUserInfoService userInfoService;
+    @Autowired
+    private TokenService tokenService;
     @RequestMapping("/manager/api/order_handle")
     public Object orderHandle(HttpServletRequest httpServletRequest)throws Exception{
         //1发货，2签收，3退款处理
@@ -162,6 +177,34 @@ public class OrderManagerApi {
         Map<String, List<Map<String, Object>>> response = new HashMap<String, List<Map<String,Object>>>();
         response.put("root", orderList);
         return response;
-        
+    }
+    
+    @RequestMapping("/manager/api/get_customerinfo_by_order")
+    public Object customerInfo(HttpServletRequest httpServletRequest){
+        String orderId = httpServletRequest.getParameter("order_id");
+        OrderDetail orderDetail = orderDetailService.findByOrderId(orderId);
+        String customerId = orderDetail.getCustomerId();
+        Customer customer = customerService.findOne(customerId);
+        String openId = customer.getOpenId();
+        UserInfo userInfo = userInfoService.findByOpenid(openId);
+        Token token = tokenService.findByIdAndInvalidDateGreaterThan(userInfo.getToken(), new DateTime());
+        Map<String, String> responseCustomerInfo = new HashMap<String, String>();
+        responseCustomerInfo.put("openId", customer.getOpenId());
+        responseCustomerInfo.put("phonenumber", customer.getPhonenumber());
+        responseCustomerInfo.put("defaultAddress", customer.getDefaultAddress());
+        responseCustomerInfo.put("city", userInfo.getCity());
+        responseCustomerInfo.put("country", userInfo.getCountry());
+        responseCustomerInfo.put("groupid", userInfo.getGroupid());
+        responseCustomerInfo.put("headimgurl", userInfo.getHeadimgurl());
+        responseCustomerInfo.put("language", userInfo.getLanguage());
+        responseCustomerInfo.put("nickname", userInfo.getNickname());
+        responseCustomerInfo.put("province", userInfo.getProvince());
+        responseCustomerInfo.put("remark", userInfo.getRemark());
+        responseCustomerInfo.put("sex", userInfo.getSex());
+        responseCustomerInfo.put("token", userInfo.getToken());
+        if(token!=null){
+            responseCustomerInfo.put("invalidDate", mySimpleDateFormat.format(token.getInvalidDate().toDate()));
+        }
+        return responseCustomerInfo;
     }
 }

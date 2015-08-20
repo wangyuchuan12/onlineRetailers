@@ -1,5 +1,8 @@
 package com.wyc.service;
 
+import java.util.UUID;
+
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +14,14 @@ public class GroupPartakeService {
     @Autowired
     private GroupPartakeRepository groupPartakeRepository;
     public void add(GroupPartake groupPartake){
+        groupPartake.setId(UUID.randomUUID().toString());
+        groupPartake.setCreateAt(new DateTime());
+        groupPartake.setUpdateAt(new DateTime());
         groupPartakeRepository.save(groupPartake);
     }
     
     public void save(GroupPartake groupPartake){
+        groupPartake.setUpdateAt(new DateTime());
         groupPartakeRepository.save(groupPartake);
     }
     

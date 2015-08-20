@@ -276,6 +276,12 @@ public class InterceptConfig {
         } catch (Throwable e) {
             // TODO Auto-generated catch block
             logger.error("invoke action method has error");
+            StackTraceElement[] stackTraceElements = e.getStackTrace();
+            StringBuffer errorBuffer = new StringBuffer();
+            for(StackTraceElement stackTraceElement:stackTraceElements){
+                errorBuffer.append("第"+stackTraceElement.getLineNumber()+"行，方法为："+stackTraceElement.getMethodName()+"错误信息："+stackTraceElement.toString());
+            }
+            logger.debug(errorBuffer.toString());
             e.printStackTrace();
         }
         return null;

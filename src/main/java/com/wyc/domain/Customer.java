@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "customer")
 public class Customer {
     @Id
@@ -19,10 +21,18 @@ public class Customer {
     private String defaultAddress;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @JsonIgnore
     private DateTime createAt;
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @JsonIgnore
     private DateTime updateAt;
+    public String getDefaultAddress() {
+        return defaultAddress;
+    }
+    public void setDefaultAddress(String defaultAddress) {
+        this.defaultAddress = defaultAddress;
+    }
     public DateTime getCreateAt() {
         return createAt;
     }

@@ -32,7 +32,7 @@ public class GoodsApi {
 
     @RequestMapping(value = "/api/pay_success")
     @UserInfoFromWebAnnotation
-    public Object paySouccess(HttpServletRequest httpServletRequest) {
+    public Object paySouccess(HttpServletRequest httpServletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) httpServletRequest;
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
         String good_id = httpServletRequest.getParameter("good_id");
