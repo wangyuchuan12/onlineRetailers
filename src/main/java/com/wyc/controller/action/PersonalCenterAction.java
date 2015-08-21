@@ -134,7 +134,7 @@ public class PersonalCenterAction {
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
         String openid = userInfo.getOpenid();
         Customer customer = customerService.findByOpenId(openid);
-        Iterable<CustomerAddress> customerAddresses = customerAddressService.findByCustomerId(customer.getId());
+        Iterable<CustomerAddress> customerAddresses = customerAddressService.findByCustomerIdOrderByCreateAtDesc(customer.getId());
         List<Map<String, Object>> responseCustomerAddresses = new ArrayList<Map<String,Object>>();
         String defaultAddress = customer.getDefaultAddress();
         for(CustomerAddress customerAddress:customerAddresses){
