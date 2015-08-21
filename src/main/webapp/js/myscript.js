@@ -8,13 +8,6 @@ function addressAddSbumit(){
 	var addressAddress = $("#address_address").val();
 	var addressType = $("#address_type").val();
 	var addressContent = $("#address_content").val();
-	alert(addressName);
-	alert(addressPhonenumber);
-	alert(addressProvince);
-	alert(addressCity);
-	alert(addressAddress);
-	alert(addressType);
-	alert(addressContent);
 	skipToUrl("/action/do_address_save?city_id="+addressAddress+"&type="+addressType+"&content="+addressContent+"&phonenumber="+addressPhonenumber+"&name="+addressName);
 }
 

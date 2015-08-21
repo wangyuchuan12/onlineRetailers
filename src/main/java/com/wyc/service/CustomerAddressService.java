@@ -13,16 +13,16 @@ import com.wyc.repositories.CustomerAddressRepository;
 public class CustomerAddressService {
     @Autowired
     private CustomerAddressRepository customerAddressRepository;
-    public void add(CustomerAddress customerAddress){
+    public CustomerAddress add(CustomerAddress customerAddress){
         customerAddress.setId(UUID.randomUUID().toString());
         customerAddress.setCreateAt(new DateTime());
         customerAddress.setUpdateAt(new DateTime());
-        customerAddressRepository.save(customerAddress);
+        return customerAddressRepository.save(customerAddress);
     }
     
-    public void save(CustomerAddress customerAddress){
+    public CustomerAddress save(CustomerAddress customerAddress){
         customerAddress.setUpdateAt(new DateTime());
-        customerAddressRepository.save(customerAddress);
+        return customerAddressRepository.save(customerAddress);
     }
     
     public void delete(CustomerAddress customerAddress){

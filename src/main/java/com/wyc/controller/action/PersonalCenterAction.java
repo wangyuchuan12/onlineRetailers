@@ -113,7 +113,9 @@ public class PersonalCenterAction {
 	        customerAddress.setContent(content);
 	        customerAddress.setCustomerId(customer.getId());
 	        customerAddress.setType(Integer.parseInt(type));
-	        customerAddressService.add(customerAddress);
+	        customerAddress = customerAddressService.add(customerAddress);
+	        customer.setDefaultAddress(customerAddress.getId());
+	        customerService.save(customer);
     	}else{
     	    customerAddress.setName(name);
             customerAddress.setPhonenumber(phonenumber);

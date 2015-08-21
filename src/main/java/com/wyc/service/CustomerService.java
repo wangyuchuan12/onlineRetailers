@@ -22,7 +22,7 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
     
-    public Customer update(Customer customer){
+    public Customer save(Customer customer){
         customer.setUpdateAt(new DateTime());
         return customerRepository.save(customer);
     }
