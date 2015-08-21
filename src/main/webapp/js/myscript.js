@@ -1,4 +1,62 @@
 var webPath = "";
+var cityObject = new Object();
+function addressAddSbumit(){
+	var addressName = $("#address_name").val();
+	var addressPhonenumber = $("#address_phonenumber").val();
+	var addressProvince = $("#address_province").val();
+	var addressCity = $("#address_city").val();
+	var addressAddress = $("#address_address").val();
+	var addressType = $("#address_type").val();
+	var addressContent = $("#address_content").val();
+	alert(addressName);
+	alert(addressPhonenumber);
+	alert(addressProvince);
+	alert(addressCity);
+	alert(addressAddress);
+	alert(addressType);
+	alert(addressContent);
+	skipToUrl("/action/do_address_save?city_id="+addressAddress+"&type="+addressType+"&content="+addressContent+"&phonenumber="+addressPhonenumber+"&name="+addressName);
+}
+
+function onProvinceSelect(){
+	$("#address_province").on("change",function(){
+		getCities();
+	});
+}
+
+function onCitySelect(){
+	$("#address_city").on("change",function(){
+		getAddresses();
+	});
+}
+
+function getCities(){
+	$.ajax({
+		url:"/api/get_city_by_parentid?parent_id="+$("#address_province").val(),
+		success:function(resp){
+			$("#address_city").empty();
+			for(var i = 0 ;i<resp.length;i++){
+				$("#address_city").append("<option value='"+resp[i].id+"'>"+resp[i].name+"</option>");
+			}
+			getAddresses();
+			
+		}
+	});
+}
+
+function getAddresses(){
+	$.ajax({
+		url:"/api/get_city_by_parentid?parent_id="+$("#address_city").val(),
+		success:function(resp){
+			$("#address_address").empty();
+			for(var i = 0 ;i<resp.length;i++){
+				$("#address_address").append("<option value='"+resp[i].id+"'>"+resp[i].name+"</option>");
+			}
+			
+		}
+	});
+}
+
 function setUserToken(userToken){
 	if(userToken){
 		window.localStorage.setItem("userToken",userToken);

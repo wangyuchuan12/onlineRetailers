@@ -23,6 +23,7 @@ public class Response {
 		inputStream.read(jsonBytes);
 		String message = new String(jsonBytes,charsetName);
 		logger.debug("readMessageFromWx:"+message);
+		this.inputStream.close();
 		return message;
 	}
 	

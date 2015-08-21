@@ -9,44 +9,38 @@
 	<div class="address">
 		<div class="Address_list">
 			<ul>
+				<c:forEach items="${addresses}" var="address">
 					<li>
 						<div class="Address_list_botton">
-							<input name="默认" type="radio" />
+							<input name="默认" type="radio" <c:if test="${address.isDefault}">checked="checked"</c:if>/>
 						</div>
 
 						<div class="Address_list_information">
 							<ul>
-								<li>王二
-								<li>13709876543
-								<li>江苏南京
-								<li>解放路10号光明小区3幢3单元2002室
+								<li>${address.name}
+								<li>${address.phone}
+								<li>${address.province}${address.city}${address.address}
+								<li>${address.content}
 							</ul>
 						</div>
 						<div class="address_mark">
-							<div class="address_mark_default">默认</div>
-							<div class="address_mark_type">家庭</div>
+							<div class="address_mark_default"><c:if test="${address.isDefault}">默认</c:if></div>
+							
+							<div class="address_mark_type">
+								<c:if test="${address.type=='1'}">
+									家庭
+								</c:if>
+								<c:if test="${address.type=='2'}">
+									公司
+								</c:if>
+							
+							</div>
+							<div class="fa fa-pencil-square Address_edit"></div>
 						</div>
-						<div class="fa fa-pencil-square Address_edit"></div>
+						
 					</li>
-					<li>
-						<div class="Address_list_botton">
-							<input name="默认" type="radio" />
-						</div>
-
-						<div class="Address_list_information">
-							<ul>
-								<li>王二
-								<li>13709876543
-								<li>江苏南京
-								<li>解放路10号光明小区3幢3单元2002室
-							</ul>
-						</div>
-						<div class="address_mark">
-							<div class="address_mark_default">默认</div>
-							<div class="address_mark_type">公司</div>
-						</div>
-						<div class="fa fa-pencil-square Address_edit"></div>
-					</li>
+				</c:forEach>
+					
 			   </ul>
 		 </div>
 				
@@ -54,6 +48,11 @@
       </div>  
        	
   </div>
-  <div class="foot4"><a href="">新增地址</a></div>
+  <div class="foot4"><a href="/info/address_add">新增地址</a></div>
+  <script type="text/javascript">
+	  $(document).ready(function(){
+		setUserToken("${token.id}");
+	  });
+  </script>
 </tiles:putAttribute>
 </tiles:insertDefinition>

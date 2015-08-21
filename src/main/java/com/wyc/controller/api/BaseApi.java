@@ -4,10 +4,17 @@ import javax.servlet.http.HttpServletRequest;
 import org.jdom.Document;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.wyc.domain.City;
+import com.wyc.service.CityService;
 @RestController
 public class BaseApi {
+        @Autowired
+        private CityService cityService;
+        
 	@RequestMapping(value = "/api/test")
 	public String test(HttpServletRequest servletRequest)throws Exception {
 		String signature = servletRequest.getParameter("signature");
@@ -33,5 +40,11 @@ public class BaseApi {
 		
 		return echostr;
 
+	}
+	@RequestMapping(value = "/api/get_city_by_parentid")
+	public Object getCityByParentId(HttpServletRequest httpServletRequest){
+	    String parentId = httpServletRequest.getParameter("parent_id");
+	    Iterable<City> cities = cityService.findAllByParentId(parentId);
+	    return cities;
 	}
 }

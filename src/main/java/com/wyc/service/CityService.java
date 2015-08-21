@@ -39,4 +39,12 @@ public class CityService {
     public Iterable<City> findAllByParentId(String parentId){
         return cityRepository.findAllByParentId(parentId);
     }
+
+    public Iterable<City> findAllByName(String name) {
+        return cityRepository.findAllByName(name);
+    }
+
+    public Iterable<City> findAllByCodeAndType(String goodDistributionCode,int type) {
+        return cityRepository.findAllByCodeAndType(goodDistributionCode,type);
+    }
 }

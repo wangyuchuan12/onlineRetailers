@@ -20,7 +20,7 @@ public class CustomerAddressService {
         customerAddressRepository.save(customerAddress);
     }
     
-    public void update(CustomerAddress customerAddress){
+    public void save(CustomerAddress customerAddress){
         customerAddress.setUpdateAt(new DateTime());
         customerAddressRepository.save(customerAddress);
     }

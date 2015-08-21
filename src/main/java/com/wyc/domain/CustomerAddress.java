@@ -20,6 +20,10 @@ public class CustomerAddress {
     //1家里 2表示公司
     @Column(name = "type")
     private int type;
+    @Column
+    private String name;
+    @Column
+    private String phonenumber;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
@@ -27,6 +31,18 @@ public class CustomerAddress {
     @Column(name = "update_at")
     private DateTime updateAt;
     
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
     public int getType() {
         return type;
     }

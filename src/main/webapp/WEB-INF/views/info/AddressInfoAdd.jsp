@@ -15,6 +15,8 @@
         <link rel="stylesheet" href="/css/address.css" />
         <link rel="stylesheet" href="/css/mystyle.css" />
         <link rel="stylesheet" href="/css/core.css" />
+        <script type="text/javascript" src="/js/myscript.js"></script>
+        <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js">
         </script>
     </head>
@@ -28,52 +30,53 @@
             
 	                <div class="address_item">
 	                    <div class="address_label">收货人</div>
-	                    <input name="" type="text" value="名字"/>
+	                    <input name="" type="text" value="" id="address_name"/>
 	                </div>
                     <div class="address_item">
                     	<div class="address_label">手机号码</div>
-                    	<input name="" type="text" value="手机号码" class="address_phone_text" /></div>
+                    	<input name="" type="text" value="" class="address_phone_text"  id="address_phonenumber"/></div>
                     <div class="address_item">
                     	<div class="address_label">省</div>
-                        <select name="省" size="1">
-                            <option value="" selected>浙江</option>
-                            <option value="">江苏</option>
-                            <option value="">福建</option>
-                            <option value="">广东 </option>
-                            <option value=""> 广西</option>
+                        <select name="省" size="1" id="address_province">
+                        		<c:forEach items="${cities}" var="province">
+                        			<option value="${province.id}">${province.name}</option>
+                        		</c:forEach>
                         </select>
                     </div>
                     <div class="address_item">
                     	<div class="address_label">市</div>
-                        <select name="市" size="1">
-                            <option value="" selected>杭州</option>
-                            <option value="">南京</option>
-                            <option value="">义乌</option>
-                            <option value="">厦门</option>
-                            <option value="">扬州</option>
-                            <option value="">北京</option>
+                        <select name="市" size="1" id="address_city">
+                        
                         </select>
                     </div>
                     <div class="address_item">
                        	 <div class="address_label">区/县</div>
-                        <select name="区/县" size="1">
-                            <option value="" selected> 江干区</option>
+                        <select name="区/县" size="1" id="address_address">
+                            
                         </select>
                     </div>
                     <div class="address_item">
                     	<div class="address_label">地址类别</div>
-                        <select name="地址类别" size="1">
-                            <option value="" selected>家</option>
-                            <option value="" selected>公司</option>
+                        <select name="地址类别" size="1" id="address_type">
+                            <option value="1" selected>家</option>
+                            <option value="2">公司</option>
                         </select>
                     </div>
                     <div class="address_item">
                     	<div class="address_label">详细地址</div>
-                        <input name="详细地址" type="text" value="详细地址" />
+                        <input name="详细地址" type="text" id="address_content"/>
                     </div>
-                    <div class="address_submit">确认</div>
+                    <div class="address_submit" onclick="addressAddSbumit()">确认</div>
                 </div>
             </div>
+               <script type="text/javascript">
+	               $(document).ready(function(){
+	            	   onProvinceSelect();
+	            	   onCitySelect();
+	            	   getCities();
+	            	   
+	               });
+    			</script>
     </body>
 
 </html>
