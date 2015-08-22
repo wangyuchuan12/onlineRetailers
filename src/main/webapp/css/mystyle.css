@@ -1,5 +1,5 @@
 .goods{margin:8px 10px}
-.good{padding:5px;font-size:18px;background-color:white;margin:10px;display:inline-block;border-color: red;height:265px;width:98%}
+.good{font-size:18px;background-color:white;margin:10px;display:inline-block;border-color: red;height:265px;width:95%}
 .good-img{width:100%;width:auto;height:auto;position:relative;overflow:hidden;border:0;top:-50px;height: 80%;}
 .good-img img{width:100%;height: 90%;}
 .good-img .good-title{width:100%;height:24px;z-index:100;position:absolute;color:#fff;font-size:16px;font-family:initial;bottom:0;left:0;background-color:rgba(0,0,0,.4);padding:0 5px;}
