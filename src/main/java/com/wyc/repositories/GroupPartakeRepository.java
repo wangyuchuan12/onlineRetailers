@@ -1,6 +1,8 @@
 package com.wyc.repositories;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.wyc.domain.GroupPartake;
 
@@ -12,5 +14,7 @@ public interface GroupPartakeRepository extends CrudRepository<GroupPartake, Str
 
     public GroupPartake findByCustomeridAndGroupId(String customerId,
             String groupId);
+    @Query("select count(*) from com.wyc.domain.GroupPartake g where g.groupId = :groupId")
+    public int countByGroupId(@Param("groupId")String groupId);
 
 }

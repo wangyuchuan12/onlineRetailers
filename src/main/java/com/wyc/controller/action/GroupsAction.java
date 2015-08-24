@@ -91,7 +91,7 @@ public class GroupsAction {
         UserInfo requestUser = myHttpServletRequest.getUserInfo();
         Customer customer = customerService.findByOpenId(requestUser.getOpenid());
         String id = myHttpServletRequest.getParameter("id");
-        String role = myHttpServletRequest.getParameter("role");
+        String type = myHttpServletRequest.getParameter("type");
         GroupPartake groupPartake = groupPartakeService.findByCustomeridAndGroupId(customer.getId(),id);
         if(groupPartake!=null){
             return null;
@@ -100,8 +100,21 @@ public class GroupsAction {
             groupPartake.setCustomerid(customer.getId());
             groupPartake.setDateTime(new DateTime());
             groupPartake.setGroupId(id);
-            groupPartake.setRole(Integer.parseInt(role));
-            groupPartake.setType(0);
+            int count = groupPartakeService.countByGroupId(id);
+            if(count==0){
+            	groupPartake.setRole(1);
+            }else if (count==1) {
+            	groupPartake.setRole(2);
+			}else{
+				groupPartake.setRole(3);
+			}
+            groupPartake.setType(Integer.parseInt(type));
+            
+            GoodGroup goodGroup = goodGroupService.findOne(id);
+            int groupNum = goodGroup.getNum();
+            if(groupNum==count){
+            	return null;
+            }
             groupPartakeService.add(groupPartake);
             return groupInfo(myHttpServletRequest);
         }
@@ -122,7 +135,7 @@ public class GroupsAction {
         Good good = goodService.findOne(goodId);
         String goodName = good.getName();
         String headImg = myResourceService.findOne(good.getHeadImg()).getUrl();
-        int groupNum = good.getGroupNum();
+        int groupNum = goodGroup.getNum();
         float totalPrice = goodGroup.getTotalPrice();
         List<Map<String, String>> groupMembers = new ArrayList<Map<String,String>>();
         Integer role = 0;

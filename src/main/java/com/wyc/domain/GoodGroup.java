@@ -25,6 +25,8 @@ public class GoodGroup {
     @Column(name = "start_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime startTime;
+    
+    private int num;
     //组团截止时长
     @Column(name = "time_long")
     private int timeLong;
@@ -36,7 +38,16 @@ public class GoodGroup {
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
-    public float getTotalPrice() {
+    
+    
+    
+    public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
+	public float getTotalPrice() {
         return totalPrice;
     }
     public void setTotalPrice(float totalPrice) {

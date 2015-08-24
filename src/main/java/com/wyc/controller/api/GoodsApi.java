@@ -77,6 +77,7 @@ public class GoodsApi {
             if (status.equals("2")) {
                 GoodGroup goodGroup = new GoodGroup();
                 goodGroup.setGoodId(good.getId());
+                goodGroup.setNum(good.getGroupNum());
                 goodGroup.setGroupHead(userInfo.getId());
                 goodGroup.setResult(1);
                 goodGroup.setStartTime(new DateTime());

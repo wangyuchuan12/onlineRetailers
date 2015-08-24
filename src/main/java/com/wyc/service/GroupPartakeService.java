@@ -37,4 +37,8 @@ public class GroupPartakeService {
         // TODO Auto-generated method stub
         return groupPartakeRepository.findAllByGroupIdOrderByRoleAsc(id);
     }
+    
+    public int countByGroupId(String groupId){
+    	return groupPartakeRepository.countByGroupId(groupId);
+    }
 }
