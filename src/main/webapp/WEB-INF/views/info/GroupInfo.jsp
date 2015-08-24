@@ -18,6 +18,7 @@
 		 <meta http-equiv="Cache-Control" content="no-store">
 		 <meta http-equiv="Expires" content="0">
 		 <script src="/js/myscript.js"></script>
+		 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 		 <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
 	</head>
 	<body>
@@ -34,15 +35,15 @@
 					
 					</div>
 					<c:if test="${groupInfo.result==2}">
-						<div class="group_head_success">组团成功</div>
+						<div class="group_head_success" id="group_head">组团成功</div>
 					</c:if>
 					
 					<c:if test="${groupInfo.result==1}">
-						<div class="group_head_in">正在组团</div>
+						<div class="group_head_in"  id="group_head">正在组团</div>
 					</c:if>
 					
 					<c:if test="${groupInfo.result==0}">
-						<div class="group_head_failure">组团失败</div>
+						<div class="group_head_failure"  id="group_head">组团失败</div>
 					</c:if>
 					
 			

@@ -48,6 +48,7 @@ function initGroupInvalidDate(startTime2,timeLong){
 			$("#group_info_second").html("00");
 			$(".footer3").attr("onclick","javascript:skipToGoodList();");
 			$(".footer3 a").html("再开一个团");
+			$("#group_head").attr("class","group_head_failure").html("组团超时");
 		}
 		
 	}, 1000); 
@@ -136,8 +137,8 @@ function skipToUrl(url,token){
 }
 
 function request(url,token,callback){
-	if(!token&&window.localStorage.getItem("userToken")){
-		token = window.localStorage.getItem("userToken");
+	if(!token&&window.sessionStorage.getItem("userToken")){
+		token = window.sessionStorage.getItem("userToken");
 	}
 	if(url.indexOf("?")>0){
 		if(token){
