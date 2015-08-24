@@ -117,22 +117,19 @@ function setUserToken(userToken){
 }
 
 function skipToUrl(url,token){
+	var temp = document.createElement("form");        
+    temp.action = webPath+url;        
+    temp.method = "post";        
+    temp.style.display = "none";        
+    var opt = document.createElement("textarea");        
+    opt.name = "token";
 	if(!token&&window.localStorage.getItem("userToken")){
 		token = window.localStorage.getItem("userToken");
 	}
-	if(url.indexOf("?")>0){
-		if(token){
-			window.location.href=webPath+url+"&token="+token;
-		}else{
-			window.location.href=webPath+url;
-		}
-	}else{
-		if(token){
-			window.location.href=webPath+url+"?token="+token;
-		}else{
-			window.location.href=webPath+url;
-		}
-	}
+	opt.value = token;
+    temp.appendChild(opt);              
+    document.body.appendChild(temp);
+    temp.submit();
 	
 }
 
