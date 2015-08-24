@@ -28,6 +28,10 @@ public class GroupPartakeService {
     public Iterable<GroupPartake> findByCustomerid(String customerId){
         return groupPartakeRepository.findByCustomerid(customerId);
     }
+    
+    public GroupPartake findByCustomeridAndGroupId(String customerId , String groupId){
+        return groupPartakeRepository.findByCustomeridAndGroupId(customerId , groupId);
+    }
 
     public Iterable<GroupPartake> findAllByGroupIdOrderByRoleAsc(String id) {
         // TODO Auto-generated method stub

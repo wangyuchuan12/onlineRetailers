@@ -1,6 +1,4 @@
 package com.wyc.controller.action;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +26,7 @@ import com.wyc.service.GoodService;
 import com.wyc.service.GroupPartakeService;
 import com.wyc.service.MyResourceService;
 import com.wyc.service.WxUserInfoService;
-import com.wyc.wx.domain.AccessTokenBean;
 import com.wyc.wx.domain.UserInfo;
-import com.wyc.wx.service.UserService;
 
 @Controller
 public class GroupsAction {
@@ -87,6 +84,30 @@ public class GroupsAction {
         return "main/Groups";
     }
     
+    @RequestMapping("/info/takepart_group")
+    @UserInfoFromWebAnnotation
+    public String takepartGroup(HttpServletRequest httpServletRequest)throws Exception{
+        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
+        UserInfo requestUser = myHttpServletRequest.getUserInfo();
+        Customer customer = customerService.findByOpenId(requestUser.getOpenid());
+        String id = myHttpServletRequest.getParameter("id");
+        String role = myHttpServletRequest.getParameter("role");
+        GroupPartake groupPartake = groupPartakeService.findByCustomeridAndGroupId(customer.getId(),id);
+        if(groupPartake!=null){
+            return null;
+        }else{
+            groupPartake = new GroupPartake();
+            groupPartake.setCustomerid(customer.getId());
+            groupPartake.setDateTime(new DateTime());
+            groupPartake.setGroupId(id);
+            groupPartake.setRole(Integer.parseInt(role));
+            groupPartake.setType(0);
+            groupPartakeService.add(groupPartake);
+            return groupInfo(myHttpServletRequest);
+        }
+        
+    }
+    
     @RequestMapping("/info/group_info2")
     @UserInfoFromWebAnnotation
     public String groupInfo(HttpServletRequest httpServletRequest)throws Exception{
@@ -125,11 +146,12 @@ public class GroupsAction {
         groupInfoMap.put("result", result);
         groupInfoMap.put("goodName", goodName);
         groupInfoMap.put("headImg", headImg);
+        groupInfoMap.put("id", id);
         groupInfoMap.put("groupNum", groupNum);
         groupInfoMap.put("totalPrice", totalPrice);
         groupInfoMap.put("groupPartake", groupMembers);
         groupInfoMap.put("startTime", mySimpleDateFormat.format(goodGroup.getStartTime().toDate()));
-        groupInfoMap.put("startTime", goodGroup.getTimeLong());
+        groupInfoMap.put("timeLong", goodGroup.getTimeLong());
         groupInfoMap.put("role", role);
         httpServletRequest.setAttribute("groupInfo", groupInfoMap);
         return "info/GroupInfo";

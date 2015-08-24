@@ -92,9 +92,9 @@
 				</ul>
 			</div>
 			<c:if test="${groupInfo.result==1}">
-				<div class="groupinfo_situation">
-					<div class="groupinfo_situation_title">还差<b>${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}</b>人，盼你如南方人盼暖气</div>
-					<div class="groupinfo_situation_time">剩余<b>05</b><b>19</b><b>20</b>结束</div>
+				<div class="groupinfo_situation" id="groupinfo_in">
+					<div class="groupinfo_situation_title" id="groupinfo_situation_title">还差<b>${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}</b>人，盼你如南方人盼暖气</div>
+					<div class="groupinfo_situation_time">剩余<b id="group_info_hour">00</b><b id="group_info_min">00</b><b id="group_info_second">00</b>结束</div>
 				</div>
 			</c:if>
 			
@@ -144,15 +144,23 @@
 				<div class="footer3" onclick="javascript:displayLinkGuid();">
 		                <a class="goto_gootlist">还差${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}个人，发送链接</a>
 		     	</div>
+		     	<script type="text/javascript">
+		     		initGroupInvalidDate("${groupInfo.startTime}","${groupInfo.timeLong}");
+		     	</script>
 	     	</c:if>
 	     	
 	     	
 	     	<c:if test="${groupInfo.role==0}">
-				<div class="footer3">
+				<div class="footer3" onclick="javascript:toTakepartGroup('${groupInfo.id}',
+				<c:if test="${fn:length(groupInfo.groupPartake)==1}">2</c:if><c:if test="${fn:length(groupInfo.groupPartake)>1}">3</c:if>)">
 		                <a class="goto_gootlist">点击参团</a>
 		     	</div>
 	     	</c:if>
      	  </c:if>
      	</div>
+     	<script type="text/javascript">
+    			setUserToken("${token.id}");
+    			
+   		 </script>
 	</body>
 </html>

@@ -91,7 +91,6 @@ public class GoodsApi {
                 groupPartake.setCustomerid(customer.getId());
                 groupPartake.setDateTime(new DateTime());
                 groupPartake.setGroupId(goodGroup.getId());
-                groupPartake.setOrderId(goodOrder.getId());
                 groupPartake.setRole(1);
                 groupPartake.setType(Integer.parseInt(payType));
                 groupPartakeService.add(groupPartake);

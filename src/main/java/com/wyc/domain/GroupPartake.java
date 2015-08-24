@@ -14,8 +14,6 @@ public class GroupPartake {
     private String customerid;
     @Column(name = "group_id")
     private String groupId;
-    @Column(name="order_id")
-    private String orderId;
     //付款方式 0表示组团购买，1表示单买，3表示开团劵购买
     @Column
     private int type;
@@ -42,12 +40,6 @@ public class GroupPartake {
     }
     public void setRole(int role) {
         this.role = role;
-    }
-    public String getOrderId() {
-        return orderId;
-    }
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
     }
     public String getGroupId() {
         return groupId;

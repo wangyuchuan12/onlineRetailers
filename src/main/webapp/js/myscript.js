@@ -11,6 +11,56 @@ function addressAddSbumit(){
 	skipToUrl("/action/do_address_save?city_id="+addressAddress+"&type="+addressType+"&content="+addressContent+"&phonenumber="+addressPhonenumber+"&name="+addressName);
 }
 
+function initGroupInvalidDate(startTime2,timeLong){
+	window.setInterval(function(){
+		var startTime = startTime2.replace(/-/g,"/");
+		startTime = new Date(startTime);
+		var timestamp = startTime.valueOf()+parseFloat(timeLong)*3600000;
+		var now = new Date();
+		var nowTimestamp = now.valueOf();
+		if(timestamp>nowTimestamp){
+			var second = new Date(timestamp-nowTimestamp).getSeconds();
+			var min = new Date(timestamp-nowTimestamp).getMinutes();
+			
+			var date = new Date(timestamp-nowTimestamp).getDate()-1;
+			var hour = new Date(timestamp-nowTimestamp).getHours()-8+date*24;
+			if(hour>=10){
+				$("#group_info_hour").html(hour+"");
+			}else{
+				$("#group_info_hour").html("0"+hour+"");
+			}
+			
+			if(min>=10){
+				$("#group_info_min").html(min+"");
+			}else{
+				$("#group_info_min").html("0"+min+"");
+			}
+			
+			if(second>=10){
+				$("#group_info_second").html(second+"");
+			}else{
+				$("#group_info_second").html("0"+second+"");
+			}
+		}else{
+			$("#groupinfo_situation_title").html("该团已结束，请再开团").css("color","red");
+			$("#group_info_hour").html("00");
+			$("#group_info_min").html("00");
+			$("#group_info_second").html("00");
+			$(".footer3").attr("onclick","javascript:skipToGoodList();");
+			$(".footer3 a").html("再开一个团");
+		}
+		
+	}, 1000); 
+}
+
+function toTakepartGroup(id,role){
+	doTakepartGroup(id,role);
+}
+
+function doTakepartGroup(id,role){
+	var url = "/info/takepart_group?id="+id+"&role="+role;
+	skipToUrl(url);
+}
 function displayLinkGuid(){
 	$("#linkGuid").css("display","block");
 }
