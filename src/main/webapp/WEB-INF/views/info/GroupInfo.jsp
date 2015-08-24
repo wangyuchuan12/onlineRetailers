@@ -10,26 +10,41 @@
 		<link rel="stylesheet" href="/css/core.css" />
 		<link rel="stylesheet" href="/css/mystyle.css" />
 		<link rel="stylesheet" href="/css/font-awesome.min.css">
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
- <meta name="format-detection" content="telephone=no">
- <meta http-equiv="Pragma" content="no-cache">   
- <meta http-equiv="Cache-Control" content="no-store">
- <meta http-equiv="Expires" content="0">
+		<meta charset="utf-8">
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		 <meta name="format-detection" content="telephone=no">
+		 <meta http-equiv="Pragma" content="no-cache">   
+		 <meta http-equiv="Cache-Control" content="no-store">
+		 <meta http-equiv="Expires" content="0">
+		 <script src="/js/myscript.js"></script>
+		 <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
 	</head>
 	<body>
 		<div class="container">
+			<div class="linkGuid" style="display:none" id="linkGuid" onclick="javascript:hideLinkGuid();"></div>
 			<div class="group_goodinfo">
 			      
 					<div class="group_goodinfo_img">
 						<img src="${groupInfo.headImg}"></img>
 					</div>
 					<div class="group_goodinfo_detail">
-						<div class="group_goodinfo_detail_title">${groupInfo.name}【产地定制】新疆哈密瓜1个14.9元</div>
+						<div class="group_goodinfo_detail_title">${groupInfo.goodName}</div>
 						<div class="group_goodinfo_detail_price">${groupInfo.groupNum}人团：<span class="group_goodinfo_detail_price2">￥${groupInfo.totalPrice}/件</span></div>
 					
 					</div>
+					<c:if test="${groupInfo.result==2}">
+						<div class="group_head_success">组团成功</div>
+					</c:if>
+					
+					<c:if test="${groupInfo.result==1}">
+						<div class="group_head_in">正在组团</div>
+					</c:if>
+					
+					<c:if test="${groupInfo.result==0}">
+						<div class="group_head_failure">组团失败</div>
+					</c:if>
+					
 			
 			</div>
 			<div class="members">
@@ -76,10 +91,18 @@
 					</c:forEach>
 				</ul>
 			</div>
-			<div class="groupinfo_situation">
-				<div class="groupinfo_situation_title">还差<b>4</b>人，盼你如南方人盼暖气</div>
-				<div class="groupinfo_situation_time">剩余<b>05</b><b>19</b><b>20</b>结束</div>
-			</div>
+			<c:if test="${groupInfo.result==1}">
+				<div class="groupinfo_situation">
+					<div class="groupinfo_situation_title">还差<b>${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}</b>人，盼你如南方人盼暖气</div>
+					<div class="groupinfo_situation_time">剩余<b>05</b><b>19</b><b>20</b>结束</div>
+				</div>
+			</c:if>
+			
+			<c:if test="${groupInfo.result==2}">
+				<div class="groupinfo_situation_failure">
+					组团失败
+				</div>
+			</c:if>
 			<div class="trade_flow">
             	<div class="trade_flow_details">查看详情&gt;</div>
             	<ul>
@@ -110,9 +133,26 @@
             		</li>
             	</ul>
             </div>
-		<div class="footer3">
-                <a class="goto_gootlist">我也开个团，点此回商品列表</a>
-     	</div>
+            <c:if test="${groupInfo.result==2}">
+			<div class="footer3" onclick="">
+	                <a class="goto_gootlist">我也开个团，点此回商品列表</a>
+	     	</div>
+     	  </c:if>
+     	  
+     	  <c:if test="${groupInfo.result==1}">
+     	  	<c:if test="${groupInfo.role==1||groupInfo.role==2||groupInfo.role==3}">
+				<div class="footer3" onclick="javascript:displayLinkGuid();">
+		                <a class="goto_gootlist">还差3个人，发送链接</a>
+		     	</div>
+	     	</c:if>
+	     	
+	     	
+	     	<c:if test="${groupInfo.role==0}">
+				<div class="footer3">
+		                <a class="goto_gootlist">点击参团</a>
+		     	</div>
+	     	</c:if>
+     	  </c:if>
      	</div>
 	</body>
 </html>

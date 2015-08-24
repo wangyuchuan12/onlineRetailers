@@ -27,7 +27,7 @@
 										<c:if test="${group.result==1}">正在组团</c:if>
 										<c:if test="${group.result==2}">组团成功</c:if>
 									</span>
-									<div class="group_details activityStyle">查看团详情</div>
+									<div class="group_details activityStyle" onclick="javascript:skipToGroupInfo('${group.group_id}');">查看团详情</div>
 									<div class="group_details activityStyle">查看订单详情</div>
 								</div>
 							</a>

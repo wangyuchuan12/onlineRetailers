@@ -244,7 +244,7 @@ public class OrderManagerApi {
         Map<String, Object> response = new HashMap<String, Object>();
         
         if(groupId!=null){
-            Iterable<GroupPartake> groupPartakes = groupPartakeService.findAllByGroupId(groupId);
+            Iterable<GroupPartake> groupPartakes = groupPartakeService.findAllByGroupIdOrderByRoleAsc(groupId);
             for(GroupPartake groupPartake:groupPartakes){
                 Map<String, Object> responseGroupDetail = new HashMap<String, Object>();
                 String customerId = groupPartake.getCustomerid();

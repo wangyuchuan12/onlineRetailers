@@ -11,6 +11,14 @@ function addressAddSbumit(){
 	skipToUrl("/action/do_address_save?city_id="+addressAddress+"&type="+addressType+"&content="+addressContent+"&phonenumber="+addressPhonenumber+"&name="+addressName);
 }
 
+function displayLinkGuid(){
+	$("#linkGuid").css("display","block");
+}
+
+function hideLinkGuid(){
+	$("#linkGuid").css("display","none");
+}
+
 function onProvinceSelect(){
 	$("#address_province").on("change",function(){
 		getCities();
@@ -104,6 +112,10 @@ function request(url,token,callback){
 			}
 		}
 	});
+}
+
+function skipToGroupInfo(id , token){
+	skipToUrl("/info/group_info2?id="+id,token);
 }
 
 function skipToGoodInfo(id , token){

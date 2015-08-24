@@ -13,7 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.wyc.annotation.UserInfoFromWebAnnotation;
+import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodGroup;
@@ -24,8 +26,10 @@ import com.wyc.service.GoodGroupService;
 import com.wyc.service.GoodService;
 import com.wyc.service.GroupPartakeService;
 import com.wyc.service.MyResourceService;
+import com.wyc.service.WxUserInfoService;
 import com.wyc.wx.domain.AccessTokenBean;
 import com.wyc.wx.domain.UserInfo;
+import com.wyc.wx.service.UserService;
 
 @Controller
 public class GroupsAction {
@@ -39,6 +43,10 @@ public class GroupsAction {
     private MyResourceService myResourceService;
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private WxUserInfoService wxUserInfoService;
+    @Autowired
+    private MySimpleDateFormat mySimpleDateFormat;
     final static Logger logger = LoggerFactory.getLogger(GroupsAction.class);
     @RequestMapping("/main/group_list")
     @UserInfoFromWebAnnotation
@@ -83,11 +91,12 @@ public class GroupsAction {
     @UserInfoFromWebAnnotation
     public String groupInfo(HttpServletRequest httpServletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
+        UserInfo requestUser = myHttpServletRequest.getUserInfo();
         String id = httpServletRequest.getParameter("id");
         GoodGroup goodGroup = goodGroupService.findOne(id);
         logger.debug("the group id is {}",id);
         int result = goodGroup.getResult();
-        Iterable<GroupPartake> groupPartakes = groupPartakeService.findAllByGroupId(id);
+        Iterable<GroupPartake> groupPartakes = groupPartakeService.findAllByGroupIdOrderByRoleAsc(id);
         String goodId = goodGroup.getGoodId();
         Good good = goodService.findOne(goodId);
         String goodName = good.getName();
@@ -95,19 +104,21 @@ public class GroupsAction {
         int groupNum = good.getGroupNum();
         float totalPrice = goodGroup.getTotalPrice();
         List<Map<String, String>> groupMembers = new ArrayList<Map<String,String>>();
+        Integer role = 0;
         for(GroupPartake groupPartake:groupPartakes){
             Map<String, String> groupMember = new HashMap<String, String>();
             String customerId = groupPartake.getCustomerid();
             Customer customer = customerService.findOne(customerId);
             String openid = customer.getOpenId();
-            AccessTokenBean accessTokenBean = myHttpServletRequest.getAccessTokenBean();
-            UserInfo userInfo = myHttpServletRequest.getUserInfo();
+            UserInfo userInfo = wxUserInfoService.findByOpenid(openid);
             groupMember.put("name", userInfo.getNickname());
             groupMember.put("headImg", userInfo.getHeadimgurl());
             groupMember.put("role", groupPartake.getRole()+"");
-            SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            groupMember.put("datetime", sFormat.format(groupPartake.getDateTime().toDate()));
+            groupMember.put("datetime", mySimpleDateFormat.format(groupPartake.getDateTime().toDate()));
             groupMembers.add(groupMember);
+            if(openid.equals(requestUser.getOpenid())){
+                role = groupPartake.getRole();
+            }
         }
        
         Map<String, Object> groupInfoMap = new HashMap<String, Object>();
@@ -117,6 +128,9 @@ public class GroupsAction {
         groupInfoMap.put("groupNum", groupNum);
         groupInfoMap.put("totalPrice", totalPrice);
         groupInfoMap.put("groupPartake", groupMembers);
+        groupInfoMap.put("startTime", mySimpleDateFormat.format(goodGroup.getStartTime().toDate()));
+        groupInfoMap.put("startTime", goodGroup.getTimeLong());
+        groupInfoMap.put("role", role);
         httpServletRequest.setAttribute("groupInfo", groupInfoMap);
         return "info/GroupInfo";
     }
