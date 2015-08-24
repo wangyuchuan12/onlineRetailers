@@ -92,6 +92,7 @@ public class GroupsAction {
         Customer customer = customerService.findByOpenId(requestUser.getOpenid());
         String id = myHttpServletRequest.getParameter("id");
         String type = myHttpServletRequest.getParameter("type");
+        type = "1";
         GroupPartake groupPartake = groupPartakeService.findByCustomeridAndGroupId(customer.getId(),id);
         if(groupPartake!=null){
             return null;
