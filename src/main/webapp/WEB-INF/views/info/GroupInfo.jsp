@@ -22,7 +22,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="linkGuid" style="display:none" id="linkGuid" onclick="javascript:hideLinkGuid();"></div>
+			<img class="linkGuid" style="display:none" id="linkGuid" src="/img/arrow.png" onclick="javascript:hideLinkGuid();"></img>
 			<div class="group_goodinfo">
 			      
 					<div class="group_goodinfo_img">
@@ -142,7 +142,7 @@
      	  <c:if test="${groupInfo.result==1}">
      	  	<c:if test="${groupInfo.role==1||groupInfo.role==2||groupInfo.role==3}">
 				<div class="footer3" onclick="javascript:displayLinkGuid();">
-		                <a class="goto_gootlist">还差3个人，发送链接</a>
+		                <a class="goto_gootlist">还差${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}个人，发送链接</a>
 		     	</div>
 	     	</c:if>
 	     	
