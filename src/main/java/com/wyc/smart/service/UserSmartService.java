@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wyc.defineBean.ApplicationProperties;
 import com.wyc.service.TokenService;
 import com.wyc.service.WxUserInfoService;
 import com.wyc.wx.domain.Authorize;
@@ -30,7 +31,8 @@ public class UserSmartService implements SmartService<UserInfo>{
     private AccessTokenSmartService accessTokenService;
     @Autowired
     private TokenService tokenService;
-    
+    @Autowired
+    private ApplicationProperties applicationProperties;
     final static Logger logger = LoggerFactory.getLogger(UserSmartService.class);
     public void setCode(String code){
         this.code = code;
@@ -68,7 +70,9 @@ public class UserSmartService implements SmartService<UserInfo>{
     public Token saveToDatabase(UserInfo t , String tokenKey) {
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(new Date());
-        calendar.add(Calendar.HOUR, 24);
+        calendar.add(Calendar.HOUR,Integer.parseInt(applicationProperties.getProperty("token_time_long_hour")));
+        calendar.add(Calendar.MINUTE,Integer.parseInt(applicationProperties.getProperty("token_time_long_min")));
+        calendar.add(Calendar.SECOND,Integer.parseInt(applicationProperties.getProperty("token_time_long_second")));
         Token token = tokenService.findByTokenKey(tokenKey);
         if(token==null){
             token = new Token();
