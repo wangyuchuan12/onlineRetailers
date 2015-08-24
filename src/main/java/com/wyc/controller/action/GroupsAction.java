@@ -115,7 +115,9 @@ public class GroupsAction {
             int groupNum = goodGroup.getNum();
             if(groupNum==count){
             	return null;
-            }
+            }else if (groupNum==count-1) {
+            	goodGroup.setResult(2);
+			}
             groupPartakeService.add(groupPartake);
             return groupInfo(myHttpServletRequest);
         }

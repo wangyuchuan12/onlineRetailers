@@ -121,13 +121,13 @@
             			</div>
             		</li>
             		<li>
-            			<div class="trade_flow_block trade_flow_block_activity"> 
+            			<div class="trade_flow_block <c:if test='${groupInfo.result==1}'>trade_flow_block_activity</c:if>"> 
             				<i class="fa fa-users"></i><span>等待组团</span>
             				<div class="trade_flow_num">3</div>
             			</div>
             		</li>
             		<li>
-            			<div class="trade_flow_block">
+            			<div class="trade_flow_block <c:if test='${groupInfo.result==2}'>trade_flow_block_activity</c:if>">
             				<i class="fa fa-flag"></i><span>购买完成</span>
             				<div class="trade_flow_num">4</div>
             			</div>
