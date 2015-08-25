@@ -237,12 +237,13 @@ public class InterceptConfig {
             if(userInfo==null&&code!=null){
                 try {
                     userInfo = userSmartService.getFromWx();
+                    token = userSmartService.saveToDatabase(userInfo, key);
+                    logger.debug("save to database success ,the key is {} , the token is {}" , key , token);
                 } catch (Exception e) {
                     logger.error("get userInfo from wx has error");
                     e.printStackTrace();
                 }
-                token = userSmartService.saveToDatabase(userInfo, key);
-                logger.debug("save to database success ,the key is {} , the token is {}" , key , token);
+                
             }
             
             if(userInfo==null){
