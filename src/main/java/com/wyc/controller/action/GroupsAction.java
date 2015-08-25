@@ -123,7 +123,7 @@ public class GroupsAction {
             logger.debug("take part group and the count is {} , groupNum is {}" , count , groupNum);
             if (groupNum == count) {
                 return null;
-            } else if (groupNum == count - 1) {
+            } else if (groupNum == count + 1) {
                 goodGroup.setResult(2);
             }
             groupPartakeService.add(groupPartake);
