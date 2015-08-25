@@ -4,6 +4,7 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -237,6 +238,9 @@ public class InterceptConfig {
             if(userInfo==null&&code!=null){
                 try {
                     userInfo = userSmartService.getFromWx();
+                    logger.debug("before handle nickname is {}",userInfo.getNickname());
+                    userInfo.setNickname(StringEscapeUtils.escapeSql(userInfo.getNickname()));
+                    logger.debug("after handle nickname is {}",userInfo.getNickname());
                     token = userSmartService.saveToDatabase(userInfo, key);
                     logger.debug("save to database success ,the key is {} , the token is {}" , key , token);
                 } catch (Exception e) {
