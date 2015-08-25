@@ -98,13 +98,7 @@ public class UserSmartService implements SmartService<UserInfo>{
                 t.setId(userInfo.getId());
                 wxUserInfoService.save(t);
             }else{
-                try {
-                    wxUserInfoService.add(t);
-                } catch (Exception e) {
-                    t.setNickname("无法显示");
-                    wxUserInfoService.add(t);
-                }
-                
+                wxUserInfoService.add(t);
             }
             
         }else{
