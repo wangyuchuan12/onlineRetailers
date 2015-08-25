@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.transaction.Transactional;
+
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,6 +69,7 @@ public class UserSmartService implements SmartService<UserInfo>{
         return wxUserInfoService.findByOpenid(openid);
     }  
     @Override
+    @Transactional
     public Token saveToDatabase(UserInfo t , String tokenKey) {
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(new Date());

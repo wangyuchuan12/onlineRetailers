@@ -242,6 +242,8 @@ public class InterceptConfig {
                 } catch (Exception e) {
                     logger.error("get userInfo from wx has error");
                     e.printStackTrace();
+                    //做最后一层保障，保证在数据库当中有userInfo
+                    wxUserInfoService.add(userInfo);
                 }
                 
             }
