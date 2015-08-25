@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -90,6 +91,7 @@ public class GroupsAction {
 
     @RequestMapping("/info/takepart_group")
     @UserInfoFromWebAnnotation
+    @Transactional
     public String takepartGroup(HttpServletRequest httpServletRequest)
             throws Exception {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) httpServletRequest;
@@ -126,6 +128,7 @@ public class GroupsAction {
             } else if (groupNum == count + 1) {
                 goodGroup.setResult(2);
             }
+            goodGroupService.save(goodGroup);
             groupPartakeService.add(groupPartake);
             return groupInfo(myHttpServletRequest);
         }
