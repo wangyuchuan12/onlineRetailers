@@ -141,7 +141,8 @@
      	  <c:if test="${groupInfo.result==1}">
      	  	<c:if test="${groupInfo.role==1||groupInfo.role==2||groupInfo.role==3}">
 				<div class="footer3" onclick="javascript:displayLinkGuid();">
-		                <a class="goto_gootlist">还差${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}个人，发送链接</a>
+					<i class="fa fa-home"></i>
+		                <a class="">还差${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}个人，发送链接</a>
 		     	</div>
 		     	<script type="text/javascript">
 		     		initGroupInvalidDate("${groupInfo.startTime}","${groupInfo.timeLong}");
@@ -152,6 +153,7 @@
 	     	<c:if test="${groupInfo.role==0}">
 				<div class="footer3" onclick="javascript:toTakepartGroup('${groupInfo.id}',
 				<c:if test="${fn:length(groupInfo.groupPartake)==1}">2</c:if><c:if test="${fn:length(groupInfo.groupPartake)>1}">3</c:if>)">
+		                <i class="fa fa-home"></i>
 		                <a class="goto_gootlist">点击参团</a>
 		     	</div>
 	     	</c:if>

@@ -437,6 +437,7 @@
 	position:relative;
 	top:0px;
 	display:block;
+	margin-bottom: 20px;
 }
 
 .member_obvious{
@@ -571,18 +572,29 @@
 }
 
 .footer3 a{
-	color:white;
+	color: white;
 	background-color: red;
-	display:block;
-	width:85%;
-	height:35px;
-	left:25px;
-	top:10px;
-	line-height:30px;
-	position:relative;
-	border-radius:5px;
+	display: inline-block;
+	width: 80%;
+	height: 35px;
+	top: 8px;
+	line-height: 30px;
+	position: relative;
+	border-radius: 5px;
 }
 
+.footer3 i{
+	width: 15%;
+	color: white;
+	height: 35px;
+	position: relative;
+	font-size: 25px;
+	top: 14px;
+	background-color: red;
+	line-height: 35px;
+	border-radius: 5px
+	
+}
 .foot4{
 	background-color:red;
 	margin:0 auto;
