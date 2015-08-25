@@ -133,16 +133,16 @@
             	</ul>
             </div>
             <c:if test="${groupInfo.result==2}">
-			<div class="footer3" onclick="">
+			<div class="footer3" onclick="javascript:skipToGoodList();">
 	                <a class="goto_gootlist">我也开个团，点此回商品列表</a>
 	     	</div>
      	  </c:if>
      	  
      	  <c:if test="${groupInfo.result==1}">
      	  	<c:if test="${groupInfo.role==1||groupInfo.role==2||groupInfo.role==3}">
-				<div class="footer3" onclick="javascript:displayLinkGuid();">
-					<i class="fa fa-home"></i>
-		                <a class="">还差${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}个人，发送链接</a>
+				<div class="footer3" >
+					<i class="fa fa-home" onclick="javascript:skipToGoodList();"></i>
+		                <a href="javascript:displayLinkGuid();" class="">还差${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}个人，发送链接</a>
 		     	</div>
 		     	<script type="text/javascript">
 		     		initGroupInvalidDate("${groupInfo.startTime}","${groupInfo.timeLong}");
@@ -153,7 +153,7 @@
 	     	<c:if test="${groupInfo.role==0}">
 				<div class="footer3" onclick="javascript:toTakepartGroup('${groupInfo.id}',
 				<c:if test="${fn:length(groupInfo.groupPartake)==1}">2</c:if><c:if test="${fn:length(groupInfo.groupPartake)>1}">3</c:if>)">
-		                <i class="fa fa-home"></i>
+		                <i class="fa fa-home" onclick="javascript:skipToGoodList();"></i>
 		                <a class="goto_gootlist">点击参团</a>
 		     	</div>
 	     	</c:if>
