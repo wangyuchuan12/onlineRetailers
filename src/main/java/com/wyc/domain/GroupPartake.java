@@ -14,7 +14,7 @@ public class GroupPartake {
     private String customerid;
     @Column(name = "group_id")
     private String groupId;
-    //付款方式 0表示组团购买，1表示单买，3表示开团劵购买
+    //付款方式 0表示组团购买，1表示单买，2表示开团劵购买
     @Column
     private int type;
     //1团长 ， 2，沙发 3普通人

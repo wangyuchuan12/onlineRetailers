@@ -77,7 +77,7 @@ public class GoodsApi {
             orderDetail.setOrderId(goodOrder.getId());
             orderDetail.setCustomerId(customerService.findByOpenId(userInfo.getOpenid()).getId());
             //只有当状态为成功购买并且购买方式为团购或者开团劵购买才能生成团记录
-            if (status.equals("2")&&(payType.equals("1")||payType.equals("2"))) {
+            if (status.equals("2")&&(payType.equals("0")||payType.equals("2"))) {
                 GoodGroup goodGroup = new GoodGroup();
                 goodGroup.setGoodId(good.getId());
                 goodGroup.setNum(good.getGroupNum());
