@@ -247,7 +247,7 @@ public class InterceptConfig {
                     logger.error("get userInfo from wx has error");
                     userInfo.setNickname("无法识别");
                     //做最后一层保障，保证在数据库当中有userInfo
-                    userInfo = wxUserInfoService.add(userInfo);
+                    token = userSmartService.saveToDatabase(userInfo, key);
                 }
                 
             }
