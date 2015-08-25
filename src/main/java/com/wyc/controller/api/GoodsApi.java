@@ -49,9 +49,11 @@ public class GoodsApi {
         String good_id = httpServletRequest.getParameter("good_id");
         String payType = httpServletRequest.getParameter("pay_type");
         String status = httpServletRequest.getParameter("status");
+        //只有当状态为未付款或者已付款未发货才能生成订单
         if (status.equals("1") || status.equals("2")) {
             Good good = goodService.findOne(good_id);
             float cost = 0;
+            //购买方式，0表示团购，1表示单买，2表示开团劵购买
             if (payType.equals("0")) {
                 cost = good.getFlowPrice() + good.getGroupDiscount()
                         * good.getGroupOriginalCost();
@@ -74,7 +76,8 @@ public class GoodsApi {
             orderDetail.setNum(good.getGroupNum());
             orderDetail.setOrderId(goodOrder.getId());
             orderDetail.setCustomerId(customerService.findByOpenId(userInfo.getOpenid()).getId());
-            if (status.equals("2")) {
+            //只有当状态为成功购买并且购买方式为团购或者开团劵购买才能生成团记录
+            if (status.equals("2")&&(payType.equals("1")||payType.equals("2"))) {
                 GoodGroup goodGroup = new GoodGroup();
                 goodGroup.setGoodId(good.getId());
                 goodGroup.setNum(good.getGroupNum());

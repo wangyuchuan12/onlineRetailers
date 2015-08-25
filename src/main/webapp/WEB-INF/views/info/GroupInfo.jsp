@@ -99,10 +99,8 @@
 				</div>
 			</c:if>
 			
-			<c:if test="${groupInfo.result==2}">
-				<div class="groupinfo_situation_failure">
-					组团失败
-				</div>
+			<c:if test="${groupInfo.result==0}">
+				<div style="color:red;margin: 0 auto;position:relative;">很遗憾，组团失败了</div>
 			</c:if>
 			<div class="trade_flow">
             	<div class="trade_flow_details">查看详情&gt;</div>
