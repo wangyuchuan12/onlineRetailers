@@ -13,11 +13,11 @@ import com.wyc.wx.domain.UserInfo;
 public class WxUserInfoService {
     @Autowired
     private WxUserInfoRepository userInfoRepository;
-    public void add(UserInfo userInfo){
+    public UserInfo add(UserInfo userInfo){
         userInfo.setUpdateAt(new DateTime());
         userInfo.setCreateAt(new DateTime());
         userInfo.setId(UUID.randomUUID().toString());
-        userInfoRepository.save(userInfo);
+        return userInfoRepository.save(userInfo);
     }
     
     public void save(UserInfo userInfo){
