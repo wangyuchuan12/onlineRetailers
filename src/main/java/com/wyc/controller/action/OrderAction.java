@@ -7,9 +7,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import sun.util.logging.resources.logging;
+
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.Customer;
@@ -49,6 +54,7 @@ public class OrderAction {
     private MyResourceService myResourceService;
     @Autowired
     private MySimpleDateFormat mySimpleDateFormat;
+    final static Logger logger = LoggerFactory.getLogger(OrderAction.class);
     @RequestMapping("/main/order_list")
     @UserInfoFromWebAnnotation
     public String orderList(HttpServletRequest httpServletRequest){
@@ -62,6 +68,7 @@ public class OrderAction {
         List<String> orderIds = new ArrayList<String>();
         for(GroupPartake groupPartake:groupPatakes){
             orderIds.add(groupPartake.getOrderId());
+            logger.debug("the orderId is {}",groupPartake.getOrderId());
         }
         Iterable<GoodOrder> orders = goodOrderService.findAll(orderIds);
         List<Map<String, Object>> responseOrders = new ArrayList<Map<String,Object>>();
