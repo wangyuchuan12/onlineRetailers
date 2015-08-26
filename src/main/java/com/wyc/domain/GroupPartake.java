@@ -14,6 +14,8 @@ public class GroupPartake {
     private String customerid;
     @Column(name = "group_id")
     private String groupId;
+    @Column(name = "order_id")
+    private String orderId;
     //付款方式 0表示组团购买，1表示单买，2表示开团劵购买
     @Column
     private int type;
@@ -29,6 +31,15 @@ public class GroupPartake {
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
+    
+    
+    
+    public String getOrderId() {
+        return orderId;
+    }
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
     public int getType() {
         return type;
     }

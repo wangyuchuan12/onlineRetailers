@@ -77,6 +77,7 @@ public class GoodsApi {
             orderDetail.setOrderId(goodOrder.getId());
             orderDetail.setStatus(Integer.parseInt(status));
             orderDetail.setCustomerId(customerService.findByOpenId(userInfo.getOpenid()).getId());
+            GroupPartake groupPartake = new GroupPartake();
             //只有当状态为成功购买并且购买方式为团购或者开团劵购买才能生成团记录
             if (status.equals("2")&&(payType.equals("0")||payType.equals("2"))) {
                 GoodGroup goodGroup = new GoodGroup();
@@ -89,17 +90,17 @@ public class GoodsApi {
                 goodGroup.setTotalPrice(cost);
                 goodGroup = goodGroupService.add(goodGroup);
                 orderDetail.setGroupId(goodGroup.getId());
-                GroupPartake groupPartake = new GroupPartake();
-                
                 logger.debug("get customer by openid {}"+userInfo.getOpenid());
-                Customer customer = customerService.findByOpenId(userInfo.getOpenid());
-                groupPartake.setCustomerid(customer.getId());
-                groupPartake.setDateTime(new DateTime());
                 groupPartake.setGroupId(goodGroup.getId());
-                groupPartake.setRole(1);
-                groupPartake.setType(Integer.parseInt(payType));
-                groupPartakeService.add(groupPartake);
+                
             }
+            groupPartake.setOrderId(goodOrder.getId());
+            Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+            groupPartake.setCustomerid(customer.getId());
+            groupPartake.setDateTime(new DateTime());
+            groupPartake.setRole(1);
+            groupPartake.setType(Integer.parseInt(payType));
+            groupPartakeService.add(groupPartake);
             orderDetailService.add(orderDetail);
             return goodOrder;
         } else {

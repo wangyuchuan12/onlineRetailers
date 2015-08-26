@@ -179,7 +179,7 @@ function skipToGroupList(token){
 }
 
 function skipToOrderList(token){
-	skipToUrl("/main/order_list",token);
+	skipToUrl("/main/order_list?status=0",token);
 }
 
 function skipToPersonCenter(token){
@@ -204,6 +204,37 @@ function paySuccess(goodId,payType,status,token){
 		alert(response);
 	};
 	request("/api/pay_success?pay_type="+payType+"&good_id="+goodId+"&status="+status,token);
+}
+
+function orderActive(status){
+	if(status=="0"){
+		$("#all_orders").css("color","red");
+		$("#prepare_pay_orders").css("color","RGB( 39,131,241)");
+		$("#prepare_over_orders").css("color","RGB( 39,131,241)");
+	}else if (status=="1") {
+		$("#all_orders").css("color","RGB( 39,131,241)");
+		$("#prepare_pay_orders").css("color","red");
+		$("#prepare_over_orders").css("color","RGB( 39,131,241)");
+	}else if (status=="2") {
+		$("#all_orders").css("color","RGB( 39,131,241)");
+		$("#prepare_pay_orders").css("color","RGB( 39,131,241)");
+		$("#prepare_over_orders").css("color","red");
+	}
+	
+}
+
+function onOrderClick(){
+	$("#all_orders").on("click",function(){
+		skipToUrl("/main/order_list?status=0");
+	});
+	
+	$("#prepare_pay_orders").on("click",function(){
+		skipToUrl("/main/order_list?status=1");
+	});
+	
+	$("#prepare_over_orders").on("click",function(){
+		skipToUrl("/main/order_list?status=2");
+	});
 }
 
 function footActive(id){

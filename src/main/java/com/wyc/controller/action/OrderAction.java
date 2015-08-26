@@ -17,6 +17,7 @@ import com.wyc.domain.Good;
 import com.wyc.domain.GoodOrder;
 import com.wyc.domain.OrderDetail;
 import com.wyc.intercept.domain.MyHttpServletRequest;
+import com.wyc.service.CustomerAddressService;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodOrderService;
 import com.wyc.service.GoodService;
@@ -36,6 +37,8 @@ public class OrderAction {
     private CustomerService customerService;
     @Autowired
     private GoodService goodService;
+    @Autowired
+    private CustomerAddressService customerAddressService;
     @RequestMapping("/main/order_list")
     @UserInfoFromWebAnnotation
     public String orderList(HttpServletRequest httpServletRequest){
@@ -78,7 +81,18 @@ public class OrderAction {
     }
     
     @RequestMapping("/info/order_info")
+    @UserInfoFromWebAnnotation
     public String orderInfo(HttpServletRequest httpServletRequest){
+        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
+        UserInfo userInfo = myHttpServletRequest.getUserInfo();
+        String id = httpServletRequest.getParameter("id");
+        GoodOrder goodOrder = goodOrderService.findOne(id);
+        OrderDetail orderDetail = orderDetailService.findByOrderId(goodOrder.getId());
+        String customerId = orderDetail.getCustomerId();
+        Customer customer = customerService.findOne(customerId);
+        if(userInfo.getOpenid().equals(customer.getOpenId())){
+            
+        }
         
         return "info/OrderInfo";
     }

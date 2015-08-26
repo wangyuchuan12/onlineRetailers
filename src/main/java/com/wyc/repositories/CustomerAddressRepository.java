@@ -6,6 +6,6 @@ import com.wyc.domain.CustomerAddress;
 
 public interface CustomerAddressRepository extends CrudRepository<CustomerAddress, String>{
 
-    public Iterable<CustomerAddress> findByCustomerIdOrderByCreateAtDesc(String customerId);
+    public Iterable<CustomerAddress> findAllByCustomerIdOrderByCreateAtDesc(String customerId);
 
 }
