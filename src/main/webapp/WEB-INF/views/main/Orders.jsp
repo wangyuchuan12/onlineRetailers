@@ -26,10 +26,10 @@
 	        			<c:forEach items="${orders}" var="order">
 	        				<li>
 	        					<div class="order_good activityStyle">
-	        						<div class="order_good_time">2015-07-04 10:45:44</div>
+	        						<div class="order_good_time">${order.createTime}</div>
 	        						<div class="order_good_p1">
 	        							<div class="order_good_detail">
-	        								<img src="/img/good.jpg"/>
+	        								<img src="${order.goodImg}"/>
 	        								<div class="order_good_name">${order.goodName}</div>
 	        							</div>
 	        							<!--  <div class="order_good_price">￥9.9/件</div> -->
