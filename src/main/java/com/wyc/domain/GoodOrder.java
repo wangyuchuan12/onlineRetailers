@@ -32,9 +32,12 @@ public class GoodOrder {
     @Column(name = "refund_sign_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime refundSignTime;
-  //1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未发货6退款已发货但未签收7退款已签收
+    //1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未处理6退款已处理
     @Column(name = "status")
     private int status;
+  //付款方式 0表示组团购买，1表示单买，2表示开团劵购买
+    @Column
+    private int type;
     //订单生成时间
     @Column(name = "create_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -43,9 +46,14 @@ public class GoodOrder {
     @Column(name = "delivery_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime deliveryTime;
-    
-    
-    
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     public float getRefundAmount() {
         return refundAmount;
     }

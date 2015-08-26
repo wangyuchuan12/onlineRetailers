@@ -27,32 +27,9 @@ public class OrderDetail {
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
-    
-    
-    public String getCustomerId() {
-        return customerId;
-    }
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-    public DateTime getCreateAt() {
-        return createAt;
-    }
-    public void setCreateAt(DateTime createAt) {
-        this.createAt = createAt;
-    }
-    public DateTime getUpdateAt() {
-        return updateAt;
-    }
-    public void setUpdateAt(DateTime updateAt) {
-        this.updateAt = updateAt;
-    }
-    public String getGroupId() {
-        return groupId;
-    }
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
-    }
+    //1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未处理6退款已处理
+    @Column(name = "status")
+    private int status;
     public String getId() {
         return id;
     }
@@ -71,11 +48,40 @@ public class OrderDetail {
     public void setGoodId(String goodId) {
         this.goodId = goodId;
     }
-	public int getNum() {
-		return num;
-	}
-	public void setNum(int num) {
-		this.num = num;
-	}
-   
+    public Integer getNum() {
+        return num;
+    }
+    public void setNum(Integer num) {
+        this.num = num;
+    }
+    public String getGroupId() {
+        return groupId;
+    }
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+    public String getCustomerId() {
+        return customerId;
+    }
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+    public DateTime getCreateAt() {
+        return createAt;
+    }
+    public void setCreateAt(DateTime createAt) {
+        this.createAt = createAt;
+    }
+    public DateTime getUpdateAt() {
+        return updateAt;
+    }
+    public void setUpdateAt(DateTime updateAt) {
+        this.updateAt = updateAt;
+    }
+    public int getStatus() {
+        return status;
+    }
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }

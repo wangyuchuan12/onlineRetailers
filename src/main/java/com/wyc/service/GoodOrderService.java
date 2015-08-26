@@ -37,7 +37,7 @@ public class GoodOrderService {
     }
     
     public Iterable<GoodOrder> findAllByStatusInOrderByCreateTimeDesc(Collection<Integer> statuses){
-        return goodOrderRepository.findAllByStatusIn(statuses);
+        return goodOrderRepository.findAllByStatusInOrderByCreateTimeDesc(statuses);
     }
     
     public Iterable<GoodOrder> findAllByStatusOrderByCreateTimeDesc(int status){

@@ -23,6 +23,7 @@
 	        		
 	        		<div class="order_goods">
 	        			<ul>
+	        			<c:forEach items="${orders}" var="order">
 	        				<li>
 	        					<div class="order_good activityStyle">
 	        						<div class="order_good_time">2015-07-04 10:45:44</div>
@@ -43,7 +44,7 @@
 	        						</div>
 	        					</div>
 	        				</li>
-	        				
+	        			</c:forEach>
 	        				
 	        			</ul>
 	        		</div>

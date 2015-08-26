@@ -1,5 +1,6 @@
 package com.wyc.service;
 
+import java.util.Collection;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
@@ -36,5 +37,14 @@ public class OrderDetailService {
     
     public OrderDetail findByGruopId(String groupId){
     	return orderDetailRepository.findByGroupId(groupId);
+    }
+
+    public Iterable<OrderDetail> findByCustomerId(String customerId) {
+        return orderDetailRepository.findAllByCustomerId(customerId);
+    }
+
+    public Iterable<OrderDetail> findByCustomerIdAndStatusIn(String id,
+            Collection<Integer> statuses) {
+        return orderDetailRepository.findByCustomerIdAndStatusIn(id,statuses);
     }
 }
