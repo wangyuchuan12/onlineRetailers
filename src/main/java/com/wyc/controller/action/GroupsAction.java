@@ -21,12 +21,14 @@ import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GroupPartake;
+import com.wyc.domain.OrderDetail;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodGroupService;
 import com.wyc.service.GoodService;
 import com.wyc.service.GroupPartakeService;
 import com.wyc.service.MyResourceService;
+import com.wyc.service.OrderDetailService;
 import com.wyc.service.WxUserInfoService;
 import com.wyc.wx.domain.UserInfo;
 
@@ -46,6 +48,8 @@ public class GroupsAction {
     private WxUserInfoService wxUserInfoService;
     @Autowired
     private MySimpleDateFormat mySimpleDateFormat;
+    @Autowired
+    private OrderDetailService orderDetailService;
     final static Logger logger = LoggerFactory.getLogger(GroupsAction.class);
 
     @RequestMapping("/main/group_list")
@@ -120,8 +124,9 @@ public class GroupsAction {
             } else {
                 groupPartake.setRole(3);
             }
+            OrderDetail orderDetail = orderDetailService.findByGruopId(id);
             groupPartake.setType(Integer.parseInt(type));
-
+            groupPartake.setOrderId(orderDetail.getOrderId());
             GoodGroup goodGroup = goodGroupService.findOne(id);
             int groupNum = goodGroup.getNum();
             logger.debug("take part group and the count is {} , groupNum is {}" , count , groupNum);
