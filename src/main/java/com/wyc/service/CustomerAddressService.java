@@ -44,4 +44,8 @@ public class CustomerAddressService {
     public Iterable<CustomerAddress> findByCustomerIdOrderByCreateAtDesc(String customerId){
         return customerAddressRepository.findAllByCustomerIdOrderByCreateAtDesc(customerId);
     }
+    
+    public int countByCustomerId(String customerId){
+        return customerAddressRepository.countByCustomerId(customerId);
+    }
 }

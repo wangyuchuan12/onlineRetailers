@@ -15,13 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wyc.annotation.AccessTokenAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
+import com.wyc.domain.Customer;
+import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodImg;
 import com.wyc.domain.MyResource;
 import com.wyc.intercept.domain.MyHttpServletRequest;
+import com.wyc.service.CustomerAddressService;
+import com.wyc.service.CustomerService;
 import com.wyc.service.GoodImgService;
 import com.wyc.service.GoodService;
 import com.wyc.service.MyResourceService;
+import com.wyc.wx.domain.UserInfo;
 @Controller
 public class GoodsAction {
         @Autowired
@@ -30,6 +35,10 @@ public class GoodsAction {
         private GoodService goodService;
         @Autowired
         private GoodImgService goodImgService;
+        @Autowired
+        private CustomerService customerService;
+        @Autowired
+        private CustomerAddressService customerAddressService;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
@@ -100,7 +109,20 @@ public class GoodsAction {
 	
 	@UserInfoFromWebAnnotation
 	@RequestMapping("/info/good_info_pay")
-	public String gootInfoPay(HttpServletRequest httpRequest){
+	public String goodInfoPay(HttpServletRequest httpRequest){
+	    MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpRequest;
+	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
+	    Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+	    String defaultAddress = customer.getDefaultAddress();
+	    CustomerAddress customerAddress = customerAddressService.findOne(defaultAddress);
+	    if(customerAddress==null){
+	        int addressCount = customerAddressService.countByCustomerId(customer.getId());
+	        if(addressCount==0){
+	            return "redirect:/info/address_add?to_redirect=/info/good_info_pay&token="+myHttpServletRequest.getToken().getId();
+	        }else{
+	            return "redirect:/info/address?to_redirect=/info/good_info_pay&token="+myHttpServletRequest.getToken().getId();
+	        }
+	    }
 	    logger.debug(httpRequest.getParameter("state"));
 	    String payType=httpRequest.getParameter("pay_type");
 	    if(payType==null){

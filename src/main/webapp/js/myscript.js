@@ -198,6 +198,10 @@ function skipToAddress(){
 	skipToUrl("/info/address");
 }
 
+function skipToOrderInfo(id){
+	skipToUrl("/info/order_info?id="+id);
+}
+
 function paySuccess(goodId,payType,status,token){
 	var callback = new Object();
 	callback.call=function(response){

@@ -14,6 +14,8 @@ public class GroupPartake {
     private String customerid;
     @Column(name = "group_id")
     private String groupId;
+    @Column(name="customer_address")
+    private String customerAddress;
     @Column(name = "order_id")
     private String orderId;
     //付款方式 0表示组团购买，1表示单买，2表示开团劵购买
@@ -34,6 +36,12 @@ public class GroupPartake {
     
     
     
+    public String getCustomerAddress() {
+        return customerAddress;
+    }
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
+    }
     public String getOrderId() {
         return orderId;
     }

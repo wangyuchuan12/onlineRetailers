@@ -18,6 +18,7 @@ import sun.util.logging.resources.logging;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.Customer;
+import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;
@@ -100,6 +101,7 @@ public class OrderAction {
         responseOrder.put("cost", goodOrder.getCost());
         responseOrder.put("status", goodOrder.getStatus());
         responseOrder.put("flowPrice", goodOrder.getFlowPrice());
+        responseOrder.put("id", goodOrder.getId());
         return responseOrder;
     }
     @RequestMapping("/info/order_info")
@@ -112,10 +114,17 @@ public class OrderAction {
         OrderDetail orderDetail = orderDetailService.findByOrderId(goodOrder.getId());
         String customerId = orderDetail.getCustomerId();
         Customer customer = customerService.findOne(customerId);
+        Map<String, Object> orderResponse = new HashMap<String, Object>();
         if(userInfo.getOpenid().equals(customer.getOpenId())){
-            
+            orderResponse.put("cost", goodOrder.getCost());
+            orderResponse.put("type", goodOrder.getType());
+            orderResponse.put("status", goodOrder.getStatus());
+            orderResponse.put("id", goodOrder.getId());
+            orderResponse.put("createTime", mySimpleDateFormat.format(goodOrder.getCreateTime().toDate()));
+           
+           
         }
-        
+        httpServletRequest.setAttribute("order", orderResponse);
         return "info/OrderInfo";
     }
 }

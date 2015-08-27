@@ -25,7 +25,7 @@
 	        			<ul>
 	        			<c:forEach items="${orders}" var="order">
 	        				<li>
-	        					<div class="order_good activityStyle">
+	        					<div class="order_good activityStyle" onclick="javascript:skipToOrderInfo('${order.id}');">
 	        						<div class="order_good_time">${order.createTime}</div>
 	        						<div class="order_good_p1">
 	        							<div class="order_good_detail">
