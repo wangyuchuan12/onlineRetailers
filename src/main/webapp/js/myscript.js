@@ -1,6 +1,9 @@
 var webPath = "";
 var cityObject = new Object();
-function addressAddSbumit(){
+function addressAddSbumit(prepareRedirect,token){
+	if(!token&&window.localStorage.getItem("userToken")){
+		token = window.localStorage.getItem("userToken");
+	}
 	var addressName = $("#address_name").val();
 	var addressPhonenumber = $("#address_phonenumber").val();
 	var addressProvince = $("#address_province").val();
@@ -8,7 +11,18 @@ function addressAddSbumit(){
 	var addressAddress = $("#address_address").val();
 	var addressType = $("#address_type").val();
 	var addressContent = $("#address_content").val();
-	skipToUrl("/action/do_address_save?city_id="+addressAddress+"&type="+addressType+"&content="+addressContent+"&phonenumber="+addressPhonenumber+"&name="+addressName);
+	if(!prepareRedirect){
+		alert();
+		skipToUrl("/action/do_address_save?city_id="+addressAddress+"&type="+addressType+"&content="+addressContent+"&phonenumber="+addressPhonenumber+"&name="+addressName);
+	}else{
+		$.ajax({
+			url:"/api/add_address?city_id="+addressAddress+"&type="+addressType+"&content="+addressContent+"&phonenumber="+addressPhonenumber+"&name="+addressName+"&token="+token,
+			success:function(resp){
+				skipToUrl(prepareRedirect);
+			}
+		});
+	}
+	
 }
 
 function addressItemOnClick(id,prepareRedirect,token){
