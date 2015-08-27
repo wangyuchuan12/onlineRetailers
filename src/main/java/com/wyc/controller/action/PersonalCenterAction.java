@@ -166,4 +166,16 @@ public class PersonalCenterAction {
     public String coupon(HttpServletRequest httpServletRequest){
         return "info/coupon";
     }
+    
+    @UserInfoFromWebAnnotation
+    @RequestMapping(value="/action/set_default_address")
+    public String setDefaultAddress(HttpServletRequest httpServletRequest){
+        String addressId = httpServletRequest.getParameter("address_id");
+        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
+        UserInfo userInfo = myHttpServletRequest.getUserInfo();
+        Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+        customer.setDefaultAddress(addressId);
+        customerService.save(customer);
+        return address(myHttpServletRequest);
+    }
 }

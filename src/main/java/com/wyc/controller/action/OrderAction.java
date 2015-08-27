@@ -12,13 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import sun.util.logging.resources.logging;
-
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.Customer;
-import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;

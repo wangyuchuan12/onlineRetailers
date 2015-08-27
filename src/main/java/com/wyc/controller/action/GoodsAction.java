@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wyc.annotation.AccessTokenAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
+import com.wyc.domain.City;
 import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodImg;
 import com.wyc.domain.MyResource;
 import com.wyc.intercept.domain.MyHttpServletRequest;
+import com.wyc.service.CityService;
 import com.wyc.service.CustomerAddressService;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodImgService;
@@ -39,6 +41,8 @@ public class GoodsAction {
         private CustomerService customerService;
         @Autowired
         private CustomerAddressService customerAddressService;
+        @Autowired
+        private CityService cityService;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
@@ -118,9 +122,9 @@ public class GoodsAction {
 	    if(customerAddress==null){
 	        int addressCount = customerAddressService.countByCustomerId(customer.getId());
 	        if(addressCount==0){
-	            return "redirect:/info/address_add?to_redirect=/info/good_info_pay&token="+myHttpServletRequest.getToken().getId();
+	            return "redirect:/info/address_add?prepare_redirect=/info/good_info_pay?state="+httpRequest.getParameter("state")+"&pay_type="+httpRequest.getParameter("pay_type")+"&good_id="+httpRequest.getParameter("good_id")+"&token="+myHttpServletRequest.getToken().getId();
 	        }else{
-	            return "redirect:/info/address?to_redirect=/info/good_info_pay&token="+myHttpServletRequest.getToken().getId();
+	            return "redirect:/info/address?prepare_redirect=/info/good_info_pay?state="+httpRequest.getParameter("state")+"&pay_type="+httpRequest.getParameter("pay_type")+"&good_id="+httpRequest.getParameter("good_id")+"&token="+myHttpServletRequest.getToken().getId();
 	        }
 	    }
 	    logger.debug(httpRequest.getParameter("state"));
@@ -132,6 +136,14 @@ public class GoodsAction {
 	    Good good = goodService.findOne(goodId);
 	    MyResource myResource = resourceService.findOne(good.getHeadImg());
             Map<String, Object> responseGood = new HashMap<String, Object>();
+            StringBuffer citySb = new StringBuffer();
+            String cityId = customerAddress.getCity();
+            City city = null;
+            while((city=cityService.findOne(cityId))!=null){
+                cityId = city.getParentId();
+                citySb.insert(0, city.getName());
+            }
+            citySb.append(customerAddress.getContent());
             responseGood.put("id", good.getId());
             responseGood.put("instruction", good.getInstruction());
             responseGood.put("name", good.getName());
@@ -143,6 +155,10 @@ public class GoodsAction {
             responseGood.put("group_original_cost", good.getGroupOriginalCost());
             responseGood.put("market_price", good.getMarketPrice());
             responseGood.put("coupon_cost", good.getCouponCost());
+            responseGood.put("person_name", customerAddress.getName());
+            responseGood.put("phonenumber", customerAddress.getPhonenumber());
+            responseGood.put("address", citySb.toString());
+            responseGood.put("address_id", customerAddress.getId());
             responseGood.put("group_cost", good.getGroupDiscount()*good.getGroupOriginalCost());
             responseGood.put("alone_cost", good.getAloneDiscount()*good.getAloneOriginalCost());
             responseGood.put("pay_type", payType);

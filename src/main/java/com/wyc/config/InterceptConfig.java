@@ -1,5 +1,6 @@
 package com.wyc.config;
 import java.lang.reflect.Method;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
@@ -136,6 +137,19 @@ public class InterceptConfig {
         }
         logger.debug("the args is {}",str);
         HttpServletRequest httpServletRequest = (HttpServletRequest)args[0];
+        String prepareRedirect = httpServletRequest.getParameter("prepare_redirect");
+        if(prepareRedirect!=null){
+            StringBuffer sb = new StringBuffer();
+            sb.append(prepareRedirect);
+            if(sb.toString().contains("?")){
+                Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
+                for(Entry<String, String[]> entry:parameterMap.entrySet()){
+                    sb.append("&"+entry.getKey()+"="+entry.getValue()[0]);
+                }
+            }
+            logger.debug("the prepareRedirect is {}",sb.toString());
+            httpServletRequest.setAttribute("prepareRedirect", sb.toString());
+        }
         String remoteAddress = httpServletRequest.getRemoteAddr();
         logger.debug("remoteAddress is {}",remoteAddress);
         Method method = null;

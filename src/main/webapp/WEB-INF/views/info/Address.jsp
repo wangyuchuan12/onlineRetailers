@@ -10,9 +10,9 @@
 		<div class="Address_list">
 			<ul>
 				<c:forEach items="${addresses}" var="address">
-					<li>
+					<li onclick="javascript:addressItemOnClick('${address.id}','${prepareRedirect}','${token.id}');" id="li-${address.id}">
 						<div class="Address_list_botton">
-							<input name="默认" type="radio" <c:if test="${address.isDefault}">checked="checked"</c:if>/>
+							<input id="radio-${address.id}" name="默认" type="radio" <c:if test="${address.isDefault}">checked="checked"</c:if>/>
 						</div>
 
 						<div class="Address_list_information">

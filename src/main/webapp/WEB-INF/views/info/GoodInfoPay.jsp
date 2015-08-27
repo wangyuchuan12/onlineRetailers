@@ -27,8 +27,8 @@
         	<div class="good_info_pay_recipients">
         		
         		<div class="good_info_pay_recipients_prefix">送至</div>
-        		<div class="good_info_pay_recipients_address">西斗门路天堂软件园A幢F座微纳科技有限公司</div>
-        		<div class="good_info_pay_recipients_name"><b>王煜川</b>13738139702</div>
+        		<div class="good_info_pay_recipients_address">${payGoodInfo.address}</div>
+        		<div class="good_info_pay_recipients_name"><b>${payGoodInfo.person_name}</b>${payGoodInfo.phonenumber}</div>
         		<div class="good_info_pay_recipients_suffix">&gt</div>
         		
         	</div>

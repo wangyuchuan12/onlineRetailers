@@ -11,6 +11,17 @@ function addressAddSbumit(){
 	skipToUrl("/action/do_address_save?city_id="+addressAddress+"&type="+addressType+"&content="+addressContent+"&phonenumber="+addressPhonenumber+"&name="+addressName);
 }
 
+function addressItemOnClick(id,prepareRedirect,token){
+	if(!token&&window.localStorage.getItem("userToken")){
+		token = window.localStorage.getItem("userToken");
+	}
+	$.ajax({
+		url:"/api/set_default_address?to_redirect="+prepareRedirect+"&address_id="+id+"&token="+token,
+		success:function(resp){
+			skipToUrl(prepareRedirect);
+		}
+	});
+}
 function initGroupInvalidDate(startTime2,timeLong){
 	window.setInterval(function(){
 		var startTime = startTime2.replace(/-/g,"/");
@@ -116,7 +127,7 @@ function setUserToken(userToken){
 	}
 }
 
-function skipToUrl(url,token){
+function skipToUrl(url,token,params){
 	var temp = document.createElement("form");        
     temp.action = webPath+url;        
     temp.method = "post";        
@@ -128,6 +139,15 @@ function skipToUrl(url,token){
 	}
 	opt.value = token;
     temp.appendChild(opt);              
+    
+    
+    for(var name in params){
+    	var node = document.createElement("textarea");
+    	node.value=params[name];
+    	node.name=name;
+    	temp.appendChild(node);
+    }
+    
     document.body.appendChild(temp);
     temp.submit();
 	
