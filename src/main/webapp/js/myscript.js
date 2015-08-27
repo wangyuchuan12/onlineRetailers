@@ -25,17 +25,19 @@ function addressAddSbumit(prepareRedirect,token){
 }
 
 function addressItemOnClick(id,prepareRedirect,token){
+	alert(id);
+	alert(prepareRedirect);
 	if(!token&&window.localStorage.getItem("userToken")){
 		token = window.localStorage.getItem("userToken");
 	}
 	$.ajax({
 		url:"/api/set_default_address?address_id="+id+"&token="+token,
 		success:function(resp){
-			if(prepareRedirect!=null){
+			if(prepareRedirect){
 				skipToUrl(prepareRedirect);
 			}
 			else{
-				skipToUrl("/info/addresses");
+				skipToUrl("/info/address");
 			}
 		}
 	});
