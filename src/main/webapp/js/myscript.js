@@ -18,10 +18,22 @@ function addressItemOnClick(id,prepareRedirect,token){
 	$.ajax({
 		url:"/api/set_default_address?to_redirect="+prepareRedirect+"&address_id="+id+"&token="+token,
 		success:function(resp){
-			skipToUrl(prepareRedirect);
+			if(prepareRedirect!=null){
+				skipToUrl(prepareRedirect);
+			}
+			else{
+				skipToUrl("/info/addresses");
+			}
 		}
 	});
 }
+
+function goodInfoPayAddressOnClick(payType,state,goodId){
+	var obj = new Object();
+	obj.prepare_redirect = "/info/good_info_pay?pay_type="+payType+"&state="+state+"&good_id="+goodId;
+	skipToUrl("/info/address", null,obj);
+}
+
 function initGroupInvalidDate(startTime2,timeLong){
 	window.setInterval(function(){
 		var startTime = startTime2.replace(/-/g,"/");

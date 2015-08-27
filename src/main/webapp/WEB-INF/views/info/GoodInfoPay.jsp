@@ -24,7 +24,7 @@
     <div class="container">
         <div class="good_info_pay">
 
-        	<div class="good_info_pay_recipients">
+        	<div class="good_info_pay_recipients" onclick="javascript:goodInfoPayAddressOnClick('${payGoodInfo.pay_type}','${payGoodInfo.pay_type}','${payGoodInfo.good_id}');">
         		
         		<div class="good_info_pay_recipients_prefix">送至</div>
         		<div class="good_info_pay_recipients_address">${payGoodInfo.address}</div>

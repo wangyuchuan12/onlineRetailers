@@ -145,6 +145,7 @@ public class GoodsAction {
             }
             citySb.append(customerAddress.getContent());
             responseGood.put("id", good.getId());
+            responseGood.put("good_id", goodId);
             responseGood.put("instruction", good.getInstruction());
             responseGood.put("name", good.getName());
             responseGood.put("alone_discount", good.getAloneDiscount());
