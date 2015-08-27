@@ -12,7 +12,6 @@ function addressAddSbumit(prepareRedirect,token){
 	var addressType = $("#address_type").val();
 	var addressContent = $("#address_content").val();
 	if(!prepareRedirect){
-		alert();
 		skipToUrl("/action/do_address_save?city_id="+addressAddress+"&type="+addressType+"&content="+addressContent+"&phonenumber="+addressPhonenumber+"&name="+addressName);
 	}else{
 		$.ajax({
@@ -30,7 +29,7 @@ function addressItemOnClick(id,prepareRedirect,token){
 		token = window.localStorage.getItem("userToken");
 	}
 	$.ajax({
-		url:"/api/set_default_address?to_redirect="+prepareRedirect+"&address_id="+id+"&token="+token,
+		url:"/api/set_default_address?address_id="+id+"&token="+token,
 		success:function(resp){
 			if(prepareRedirect!=null){
 				skipToUrl(prepareRedirect);
