@@ -25,8 +25,6 @@ function addressAddSbumit(prepareRedirect,token){
 }
 
 function addressItemOnClick(id,prepareRedirect,token){
-	alert(id);
-	alert(prepareRedirect);
 	if(!token&&window.localStorage.getItem("userToken")){
 		token = window.localStorage.getItem("userToken");
 	}
