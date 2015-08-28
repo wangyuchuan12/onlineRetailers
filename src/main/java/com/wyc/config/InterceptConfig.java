@@ -311,7 +311,7 @@ public class InterceptConfig {
                 errorBuffer.append("\r\n");
             }
             logger.error(errorBuffer.toString());
+            return "";
         }
-        return null;
     }
 }
