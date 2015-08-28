@@ -66,7 +66,7 @@
                     	<div class="address_label">详细地址</div>
                         <input name="详细地址" type="text" id="address_content"/>
                     </div>
-                    <div class="address_submit" onclick="addressAddSbumit('${prepareRedirect}','${token.id}')">确认</div>
+                    <div class="address_submit" onclick="addressAddSbumit('${prepareRedirect}','${token.id}','${id}')">确认</div>
                 </div>
             </div>
                <script type="text/javascript">

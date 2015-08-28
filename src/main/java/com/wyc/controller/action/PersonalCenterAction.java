@@ -89,6 +89,20 @@ public class PersonalCenterAction {
         return "info/AddressInfoAdd";
     }
     
+    @RequestMapping("/info/address_save")
+    public String addressSave(HttpServletRequest httpServletRequest){
+        addressAdd(httpServletRequest);
+        String addressId = httpServletRequest.getParameter("address_id");
+        CustomerAddress customerAddress = customerAddressService.findOne(addressId);
+        httpServletRequest.setAttribute("city", customerAddress.getCity());
+        httpServletRequest.setAttribute("content", customerAddress.getContent());
+        httpServletRequest.setAttribute("id", customerAddress.getId());
+        httpServletRequest.setAttribute("name", customerAddress.getName());
+        httpServletRequest.setAttribute("phonenumber", customerAddress.getPhonenumber());
+        httpServletRequest.setAttribute("type", customerAddress.getType());
+        return "info/AddressInfoAdd";
+    }
+    
     @RequestMapping("/action/do_address_save")
     @UserInfoFromWebAnnotation
     public String doAddressSave(HttpServletRequest httpServletRequest){

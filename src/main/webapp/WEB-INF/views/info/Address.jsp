@@ -15,7 +15,7 @@
 							<input id="radio-${address.id}" name="默认" type="radio" <c:if test="${address.isDefault}">checked="checked"</c:if>/>
 						</div>
 
-						<div class="Address_list_information">
+						<div class="Address_list_information" onclick="javascript:addressItemOnClick('${address.id}','${prepareRedirect}','${token.id}');">
 							<ul>
 								<li>${address.name}
 								<li>${address.phone}
@@ -35,7 +35,7 @@
 								</c:if>
 							
 							</div>
-							<div class="fa fa-pencil-square Address_edit" onclick="javascript:alert();"></div>
+							<div class="fa fa-pencil-square Address_edit" onclick="javascript:addressEditOnClick('${address.id}','${token.id}');"></div>
 						</div>
 						
 					</li>

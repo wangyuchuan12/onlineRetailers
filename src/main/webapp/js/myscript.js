@@ -1,6 +1,6 @@
 var webPath = "";
 var cityObject = new Object();
-function addressAddSbumit(prepareRedirect,token){
+function addressAddSbumit(prepareRedirect,token,id){
 	if(!token&&window.localStorage.getItem("userToken")){
 		token = window.localStorage.getItem("userToken");
 	}
@@ -12,16 +12,34 @@ function addressAddSbumit(prepareRedirect,token){
 	var addressType = $("#address_type").val();
 	var addressContent = $("#address_content").val();
 	if(!prepareRedirect){
-		skipToUrl("/action/do_address_save?city_id="+addressAddress+"&type="+addressType+"&content="+addressContent+"&phonenumber="+addressPhonenumber+"&name="+addressName);
+		if(!id){
+			skipToUrl("/action/do_address_save?city_id="+addressAddress+"&type="+addressType+"&content="+addressContent+"&phonenumber="+addressPhonenumber+"&name="+addressName);
+		}else{
+			skipToUrl("/action/do_address_save?city_id="+addressAddress+"&type="+addressType+"&content="+addressContent+"&phonenumber="+addressPhonenumber+"&name="+addressName+"&id="+id);
+		}
 	}else{
-		$.ajax({
-			url:"/api/add_address?city_id="+addressAddress+"&type="+addressType+"&content="+addressContent+"&phonenumber="+addressPhonenumber+"&name="+addressName+"&token="+token,
-			success:function(resp){
-				skipToUrl(prepareRedirect);
-			}
-		});
+		if(!id){
+			$.ajax({
+				url:"/api/add_address?city_id="+addressAddress+"&type="+addressType+"&content="+addressContent+"&phonenumber="+addressPhonenumber+"&name="+addressName+"&token="+token,
+				success:function(resp){
+					skipToUrl(prepareRedirect);
+				}
+			});
+		}else{
+			$.ajax({
+				url:"/api/add_address?city_id="+addressAddress+"&type="+addressType+"&content="+addressContent+"&phonenumber="+addressPhonenumber+"&name="+addressName+"&token="+token+"&id="+id,
+				success:function(resp){
+					skipToUrl(prepareRedirect);
+				}
+			});
+		}
+		
 	}
 	
+}
+
+function addressEditOnClick(id,token){
+	skipToUrl("/info/address_save", token);
 }
 
 function addressItemOnClick(id,prepareRedirect,token){
