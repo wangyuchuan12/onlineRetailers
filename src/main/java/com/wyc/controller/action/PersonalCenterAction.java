@@ -94,7 +94,12 @@ public class PersonalCenterAction {
         addressAdd(httpServletRequest);
         String addressId = httpServletRequest.getParameter("address_id");
         CustomerAddress customerAddress = customerAddressService.findOne(addressId);
-        httpServletRequest.setAttribute("city", customerAddress.getCity());
+        httpServletRequest.setAttribute("address", customerAddress.getCity());
+        City address = cityService.findOne(customerAddress.getCity());
+        City city = cityService.findOne(address.getParentId());
+        City province = cityService.findOne(city.getParentId());
+        httpServletRequest.setAttribute("city", city.getId());
+        httpServletRequest.setAttribute("province", province.getId());
         httpServletRequest.setAttribute("content", customerAddress.getContent());
         httpServletRequest.setAttribute("id", customerAddress.getId());
         httpServletRequest.setAttribute("name", customerAddress.getName());

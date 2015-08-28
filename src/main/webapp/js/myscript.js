@@ -1,5 +1,8 @@
 var webPath = "";
 var cityObject = new Object();
+var currentCity;
+var currentAddress;
+var currentProvince;
 function addressAddSbumit(prepareRedirect,token,id){
 	if(!token&&window.localStorage.getItem("userToken")){
 		token = window.localStorage.getItem("userToken");
@@ -38,8 +41,24 @@ function addressAddSbumit(prepareRedirect,token,id){
 	
 }
 
+function initData(id,name,phonenumber,type,province,city,address,content){
+	currentProvince = province;
+	currentCity = city;
+	currentAddress = address;
+	var addressPhonenumber = $("#address_phonenumber").val(phonenumber);
+	var addressProvince = $("#address_province").val(province);
+	var addressCity = $("#address_city").val(city);
+	$("#address_name").val(name);
+	var addressAddress = $("#address_address").val(address);
+	var addressType = $("#address_type").val(type);
+	var addressContent = $("#address_content").val(content);
+}
+
+
 function addressEditOnClick(id,token){
-	skipToUrl("/info/address_save", token);
+	var obj = new Object();
+	obj.address_id = id;
+	skipToUrl("/info/address_save", token,obj);
 }
 
 function addressItemOnClick(id,prepareRedirect,token){
@@ -144,6 +163,7 @@ function getCities(){
 			for(var i = 0 ;i<resp.length;i++){
 				$("#address_city").append("<option value='"+resp[i].id+"'>"+resp[i].name+"</option>");
 			}
+			$("#address_city").val(currentCity);
 			getAddresses();
 			
 		}
@@ -158,6 +178,7 @@ function getAddresses(){
 			for(var i = 0 ;i<resp.length;i++){
 				$("#address_address").append("<option value='"+resp[i].id+"'>"+resp[i].name+"</option>");
 			}
+			$("#address_address").val(currentAddress);
 			
 		}
 	});

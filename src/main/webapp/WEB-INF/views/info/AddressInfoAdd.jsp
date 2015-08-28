@@ -74,7 +74,7 @@
 	            	   onProvinceSelect();
 	            	   onCitySelect();
 	            	   getCities();
-	            	   
+	            	   initData('${id}','${name}','${phonenumber}','${type}','${province}','${city}','${address}','${content}');
 	               });
     			</script>
     </body>
