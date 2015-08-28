@@ -72,9 +72,9 @@
                <script type="text/javascript">
 	               $(document).ready(function(){
 	            	   onProvinceSelect();
+	            	   initData('${id}','${name}','${phonenumber}','${type}','${province}','${city}','${address}','${content}');
 	            	   onCitySelect();
 	            	   getCities();
-	            	   initData('${id}','${name}','${phonenumber}','${type}','${province}','${city}','${address}','${content}');
 	               });
     			</script>
     </body>
