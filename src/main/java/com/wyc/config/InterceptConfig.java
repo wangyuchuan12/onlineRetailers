@@ -310,8 +310,9 @@ public class InterceptConfig {
                 errorBuffer.append("in line"+stackTraceElement.getLineNumber()+",the method is:"+stackTraceElement.getMethodName()+"   errinfo:"+stackTraceElement.toString());
                 errorBuffer.append("\r\n");
             }
+            
             logger.error(errorBuffer.toString());
-            return "";
+            return httpServletRequest.getRequestURL();
         }
     }
 }
