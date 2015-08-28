@@ -39,6 +39,8 @@ def clearProject(){
 		projectPath = "d:/project/onlineRetailers";
 	}else if(environment.equals("dev")){
 		projectPath = "/root/project/onlineRetailers";
+	}else if(environment.equals("prod")){
+		projectPath = "/root/project/onlineRetailers";
 	}
 	File file = new File(projectPath);
 	delete(file);
