@@ -10,12 +10,12 @@
 		<div class="Address_list">
 			<ul>
 				<c:forEach items="${addresses}" var="address">
-					<li onclick="javascript:addressItemOnClick('${address.id}','${prepareRedirect}','${token.id}');" id="li-${address.id}">
-						<div class="Address_list_botton">
+					<li  id="li-${address.id}">
+						<div class="Address_list_botton" onclick="javascript:addressItemOnClick('${address.id}','${prepareRedirect}','${token.id}');">
 							<input id="radio-${address.id}" name="默认" type="radio" <c:if test="${address.isDefault}">checked="checked"</c:if>/>
 						</div>
 
-						<div class="Address_list_information">
+						<div class="Address_list_information" onclick="javascript:addressItemOnClick('${address.id}','${prepareRedirect}','${token.id}');">
 							<ul>
 								<li>${address.name}
 								<li>${address.phone}
@@ -23,7 +23,7 @@
 								<li>${address.content}
 							</ul>
 						</div>
-						<div class="address_mark">
+						<div class="address_mark" onclick="javascript:addressItemOnClick('${address.id}','${prepareRedirect}','${token.id}');">
 							<div class="address_mark_default"><c:if test="${address.isDefault}">默认</c:if></div>
 							
 							<div class="address_mark_type">
