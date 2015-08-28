@@ -286,6 +286,9 @@ function onOrderClick(){
 	});
 }
 
+function toAddAddress(){
+	skipToUrl("/info/address_add");
+}
 function footActive(id){
 	var footGoodList = $("#foot_good_list");	
 	var footGroupList = $("#foot_group_List");
