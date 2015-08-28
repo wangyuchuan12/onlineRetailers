@@ -35,8 +35,9 @@
 								</c:if>
 							
 							</div>
-							<div class="fa fa-pencil-square Address_edit" onclick="javascript:alert();"></div>
+							
 						</div>
+						<div class="fa fa-pencil-square Address_edit" onclick="javascript:alert();"></div>
 						
 					</li>
 				</c:forEach>
