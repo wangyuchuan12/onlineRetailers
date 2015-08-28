@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="trade_flow">
-            	<div class="trade_flow_details">查看详情&gt;</div>
+            	<div class="trade_flow_details" onclick="window.location.href='/info/trade_flow_info'">查看详情&gt;</div>
             	<ul>
             		<li>
             			<div class="trade_flow_block trade_flow_block_activity">

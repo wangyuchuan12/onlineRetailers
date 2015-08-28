@@ -102,7 +102,7 @@
 				<div style="color:red;margin: 0 auto;position:relative;">很遗憾，组团失败了</div>
 			</c:if>
 			<div class="trade_flow">
-            	<div class="trade_flow_details">查看详情&gt;</div>
+            	<div class="trade_flow_details" onclick="window.location.href='/info/trade_flow_info'">查看详情&gt;</div>
             	<ul>
             		<li>
             			<div class="trade_flow_block ">
