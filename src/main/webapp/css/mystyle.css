@@ -636,7 +636,7 @@
 
 .good_info_pay_recipients_name{
 	position:relative;
-	display:inline-block;
+	display:block;
 	left:73px;
 	top:10px;
 }
