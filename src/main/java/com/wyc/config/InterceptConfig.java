@@ -312,7 +312,7 @@ public class InterceptConfig {
             }
             
             logger.error(errorBuffer.toString());
-            return httpServletRequest.getRequestURL();
+            return httpServletRequest.getRequestURL().toString();
         }
     }
 }
