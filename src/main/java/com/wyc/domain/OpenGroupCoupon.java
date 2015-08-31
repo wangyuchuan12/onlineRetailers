@@ -15,12 +15,12 @@ public class OpenGroupCoupon {
     @Id
     private String id;
     @Column(name = "begin_time")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime beginTime;
     @Column(name = "end_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime endTime;
     @Column(name = "customer_id")
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private String customerId;
     @Column(name = "good_id")
     private String goodId;

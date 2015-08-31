@@ -27,28 +27,19 @@
 			
 			<div class="coupon_list">
 				<ul>
+				<c:forEach items="${coupons}" var="coupon">
 					<li>
-						<div class="coupon_list_goods">哈密瓜</div>
+						<div class="coupon_list_goods">${coupon.goodName}</div>
 						<div class="coupon_list_limit">
 							<ul>
 								<li>免单团券
-								<li>有效期:2015-8-10至2015-8-15
+								<li>有效期:<br/>${coupon.beginTime}至${coupon.endTime}
 								<li>团长免费开团
 								<li><b style="color:red">已使用</b>
 						    </ul>
 						</div>
 					</li>
-					<li>
-						<div class="coupon_list_goods">￥25</div>
-						<div class="coupon_list_limit">
-							<ul>
-								<li>满减券
-								<li>有效期:2015-8-10至2015-8-15
-								<li>单独购买满66元使用
-								<li><b style="color:red">已到期</b></li>
-							</ul>
-						</div>
-					</li>
+				</c:forEach>
 				</ul>
 			</div>
 		</div>

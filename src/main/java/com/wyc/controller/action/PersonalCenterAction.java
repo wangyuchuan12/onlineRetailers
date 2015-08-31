@@ -7,19 +7,25 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.defineBean.ApplicationProperties;
+import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.City;
 import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
+import com.wyc.domain.Good;
+import com.wyc.domain.OpenGroupCoupon;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CityService;
 import com.wyc.service.CustomerAddressService;
 import com.wyc.service.CustomerService;
+import com.wyc.service.GoodService;
+import com.wyc.service.OpenGroupCouponService;
 import com.wyc.wx.domain.UserInfo;
 
 @Controller
@@ -32,6 +38,12 @@ public class PersonalCenterAction {
 	private CityService cityService;
 	@Autowired
 	private ApplicationProperties applicationProperties;
+	@Autowired
+	private OpenGroupCouponService openGroupCouponService;
+	@Autowired
+	private MySimpleDateFormat mySimpleDateFormat;
+	@Autowired
+	private GoodService goodService;
     @RequestMapping("/main/personal_center")
     @UserInfoFromWebAnnotation
     public String personCenter(HttpServletRequest httpServletRequest){
@@ -182,7 +194,26 @@ public class PersonalCenterAction {
     }
    
     @RequestMapping("/info/coupon")
+    @UserInfoFromWebAnnotation
     public String coupon(HttpServletRequest httpServletRequest){
+        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
+        UserInfo userInfo = myHttpServletRequest.getUserInfo();
+        Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+        Iterable<OpenGroupCoupon> openGroupCoupons = openGroupCouponService.findAllByCustomerId(customer.getId());
+        List<Map<String, String>> responseCoupons = new ArrayList<Map<String,String>>();
+        for(OpenGroupCoupon openGroupCoupon:openGroupCoupons){
+            Map<String, String> responseCoupon = new HashMap<String, String>();
+            responseCoupon.put("id", openGroupCoupon.getId());
+            responseCoupon.put("customerId", openGroupCoupon.getCustomerId());
+            responseCoupon.put("goodId", openGroupCoupon.getGoodId());
+            Good good = goodService.findOne(openGroupCoupon.getGoodId());
+            responseCoupon.put("goodName", good.getName());
+            responseCoupon.put("beginTime", mySimpleDateFormat.format(openGroupCoupon.getBeginTime().toDate()));
+            responseCoupon.put("endTime", mySimpleDateFormat.format(openGroupCoupon.getEndTime().toDate()));
+            responseCoupon.put("createManager", openGroupCoupon.getCreateManager());
+            responseCoupons.add(responseCoupon);
+        }
+        httpServletRequest.setAttribute("coupons", responseCoupons);
         return "info/coupon";
     }
     

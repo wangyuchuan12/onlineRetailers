@@ -286,6 +286,10 @@ function skipToOrderInfo(id){
 	skipToUrl("/info/order_info?id="+id);
 }
 
+function skipToCoupons(){
+	skipToUrl("/info/coupon");
+}
+
 function paySuccess(goodId,payType,status,token){
 	var callback = new Object();
 	callback.call=function(response){

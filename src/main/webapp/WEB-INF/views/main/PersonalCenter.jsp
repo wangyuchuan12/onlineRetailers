@@ -23,7 +23,7 @@
         					<div class="personal_center_item_icon" style="background-color:blue;padding-left:3px;padding-top:5px;">
         						<i class="fa fa-money"></i>
         					</div>
-        					<div class="personal_center_item_content">我的开团劵</div>
+        					<div class="personal_center_item_content" onclick="skipToCoupons();">我的开团劵</div>
         					<div class="personal_center_item_footer">&gt</div>
         				</div>
         			</li>
