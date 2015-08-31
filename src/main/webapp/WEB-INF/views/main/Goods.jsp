@@ -41,6 +41,7 @@
     <script type="text/javascript">
     		$(document).ready(function(){
     			footActive("foot_good_list");
+    			setUserToken("${token.id}");
     		});
     </script>
 </tiles:putAttribute>

@@ -75,6 +75,7 @@
 	            	   initData('${id}','${name}','${phonenumber}','${type}','${province}','${city}','${address}','${content}');
 	            	   onCitySelect();
 	            	   getCities();
+	            	   setUserToken("${token.id}");
 	               });
     			</script>
     </body>
