@@ -2,7 +2,6 @@ package com.wyc.service;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.wyc.domain.OpenGroupCoupon;
@@ -20,5 +19,10 @@ public class OpenGroupCouponService {
     public int countByCustomerIdAndGoodIdAndEndTimeBefore
     (String customerId ,String goodId,DateTime beforeTime){
         return openGroupCouponRepository.countByCustomerIdAndGoodIdAndEndTimeBefore(customerId, goodId, beforeTime);
+    }
+
+    public OpenGroupCoupon save(OpenGroupCoupon openGroupCoupon) {
+        openGroupCoupon.setUpdateAt(new DateTime());
+        return openGroupCouponRepository.save(openGroupCoupon);
     }
 }

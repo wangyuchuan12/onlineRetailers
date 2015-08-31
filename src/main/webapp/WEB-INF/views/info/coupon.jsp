@@ -35,7 +35,19 @@
 								<li>免单团券
 								<li>有效期:<br/>${coupon.beginTime}至${coupon.endTime}
 								<li>团长免费开团
-								<li><b style="color:red">已使用</b>
+								<li>
+								<b style="color:red">
+									<c:if test="${coupon.status==0}">
+										已使用
+									</c:if>
+									<c:if test="${coupon.status==1}">
+										未使用
+									</c:if>
+									
+									<c:if test="${coupon.status==2}">
+										已过期
+									</c:if>
+								</b>
 						    </ul>
 						</div>
 					</li>

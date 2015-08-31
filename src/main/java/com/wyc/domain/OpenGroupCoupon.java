@@ -34,6 +34,16 @@ public class OpenGroupCoupon {
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
+    //0已使用，1未使用，2已到期
+    @Column
+    private int status;
+    
+    public int getStatus() {
+        return status;
+    }
+    public void setStatus(int status) {
+        this.status = status;
+    }
     public DateTime getCreateAt() {
         return createAt;
     }

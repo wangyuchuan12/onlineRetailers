@@ -1,13 +1,12 @@
 package com.wyc.controller.action;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -211,6 +210,19 @@ public class PersonalCenterAction {
             responseCoupon.put("beginTime", mySimpleDateFormat.format(openGroupCoupon.getBeginTime().toDate()));
             responseCoupon.put("endTime", mySimpleDateFormat.format(openGroupCoupon.getEndTime().toDate()));
             responseCoupon.put("createManager", openGroupCoupon.getCreateManager());
+            if(openGroupCoupon.getStatus()==2||openGroupCoupon.getStatus()==0){
+                responseCoupon.put("status", openGroupCoupon.getStatus()+"");
+            }else if (openGroupCoupon.getStatus()==1) {
+                if(openGroupCoupon.getEndTime().toDate().getTime()>new Date().getTime()){
+                    openGroupCoupon.setStatus(2);
+                    openGroupCouponService.save(openGroupCoupon);
+                    responseCoupon.put("status", "2");
+                }else{
+                    responseCoupon.put("status", "1");
+                }
+               
+            }
+            
             responseCoupons.add(responseCoupon);
         }
         httpServletRequest.setAttribute("coupons", responseCoupons);
