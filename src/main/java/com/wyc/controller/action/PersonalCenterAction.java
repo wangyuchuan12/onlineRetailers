@@ -213,7 +213,7 @@ public class PersonalCenterAction {
             if(openGroupCoupon.getStatus()==2||openGroupCoupon.getStatus()==0){
                 responseCoupon.put("status", openGroupCoupon.getStatus()+"");
             }else if (openGroupCoupon.getStatus()==1) {
-                if(openGroupCoupon.getEndTime().toDate().getTime()>new Date().getTime()){
+                if(openGroupCoupon.getEndTime().toDate().getTime()<new Date().getTime()){
                     openGroupCoupon.setStatus(2);
                     openGroupCouponService.save(openGroupCoupon);
                     responseCoupon.put("status", "2");
