@@ -77,7 +77,6 @@ public class BaseApi {
 	@UserInfoFromWebAnnotation
         @RequestMapping(value="/api/add_address")
         public Object addAddress(HttpServletRequest httpServletRequest){
-	    logger.debug("haha..............................................");
 	    MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
 	        UserInfo userInfo = myHttpServletRequest.getUserInfo();
 	        Customer customer = customerService.findByOpenId(userInfo.getOpenid());
@@ -111,7 +110,6 @@ public class BaseApi {
 	            customerAddress.setType(Integer.parseInt(type));
 	            customerAddressService.save(customerAddress);
 	        }
-	        logger.debug(".........................................");
             return "{success:true}";
         }
 }

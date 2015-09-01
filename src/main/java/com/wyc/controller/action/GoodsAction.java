@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import com.wyc.service.CustomerService;
 import com.wyc.service.GoodImgService;
 import com.wyc.service.GoodService;
 import com.wyc.service.MyResourceService;
+import com.wyc.service.OpenGroupCouponService;
 import com.wyc.wx.domain.UserInfo;
 @Controller
 public class GoodsAction {
@@ -43,6 +45,8 @@ public class GoodsAction {
         private CustomerAddressService customerAddressService;
         @Autowired
         private CityService cityService;
+        @Autowired
+        private OpenGroupCouponService openGroupCouponService;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
@@ -76,6 +80,8 @@ public class GoodsAction {
 	@RequestMapping("/info/good_info")
 	public String goodInfo(HttpServletRequest httpRequest){
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
+	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
+            Customer customer = customerService.findByOpenId(userInfo.getOpenid());
 	    String goodId = httpRequest.getParameter("id");
 	    
 	    Good good = goodService.findOne(goodId);
@@ -107,6 +113,8 @@ public class GoodsAction {
             httpRequest.setAttribute("good", responseGood);
             httpRequest.setAttribute("imgs", myResources);
             httpRequest.setAttribute("token", myHttpServletRequest.getToken());
+            int couponCount = openGroupCouponService.countByCustomerIdAndGoodIdAndEndTimeBefore(customer.getId(), goodId, new DateTime());
+            httpRequest.setAttribute("couponCount", couponCount);
             logger.debug("the token is :{}",myHttpServletRequest.getToken());
             return "info/GoodInfo";
 	}

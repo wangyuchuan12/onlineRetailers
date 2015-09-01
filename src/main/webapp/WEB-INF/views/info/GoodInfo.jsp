@@ -104,8 +104,8 @@
     			
     			<li>
     				<div class="good_info_btn activityStyle" onclick="skipToGoodPay('${good.id}',2)">
-    					<div class="good_info_btn_price_integral">${good.coupon_cost}张/件</div>
-    					<div class="good_info_btn_type">开团劵开团</div>
+    					<div class="good_info_btn_price_disable">${good.coupon_cost}张/件</div>
+    					<div class="good_info_btn_type_disable">开团劵开团(${couponCount})</div>
     				</div>
     			</li>
     		</ul>
