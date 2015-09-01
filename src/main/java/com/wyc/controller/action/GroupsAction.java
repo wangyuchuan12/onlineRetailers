@@ -1,6 +1,9 @@
 package com.wyc.controller.action;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,6 +85,16 @@ public class GroupsAction {
         List<Map<String, String>> responseGroups = new ArrayList<Map<String, String>>();
         for (GoodGroup goodGroup : goodGroups) {
             Map<String, String> responseGroup = new HashMap<String, String>();
+            if(goodGroup.getResult()==1){
+                Calendar calendar = new GregorianCalendar();
+                calendar.setTime(goodGroup.getStartTime().toDate());
+                calendar.add(Calendar.HOUR, goodGroup.getTimeLong());
+                if(calendar.getTime().getTime()<new Date().getTime()){
+                    goodGroup.setResult(0);
+                    goodGroup = goodGroupService.save(goodGroup);
+                }
+            }
+            
             responseGroup.put("result", goodGroup.getResult() + "");
             Good good = goodService.findOne(goodGroup.getGoodId());
             responseGroup.put("name", good.getName());

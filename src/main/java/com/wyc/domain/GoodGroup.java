@@ -10,7 +10,7 @@ import org.joda.time.DateTime;
 public class GoodGroup {
     @Id
     private String id;
-    //0表示组团失败1表示正在组团 2表示组团成功
+    //0表示组团失败1表示正在组团 2表示组团成功3表示组团超时
     @Column(name = "result")
     private int result;
     //团长
