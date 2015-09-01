@@ -16,9 +16,9 @@ public class OpenGroupCouponService {
         return openGroupCouponRepository.findAllByCustomerId(customerId);
     }
     
-    public int countByCustomerIdAndGoodIdAndEndTimeBefore
-    (String customerId ,String goodId,DateTime beforeTime){
-        return openGroupCouponRepository.countByCustomerIdAndGoodIdAndEndTimeBefore(customerId, goodId, beforeTime);
+    public int countByCustomerIdAndGoodIdAndEndTimeBeforeAndStatus
+    (String customerId ,String goodId,DateTime beforeTime,int status){
+        return openGroupCouponRepository.countByCustomerIdAndGoodIdAndEndTimeBeforeAndStatus(customerId, goodId, beforeTime,status);
     }
 
     public OpenGroupCoupon save(OpenGroupCoupon openGroupCoupon) {
