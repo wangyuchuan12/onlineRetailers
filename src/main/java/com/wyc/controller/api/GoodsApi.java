@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.domain.Customer;
-import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;
+import com.wyc.domain.OpenGroupCoupon;
 import com.wyc.domain.OrderDetail;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CustomerService;
@@ -23,6 +23,7 @@ import com.wyc.service.GoodGroupService;
 import com.wyc.service.GoodOrderService;
 import com.wyc.service.GoodService;
 import com.wyc.service.GroupPartakeService;
+import com.wyc.service.OpenGroupCouponService;
 import com.wyc.service.OrderDetailService;
 import com.wyc.wx.domain.UserInfo;
 
@@ -40,7 +41,8 @@ public class GoodsApi {
     private CustomerService customerService;
     @Autowired
     private GroupPartakeService groupPartakeService;
-    
+    @Autowired
+    private OpenGroupCouponService openGroupCouponService;
     final static Logger logger = LoggerFactory.getLogger(GoodsApi.class);
     @RequestMapping(value = "/api/pay_success")
     @UserInfoFromWebAnnotation
@@ -80,6 +82,7 @@ public class GoodsApi {
             orderDetail.setStatus(Integer.parseInt(status));
             orderDetail.setCustomerId(customerService.findByOpenId(userInfo.getOpenid()).getId());
             GroupPartake groupPartake = new GroupPartake();
+            Customer customer = customerService.findByOpenId(userInfo.getOpenid());
             //只有当状态为成功购买并且购买方式为团购或者开团劵购买才能生成团记录
             if (status.equals("2")&&(payType.equals("0")||payType.equals("2"))) {
                 GoodGroup goodGroup = new GoodGroup();
@@ -94,10 +97,18 @@ public class GoodsApi {
                 orderDetail.setGroupId(goodGroup.getId());
                 logger.debug("get customer by openid {}"+userInfo.getOpenid());
                 groupPartake.setGroupId(goodGroup.getId());
+                if(payType.equals("2")){
+                    OpenGroupCoupon openGroupCoupon = openGroupCouponService.getFirstRecord(customer.getId(), good.getId(), new DateTime(),1);
+                    if(openGroupCoupon==null){
+                        return new RuntimeException("there is no available openGroupCoupon");
+                    }
+                    openGroupCoupon.setStatus(0);
+                    openGroupCouponService.save(openGroupCoupon);
+                }
                 
             }
             groupPartake.setOrderId(goodOrder.getId());
-            Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+           
             groupPartake.setCustomerid(customer.getId());
             groupPartake.setDateTime(new DateTime());
             groupPartake.setRole(1);

@@ -1,5 +1,4 @@
 package com.wyc.repositories;
-
 import org.joda.time.DateTime;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
