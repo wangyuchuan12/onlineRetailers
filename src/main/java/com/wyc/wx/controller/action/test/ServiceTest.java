@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wyc.service.TokenService;
 import com.wyc.wx.domain.AccessTokenBean;
 import com.wyc.wx.domain.Authorize;
+import com.wyc.wx.domain.JsapiTicketBean;
 import com.wyc.wx.domain.Result;
 import com.wyc.wx.domain.Token;
 import com.wyc.wx.domain.UserInfo;
 import com.wyc.wx.service.BasicSupportService;
+import com.wyc.wx.service.JsapiTicketService;
 import com.wyc.wx.service.MenuService;
 import com.wyc.wx.service.OauthService;
 import com.wyc.wx.service.UserService;
@@ -35,6 +37,8 @@ public class ServiceTest {
     private MenuService menuService;
     @Autowired
     private TokenService tokenservice;
+    @Autowired
+    private JsapiTicketService jsapiTickService;
     @RequestMapping("/wx/getAccessTokenBean_test")
     public AccessTokenBean getAccessTokenBeanTest(HttpServletRequest httpRequest){
         try {
@@ -130,5 +134,11 @@ public class ServiceTest {
         list.add(item);
         map.put("root", list);
         return map;
+    }
+    
+    @RequestMapping("/data/jsapi_ticket")
+    public Object JsapiTicketTest(HttpServletRequest httpServletRequest)throws Exception{
+        AccessTokenBean accessTokenBean = basicSupportService.getAccessTokenBean();
+        return jsapiTickService.getJsapiTicketBean(accessTokenBean.getAccessToken());
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wyc.annotation.AccessTokenAnnotation;
+import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.domain.City;
 import com.wyc.domain.Customer;
@@ -77,13 +78,14 @@ public class GoodsAction {
 	}
 	
 	@UserInfoFromWebAnnotation
+	@JsApiTicketAnnotation
 	@RequestMapping("/info/good_info")
 	public String goodInfo(HttpServletRequest httpRequest){
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
             Customer customer = customerService.findByOpenId(userInfo.getOpenid());
 	    String goodId = httpRequest.getParameter("id");
-	    
+	    logger.debug("get js api tick is {}",myHttpServletRequest.getAccessTokenBean().getAccessToken());
 	    Good good = goodService.findOne(goodId);
 	    logger.debug("get the good object is {}",good);
 	    Map<String, Object> responseGood = new HashMap<String, Object>();

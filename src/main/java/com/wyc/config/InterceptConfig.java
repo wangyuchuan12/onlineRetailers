@@ -25,6 +25,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import com.danga.MemCached.MemCachedClient;
 import com.wyc.annotation.AccessTokenAnnotation;
 import com.wyc.annotation.AuthorizeAnnotation;
+import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.domain.Customer;
 import com.wyc.intercept.domain.MyHttpServletRequest;
@@ -34,8 +35,10 @@ import com.wyc.service.WxUserInfoService;
 import com.wyc.smart.service.AccessTokenSmartService;
 import com.wyc.smart.service.AuthorizeSmartService;
 import com.wyc.smart.service.UserSmartService;
+import com.wyc.smart.service.WxJsApiTicketSmartService;
 import com.wyc.wx.domain.AccessTokenBean;
 import com.wyc.wx.domain.Authorize;
+import com.wyc.wx.domain.JsapiTicketBean;
 import com.wyc.wx.domain.Token;
 import com.wyc.wx.domain.UserInfo;
 import com.wyc.wx.domain.WxContext;
@@ -70,6 +73,8 @@ public class InterceptConfig {
     private WxUserInfoService wxUserInfoService;
     @Autowired
     private PlatformTransactionManager platformTransactionManager;
+    @Autowired
+    private WxJsApiTicketSmartService wxJsApiTicketSmartService;
     final static Logger logger = LoggerFactory.getLogger(InterceptConfig.class);
     
  //   @Around(value="execution (* com.wyc.wx.service.*.*(..))")
@@ -235,7 +240,19 @@ public class InterceptConfig {
 //                logger.debug("save to database success ,the key is {} , the token is " , key , token);
 //            }
 //            myHttpServletRequest.setAuthorize(authorize);
-//        }        
+//        }
+        if(method.getAnnotation(JsApiTicketAnnotation.class)!=null){
+            JsapiTicketBean jsapiTicketBean = wxJsApiTicketSmartService.getFromDatabase();
+            if(jsapiTicketBean==null){
+                jsapiTicketBean = wxJsApiTicketSmartService.getFromWx();
+                jsapiTicketBean = wxJsApiTicketSmartService.addToDataBase(jsapiTicketBean);
+            }
+            if(wxJsApiTicketSmartService.currentIsAvailable()){
+                jsapiTicketBean = wxJsApiTicketSmartService.getFromWx();
+                jsapiTicketBean = wxJsApiTicketSmartService.saveToDataBase(jsapiTicketBean);
+            }
+            myHttpServletRequest.setJsapiTicketBean(jsapiTicketBean);
+        }
         if(method.getAnnotation(UserInfoFromWebAnnotation.class)!=null){
             UserInfo userInfo = null;
             if(token!=null){
