@@ -66,7 +66,7 @@ public class GoodsAction {
 		 MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
 	            String datetime = String.valueOf(System.currentTimeMillis() / 1000);
 	            logger.debug("datetime:{}",datetime);
-	            String decript = "jsapi_ticket=kgt8ON7yVITDhtdwci0qeS9Tjc5DK9ogBGC5AD_PDIjAZKpeFFyN2eSQpKB5zADm2MAvbLmcScC52E7KGzqNTg&noncestr=Wm3WZYTPz0wzccnW&timestamp="+datetime+"&url=http://www.chengxi.pub/main/good_list#wechat";
+	            String decript = "jsapi_ticket=kgt8ON7yVITDhtdwci0qeS9Tjc5DK9ogBGC5AD_PDIjAZKpeFFyN2eSQpKB5zADm2MAvbLmcScC52E7KGzqNTg&noncestr=Wm3WZYTPz0wzccnW&timestamp="+datetime+"&url=http://www.chengxi.pub/main/good_list/#wechat";
 	            digest.reset();
 	            digest.update(decript.getBytes());
 	            byte messageDigest[] = digest.digest();
