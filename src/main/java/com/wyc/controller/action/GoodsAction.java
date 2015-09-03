@@ -1,6 +1,8 @@
 package com.wyc.controller.action;
 
+import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +34,7 @@ import com.wyc.service.GoodService;
 import com.wyc.service.MyResourceService;
 import com.wyc.service.OpenGroupCouponService;
 import com.wyc.wx.domain.UserInfo;
+import com.wyc.wx.domain.WxContext;
 @Controller
 public class GoodsAction {
         @Autowired
@@ -48,6 +51,8 @@ public class GoodsAction {
         private CityService cityService;
         @Autowired
         private OpenGroupCouponService openGroupCouponService;
+        @Autowired
+        private WxContext wxContext;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
@@ -80,10 +85,25 @@ public class GoodsAction {
 	@UserInfoFromWebAnnotation
 	@JsApiTicketAnnotation
 	@RequestMapping("/info/good_info")
-	public String goodInfo(HttpServletRequest httpRequest){
+	public String goodInfo(HttpServletRequest httpRequest)throws Exception{
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
             Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+            MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
+            String decript = "jsapi_ticket="+myHttpServletRequest.getJsapiTicketBean().getTicket()+"&noncestr=Wm3WZYTPz0wzccnW&timestamp="+new Date().getTime()+"&url=/info/good_info";
+            digest.update(decript.getBytes());
+            byte messageDigest[] = digest.digest();
+            StringBuffer sb = new StringBuffer();
+            for(byte b :messageDigest){
+                String shaHex = Integer.toHexString(b & 0xFF);
+                if (shaHex.length() < 2) {
+                    sb.append(0);
+                }
+                sb.append(shaHex);
+            }
+            httpRequest.setAttribute("signature", sb.toString());
+            httpRequest.setAttribute("noncestr", "Wm3WZYTPz0wzccnW");
+            httpRequest.setAttribute("appId", wxContext.getAppid());
 	    String goodId = httpRequest.getParameter("id");
 	    logger.debug("get js api tick is {}",myHttpServletRequest.getJsapiTicketBean().getTicket());
 	    Good good = goodService.findOne(goodId);
