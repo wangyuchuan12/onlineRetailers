@@ -66,7 +66,7 @@ public class GoodsAction {
 		 MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
 	            long datetime = new Date().getTime();
 	            logger.debug("datetime:{}",datetime);
-	            String decript = "jsapi_ticket="+myHttpServletRequest.getJsapiTicketBean().getTicket()+"&timestamp=1441251492&url=http://www.chengxi.pub/info/good_info";
+	            String decript = "jsapi_ticket="+myHttpServletRequest.getJsapiTicketBean().getTicket()+"&timestamp=1441251492&url=http://www.chengxi.pub/main/good_list";
 	            digest.reset();
 	            digest.update(decript.getBytes());
 	            byte messageDigest[] = digest.digest();
