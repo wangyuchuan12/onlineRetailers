@@ -70,11 +70,9 @@ function addressItemOnClick(id,prepareRedirect,token){
 		url:"/api/set_default_address?address_id="+id+"&token="+token+"&status="+status,
 		success:function(resp){
 			if(prepareRedirect){
-				alert("prepareRedirect:{}"+prepareRedirect);
 				skipToUrl(prepareRedirect);
 			}
 			else{
-				alert("addresses");
 				skipToUrl("/info/address");
 			}
 		}
