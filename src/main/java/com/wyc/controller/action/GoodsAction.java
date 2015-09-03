@@ -64,7 +64,7 @@ public class GoodsAction {
 		List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>();
 		
 		 MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
-	            String datetime = "1441257785";
+	            String datetime = String.valueOf(System.currentTimeMillis() / 1000);
 	            logger.debug("datetime:{}",datetime);
 	            String decript = "jsapi_ticket="+myHttpServletRequest.getJsapiTicketBean().getTicket()+"&noncestr=Wm3WZYTPz0wzccnW&timestamp="+datetime+"&url=http://www.chengxi.pub/main/good_list/";
 	            logger.debug("decript:{}",decript);
