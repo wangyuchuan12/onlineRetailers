@@ -122,7 +122,7 @@
     </div>
     <script type="text/javascript">
     		setUserToken("${token.id}");
-    		wxConfig("${appId}","${signature}","${noncestr}");
+    		wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
     </script>
 </body>
 </html>

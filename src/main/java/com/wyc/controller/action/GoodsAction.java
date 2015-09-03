@@ -66,7 +66,7 @@ public class GoodsAction {
 		 MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
 	            long datetime = new Date().getTime();
 	            logger.debug("datetime:{}",datetime);
-	            String decript = "jsapi_ticket=kgt8ON7yVITDhtdwci0qeS9Tjc5DK9ogBGC5AD_PDIjAZKpeFFyN2eSQpKB5zADm2MAvbLmcScC52E7KGzqNTg&noncestr=Wm3WZYTPz0wzccnW&timestamp=1441253227&url=http://www.chengxi.pub/main/good_list";
+	            String decript = "jsapi_ticket=kgt8ON7yVITDhtdwci0qeS9Tjc5DK9ogBGC5AD_PDIjAZKpeFFyN2eSQpKB5zADm2MAvbLmcScC52E7KGzqNTg&noncestr=Wm3WZYTPz0wzccnW&timestamp="+datetime+"&url=http://www.chengxi.pub/main/good_list";
 	            digest.reset();
 	            digest.update(decript.getBytes());
 	            byte messageDigest[] = digest.digest();
@@ -82,6 +82,7 @@ public class GoodsAction {
 	            httpRequest.setAttribute("signature", sb.toString());
 	            httpRequest.setAttribute("noncestr", "Wm3WZYTPz0wzccnW");
 	            httpRequest.setAttribute("appId", wxContext.getAppid());
+	            httpRequest.setAttribute("datetime", datetime);
 		
 		for(Good good:databaseGoods){
 		    Map<String, Object> responseGood = new HashMap<String, Object>();
