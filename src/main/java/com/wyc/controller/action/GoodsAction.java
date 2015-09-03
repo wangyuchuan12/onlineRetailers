@@ -94,7 +94,7 @@ public class GoodsAction {
             MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
             long datetime = new Date().getTime();
             logger.debug("datetime:{}",datetime);
-            String decript = "jsapi_ticket=kgt8ON7yVITDhtdwci0qeS9Tjc5DK9ogBGC5AD_PDIjAZKpeFFyN2eSQpKB5zADm2MAvbLmcScC52E7KGzqNTg&noncestr=Wm3WZYTPz0wzccnW&timestamp=1441251492&url=http://www.chengxi.pub/info/good_info";
+            String decript = "jsapi_ticket="+myHttpServletRequest.getJsapiTicketBean().getTicket()+"&timestamp=1441251492&url=http://www.chengxi.pub/info/good_info";
             digest.reset();
             digest.update(decript.getBytes());
             byte messageDigest[] = digest.digest();
