@@ -62,15 +62,12 @@ function addressEditOnClick(id,token){
 }
 
 function addressItemOnClick(id,prepareRedirect,token){
-	alert(id);
-	alert(prepareRedirect);
-	alert(token);
-	
 	if(!token&&window.localStorage.getItem("userToken")){
 		token = window.localStorage.getItem("userToken");
 	}
+	var status =Math.random()*Math.random();
 	$.ajax({
-		url:"/api/set_default_address?address_id="+id+"&token="+token,
+		url:"/api/set_default_address?address_id="+id+"&token="+token+"&status="+status,
 		success:function(resp){
 			if(prepareRedirect){
 				alert("prepareRedirect:{}"+prepareRedirect);
