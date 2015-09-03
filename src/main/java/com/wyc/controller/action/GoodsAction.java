@@ -67,6 +67,7 @@ public class GoodsAction {
 	            String datetime = String.valueOf(System.currentTimeMillis() / 1000);
 	            logger.debug("datetime:{}",datetime);
 	            String decript = "jsapi_ticket="+myHttpServletRequest.getJsapiTicketBean().getTicket()+"&noncestr=Wm3WZYTPz0wzccnW&timestamp="+datetime+"&url=http://www.chengxi.pub/main/good_list/#wechat";
+	            logger.debug("jsapi_ticket:{}",myHttpServletRequest.getJsapiTicketBean().getTicket());
 	            digest.reset();
 	            digest.update(decript.getBytes());
 	            byte messageDigest[] = digest.digest();
