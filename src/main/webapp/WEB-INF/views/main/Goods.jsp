@@ -42,7 +42,7 @@
     		$(document).ready(function(){
     			footActive("foot_good_list");
     			setUserToken("${token.id}");
-    			wxConfig("${appId}","${signature}","${noncestr}");
+    			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
     		});
     </script>
 </tiles:putAttribute>
