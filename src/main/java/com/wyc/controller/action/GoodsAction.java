@@ -57,9 +57,32 @@ public class GoodsAction {
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
-	public String goodList(HttpServletRequest httpRequest){
+	@JsApiTicketAnnotation
+	public String goodList(HttpServletRequest httpRequest)throws Exception{
+	        MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	        Iterable<Good> databaseGoods = goodService.findAll();
 		List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>();
+		
+		 MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
+	            long datetime = new Date().getTime();
+	            logger.debug("datetime:{}",datetime);
+	            String decript = "jsapi_ticket="+myHttpServletRequest.getJsapiTicketBean().getTicket()+"&timestamp=1441251492&url=http://www.chengxi.pub/info/good_info";
+	            digest.reset();
+	            digest.update(decript.getBytes());
+	            byte messageDigest[] = digest.digest();
+	            StringBuffer sb = new StringBuffer();
+	            for(byte b :messageDigest){
+	                String shaHex = Integer.toHexString(b & 0xFF);
+	                if (shaHex.length() < 2) {
+	                    sb.append(0);
+	                }
+	                sb.append(shaHex);
+	            }
+	            logger.debug("signature:{}",sb.toString());
+	            httpRequest.setAttribute("signature", sb.toString());
+	            httpRequest.setAttribute("noncestr", "Wm3WZYTPz0wzccnW");
+	            httpRequest.setAttribute("appId", wxContext.getAppid());
+		
 		for(Good good:databaseGoods){
 		    Map<String, Object> responseGood = new HashMap<String, Object>();
 		    responseGood.put("id", good.getId());
@@ -91,25 +114,7 @@ public class GoodsAction {
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
 	    Formatter formatter = new Formatter();
             Customer customer = customerService.findByOpenId(userInfo.getOpenid());
-            MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
-            long datetime = new Date().getTime();
-            logger.debug("datetime:{}",datetime);
-            String decript = "jsapi_ticket="+myHttpServletRequest.getJsapiTicketBean().getTicket()+"&timestamp=1441251492&url=http://www.chengxi.pub/info/good_info";
-            digest.reset();
-            digest.update(decript.getBytes());
-            byte messageDigest[] = digest.digest();
-            StringBuffer sb = new StringBuffer();
-            for(byte b :messageDigest){
-                String shaHex = Integer.toHexString(b & 0xFF);
-                if (shaHex.length() < 2) {
-                    sb.append(0);
-                }
-                sb.append(shaHex);
-            }
-            logger.debug("signature:{}",sb.toString());
-            httpRequest.setAttribute("signature", sb.toString());
-            httpRequest.setAttribute("noncestr", "Wm3WZYTPz0wzccnW");
-            httpRequest.setAttribute("appId", wxContext.getAppid());
+           
 	    String goodId = httpRequest.getParameter("id");
 	    logger.debug("get js api tick is {}",myHttpServletRequest.getJsapiTicketBean().getTicket());
 	    Good good = goodService.findOne(goodId);
