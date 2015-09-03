@@ -62,6 +62,9 @@ function addressEditOnClick(id,token){
 }
 
 function addressItemOnClick(id,prepareRedirect,token){
+	alert(id);
+	alert(prepareRedirect);
+	alert(token);
 	if(!token&&window.localStorage.getItem("userToken")){
 		token = window.localStorage.getItem("userToken");
 	}
