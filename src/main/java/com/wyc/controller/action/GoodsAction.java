@@ -65,12 +65,25 @@ public class GoodsAction {
 		
 		 MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
 	            String datetime = String.valueOf(System.currentTimeMillis() / 1000);
-	            logger.debug("datetime:{}",datetime);
-	            String decript = "jsapi_ticket="+myHttpServletRequest.getJsapiTicketBean().getTicket()+"&noncestr=Wm3WZYTPz0wzccnW&timestamp="+datetime+"&url=http://www.chengxi.pub/main/good_list/";
+	           
+	            StringBuffer decript = new StringBuffer();
+	            String url = "http://www.chengxi.pub/main/good_list/";
+	            decript.append("jsapi_ticket=");
+	            decript.append(myHttpServletRequest.getJsapiTicketBean().getTicket()+"&");
+	            decript.append("noncestr=");
+	            decript.append("Wm3WZYTPz0wzccnW"+"&");
+	            decript.append("timestamp=");
+	            decript.append(datetime+"&");
+	            decript.append("url=");
+	            decript.append(url);
+	        
 	            logger.debug("decript:{}",decript);
 	            logger.debug("jsapi_ticket:{}",myHttpServletRequest.getJsapiTicketBean().getTicket());
+	            logger.debug("noncestr:{}","Wm3WZYTPz0wzccnW");
+	            logger.debug("datetime:{}",datetime);
+	            logger.debug("url:{}",url);
 	            digest.reset();
-	            digest.update(decript.getBytes());
+	            digest.update(decript.toString().getBytes());
 	            byte messageDigest[] = digest.digest();
 	            StringBuffer sb = new StringBuffer();
 	            for(byte b :messageDigest){
