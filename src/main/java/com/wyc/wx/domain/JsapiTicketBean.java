@@ -2,13 +2,14 @@ package com.wyc.wx.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 @Entity(name="jsapi_ticket")
 public class JsapiTicketBean {
-    @Column
+    @Id
     private String id;
     @Column
     private String errcode;
