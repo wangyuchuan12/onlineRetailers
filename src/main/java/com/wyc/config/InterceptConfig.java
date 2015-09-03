@@ -248,7 +248,9 @@ public class InterceptConfig {
                 jsapiTicketBean = wxJsApiTicketSmartService.addToDataBase(jsapiTicketBean);
             }
             if(!wxJsApiTicketSmartService.currentIsAvailable()){
+                String id = jsapiTicketBean.getId();
                 jsapiTicketBean = wxJsApiTicketSmartService.getFromWx();
+                jsapiTicketBean.setId(id);
                 jsapiTicketBean = wxJsApiTicketSmartService.saveToDataBase(jsapiTicketBean);
             }
             myHttpServletRequest.setJsapiTicketBean(jsapiTicketBean);
