@@ -3,6 +3,7 @@ package com.wyc.controller.action;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,9 +89,13 @@ public class GoodsAction {
 	public String goodInfo(HttpServletRequest httpRequest)throws Exception{
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
+	    Formatter formatter = new Formatter();
             Customer customer = customerService.findByOpenId(userInfo.getOpenid());
             MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
-            String decript = "jsapi_ticket="+myHttpServletRequest.getJsapiTicketBean().getTicket()+"&noncestr=Wm3WZYTPz0wzccnW&timestamp="+new Date().getTime()+"&url=/info/good_info";
+            long datetime = new Date().getTime();
+            logger.debug("datetime:{}",datetime);
+            String decript = "jsapi_ticket="+myHttpServletRequest.getJsapiTicketBean().getTicket()+"&noncestr=Wm3WZYTPz0wzccnW&timestamp="+datetime+"&url=/info/good_info";
+            digest.reset();
             digest.update(decript.getBytes());
             byte messageDigest[] = digest.digest();
             StringBuffer sb = new StringBuffer();
@@ -101,6 +106,7 @@ public class GoodsAction {
                 }
                 sb.append(shaHex);
             }
+            logger.debug("signature:{}",sb.toString());
             httpRequest.setAttribute("signature", sb.toString());
             httpRequest.setAttribute("noncestr", "Wm3WZYTPz0wzccnW");
             httpRequest.setAttribute("appId", wxContext.getAppid());

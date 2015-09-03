@@ -361,16 +361,4 @@ function wxConfig(appId,signature,noncestr){
 	    signature: signature,// 必填，签名，见附录1
 	    jsApiList: ['onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	});
-	
-	wx.onMenuShareTimeline({
-	    title: '23424', // 分享标题
-	    link: 'https://www.baidu.com', // 分享链接
-	    imgUrl: '234', // 分享图标
-	    success: function () { 
-	       alert("share success");
-	    },
-	    cancel: function () { 
-	    	alert("share cancel");
-	    }
-	});
 }
