@@ -85,7 +85,7 @@ public class GoodsAction {
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
             Customer customer = customerService.findByOpenId(userInfo.getOpenid());
 	    String goodId = httpRequest.getParameter("id");
-	    logger.debug("get js api tick is {}",myHttpServletRequest.getAccessTokenBean().getAccessToken());
+	    logger.debug("get js api tick is {}",myHttpServletRequest.getJsapiTicketBean().getTicket());
 	    Good good = goodService.findOne(goodId);
 	    logger.debug("get the good object is {}",good);
 	    Map<String, Object> responseGood = new HashMap<String, Object>();
@@ -174,7 +174,7 @@ public class GoodsAction {
             responseGood.put("alone_cost", good.getAloneDiscount()*good.getAloneOriginalCost());
             responseGood.put("pay_type", payType);
             responseGood.put("head_img", myResource.getUrl());
-            //0表示团购，1表示单独买，2表示开团劵
+            //0琛ㄧず鍥㈣喘锛�1琛ㄧず鍗曠嫭涔帮紝2琛ㄧず寮�鍥㈠姷
             if(payType.equals("0")){
                 responseGood.put("cost",good.getFlowPrice()+good.getGroupDiscount()*good.getGroupOriginalCost());
             }else if (payType.equals("1")) {
