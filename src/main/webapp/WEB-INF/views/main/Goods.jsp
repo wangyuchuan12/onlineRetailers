@@ -43,7 +43,7 @@
     			footActive("foot_good_list");
     			setUserToken("${token.id}");
     			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
-    		//	wxOnMenuShareAppMessage("分享测试","测试分享功能","www.baidu.com","","link");
+    			wxOnMenuShareAppMessage("分享测试","测试分享功能","www.baidu.com","","link");
     		});
     </script>
 </tiles:putAttribute>
