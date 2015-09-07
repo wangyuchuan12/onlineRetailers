@@ -2,7 +2,6 @@ package com.wyc.controller.action;
 
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.wyc.annotation.AccessTokenAnnotation;
 import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
+import com.wyc.annotation.WxConfigAnnotation;
 import com.wyc.domain.City;
 import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
@@ -58,47 +58,13 @@ public class GoodsAction {
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
 	@JsApiTicketAnnotation
+	@WxConfigAnnotation
 	public String goodList(HttpServletRequest httpRequest)throws Exception{
 	        MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	        Iterable<Good> databaseGoods = goodService.findAll();
 		List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>();
 		
-		 MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
-	            String datetime = String.valueOf(System.currentTimeMillis() / 1000);
-	           
-	            StringBuffer decript = new StringBuffer();
-	            String url = "http://www.chengxi.pub/main/good_list/";
-	            decript.append("jsapi_ticket=");
-	            decript.append(myHttpServletRequest.getJsapiTicketBean().getTicket()+"&");
-	            decript.append("noncestr=");
-	            decript.append("Wm3WZYTPz0wzccnW"+"&");
-	            decript.append("timestamp=");
-	            decript.append(datetime+"&");
-	            decript.append("url=");
-	            decript.append(url);
-	        
-	            logger.debug("decript:{}",decript);
-	            logger.debug("jsapi_ticket:{}",myHttpServletRequest.getJsapiTicketBean().getTicket());
-	            logger.debug("noncestr:{}","Wm3WZYTPz0wzccnW");
-	            logger.debug("datetime:{}",datetime);
-	            logger.debug("url:{}",url);
-	            digest.reset();
-	            digest.update(decript.toString().getBytes());
-	            byte messageDigest[] = digest.digest();
-	            StringBuffer sb = new StringBuffer();
-	            for(byte b :messageDigest){
-	                String shaHex = Integer.toHexString(b & 0xFF);
-	                if (shaHex.length() < 2) {
-	                    sb.append(0);
-	                }
-	                sb.append(shaHex);
-	            }
-	            logger.debug("signature:{}",sb.toString());
-	            httpRequest.setAttribute("signature", sb.toString());
-	            httpRequest.setAttribute("noncestr", "Wm3WZYTPz0wzccnW");
-	            httpRequest.setAttribute("appId", wxContext.getAppid());
-	            httpRequest.setAttribute("datetime", datetime);
-		
+		 
 		for(Good good:databaseGoods){
 		    Map<String, Object> responseGood = new HashMap<String, Object>();
 		    responseGood.put("id", good.getId());

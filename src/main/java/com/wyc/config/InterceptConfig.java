@@ -1,5 +1,6 @@
 package com.wyc.config;
 import java.lang.reflect.Method;
+import java.security.MessageDigest;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -27,6 +28,7 @@ import com.wyc.annotation.AccessTokenAnnotation;
 import com.wyc.annotation.AuthorizeAnnotation;
 import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
+import com.wyc.annotation.WxConfigAnnotation;
 import com.wyc.domain.Customer;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CustomerService;
@@ -241,6 +243,46 @@ public class InterceptConfig {
 //            }
 //            myHttpServletRequest.setAuthorize(authorize);
 //        }
+        
+        if(method.getAnnotation(WxConfigAnnotation.class)!=null){
+            MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
+            String datetime = String.valueOf(System.currentTimeMillis() / 1000);
+           
+            StringBuffer decript = new StringBuffer();
+            String url = "http://www.chengxi.pub/main/good_list/";
+            decript.append("jsapi_ticket=");
+            decript.append(myHttpServletRequest.getJsapiTicketBean().getTicket()+"&");
+            decript.append("noncestr=");
+            decript.append("Wm3WZYTPz0wzccnW"+"&");
+            decript.append("timestamp=");
+            decript.append(datetime+"&");
+            decript.append("url=");
+            decript.append(url);
+        
+            logger.debug("decript:{}",decript);
+            logger.debug("jsapi_ticket:{}",myHttpServletRequest.getJsapiTicketBean().getTicket());
+            logger.debug("noncestr:{}","Wm3WZYTPz0wzccnW");
+            logger.debug("datetime:{}",datetime);
+            logger.debug("url:{}",url);
+            digest.reset();
+            digest.update(decript.toString().getBytes());
+            byte messageDigest[] = digest.digest();
+            StringBuffer digestBuffer = new StringBuffer();
+            for(byte b :messageDigest){
+                String shaHex = Integer.toHexString(b & 0xFF);
+                if (shaHex.length() < 2) {
+                    digestBuffer.append(0);
+                }
+                digestBuffer.append(shaHex);
+            }
+            logger.debug("signature:{}",digestBuffer.toString());
+            httpServletRequest.setAttribute("signature", digestBuffer.toString());
+            httpServletRequest.setAttribute("noncestr", "Wm3WZYTPz0wzccnW");
+            httpServletRequest.setAttribute("appId", wxContext.getAppid());
+            httpServletRequest.setAttribute("datetime", datetime);
+        
+        }
+        
         if(method.getAnnotation(JsApiTicketAnnotation.class)!=null){
             JsapiTicketBean jsapiTicketBean = wxJsApiTicketSmartService.getFromDatabase();
             if(jsapiTicketBean==null){
