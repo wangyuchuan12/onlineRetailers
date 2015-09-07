@@ -265,7 +265,7 @@ public class InterceptConfig {
            
             StringBuffer decript = new StringBuffer();
             String url = httpServletRequest.getRequestURL().toString();
-            String noncestr = "Wm3WZYTPz0wzccnW";
+            String noncestr = "Wm3WZYTPz0wzccnW"+Math.round(9);
             decript.append("jsapi_ticket=");
             decript.append(myHttpServletRequest.getJsapiTicketBean().getTicket()+"&");
             decript.append("noncestr=");
@@ -293,7 +293,7 @@ public class InterceptConfig {
             }
             logger.debug("signature:{}",digestBuffer.toString());
             httpServletRequest.setAttribute("signature", digestBuffer.toString());
-            httpServletRequest.setAttribute("noncestr", "Wm3WZYTPz0wzccnW");
+            httpServletRequest.setAttribute("noncestr", noncestr);
             httpServletRequest.setAttribute("appId", wxContext.getAppid());
             httpServletRequest.setAttribute("datetime", datetime);
         
