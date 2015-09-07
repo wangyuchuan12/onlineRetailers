@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.danga.MemCached.SockIOPool;
 import com.wyc.ApplicationContextProvider;
 import com.wyc.defineBean.ApplicationProperties;
 import com.wyc.defineBean.MySimpleDateFormat;
+import com.wyc.service.WxContextService;
 import com.wyc.wx.domain.WxContext;
 
 @Configuration
@@ -25,6 +27,8 @@ import com.wyc.wx.domain.WxContext;
         @Filter(type = FilterType.ASSIGNABLE_TYPE, value = WebConfig.class),
         @Filter(type = FilterType.ASSIGNABLE_TYPE, value = DatabaseConfig.class) })
 public class AppConfig {
+    @Autowired
+    private WxContextService wxContextService;
     final static Logger logger = LoggerFactory.getLogger(AppConfig.class);
     @Bean
     public ApplicationContextProvider applicationContextProvider() {
@@ -77,10 +81,11 @@ public class AppConfig {
     @Autowired
     public WxContext wxContext(ApplicationProperties myProperties){
         WxContext wxContext = new WxContext();
-        wxContext.setAppid(myProperties.getProperty("appid"));
-        wxContext.setAppsecret(myProperties.getProperty("appsecret"));
-        wxContext.setFilePath(myProperties.getProperty("file_path"));
-        wxContext.setFlag(myProperties.getProperty("flag"));
+//        wxContext.setAppid(myProperties.getProperty("appid"));
+//        wxContext.setAppsecret(myProperties.getProperty("appsecret"));
+//        wxContext.setFilePath(myProperties.getProperty("file_path"));
+//        wxContext.setFlag(myProperties.getProperty("flag"));
+        wxContext = wxContextService.getWxContextBean();
         return wxContext;
     }
     

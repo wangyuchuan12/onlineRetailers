@@ -1,9 +1,17 @@
 package com.wyc.wx.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity(name="wx_context")
 public class WxContext {
+    @Column
     private String appid;
+    @Column
     private String appsecret;
+    @Column(name="file_path")
     private String filePath;
+    @Column
     private String flag;
     public String getFlag() {
         return flag;
