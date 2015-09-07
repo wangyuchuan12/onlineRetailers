@@ -345,7 +345,7 @@ public class InterceptConfig {
                 }
                 
                 String wxRequestUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?" +
-                "appid=wx7e3ed2dc655c0145&redirect_uri="+urlBuffer.toString()+"&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect";
+                "appid="+wxContext.getAppid()+"&redirect_uri="+urlBuffer.toString()+"&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect";
                 logger.debug("redirect to url [{}]",wxRequestUrl);
                 return "redirect:"+wxRequestUrl;
             }
