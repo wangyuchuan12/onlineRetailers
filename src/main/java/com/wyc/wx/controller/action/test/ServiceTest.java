@@ -102,7 +102,7 @@ public class ServiceTest {
                     "\"button\":["+
                         "{\"name\":\"进入商城\","+
                         "\"type\":\"view\"," +
-                        "\"url\":\"http://www.chengxi.pub/main/good_list\"," +
+                        "\"url\":\"http://www.chengxihome.com/main/good_list\"," +
                         "\"key\":\"V01_S01\"" +
                         "},"+
                         "{\"name\":\"商城须知\","+
