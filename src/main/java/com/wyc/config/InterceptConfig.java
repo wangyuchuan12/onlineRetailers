@@ -243,7 +243,11 @@ public class InterceptConfig {
 //            }
 //            myHttpServletRequest.setAuthorize(authorize);
 //        }
-        
+        logger.debug("localAddr:"+httpServletRequest.getLocalAddr());
+        logger.debug(httpServletRequest.getLocalName());
+        logger.debug(httpServletRequest.getPathInfo());
+        logger.debug(httpServletRequest.getRequestURL().toString());
+        logger.debug(httpServletRequest.getRemoteAddr());
         if(method.getAnnotation(WxConfigAnnotation.class)!=null){
             MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
             String datetime = String.valueOf(System.currentTimeMillis() / 1000);
