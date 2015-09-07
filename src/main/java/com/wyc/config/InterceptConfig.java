@@ -243,6 +243,22 @@ public class InterceptConfig {
 //            }
 //            myHttpServletRequest.setAuthorize(authorize);
 //        }
+        
+        if(method.getAnnotation(JsApiTicketAnnotation.class)!=null){
+            JsapiTicketBean jsapiTicketBean = wxJsApiTicketSmartService.getFromDatabase();
+            if(jsapiTicketBean==null){
+                jsapiTicketBean = wxJsApiTicketSmartService.getFromWx();
+                jsapiTicketBean = wxJsApiTicketSmartService.addToDataBase(jsapiTicketBean);
+            }
+            if(!wxJsApiTicketSmartService.currentIsAvailable()){
+                String id = jsapiTicketBean.getId();
+                jsapiTicketBean = wxJsApiTicketSmartService.getFromWx();
+                jsapiTicketBean.setId(id);
+                jsapiTicketBean = wxJsApiTicketSmartService.saveToDataBase(jsapiTicketBean);
+            }
+            myHttpServletRequest.setJsapiTicketBean(jsapiTicketBean);
+        }
+        
         if(method.getAnnotation(WxConfigAnnotation.class)!=null){
             MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
             String datetime = String.valueOf(System.currentTimeMillis() / 1000);
@@ -282,20 +298,7 @@ public class InterceptConfig {
         
         }
         
-        if(method.getAnnotation(JsApiTicketAnnotation.class)!=null){
-            JsapiTicketBean jsapiTicketBean = wxJsApiTicketSmartService.getFromDatabase();
-            if(jsapiTicketBean==null){
-                jsapiTicketBean = wxJsApiTicketSmartService.getFromWx();
-                jsapiTicketBean = wxJsApiTicketSmartService.addToDataBase(jsapiTicketBean);
-            }
-            if(!wxJsApiTicketSmartService.currentIsAvailable()){
-                String id = jsapiTicketBean.getId();
-                jsapiTicketBean = wxJsApiTicketSmartService.getFromWx();
-                jsapiTicketBean.setId(id);
-                jsapiTicketBean = wxJsApiTicketSmartService.saveToDataBase(jsapiTicketBean);
-            }
-            myHttpServletRequest.setJsapiTicketBean(jsapiTicketBean);
-        }
+        
         if(method.getAnnotation(UserInfoFromWebAnnotation.class)!=null){
             UserInfo userInfo = null;
             if(token!=null){
