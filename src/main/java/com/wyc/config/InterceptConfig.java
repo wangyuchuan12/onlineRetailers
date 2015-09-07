@@ -265,10 +265,11 @@ public class InterceptConfig {
            
             StringBuffer decript = new StringBuffer();
             String url = httpServletRequest.getRequestURL().toString();
+            String noncestr = "Wm3WZYTPz0wzccn"+Math.round(10);
             decript.append("jsapi_ticket=");
             decript.append(myHttpServletRequest.getJsapiTicketBean().getTicket()+"&");
             decript.append("noncestr=");
-            decript.append("Wm3WZYTPz0wzccnW"+"&");
+            decript.append(noncestr+"&");
             decript.append("timestamp=");
             decript.append(datetime+"&");
             decript.append("url=");
@@ -276,7 +277,7 @@ public class InterceptConfig {
         
             logger.debug("decript:{}",decript);
             logger.debug("jsapi_ticket:{}",myHttpServletRequest.getJsapiTicketBean().getTicket());
-            logger.debug("noncestr:{}","Wm3WZYTPz0wzccnW");
+            logger.debug("noncestr:{}",noncestr);
             logger.debug("datetime:{}",datetime);
             logger.debug("url:{}",url);
             digest.reset();
