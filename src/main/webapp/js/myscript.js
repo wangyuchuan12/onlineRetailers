@@ -389,6 +389,9 @@ function onChooseWXPay(pack,nonceStr,paySign,signType,timestamp){
 	    paySign: paySign, // 支付签名
 	    success: function (res) {
 	        alert("paysuccess");
+	    },
+	    fail:function(res){
+	    	alert(res);
 	    }
 	});
 	wx.ready(function(){
