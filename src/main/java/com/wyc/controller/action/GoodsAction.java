@@ -141,7 +141,11 @@ public class GoodsAction {
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
 	    Customer customer = customerService.findByOpenId(userInfo.getOpenid());
 	    String defaultAddress = customer.getDefaultAddress();
-	    CustomerAddress customerAddress = customerAddressService.findOne(defaultAddress);
+	    CustomerAddress customerAddress = null;
+	    if(defaultAddress!=null&&!defaultAddress.trim().equals("")){
+	        customerAddress = customerAddressService.findOne(defaultAddress);
+	    }
+	    
 	    if(customerAddress==null){
 	        int addressCount = customerAddressService.countByCustomerId(customer.getId());
 	        if(addressCount==0){
