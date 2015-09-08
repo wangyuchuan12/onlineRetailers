@@ -403,6 +403,7 @@ public class InterceptConfig {
             sb2.append("<trade_type>"+tradeType+"</trade_type>");
             sb2.append("<sign>"+sign+"</sign>");
             sb2.append("</xml>");
+            logger.debug(sb2.toString());
             Response response = request.post(sb2.toString());
             SAXBuilder saxBuilder = new SAXBuilder();
             Document document = saxBuilder.build(new StringReader(response.read()));
