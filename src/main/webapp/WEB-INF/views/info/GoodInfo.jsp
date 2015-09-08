@@ -122,7 +122,6 @@
     </div>
     <script type="text/javascript">
     		$(document).ready(function(){
-    			setUserToken("${token.id}");
     			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
     			wx.ready(function(){
     				wxOnMenuShareAppMessage("分享测试","测试分享功能","www.baidu.com","","link");
