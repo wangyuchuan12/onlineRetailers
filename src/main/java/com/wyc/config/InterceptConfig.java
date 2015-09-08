@@ -368,7 +368,7 @@ public class InterceptConfig {
             String body = "JSAPI支付测试";
             String mchId = "1268344201";
             String nonceStr = "1add1a30ac87aa2db72f57a2375d8fec";
-            String notifyUrl = "http://www.chengxihome.com/api/test";
+            String notifyUrl = "http://www.chengxihome.com/pub_v2/pay/notify.v2.php";
             String outTradeNo = "1415659990";
             String spbillCreateIp = "121.43.104.22";
             String datetime = String.valueOf(System.currentTimeMillis() / 1000);
