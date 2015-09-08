@@ -268,7 +268,7 @@ public class InterceptConfig {
             String datetime = String.valueOf(System.currentTimeMillis() / 1000);
            
             StringBuffer decript = new StringBuffer();
-            String url = httpServletRequest.getRequestURL().toString();
+            String url = httpServletRequest.getRequestURL().toString()+"?"+httpServletRequest.getQueryString();
             logger.debug("config url is {}",url);
             String noncestr = "Wm3WZYTPz0wzccnW"+Math.random();
             decript.append("jsapi_ticket=");
