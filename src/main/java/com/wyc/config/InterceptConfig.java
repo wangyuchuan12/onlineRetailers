@@ -2,7 +2,9 @@ package com.wyc.config;
 import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
@@ -24,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
+
 import com.danga.MemCached.MemCachedClient;
 import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
@@ -381,10 +384,10 @@ public class InterceptConfig {
             map.put("total_fee", totalFee+"");
             map.put("notify_url", notifyUrl);
             map.put("trade_type", tradeType);
-            map.put("appid", appid);
+            map.put("appId", appid);
             map.put("mch_id", mchId);
             map.put("spbill_create_ip", spbillCreateIp);
-            map.put("nonce_str", nonceStr);
+            map.put("nonceStr", nonceStr);
             map.put("attach", attach);
             String sign = MD5Util.createMd5Sign(map,"3325124289912wangjingyingfanwei1").toUpperCase();
             StringBuffer sb2 = new StringBuffer();
@@ -412,7 +415,14 @@ public class InterceptConfig {
             httpServletRequest.setAttribute("prepayId", prepayId);
             httpServletRequest.setAttribute("package", "prepay_id="+prepayId);
             httpServletRequest.setAttribute("nonceStr", nonceStr);
-            httpServletRequest.setAttribute("paySign", sign);
+            
+            SortedMap<String, String> map2 = new TreeMap<String, String>();
+            map2.put("appId", appid);
+            map2.put("timeStamp", datetime);
+            map2.put("nonceStr", nonceStr);
+            map2.put("package", "prepay_id="+prepayId);
+            map2.put("signType", "MD5");
+            httpServletRequest.setAttribute("paySign", MD5Util.createMd5Sign(map2, null));
             httpServletRequest.setAttribute("signType", "MD5");
             httpServletRequest.setAttribute("timestamp", datetime);
             logger.debug("prepayId is {}",prepayId);

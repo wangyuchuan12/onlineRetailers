@@ -37,8 +37,13 @@ public class MD5Util {
             sb.append(k + "=" + v + "&");
             // 要采用URLENCODER的原始值！
         }
-        sb.append("key=" + key);
-        String params = sb.toString();
+        String params = null;
+        if(key!=null){
+            sb.append("key=" + key);
+            params = sb.toString();
+        }else{
+           params = sb.deleteCharAt(sb.lastIndexOf("&")).toString();
+        }
         System.out.println("sha1 sb:" + params);
         return MD5Encode(params, "utf-8");
     }
