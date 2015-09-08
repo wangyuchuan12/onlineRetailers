@@ -402,9 +402,5 @@ function onChooseWXPay(pack,nonceStr,paySign,signType,timestamp){
 		alert(timestamp);
 		
 	});
-	wx.error(function(res){
-		alert(res.err_msg);
-		return false;
-	});
 
 }
