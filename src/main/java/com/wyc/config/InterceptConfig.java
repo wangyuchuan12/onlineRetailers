@@ -269,7 +269,9 @@ public class InterceptConfig {
            
             StringBuffer decript = new StringBuffer();
             String url = httpServletRequest.getRequestURL().toString();
-            url = url.substring(0, url.indexOf("?"));
+            if(url.contains("?")){
+                url = url.substring(0, url.indexOf("?"));
+            }
             String noncestr = "Wm3WZYTPz0wzccnW";
             decript.append("jsapi_ticket=");
             decript.append(myHttpServletRequest.getJsapiTicketBean().getTicket()+"&");
