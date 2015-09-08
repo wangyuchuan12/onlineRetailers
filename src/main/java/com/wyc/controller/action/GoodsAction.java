@@ -57,6 +57,7 @@ public class GoodsAction {
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
 	@JsApiTicketAnnotation
+	@UserInfoFromWebAnnotation
 	@WxConfigAnnotation
 	public String goodList(HttpServletRequest httpRequest)throws Exception{
 	        MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
