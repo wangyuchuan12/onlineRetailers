@@ -121,8 +121,13 @@
     		</ul>
     </div>
     <script type="text/javascript">
-    		setUserToken("${token.id}");
-    		wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
+    		$(document).ready(function(){
+    			setUserToken("${token.id}");
+    			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
+    			wx.ready(function(){
+    				wxOnMenuShareAppMessage("分享测试","测试分享功能","www.baidu.com","","link");
+    			});
+    		});
     </script>
 </body>
 </html>
