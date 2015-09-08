@@ -370,7 +370,7 @@ public class InterceptConfig {
             String nonceStr = "1add1a30ac87aa2db72f57a2375d8fec";
             String notifyUrl = "http://wxpay.weixin.qq.com/pub_v2/pay/notify.v2.php";
             String outTradeNo = "1415659990";
-            String spbillCreateIp = httpServletRequest.getLocalAddr();
+            String spbillCreateIp = httpServletRequest.getRemoteAddr();
             String datetime = String.valueOf(System.currentTimeMillis() / 1000);
             long totalFee = 1;
             String tradeType = "JSAPI";
