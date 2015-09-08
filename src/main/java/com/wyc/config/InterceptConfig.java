@@ -269,11 +269,8 @@ public class InterceptConfig {
            
             StringBuffer decript = new StringBuffer();
             String url = httpServletRequest.getRequestURL().toString();
-            if(url.contains("?")){
-                url = url.substring(0, url.indexOf("?"));
-            }
             logger.debug("config url is {}",url);
-            String noncestr = "Wm3WZYTPz0wzccnW";
+            String noncestr = "Wm3WZYTPz0wzccnW"+Math.random();
             decript.append("jsapi_ticket=");
             decript.append(myHttpServletRequest.getJsapiTicketBean().getTicket()+"&");
             decript.append("noncestr=");
