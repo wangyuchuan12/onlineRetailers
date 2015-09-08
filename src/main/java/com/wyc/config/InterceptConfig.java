@@ -24,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
-
 import com.danga.MemCached.MemCachedClient;
 import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
@@ -39,7 +38,6 @@ import com.wyc.smart.service.AccessTokenSmartService;
 import com.wyc.smart.service.AuthorizeSmartService;
 import com.wyc.smart.service.UserSmartService;
 import com.wyc.smart.service.WxJsApiTicketSmartService;
-import com.wyc.util.HttpRequestUtil;
 import com.wyc.util.MD5Util;
 import com.wyc.util.Request;
 import com.wyc.util.RequestFactory;
@@ -372,7 +370,7 @@ public class InterceptConfig {
             String nonceStr = "1add1a30ac87aa2db72f57a2375d8fec";
             String notifyUrl = "http://wxpay.weixin.qq.com/pub_v2/pay/notify.v2.php";
             String outTradeNo = "1415659990";
-            String spbillCreateIp = HttpRequestUtil.getUserIp(httpServletRequest);
+            String spbillCreateIp = httpServletRequest.getRemoteAddr();
             String datetime = String.valueOf(System.currentTimeMillis() / 1000);
             long totalFee = 1;
             String tradeType = "JSAPI";
