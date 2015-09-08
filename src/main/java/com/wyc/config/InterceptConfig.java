@@ -272,6 +272,7 @@ public class InterceptConfig {
             if(url.contains("?")){
                 url = url.substring(0, url.indexOf("?"));
             }
+            logger.debug("config url is {}",url);
             String noncestr = "Wm3WZYTPz0wzccnW";
             decript.append("jsapi_ticket=");
             decript.append(myHttpServletRequest.getJsapiTicketBean().getTicket()+"&");
