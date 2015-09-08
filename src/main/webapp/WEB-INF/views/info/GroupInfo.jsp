@@ -159,7 +159,9 @@
      	  </c:if>
      	</div>
      	<script type="text/javascript">
-    			setUserToken("${token.id}");
+     		$(document).ready(function(){
+    				setUserToken("${token.id}");
+     		});
     			
    		 </script>
 	</body>
