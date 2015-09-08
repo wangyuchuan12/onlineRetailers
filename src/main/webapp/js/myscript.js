@@ -391,7 +391,7 @@ function onChooseWXPay(pack,nonceStr,paySign,signType,timestamp){
 	        alert("paysuccess");
 	    },
 	    fail:function(res){
-	    	alert(res);
+	    	alert(JSON.stringify(res));
 	    }
 	});
 	wx.ready(function(){
