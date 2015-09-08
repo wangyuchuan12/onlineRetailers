@@ -313,4 +313,10 @@ public class RequestFactory {
 				"https://api.weixin.qq.com/datacube/getusersharehour?access_token="+accessToken);
 		return getRequestByConnection(url);
 	}
+	
+	//获取统一支付接口
+	public Request payUnifiedorder()throws Exception{
+	    URL url = new URL("https://api.mch.weixin.qq.com/pay/unifiedorder");
+	    return getRequestByConnection(url);
+	}
 }

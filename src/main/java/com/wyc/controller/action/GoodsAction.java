@@ -1,6 +1,4 @@
 package com.wyc.controller.action;
-
-import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.HashMap;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.wyc.annotation.AccessTokenAnnotation;
 import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
+import com.wyc.annotation.WxChooseWxPay;
 import com.wyc.annotation.WxConfigAnnotation;
 import com.wyc.domain.City;
 import com.wyc.domain.Customer;
@@ -135,6 +134,9 @@ public class GoodsAction {
 	}
 	
 	@UserInfoFromWebAnnotation
+	@WxChooseWxPay
+	@JsApiTicketAnnotation
+	@WxConfigAnnotation
 	@RequestMapping("/info/good_info_pay")
 	public String goodInfoPay(HttpServletRequest httpRequest){
 	    MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpRequest;

@@ -1,6 +1,7 @@
 package com.wyc.wx.controller.action.test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,6 +140,7 @@ public class ServiceTest {
     @RequestMapping("/data/jsapi_ticket")
     public Object JsapiTicketTest(HttpServletRequest httpServletRequest)throws Exception{
         AccessTokenBean accessTokenBean = basicSupportService.getAccessTokenBean();
+        
         return jsapiTickService.getJsapiTicketBean(accessTokenBean.getAccessToken());
     }
 }

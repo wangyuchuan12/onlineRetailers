@@ -79,7 +79,7 @@
         		</div>
         	</div>
 	        	<div class="good_info_pay_button">
-	        		<a href="javascript:paySuccess('${payGoodInfo.id}','${payGoodInfo.pay_type}',2,'${token.id}')">立即支付</a>
+	        		<a href="javascript:onChooseWXPay('${package}','${nonceStr}','${paySign}','${signType}','${timestamp}');">立即支付</a>
 	        	</div>
 	        	 <div class="trade_flow">
             	<div class="trade_flow_details" onclick="window.location.href='/info/trade_flow_info'">查看详情&gt;</div>
@@ -114,5 +114,10 @@
         </div>
     </div>
 </body>
-
+<script type="text/javascript">
+    		$(document).ready(function(){
+    			setUserToken("${token.id}");
+    			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
+    		});
+    </script>
 </html>
