@@ -28,7 +28,7 @@ public class Request {
 		
 	}
 	
-	public Response get(Map<String, String> params) throws IOException{
+	public Response get(Map<String, String> params) throws Exception{
 	        HttpGet httpGet = new HttpGet(url.getPath());
 	        logger.debug(url.getHost());
 	        logger.debug(url.getPath());
@@ -38,6 +38,14 @@ public class Request {
 	        logger.debug(url.getUserInfo());
 	        logger.debug(url.getDefaultPort()+"");
 	        logger.debug(url.getPort()+"");
+	        logger.debug(url.toURI().getPath());
+	        logger.debug(url.toURI().getRawPath());
+	        logger.debug(url.toURI().getRawAuthority());
+	        logger.debug(url.toURI().getAuthority());
+	        logger.debug(url.toURI().getFragment());
+	        logger.debug(url.toURI().getRawQuery());
+	        logger.debug(url.toString());
+	        logger.debug(url.toURI().toString());
 	        HttpParams hp = httpGet.getParams();    
 	        hp.getParameter("true");
 	        if(params!=null){
