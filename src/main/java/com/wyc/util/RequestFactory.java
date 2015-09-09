@@ -4,13 +4,17 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Service;
 @Service
 public class RequestFactory {
+    @Autowired
+    private AutowireCapableBeanFactory autowireFactory;
 	private Request getRequestByConnection(URL url) throws IOException {
-		HttpURLConnection httpURLConnection = (HttpURLConnection) url
-				.openConnection();
-		Request request = new Request(httpURLConnection);
+
+		Request request = new Request(url);
+		autowireFactory.autowireBean(request);
 		return request;
 	}
 	

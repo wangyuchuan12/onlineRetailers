@@ -8,6 +8,8 @@ import java.security.KeyStore;
 
 import javax.net.ssl.SSLContext;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -64,7 +66,7 @@ public class AppConfig {
     }
     
     @Bean
-    public ApplicationProperties applicationProperties() {
+    public HttpClient httpGet(){
         FileInputStream instream = null;
         try {
             KeyStore keyStore = KeyStore.getInstance("PKCS12");
@@ -82,6 +84,7 @@ public class AppConfig {
                     .setSSLSocketFactory(sslsf)
 
                     .build();
+                    return httpclient;
         } catch (Exception e) {
             e.printStackTrace();
             try {
@@ -91,6 +94,12 @@ public class AppConfig {
                 e1.printStackTrace();
             }
         }
+        return null;
+    }
+    
+    @Bean
+    public ApplicationProperties applicationProperties() {
+        
         ApplicationProperties properties = new ApplicationProperties();
         File databaseConfigFile = new File(
                 "/etc/onlineRetailers/application.properties");
