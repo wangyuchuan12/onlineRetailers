@@ -2,7 +2,9 @@ package com.wyc.config;
 import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
@@ -24,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
+
 import com.danga.MemCached.MemCachedClient;
 import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
@@ -409,10 +412,19 @@ public class InterceptConfig {
             Document document = saxBuilder.build(new StringReader(response.read()));
             Element rootElement = document.getRootElement();
             String prepayId = rootElement.getChildText("prepay_id");
+            
+            SortedMap<String, String> map2  = new TreeMap<String, String>();
+            map2.put("appid", wxContext.getAppid());
+            map2.put("nonceStr", nonceStr);
+            map2.put("package", "prepay_id="+prepayId);
+            map2.put("signType", "MD5");
+            map2.put("timeStamp", datetime);
+            
+            httpServletRequest.setAttribute("appId", wxContext.getAppid());
             httpServletRequest.setAttribute("prepayId", prepayId);
             httpServletRequest.setAttribute("package", "prepay_id="+prepayId);
             httpServletRequest.setAttribute("nonceStr", nonceStr);
-            httpServletRequest.setAttribute("paySign", sign);
+            httpServletRequest.setAttribute("paySign", MD5Util.createMd5Sign(map2,"3325124289912wangjingyingfanwei1"));
             httpServletRequest.setAttribute("signType", "MD5");
             httpServletRequest.setAttribute("timestamp", datetime);
             logger.debug("prepayId is {}",prepayId);
