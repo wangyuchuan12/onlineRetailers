@@ -412,7 +412,7 @@ public class InterceptConfig {
             Document document = saxBuilder.build(new StringReader(response.read()));
             Element rootElement = document.getRootElement();
             String prepayId = rootElement.getChildText("prepay_id");
-            
+            datetime = String.valueOf(System.currentTimeMillis() / 1000);
             SortedMap<String, String> map2  = new TreeMap<String, String>();
             map2.put("appId", wxContext.getAppid());
             map2.put("nonceStr", nonceStr);

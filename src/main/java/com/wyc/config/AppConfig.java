@@ -4,7 +4,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.KeyStore;
 
+import javax.net.ssl.SSLContext;
+
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContexts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +65,32 @@ public class AppConfig {
     
     @Bean
     public ApplicationProperties applicationProperties() {
+        FileInputStream instream = null;
+        try {
+            KeyStore keyStore = KeyStore.getInstance("PKCS12");
+            instream =  new FileInputStream(new File("/usr/apiclient_cert.p12"));
+            keyStore.load(instream, "10010000".toCharArray());
+            SSLContext sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, "10010000".toCharArray()).build();
+            SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
+
+                    sslcontext,new String[] { "TLSv1" },null,
+
+                    SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER); //设置httpclient的SSLSocketFactory
+
+                    CloseableHttpClient httpclient = HttpClients.custom()
+
+                    .setSSLSocketFactory(sslsf)
+
+                    .build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                instream.close();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        }
         ApplicationProperties properties = new ApplicationProperties();
         File databaseConfigFile = new File(
                 "/etc/onlineRetailers/application.properties");
