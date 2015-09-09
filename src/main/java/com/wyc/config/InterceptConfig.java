@@ -414,7 +414,7 @@ public class InterceptConfig {
             String prepayId = rootElement.getChildText("prepay_id");
             
             SortedMap<String, String> map2  = new TreeMap<String, String>();
-            map2.put("appid", wxContext.getAppid());
+            map2.put("appId", wxContext.getAppid());
             map2.put("nonceStr", nonceStr);
             map2.put("package", "prepay_id="+prepayId);
             map2.put("signType", "MD5");
