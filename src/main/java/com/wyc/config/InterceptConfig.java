@@ -82,6 +82,8 @@ public class InterceptConfig {
     private PlatformTransactionManager platformTransactionManager;
     @Autowired
     private WxJsApiTicketSmartService wxJsApiTicketSmartService;
+    @Autowired
+    private RequestFactory requestFactory;
     final static Logger logger = LoggerFactory.getLogger(InterceptConfig.class);
     
  //   @Around(value="execution (* com.wyc.wx.service.*.*(..))")
@@ -365,8 +367,7 @@ public class InterceptConfig {
         if(method.getAnnotation(WxChooseWxPay.class)!=null){
             UserInfo userInfo = myHttpServletRequest.getUserInfo();
             String openid = userInfo.getOpenid();
-            RequestFactory factory = new RequestFactory();
-            Request request = factory.payUnifiedorder();
+            Request request = requestFactory.payUnifiedorder();
             String appid = wxContext.getAppid();
             String attach = "paytest";
             String body = "JSAPI";
