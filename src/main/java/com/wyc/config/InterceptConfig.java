@@ -419,12 +419,13 @@ public class InterceptConfig {
             map2.put("package", "prepay_id="+prepayId);
             map2.put("signType", "MD5");
             map2.put("timeStamp", datetime);
-            
+            String paySign = MD5Util.createMd5Sign(map2,"3325124289912wangjingyingfanwei1");
+            logger.debug("paySign is {}",paySign);
             httpServletRequest.setAttribute("appId", wxContext.getAppid());
             httpServletRequest.setAttribute("prepayId", prepayId);
             httpServletRequest.setAttribute("package", "prepay_id="+prepayId);
             httpServletRequest.setAttribute("nonceStr", nonceStr);
-            httpServletRequest.setAttribute("paySign", MD5Util.createMd5Sign(map2,"3325124289912wangjingyingfanwei1"));
+            httpServletRequest.setAttribute("paySign", paySign);
             httpServletRequest.setAttribute("signType", "MD5");
             httpServletRequest.setAttribute("timestamp", datetime);
             logger.debug("prepayId is {}",prepayId);
