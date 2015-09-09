@@ -30,6 +30,14 @@ public class Request {
 	
 	public Response get(Map<String, String> params) throws IOException{
 	        HttpGet httpGet = new HttpGet(url.getPath());
+	        logger.debug(url.getHost());
+	        logger.debug(url.getPath());
+	        logger.debug(url.getProtocol());
+	        logger.debug(url.getQuery());
+	        logger.debug(url.getRef());
+	        logger.debug(url.getUserInfo());
+	        logger.debug(url.getDefaultPort()+"");
+	        logger.debug(url.getPort()+"");
 	        HttpParams hp = httpGet.getParams();    
 	        hp.getParameter("true");
 	        if(params!=null){
