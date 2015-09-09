@@ -70,7 +70,7 @@ public class AppConfig {
             KeyStore keyStore = KeyStore.getInstance("PKCS12");
             instream =  new FileInputStream(new File("/usr/apiclient_cert.p12"));
             keyStore.load(instream, "1268344201".toCharArray());
-            SSLContext sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, "10010000".toCharArray()).build();
+            SSLContext sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, "1268344201".toCharArray()).build();
             SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
 
                     sslcontext,new String[] { "TLSv1" },null,
