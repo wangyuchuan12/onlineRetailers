@@ -29,23 +29,7 @@ public class Request {
 	}
 	
 	public Response get(Map<String, String> params) throws Exception{
-	        HttpGet httpGet = new HttpGet(url.getPath());
-	        logger.debug(url.getHost());
-	        logger.debug(url.getPath());
-	        logger.debug(url.getProtocol());
-	        logger.debug(url.getQuery());
-	        logger.debug(url.getRef());
-	        logger.debug(url.getUserInfo());
-	        logger.debug(url.getDefaultPort()+"");
-	        logger.debug(url.getPort()+"");
-	        logger.debug(url.toURI().getPath());
-	        logger.debug(url.toURI().getRawPath());
-	        logger.debug(url.toURI().getRawAuthority());
-	        logger.debug(url.toURI().getAuthority());
-	        logger.debug(url.toURI().getFragment());
-	        logger.debug(url.toURI().getRawQuery());
-	        logger.debug(url.toString());
-	        logger.debug(url.toURI().toString());
+	        HttpGet httpGet = new HttpGet(url.toString());
 	        HttpParams hp = httpGet.getParams();    
 	        hp.getParameter("true");
 	        if(params!=null){
@@ -60,7 +44,7 @@ public class Request {
 	}
 	
 	public Response post(String data) throws IOException{
-	        HttpPost httpPost = new HttpPost(url.getPath());
+	        HttpPost httpPost = new HttpPost(url.toString());
 	        StringEntity entity = new StringEntity(data,charsetName);
 	        entity.setContentEncoding(charsetName);
 	        httpPost.setEntity(entity);
