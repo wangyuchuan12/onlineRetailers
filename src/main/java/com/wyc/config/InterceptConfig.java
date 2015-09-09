@@ -330,6 +330,7 @@ public class InterceptConfig {
                     token = userSmartService.saveToDatabase(userInfo, key);
                     logger.debug("save to database success ,the key is {} , the token is {}" , key , token);
                 } catch (Exception e) {
+                    e.printStackTrace();
                     logger.error("get userInfo from wx has error");
                     userInfo.setNickname("无法识别");
                     //做最后一层保障，保证在数据库当中有userInfo
