@@ -367,8 +367,8 @@ public class InterceptConfig {
             RequestFactory factory = new RequestFactory();
             Request request = factory.payUnifiedorder();
             String appid = wxContext.getAppid();
-            String attach = "支付测试";
-            String body = "JSAPI支付测试";
+            String attach = "paytest";
+            String body = "JSAPI";
             String mchId = "1268344201";
             String nonceStr = "1add1a30ac87aa2db72f57a2375d8fec";
             String notifyUrl = "http://wxpay.weixin.qq.com/pub_v2/pay/notify.v2.php";
