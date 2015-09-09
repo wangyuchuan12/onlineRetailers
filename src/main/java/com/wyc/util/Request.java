@@ -32,8 +32,10 @@ public class Request {
 	        HttpGet httpGet = new HttpGet(url.getPath());
 	        HttpParams hp = httpGet.getParams();    
 	        hp.getParameter("true");
-	        for(Entry<String, String> param:params.entrySet()){
-	            hp.setParameter(param.getKey(), param.getValue());
+	        if(params!=null){
+        	        for(Entry<String, String> param:params.entrySet()){
+        	            hp.setParameter(param.getKey(), param.getValue());
+        	        }
 	        }
 	        HttpResponse httpResponse = httpClient.execute(httpGet);
 	        HttpEntity httpEntity = httpResponse.getEntity();
