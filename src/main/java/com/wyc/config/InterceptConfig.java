@@ -387,10 +387,10 @@ public class InterceptConfig {
                         Handler extendHandlerTarget =(Handler)handlerClass.newInstance();
                         Method extendHandleMethod = handlerClass.getMethod("handle", HttpServletRequest.class);
                         factory.autowireBean(extendHandlerTarget);
-                        extendHandleMethod.invoke(extendHandlerTarget, httpServletRequest);
+                        extendHandleMethod.invoke(extendHandlerTarget, myHttpServletRequest);
                     }
                 }
-                handleMethod.invoke(handleTarget, httpServletRequest);
+                handleMethod.invoke(handleTarget, myHttpServletRequest);
             }
         }
         if(myHttpServletRequest!=null){
