@@ -33,7 +33,7 @@ public class WxChooseWxPayHandler implements Handler{
     @Override
     public Object handle(HttpServletRequest httpServletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
-        Float cost = (Float)httpServletRequest.getAttribute("cost");
+        float cost = (Float)httpServletRequest.getAttribute("cost");
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
         String openid = userInfo.getOpenid();
         Request request = requestFactory.payUnifiedorder();
@@ -53,7 +53,7 @@ public class WxChooseWxPayHandler implements Handler{
                 +"-"+new Random().nextInt(1000)+"";
         String spbillCreateIp = httpServletRequest.getRemoteAddr();
         String datetime = String.valueOf(System.currentTimeMillis() / 1000);
-        Float totalFee = cost;
+        Long totalFee = (long)cost*100;
         String tradeType = "JSAPI";
         TreeMap<String, String> map = new TreeMap<String, String>();
         map.put("openid", openid);
