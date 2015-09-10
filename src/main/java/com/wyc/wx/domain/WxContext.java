@@ -21,7 +21,7 @@ public class WxContext {
     private String domainName;
     @Column(name="mch_id")
     private String mchId;
-    @Column
+    @Column(name="mac_key")
     private String key;
     public Long getId() {
         return id;
