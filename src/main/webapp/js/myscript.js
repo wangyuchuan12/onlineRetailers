@@ -387,6 +387,7 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 		    signType:signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
 		    paySign: paySign, // 支付签名
 		    success: function (res) {
+		    	alert("成功");
 		    	alert(JSON.stringify(res));
 		    	callback.call = function(){
 		    		alert("成功啦啦啦");
