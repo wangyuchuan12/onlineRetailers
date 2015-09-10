@@ -123,11 +123,14 @@ public class AppConfig {
     @Autowired
     public WxContext wxContext(ApplicationProperties myProperties){
         WxContext wxContext = new WxContext();
-//        wxContext.setAppid(myProperties.getProperty("appid"));
-//        wxContext.setAppsecret(myProperties.getProperty("appsecret"));
-//        wxContext.setFilePath(myProperties.getProperty("file_path"));
-//        wxContext.setFlag(myProperties.getProperty("flag"));
-        wxContext = wxContextService.getWxContextBean();
+        wxContext.setAppid(myProperties.getProperty("appid"));
+        wxContext.setAppsecret(myProperties.getProperty("appsecret"));
+        wxContext.setFilePath(myProperties.getProperty("file_path"));
+        wxContext.setFlag(myProperties.getProperty("flag"));
+        wxContext.setDomainName(myProperties.getProperty("domain_name"));
+        wxContext.setKey(myProperties.getProperty("key"));
+        wxContext.setMchId(myProperties.getProperty("mch_id"));
+//        wxContext = wxContextService.getWxContextBean();
         return wxContext;
     }
     

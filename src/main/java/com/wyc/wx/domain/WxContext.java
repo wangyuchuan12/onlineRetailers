@@ -17,6 +17,36 @@ public class WxContext {
     private String filePath;
     @Column
     private String flag;
+    @Column(name="domain_name")
+    private String domainName;
+    @Column(name="mch_id")
+    private String mchId;
+    @Column
+    private String key;
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public String getDomainName() {
+        return domainName;
+    }
+    public void setDomainName(String domainName) {
+        this.domainName = domainName;
+    }
+    public String getMchId() {
+        return mchId;
+    }
+    public void setMchId(String mchId) {
+        this.mchId = mchId;
+    }
+    public String getKey() {
+        return key;
+    }
+    public void setKey(String key) {
+        this.key = key;
+    }
     public String getFlag() {
         return flag;
     }

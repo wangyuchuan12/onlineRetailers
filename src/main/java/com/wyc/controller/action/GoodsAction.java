@@ -203,6 +203,7 @@ public class GoodsAction {
                 responseGood.put("cost",good.getFlowPrice());
             }
             httpRequest.setAttribute("payGoodInfo", responseGood);
+            httpRequest.setAttribute("totalFree", responseGood.get("cost"));
 	    return "info/GoodInfoPay";
 	}
 }
