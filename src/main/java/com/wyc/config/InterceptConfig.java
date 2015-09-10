@@ -31,6 +31,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.danga.MemCached.MemCachedClient;
+import com.wyc.annotation.BeforeHandlerAnnotation;
 import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.annotation.WxChooseWxPay;
@@ -445,7 +446,14 @@ public class InterceptConfig {
             httpServletRequest.setAttribute("outTradeNo",outTradeNo);
             logger.debug("prepayId is {}",prepayId);
         }
-        
+        if(method.getAnnotation(BeforeHandlerAnnotation.class)!=null){
+            BeforeHandlerAnnotation beforeHandlerAnnotation = method.getAnnotation(BeforeHandlerAnnotation.class);
+            Class<?>[] classes = beforeHandlerAnnotation.hanlerClasses();
+            for(Class<?> clazz:classes){
+                Method handleMethod = clazz.getMethod("handle", HttpServletRequest.class);
+                handleMethod.invoke(clazz.newInstance(), httpServletRequest);
+            }
+        }
         if(myHttpServletRequest!=null){
             args[0] = myHttpServletRequest;
         }

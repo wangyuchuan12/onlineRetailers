@@ -15,10 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wyc.annotation.AccessTokenAnnotation;
+import com.wyc.annotation.BeforeHandlerAnnotation;
 import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.annotation.WxChooseWxPay;
 import com.wyc.annotation.WxConfigAnnotation;
+import com.wyc.annotation.handler.PayCostComputeHandler;
 import com.wyc.domain.City;
 import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
@@ -59,6 +61,7 @@ public class GoodsAction {
 	@JsApiTicketAnnotation
 	@UserInfoFromWebAnnotation
 	@WxConfigAnnotation
+	@BeforeHandlerAnnotation(hanlerClasses={PayCostComputeHandler.class})
 	public String goodList(HttpServletRequest httpRequest)throws Exception{
 	        MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	        Iterable<Good> databaseGoods = goodService.findAll();
