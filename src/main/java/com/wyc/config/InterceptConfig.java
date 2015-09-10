@@ -403,7 +403,7 @@ public class InterceptConfig {
                 String spbillCreateIp = httpServletRequest.getRemoteAddr();
                 String datetime = String.valueOf(System.currentTimeMillis() / 1000);
                 logger.debug("totalFree is {}",httpServletRequest.getAttribute("totalFree").toString());
-                long totalFee = new Long(httpServletRequest.getAttribute("totalFree").toString());
+                Float totalFee = (Float)httpServletRequest.getAttribute("totalFree");
                 String tradeType = "JSAPI";
                 TreeMap<String, String> map = new TreeMap<String, String>();
                 map.put("openid", openid);

@@ -195,13 +195,15 @@ public class GoodsAction {
             responseGood.put("pay_type", payType);
             responseGood.put("head_img", myResource.getUrl());
             //0琛ㄧず鍥㈣喘锛�1琛ㄧず鍗曠嫭涔帮紝2琛ㄧず寮�鍥㈠姷
+            Float cost = null;
             if(payType.equals("0")){
-                responseGood.put("cost",good.getFlowPrice()+good.getGroupDiscount()*good.getGroupOriginalCost());
+                cost = good.getFlowPrice()+good.getGroupDiscount()*good.getGroupOriginalCost();
             }else if (payType.equals("1")) {
-                responseGood.put("cost",good.getFlowPrice()+good.getAloneDiscount()*good.getAloneOriginalCost());
+                cost = good.getFlowPrice()+good.getAloneDiscount()*good.getAloneOriginalCost();
             }else if (payType.equals("2")) {
-                responseGood.put("cost",good.getFlowPrice());
+                cost = good.getFlowPrice();
             }
+            httpRequest.setAttribute("cost", cost);
             httpRequest.setAttribute("payGoodInfo", responseGood);
             httpRequest.setAttribute("totalFree", responseGood.get("cost"));
 	    return "info/GoodInfoPay";
