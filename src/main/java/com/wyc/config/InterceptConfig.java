@@ -2,8 +2,11 @@ package com.wyc.config;
 import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
@@ -365,6 +368,8 @@ public class InterceptConfig {
         }
         
         if(method.getAnnotation(WxChooseWxPay.class)!=null){
+           
+      
             UserInfo userInfo = myHttpServletRequest.getUserInfo();
             String openid = userInfo.getOpenid();
             Request request = requestFactory.payUnifiedorder();
@@ -374,7 +379,12 @@ public class InterceptConfig {
             String mchId = "1268344201";
             String nonceStr = "1add1a30ac87aa2db72f57a2375d8fec";
             String notifyUrl = "http://wxpay.weixin.qq.com/pub_v2/pay/notify.v2.php";
-            String outTradeNo = "1415659991";
+            Calendar now = Calendar.getInstance();
+            String outTradeNo = now.get(Calendar.YEAR)+(now.get(Calendar.MONTH) + 1)
+                    +now.get(Calendar.DAY_OF_MONTH)+now.get(Calendar.HOUR_OF_DAY)
+                    +now.get(Calendar.MINUTE)
+                    +now.get(Calendar.SECOND)
+                    +new Random().nextInt(1000)+"";
             String spbillCreateIp = httpServletRequest.getRemoteAddr();
             String datetime = String.valueOf(System.currentTimeMillis() / 1000);
             long totalFee = 1;
@@ -430,6 +440,7 @@ public class InterceptConfig {
             httpServletRequest.setAttribute("paySign", paySign);
             httpServletRequest.setAttribute("signType", "MD5");
             httpServletRequest.setAttribute("timestamp", datetime);
+            httpServletRequest.setAttribute("outTradeNo",outTradeNo);
             logger.debug("prepayId is {}",prepayId);
         }
         
