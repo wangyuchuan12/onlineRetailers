@@ -193,6 +193,7 @@ public class GoodsAction {
             responseGood.put("alone_cost", good.getAloneDiscount()*good.getAloneOriginalCost());
             responseGood.put("pay_type", payType);
             responseGood.put("head_img", myResource.getUrl());
+            responseGood.put("cost", httpRequest.getAttribute("cost"));
             httpRequest.setAttribute("payGoodInfo", responseGood);
 	    return "info/GoodInfoPay";
 	}
