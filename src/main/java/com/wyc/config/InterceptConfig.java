@@ -355,7 +355,9 @@ public class InterceptConfig {
                 String requestUrl = myHttpServletRequest.getRequestURL().toString();
                 StringBuffer urlBuffer = new StringBuffer();
                 urlBuffer.append(requestUrl);
-                urlBuffer.append("?");
+                if(paramMap.entrySet().size()>0){
+                    urlBuffer.append("?");
+                }
                 for(Entry<String, String[]> entry:paramMap.entrySet()){
                     if(entry.getValue()!=null&&entry.getValue().length>0){
                         urlBuffer.append("&"+entry.getKey()+"="+entry.getValue()[0]);
