@@ -402,6 +402,7 @@ public class InterceptConfig {
                         +"-"+new Random().nextInt(1000)+"";
                 String spbillCreateIp = httpServletRequest.getRemoteAddr();
                 String datetime = String.valueOf(System.currentTimeMillis() / 1000);
+                logger.debug("totalFree is {}",httpServletRequest.getAttribute("totalFree").toString());
                 long totalFee = Long.parseLong(httpServletRequest.getAttribute("totalFree").toString());
                 String tradeType = "JSAPI";
                 TreeMap<String, String> map = new TreeMap<String, String>();
