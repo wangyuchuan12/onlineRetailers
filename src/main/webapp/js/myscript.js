@@ -291,12 +291,9 @@ function skipToCoupons(){
 	skipToUrl("/info/coupon");
 }
 
-function paySuccess(goodId,payType,status,token){
-	var callback = new Object();
-	callback.call=function(response){
-		alert(response);
-	};
-	request("/api/pay_success?pay_type="+payType+"&good_id="+goodId+"&status="+status,token);
+function paySuccess(goodId,payType,status,token,callback){
+	var random = Math.random()*Math.random();
+	request("/api/pay_success?pay_type="+payType+"&good_id="+goodId+"&status="+status+"&random="+random,token,callback);
 }
 
 function orderActive(status){
@@ -380,14 +377,9 @@ function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl){
 	});
 }
 
-function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp){
+function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,payType,status,token){
 	
 	wx.ready(function(){
-		alert(pack);
-		alert(nonceStr);
-		alert(paySign);
-		alert(signType);
-		alert(timestamp);
 		wx.chooseWXPay({
 			timestamp:timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
 		    nonceStr: nonceStr, // 支付签名随机串，不长于 32 位
@@ -395,7 +387,11 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp){
 		    signType:signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
 		    paySign: paySign, // 支付签名
 		    success: function (res) {
-		        alert("paysuccess");
+		    	alert(JSON.stringify(res));
+		    	callback.call = function(){
+		    		alert("成功啦啦啦");
+		    	}
+		    	paySuccess(goodId,payType,status,token,callback);
 		    },
 		    fail:function(res){
 		    	alert(JSON.stringify(res));
