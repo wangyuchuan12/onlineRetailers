@@ -1,6 +1,5 @@
 package com.wyc.controller.action;
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +20,7 @@ import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.annotation.WxChooseWxPay;
 import com.wyc.annotation.WxConfigAnnotation;
 import com.wyc.annotation.handler.PayCostComputeHandler;
+import com.wyc.annotation.handler.WxChooseWxPayHandler;
 import com.wyc.domain.City;
 import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
@@ -61,13 +61,9 @@ public class GoodsAction {
 	@JsApiTicketAnnotation
 	@UserInfoFromWebAnnotation
 	@WxConfigAnnotation
-	@BeforeHandlerAnnotation(hanlerClasses={PayCostComputeHandler.class})
 	public String goodList(HttpServletRequest httpRequest)throws Exception{
-	        MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	        Iterable<Good> databaseGoods = goodService.findAll();
-		List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>();
-		
-		 
+		List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
 		for(Good good:databaseGoods){
 		    Map<String, Object> responseGood = new HashMap<String, Object>();
 		    responseGood.put("id", good.getId());
@@ -97,7 +93,6 @@ public class GoodsAction {
 	public String goodInfo(HttpServletRequest httpRequest)throws Exception{
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
-	    Formatter formatter = new Formatter();
             Customer customer = customerService.findByOpenId(userInfo.getOpenid());
            
 	    String goodId = httpRequest.getParameter("id");
@@ -141,6 +136,7 @@ public class GoodsAction {
 	@WxChooseWxPay
 	@JsApiTicketAnnotation
 	@WxConfigAnnotation
+	@BeforeHandlerAnnotation(hanlerClasses={WxChooseWxPayHandler.class})
 	@RequestMapping("/info/good_info_pay")
 	public String goodInfoPay(HttpServletRequest httpRequest){
 	    MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpRequest;
@@ -197,18 +193,7 @@ public class GoodsAction {
             responseGood.put("alone_cost", good.getAloneDiscount()*good.getAloneOriginalCost());
             responseGood.put("pay_type", payType);
             responseGood.put("head_img", myResource.getUrl());
-            //0琛ㄧず鍥㈣喘锛�1琛ㄧず鍗曠嫭涔帮紝2琛ㄧず寮�鍥㈠姷
-            Float cost = null;
-            if(payType.equals("0")){
-                cost = good.getFlowPrice()+good.getGroupDiscount()*good.getGroupOriginalCost();
-            }else if (payType.equals("1")) {
-                cost = good.getFlowPrice()+good.getAloneDiscount()*good.getAloneOriginalCost();
-            }else if (payType.equals("2")) {
-                cost = good.getFlowPrice();
-            }
-            httpRequest.setAttribute("cost", cost);
             httpRequest.setAttribute("payGoodInfo", responseGood);
-            httpRequest.setAttribute("totalFree", responseGood.get("cost"));
 	    return "info/GoodInfoPay";
 	}
 }
