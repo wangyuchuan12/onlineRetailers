@@ -172,7 +172,6 @@ public class GoodsAction {
                 cityId = city.getParentId();
                 citySb.insert(0, city.getName()+"-");
             }
-            citySb.deleteCharAt(citySb.lastIndexOf("-"));
             citySb.append(customerAddress.getContent());
             responseGood.put("id", good.getId());
             responseGood.put("good_id", goodId);
