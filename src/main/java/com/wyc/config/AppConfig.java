@@ -66,13 +66,13 @@ public class AppConfig {
     }
     
     @Bean
-    public HttpClient httpGet(){
+    public HttpClient httpGet(ApplicationProperties applicationProperties,WxContext wxc){
         FileInputStream instream = null;
         try {
             KeyStore keyStore = KeyStore.getInstance("PKCS12");
-            instream =  new FileInputStream(new File("/usr/apiclient_cert.p12"));
-            keyStore.load(instream, "1268344201".toCharArray());
-            SSLContext sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, "1268344201".toCharArray()).build();
+            instream =  new FileInputStream(new File(applicationProperties.getProperty("apiclient_cert_path")));
+            keyStore.load(instream,wxc.getMchId().toCharArray());
+            SSLContext sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, wxc.getMchId().toCharArray()).build();
             SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
 
                     sslcontext,new String[] { "TLSv1" },null,
