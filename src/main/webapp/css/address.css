@@ -62,6 +62,7 @@
 	border-bottom: 1px solid #c0c0c0;
 	position:relative;
 	height:100px;
+	display: inline-block;
 	
 }
 
@@ -77,6 +78,8 @@
 	display:inline-block;	
 	padding-right:30px;
 	position: relative;
+	top:10px;
+	background-color:inline-black;
 }
 
 .address_mark_type{
@@ -89,25 +92,29 @@
 	height:16px; 
 	font-size:1px;
 	letter-spacing : 1px;
+	top:10px;
+	background-color:yellow;
 }
 
 .address_mark{
-	display:block;
+	display:inline-block;
 	position:relative;
 	float: right;
-    left:-20%;
-	top:20px;
+    left:0px;
+	top:-50px;
+	width:150px;
 	color:red;
-	max-width:390px; 
+	max-width:390px;
+	background-color:red;
 }
 .Address_edit{
 	display:inline-block;
 	position:relative;
-	right:-50px;
-	top:-20px;
+	top:20px;
 	float:right;
 	font-size: 30px;
 	color:red;
+	background-color:green;
 }
 
 
