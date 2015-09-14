@@ -33,6 +33,7 @@ public class ReadXmlRequestToObjectHandler implements Handler{
         System.out.println(stringWriter.getBuffer().toString());
         Class<?> bean = resultBean.bean();
         Object target = bean.newInstance();
+        System.out.println("..............target:"+target);
         for(Field field:bean.getDeclaredFields()){
            Column column = field.getAnnotation(Column.class);
            if(column!=null){
@@ -42,10 +43,11 @@ public class ReadXmlRequestToObjectHandler implements Handler{
                }
                String value = rootElement.getChildText(name);
                System.out.println("................value:"+value);
+               field.setAccessible(true);
                field.set(target, value);
            }
         }
-        System.out.println("..............target:"+target);
+        
         myHttpServletRequest.setRequestObject(bean, target);
         return target;
     }
