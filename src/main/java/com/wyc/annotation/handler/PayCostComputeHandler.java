@@ -1,5 +1,7 @@
 package com.wyc.annotation.handler;
 
+import java.lang.annotation.Annotation;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -35,5 +37,11 @@ public class PayCostComputeHandler implements Handler{
     public Class<Handler>[] extendHandlers() {
         return null;
     }
+    @Override
+    public void setAnnotation(Annotation annotation) {
+        // TODO Auto-generated method stub
+        
+    }
+   
    
 }

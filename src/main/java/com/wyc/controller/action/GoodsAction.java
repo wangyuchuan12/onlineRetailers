@@ -19,7 +19,6 @@ import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.annotation.WxChooseWxPay;
 import com.wyc.annotation.WxConfigAnnotation;
-import com.wyc.annotation.handler.PayCostComputeHandler;
 import com.wyc.annotation.handler.WxChooseWxPayHandler;
 import com.wyc.domain.City;
 import com.wyc.domain.Customer;

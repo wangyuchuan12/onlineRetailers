@@ -387,6 +387,7 @@ public class InterceptConfig {
             for(Class<?> clazz:classes){
                 Method handleMethod = clazz.getMethod("handle", HttpServletRequest.class);
                 Handler handleTarget = (Handler) clazz.newInstance();
+                handleTarget.setAnnotation(beforeHandlerAnnotation);
                 factory.autowireBean(handleTarget);
                 Class<?>[] extendHandlers = handleTarget.extendHandlers();
                 if(extendHandlers!=null){

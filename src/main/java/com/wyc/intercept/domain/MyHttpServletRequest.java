@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -41,6 +42,13 @@ public class MyHttpServletRequest implements HttpServletRequest{
     private Authorize authorize;
     private Button button;
     private Token token;
+    private Map<Class<?>, Object> requestObject = new HashMap<Class<?>, Object>();
+    public void setRequestObject(Class<?> clazz , Object target){
+        requestObject.put(clazz, target);
+    }
+    public Object getRequestObject(Class<?> clazz){
+        return requestObject.get(clazz);
+    }
     public Token getToken() {
         return token;
     }

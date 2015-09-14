@@ -1,6 +1,7 @@
 package com.wyc.annotation.handler;
 
 import java.io.StringReader;
+import java.lang.annotation.Annotation;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.SortedMap;
@@ -42,7 +43,7 @@ public class WxChooseWxPayHandler implements Handler{
         String body = "JSAPI";
         String mchId = wxContext.getMchId();
         String nonceStr = "1add1a30ac87aa2db72f57a2375d8fec";
-        String notifyUrl = "http://www.chengxihome.com/api/test";
+        String notifyUrl = "http://www.chengxihome.com/api/wx/pay_success";
         Calendar now = Calendar.getInstance();
         String outTradeNo = now.get(Calendar.YEAR)
                 +"-"+(now.get(Calendar.MONTH) + 1)
@@ -117,4 +118,9 @@ public class WxChooseWxPayHandler implements Handler{
         return handlerClasses;
     }
 
+    @Override
+    public void setAnnotation(Annotation annotation) {
+        // TODO Auto-generated method stub
+        
+    }
 }
