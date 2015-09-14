@@ -35,4 +35,102 @@ public class PaySuccess {
     private String tradeType;
     @Column(name="transaction_id")
     private String transactionId;
+    public String getAppid() {
+        return appid;
+    }
+    public void setAppid(String appid) {
+        this.appid = appid;
+    }
+    public String getAttach() {
+        return attach;
+    }
+    public void setAttach(String attach) {
+        this.attach = attach;
+    }
+    public String getBankType() {
+        return bankType;
+    }
+    public void setBankType(String bankType) {
+        this.bankType = bankType;
+    }
+    public String getCashFee() {
+        return cashFee;
+    }
+    public void setCashFee(String cashFee) {
+        this.cashFee = cashFee;
+    }
+    public String getIsSubscribe() {
+        return isSubscribe;
+    }
+    public void setIsSubscribe(String isSubscribe) {
+        this.isSubscribe = isSubscribe;
+    }
+    public String getMchId() {
+        return mchId;
+    }
+    public void setMchId(String mchId) {
+        this.mchId = mchId;
+    }
+    public String getNonceStr() {
+        return nonceStr;
+    }
+    public void setNonceStr(String nonceStr) {
+        this.nonceStr = nonceStr;
+    }
+    public String getOpenid() {
+        return openid;
+    }
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+    public String getOutTradeNo() {
+        return outTradeNo;
+    }
+    public void setOutTradeNo(String outTradeNo) {
+        this.outTradeNo = outTradeNo;
+    }
+    public String getResultCode() {
+        return resultCode;
+    }
+    public void setResultCode(String resultCode) {
+        this.resultCode = resultCode;
+    }
+    public String getReturnCode() {
+        return returnCode;
+    }
+    public void setReturnCode(String returnCode) {
+        this.returnCode = returnCode;
+    }
+    public String getSign() {
+        return sign;
+    }
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+    public String getTimeEnd() {
+        return timeEnd;
+    }
+    public void setTimeEnd(String timeEnd) {
+        this.timeEnd = timeEnd;
+    }
+    public String getTotalFee() {
+        return totalFee;
+    }
+    public void setTotalFee(String totalFee) {
+        this.totalFee = totalFee;
+    }
+    public String getTradeType() {
+        return tradeType;
+    }
+    public void setTradeType(String tradeType) {
+        this.tradeType = tradeType;
+    }
+    public String getTransactionId() {
+        return transactionId;
+    }
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+    
+    
 }

@@ -15,6 +15,23 @@ public class WxApi {
     @RequestMapping(value = "/api/wx/pay_success")
     public void paySuccess(HttpServletRequest httpServletRequest){
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
-        System.out.println(myHttpServletRequest.getRequestObject(PaySuccess.class));
+        PaySuccess paySuccess = (PaySuccess) myHttpServletRequest.getRequestObject(PaySuccess.class);
+        System.out.println(paySuccess.getAppid());
+        System.out.println(paySuccess.getAttach());
+        System.out.println(paySuccess.getBankType());
+        
+        System.out.println(paySuccess.getCashFee());
+        System.out.println(paySuccess.getIsSubscribe());
+        System.out.println(paySuccess.getMchId());
+        System.out.println(paySuccess.getNonceStr());
+        System.out.println(paySuccess.getOpenid());
+        System.out.println(paySuccess.getOutTradeNo());
+        System.out.println(paySuccess.getResultCode());
+        System.out.println(paySuccess.getReturnCode());
+        System.out.println(paySuccess.getSign());
+        System.out.println(paySuccess.getTimeEnd());
+        System.out.println(paySuccess.getTotalFee());
+        System.out.println(paySuccess.getTradeType());
+        System.out.println(paySuccess.getTransactionId());
     }
 }
