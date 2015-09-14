@@ -27,7 +27,7 @@ public class ReadXmlRequestToObjectHandler implements Handler{
         ResultBean resultBean = method.getAnnotation(ResultBean.class);
         Class<?> bean = resultBean.bean();
         Object target = bean.newInstance();
-        for(Field field:bean.getFields()){
+        for(Field field:bean.getDeclaredFields()){
            Column column = field.getAnnotation(Column.class);
            String name = column.name();
            String value = rootElement.getChildText(name);
