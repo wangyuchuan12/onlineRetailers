@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface ReadXmlRequestToObjectAnnotation {
+public @interface ResultBean {
     public Class<?> bean();
 }

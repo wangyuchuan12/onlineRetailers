@@ -1,14 +1,7 @@
 package com.wyc.config;
-import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
-import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,9 +12,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,10 +36,7 @@ import com.wyc.smart.service.AccessTokenSmartService;
 import com.wyc.smart.service.AuthorizeSmartService;
 import com.wyc.smart.service.UserSmartService;
 import com.wyc.smart.service.WxJsApiTicketSmartService;
-import com.wyc.util.MD5Util;
-import com.wyc.util.Request;
 import com.wyc.util.RequestFactory;
-import com.wyc.util.Response;
 import com.wyc.wx.domain.JsapiTicketBean;
 import com.wyc.wx.domain.Token;
 import com.wyc.wx.domain.UserInfo;
@@ -182,6 +169,7 @@ public class InterceptConfig {
         
         logger.debug("invoke the method is {}",method);
         MyHttpServletRequest myHttpServletRequest = new MyHttpServletRequest(httpServletRequest);
+        myHttpServletRequest.setInvokeMethod(method);
         String tokenId = myHttpServletRequest.getParameter("token");
         Token token = tokenService.findByIdAndInvalidDateGreaterThan(tokenId, new DateTime());
         logger.debug("the request url is {}",myHttpServletRequest.getRequestURI());

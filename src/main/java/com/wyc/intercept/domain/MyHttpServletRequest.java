@@ -3,6 +3,7 @@ package com.wyc.intercept.domain;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Method;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -43,6 +44,13 @@ public class MyHttpServletRequest implements HttpServletRequest{
     private Button button;
     private Token token;
     private Map<Class<?>, Object> requestObject = new HashMap<Class<?>, Object>();
+    private Method invokeMethod;
+    public Method getInvokeMethod() {
+        return invokeMethod;
+    }
+    public void setInvokeMethod(Method invokeMethod) {
+        this.invokeMethod = invokeMethod;
+    }
     public void setRequestObject(Class<?> clazz , Object target){
         requestObject.put(clazz, target);
     }
