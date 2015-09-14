@@ -30,7 +30,7 @@ public class ReadXmlRequestToObjectHandler implements Handler{
         for(Field field:bean.getFields()){
            Column column = field.getAnnotation(Column.class);
            String name = column.name();
-           String value = rootElement.getAttributeValue(name);
+           String value = rootElement.getChildText(name);
            field.set(target, value);
         }
         System.out.println("..............target:"+target);
