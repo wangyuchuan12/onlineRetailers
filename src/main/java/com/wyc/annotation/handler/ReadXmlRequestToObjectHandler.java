@@ -19,6 +19,7 @@ public class ReadXmlRequestToObjectHandler implements Handler{
             throws Exception {
         SAXBuilder saxBuilder = new SAXBuilder();
         Document document = saxBuilder.build(httpServletRequest.getInputStream());
+        System.out.println("..............document:"+document);
         Element rootElement = document.getRootElement();
         ReadXmlRequestToObjectAnnotation readXmlRequestToObjectAnnotation = (ReadXmlRequestToObjectAnnotation)annotation;
         Class<?> bean = readXmlRequestToObjectAnnotation.bean();
@@ -29,6 +30,7 @@ public class ReadXmlRequestToObjectHandler implements Handler{
            String value = rootElement.getAttributeValue(name);
            field.set(target, value);
         }
+        System.out.println("..............target:"+target);
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         myHttpServletRequest.setRequestObject(bean, target);
         return target;
