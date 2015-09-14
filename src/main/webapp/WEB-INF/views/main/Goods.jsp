@@ -18,7 +18,7 @@
 
                         <img src="${good.head_img}" />
                         <div class="good-title">
-                          ${good.instruction}
+                          ${good.name}
                         </div>
       
                 </div>
