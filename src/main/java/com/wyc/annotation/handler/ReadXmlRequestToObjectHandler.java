@@ -31,6 +31,7 @@ public class ReadXmlRequestToObjectHandler implements Handler{
            Column column = field.getAnnotation(Column.class);
            String name = column.name();
            String value = rootElement.getChildText(name);
+           System.out.println("................value:"+value);
            field.set(target, value);
         }
         System.out.println("..............target:"+target);
