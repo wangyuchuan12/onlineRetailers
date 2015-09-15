@@ -35,6 +35,8 @@ public class WxChooseWxPayHandler implements Handler{
     public Object handle(HttpServletRequest httpServletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         float cost = (Float)httpServletRequest.getAttribute("cost");
+        String goodId = httpServletRequest.getParameter("good_id");
+        String payType=httpServletRequest.getParameter("pay_type");
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
         String openid = userInfo.getOpenid();
         Request request = requestFactory.payUnifiedorder();
@@ -43,7 +45,7 @@ public class WxChooseWxPayHandler implements Handler{
         String body = "JSAPI";
         String mchId = wxContext.getMchId();
         String nonceStr = "1add1a30ac87aa2db72f57a2375d8fec";
-        String notifyUrl = "http://www.chengxihome.com/api/wx/pay_success";
+        String notifyUrl = "http://www.chengxihome.com/api/wx/pay_success?good_id="+goodId+"&pay_type="+payType;
         Calendar now = Calendar.getInstance();
         String outTradeNo = now.get(Calendar.YEAR)
                 +"-"+(now.get(Calendar.MONTH) + 1)
