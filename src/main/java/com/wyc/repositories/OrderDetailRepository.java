@@ -15,4 +15,6 @@ public interface OrderDetailRepository extends CrudRepository<OrderDetail, Strin
 
     public Iterable<OrderDetail> findByCustomerIdAndStatusIn(String id,
             Collection<Integer> statuses);
+
+    public OrderDetail findByOutTradeNo(String outTradeNo);
 }

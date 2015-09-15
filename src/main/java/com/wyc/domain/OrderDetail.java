@@ -30,6 +30,16 @@ public class OrderDetail {
     //1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未处理6退款已处理
     @Column(name = "status")
     private int status;
+    @Column(name="out_trade_no",unique=true)
+    private String outTradeNo;
+    
+    
+    public String getOutTradeNo() {
+        return outTradeNo;
+    }
+    public void setOutTradeNo(String outTradeNo) {
+        this.outTradeNo = outTradeNo;
+    }
     public String getId() {
         return id;
     }

@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.danga.MemCached.MemCachedClient;
+import com.wyc.annotation.AfterHandlerAnnotation;
 import com.wyc.annotation.BeforeHandlerAnnotation;
 import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
@@ -395,10 +396,11 @@ public class InterceptConfig {
         if(token!=null){
             myHttpServletRequest.setAttribute("token", token);
         }
+        Object returnValue = null;
         try {
             Object url = proceedingJoinPoint.proceed(args);
             logger.debug("return url is {}",url);
-            return url;
+            returnValue = url;
         } catch (Throwable e) {
             // TODO Auto-generated catch block
             logger.error("invoke action method has error");
@@ -412,5 +414,27 @@ public class InterceptConfig {
             logger.error(errorBuffer.toString());
             return null;
         }
+        
+        if(method.getAnnotation(AfterHandlerAnnotation.class)!=null){
+            AfterHandlerAnnotation afterHandlerAnnotation = method.getAnnotation(AfterHandlerAnnotation.class);
+            Class<?>[] classes = afterHandlerAnnotation.hanlerClasses();
+            for(Class<?> clazz:classes){
+                Method handleMethod = clazz.getMethod("handle", HttpServletRequest.class);
+                Handler handleTarget = (Handler) clazz.newInstance();
+                handleTarget.setAnnotation(afterHandlerAnnotation);
+                factory.autowireBean(handleTarget);
+                Class<?>[] extendHandlers = handleTarget.extendHandlers();
+                if(extendHandlers!=null){
+                    for(Class<?> handlerClass:extendHandlers){
+                        Handler extendHandlerTarget =(Handler)handlerClass.newInstance();
+                        Method extendHandleMethod = handlerClass.getMethod("handle", HttpServletRequest.class);
+                        factory.autowireBean(extendHandlerTarget);
+                        extendHandleMethod.invoke(extendHandlerTarget, myHttpServletRequest);
+                    }
+                }
+                returnValue = handleMethod.invoke(handleTarget, myHttpServletRequest);
+            }
+        }
+        return returnValue;
     }
 }

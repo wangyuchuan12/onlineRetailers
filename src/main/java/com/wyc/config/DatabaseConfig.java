@@ -76,7 +76,7 @@ public class DatabaseConfig {
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("com.wyc.domain","com.wyc.wx.domain");
+        factory.setPackagesToScan("com.wyc.domain","com.wyc.wx.domain","com.wyc.wx.response.domain");
         factory.setDataSource(dataSource);
 
         Properties properties = new Properties();

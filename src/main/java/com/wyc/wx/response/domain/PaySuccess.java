@@ -1,8 +1,19 @@
 package com.wyc.wx.response.domain;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+@Entity(name="pay_success")
 public class PaySuccess {
+    @Id
+    private String id;
+    @Column(name="order_id")
+    private String orderId;
     @Column
     private String appid;
     @Column
@@ -35,6 +46,42 @@ public class PaySuccess {
     private String tradeType;
     @Column(name="transaction_id")
     private String transactionId;
+    
+    @Column(name = "create_at")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @JsonIgnore
+    private DateTime createAt;
+    @Column(name = "update_at")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @JsonIgnore
+    private DateTime updateAt;
+    
+    
+    
+    public DateTime getCreateAt() {
+        return createAt;
+    }
+    public void setCreateAt(DateTime createAt) {
+        this.createAt = createAt;
+    }
+    public DateTime getUpdateAt() {
+        return updateAt;
+    }
+    public void setUpdateAt(DateTime updateAt) {
+        this.updateAt = updateAt;
+    }
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+    public String getOrderId() {
+        return orderId;
+    }
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
     public String getAppid() {
         return appid;
     }

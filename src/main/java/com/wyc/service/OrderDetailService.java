@@ -47,4 +47,8 @@ public class OrderDetailService {
             Collection<Integer> statuses) {
         return orderDetailRepository.findByCustomerIdAndStatusIn(id,statuses);
     }
+
+    public OrderDetail findByOutTradeNo(String outTradeNo) {
+        return orderDetailRepository.findByOutTradeNo(outTradeNo);
+    }
 }
