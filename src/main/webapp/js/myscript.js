@@ -247,6 +247,10 @@ function request(url,token,callback){
 	});
 }
 
+function skipToLastestGroupInfo(token){
+	skipToUrl("/info/lastest_group_info",token);
+}
+
 function skipToGroupInfo(id , token){
 	skipToUrl("/info/group_info2?id="+id,token);
 }
@@ -369,7 +373,7 @@ function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl){
 	    type: type, // 分享类型,music、video或link，不填默认为link
 	    dataUrl: dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
 	    success: function () { 
-	        alert("success");
+	    	skipToLastestGroupInfo();
 	    },
 	    cancel: function () { 
 	        alert("cancel");
