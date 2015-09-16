@@ -33,7 +33,7 @@ public class GoodGroupService {
         
     }
     
-    public GoodGroup selectLastestGoodGroup(){
-        return goodGroupRepository.selectLastestGoodGroup();
+    public GoodGroup selectLastestGoodGroupByGroupHead(String groupHead){
+        return goodGroupRepository.selectLastestGoodGroupByGroupHead(groupHead);
     }
 }
