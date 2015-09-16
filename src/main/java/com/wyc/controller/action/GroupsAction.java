@@ -159,8 +159,7 @@ public class GroupsAction {
     public String skipToLatestGroupInfo(HttpServletRequest httpServletRequest){
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
-        Customer customer = customerService.findByOpenId(userInfo.getOpenid());
-        GoodGroup goodGroup = goodGroupService.selectLastestGoodGroupByGroupHead(customer.getId());
+        GoodGroup goodGroup = goodGroupService.selectLastestGoodGroupByGroupHead(userInfo.getId());
         return "redirect:/info/group_info2?id="+goodGroup.getId();
     }
     
