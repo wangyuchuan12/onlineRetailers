@@ -16,7 +16,6 @@ import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;
 import com.wyc.domain.OpenGroupCoupon;
 import com.wyc.domain.OrderDetail;
-import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodGroupService;
 import com.wyc.service.GoodOrderService;
@@ -24,8 +23,6 @@ import com.wyc.service.GoodService;
 import com.wyc.service.GroupPartakeService;
 import com.wyc.service.OpenGroupCouponService;
 import com.wyc.service.OrderDetailService;
-import com.wyc.wx.domain.UserInfo;
-
 public class PayResultHandler implements Handler{
     @Autowired
     private GoodService goodService;
@@ -46,13 +43,11 @@ public class PayResultHandler implements Handler{
     @Transactional
     public Object handle(HttpServletRequest httpServletRequest)
             throws Exception {
-        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) httpServletRequest;
-        UserInfo userInfo = myHttpServletRequest.getUserInfo();
         String good_id = httpServletRequest.getAttribute("good_id").toString();
         String payType = httpServletRequest.getAttribute("pay_type").toString();
         String status = httpServletRequest.getAttribute("status").toString();
-        
-        
+        String openid = httpServletRequest.getAttribute("openId").toString();
+        String userId = httpServletRequest.getAttribute("userId").toString();
       //只有当状态为未付款或者已付款未发货才能生成订单
         if (status.equals("1") || status.equals("2")) {
             Good good = goodService.findOne(good_id);
@@ -80,22 +75,22 @@ public class PayResultHandler implements Handler{
             orderDetail.setNum(good.getGroupNum());
             orderDetail.setOrderId(goodOrder.getId());
             orderDetail.setStatus(Integer.parseInt(status));
-            orderDetail.setCustomerId(customerService.findByOpenId(userInfo.getOpenid()).getId());
+            orderDetail.setCustomerId(customerService.findByOpenId(openid).getId());
             GroupPartake groupPartake = new GroupPartake();
-            Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+            Customer customer = customerService.findByOpenId(openid);
             //只有当状态为成功购买并且购买方式为团购或者开团劵购买才能生成团记录
             if (status.equals("2")&&(payType.equals("0")||payType.equals("2"))) {
                 GoodGroup goodGroup = new GoodGroup();
                 goodGroup.setGoodId(good.getId());
                 goodGroup.setNum(good.getGroupNum());
-                goodGroup.setGroupHead(userInfo.getId());
+                goodGroup.setGroupHead(userId);
                 goodGroup.setResult(1);
                 goodGroup.setStartTime(new DateTime());
                 goodGroup.setTimeLong(24);
                 goodGroup.setTotalPrice(cost);
                 goodGroup = goodGroupService.add(goodGroup);
                 orderDetail.setGroupId(goodGroup.getId());
-                logger.debug("get customer by openid {}"+userInfo.getOpenid());
+                logger.debug("get customer by openid {}"+openid);
                 groupPartake.setGroupId(goodGroup.getId());
                 if(payType.equals("2")){
                     OpenGroupCoupon openGroupCoupon = openGroupCouponService.getFirstRecord(customer.getId(), good.getId(), new DateTime(),1);

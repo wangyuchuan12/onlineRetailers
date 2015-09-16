@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.domain.TemporaryData;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.TemporaryDataService;
+import com.wyc.service.WxUserInfoService;
 import com.wyc.util.MD5Util;
 import com.wyc.util.Request;
 import com.wyc.util.RequestFactory;
@@ -34,6 +35,8 @@ public class WxChooseWxPayHandler implements Handler{
     private WxContext wxContext;
     @Autowired
     private TemporaryDataService temporaryDataService;
+    @Autowired
+    private WxUserInfoService wxUserInfoService;
     @Override
     public Object handle(HttpServletRequest httpServletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
@@ -131,6 +134,21 @@ public class WxChooseWxPayHandler implements Handler{
         temporaryDataService.add(goodIdTemporary);
         temporaryDataService.add(payTypeTemporary);
         logger.debug("prepayId is {}",prepayId);
+       
+        
+        TemporaryData openIdTemporary = new TemporaryData();
+        openIdTemporary.setMykey(outTradeNo);
+        openIdTemporary.setName("openId");
+        openIdTemporary.setValue(userInfo.getOpenid());
+        temporaryDataService.add(openIdTemporary);
+        
+        TemporaryData userIdTemporary = new TemporaryData();
+        userIdTemporary.setMykey(outTradeNo);
+        userIdTemporary.setName("userId");
+        if(userInfo.getId()==null){
+            userInfo = wxUserInfoService.findByOpenid(openid);
+        }
+        userIdTemporary.setValue(userInfo.getId());
         return null;
     }
 

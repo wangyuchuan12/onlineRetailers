@@ -49,6 +49,13 @@ public class WxApi {
                     if(temporaryData.getName().equals("payType")){
                         httpServletRequest.setAttribute("pay_type", temporaryData.getValue());
                     }
+                    if(temporaryData.getName().equals("openId")){
+                        httpServletRequest.setAttribute("openId", temporaryData.getValue());
+                    }
+                    
+                    if(temporaryData.getName().equals("userId")){
+                        httpServletRequest.setAttribute("userId", temporaryData.getValue());
+                    }
                 }
                 httpServletRequest.setAttribute("status", 2);
             }
