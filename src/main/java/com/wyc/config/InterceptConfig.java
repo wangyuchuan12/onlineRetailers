@@ -1,7 +1,6 @@
 package com.wyc.config;
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;

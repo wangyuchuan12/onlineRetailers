@@ -373,7 +373,7 @@ function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl){
 	    type: type, // 分享类型,music、video或link，不填默认为link
 	    dataUrl: dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
 	    success: function () { 
-	    	skipToLastestGroupInfo();
+	    	
 	    },
 	    cancel: function () { 
 	        alert("cancel");
@@ -391,7 +391,7 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 		    signType:signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
 		    paySign: paySign, // 支付签名
 		    success: function (res) {
-		    	alert(JSON.stringify(res));
+		    	skipToLastestGroupInfo();
 		    },
 		    fail:function(res){
 		    	alert(JSON.stringify(res));
