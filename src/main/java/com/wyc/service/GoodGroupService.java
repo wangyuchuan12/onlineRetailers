@@ -32,4 +32,8 @@ public class GoodGroupService {
        return goodGroupRepository.findAll(groupIds);
         
     }
+    
+    public GoodGroup selectLastestGoodGroup(){
+        return goodGroupRepository.selectLastestGoodGroup();
+    }
 }

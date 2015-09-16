@@ -153,7 +153,13 @@ public class GroupsAction {
         }
 
     }
-
+    
+    @RequestMapping("/info/lastest_group_info")
+    public String skipToLatestGroupInfo(){
+        GoodGroup goodGroup = goodGroupService.selectLastestGoodGroup();
+        return "redirect:info/group_info2?id="+goodGroup.getId();
+    }
+    
     @RequestMapping("/info/group_info2")
     @UserInfoFromWebAnnotation
     public String groupInfo(HttpServletRequest httpServletRequest)
