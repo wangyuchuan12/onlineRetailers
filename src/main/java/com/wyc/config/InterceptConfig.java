@@ -1,10 +1,13 @@
 package com.wyc.config;
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.aspectj.lang.JoinPoint;
@@ -19,11 +22,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.danga.MemCached.MemCachedClient;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wyc.annotation.AfterHandlerAnnotation;
 import com.wyc.annotation.BeforeHandlerAnnotation;
 import com.wyc.annotation.JsApiTicketAnnotation;
+import com.wyc.annotation.ResponseJson;
+import com.wyc.annotation.ReturnUrl;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.annotation.WxChooseWxPay;
 import com.wyc.annotation.WxConfigAnnotation;
@@ -39,7 +47,6 @@ import com.wyc.smart.service.AuthorizeSmartService;
 import com.wyc.smart.service.UserSmartService;
 import com.wyc.smart.service.WxJsApiTicketSmartService;
 import com.wyc.util.RequestFactory;
-import com.wyc.util.TypeUtil;
 import com.wyc.wx.domain.JsapiTicketBean;
 import com.wyc.wx.domain.Token;
 import com.wyc.wx.domain.UserInfo;
@@ -399,15 +406,36 @@ public class InterceptConfig {
             myHttpServletRequest.setAttribute("token", token);
         }
         Object returnValue = null;
+        
         try {
             Object url = proceedingJoinPoint.proceed(args);
             logger.debug("return url is {}",url);
+            
             if(url!=null&&url.getClass().equals(StopToAfter.class)){
+                if(method.getAnnotation(ResponseJson.class)!=null){
+                    ResponseJson responseJson = method.getAnnotation(ResponseJson.class);
+                    Map<String, String> responseMap = new HashMap<String, String>();
+                    for(String name:responseJson.names()){
+                        responseMap.put(name, httpServletRequest.getAttribute(name).toString());
+                    }
+                    HttpServletResponse httpServletResponse = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    String json = objectMapper.writeValueAsString(responseMap);
+                    httpServletResponse.getWriter().write(json);
+                    return null;
+                }
+                
+                
+                
+                
+                if(method.getAnnotation(ReturnUrl.class)!=null){
+                    ReturnUrl returnUrl = method.getAnnotation(ReturnUrl.class);
+                    return returnUrl.url();
+                }
                 return null;
             }
             returnValue = url;
         } catch (Throwable e) {
-            // TODO Auto-generated catch block
             logger.error("invoke action method has error");
             StackTraceElement[] stackTraceElements = e.getStackTrace();
             StringBuffer errorBuffer = new StringBuffer();
@@ -438,6 +466,25 @@ public class InterceptConfig {
                 }
                 returnValue = handleMethod.invoke(handleTarget, myHttpServletRequest);
             }
+        }
+        
+        
+        if(method.getAnnotation(ResponseJson.class)!=null){
+            ResponseJson responseJson = method.getAnnotation(ResponseJson.class);
+            Map<String, String> responseMap = new HashMap<String, String>();
+            for(String name:responseJson.names()){
+                responseMap.put(name, httpServletRequest.getAttribute(name).toString());
+            }
+            HttpServletResponse httpServletResponse = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+            ObjectMapper objectMapper = new ObjectMapper();
+            String json = objectMapper.writeValueAsString(responseMap);
+            httpServletResponse.getWriter().write(json);
+            return null;
+        }
+        
+        if(method.getAnnotation(ReturnUrl.class)!=null){
+            ReturnUrl returnUrl = method.getAnnotation(ReturnUrl.class);
+            return returnUrl.url();
         }
         return returnValue;
     }

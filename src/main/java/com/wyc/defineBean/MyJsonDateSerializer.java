@@ -14,7 +14,7 @@ public class MyJsonDateSerializer extends JsonSerializer<Object>{
     public void serialize(Object value, JsonGenerator jgen,
             SerializerProvider provider) throws IOException,
             JsonProcessingException {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssz");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = formatter.format(value);
         jgen.writeString(formattedDate);
         

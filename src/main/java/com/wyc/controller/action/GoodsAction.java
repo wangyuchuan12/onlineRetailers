@@ -14,11 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wyc.annotation.AccessTokenAnnotation;
+import com.wyc.annotation.AfterHandlerAnnotation;
 import com.wyc.annotation.BeforeHandlerAnnotation;
 import com.wyc.annotation.JsApiTicketAnnotation;
+import com.wyc.annotation.ReturnUrl;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.annotation.WxChooseWxPay;
 import com.wyc.annotation.WxConfigAnnotation;
+import com.wyc.annotation.handler.PayResultHandler;
 import com.wyc.annotation.handler.WxChooseWxPayHandler;
 import com.wyc.domain.City;
 import com.wyc.domain.Customer;
@@ -195,5 +198,25 @@ public class GoodsAction {
             responseGood.put("cost", httpRequest.getAttribute("cost"));
             httpRequest.setAttribute("payGoodInfo", responseGood);
 	    return "info/GoodInfoPay";
+	}
+	
+	@UserInfoFromWebAnnotation
+	@RequestMapping("/info/pay_failure")
+	@AfterHandlerAnnotation(hanlerClasses=PayResultHandler.class)
+	@ReturnUrl(url="/info/order_info?id=%orderId%")
+	public void payFailure(HttpServletRequest httpServletRequest){
+	    MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
+	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
+	    String goodId = myHttpServletRequest.getParameter("good_id");
+	    String payType = myHttpServletRequest.getParameter("pay_type");
+	    String orderId = myHttpServletRequest.getParameter("order_id");
+	    String userId = userInfo.getId();
+	    String openId = userInfo.getOpenid();
+	    httpServletRequest.setAttribute("good_id",goodId);
+            httpServletRequest.setAttribute("pay_type",payType);
+            httpServletRequest.setAttribute("openId",openId);
+            httpServletRequest.setAttribute("userId",userId);
+            httpServletRequest.setAttribute("status", 1);
+            httpServletRequest.setAttribute("orderId", orderId);
 	}
 }

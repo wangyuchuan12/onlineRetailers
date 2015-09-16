@@ -70,6 +70,7 @@ public class PayResultHandler implements Handler{
             goodOrder.setFlowPrice(good.getFlowPrice());
             goodOrder.setStatus(Integer.parseInt(status));
             goodOrder = goodOrderService.add(goodOrder);
+            httpServletRequest.setAttribute("orderId", goodOrder.getId());
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setGoodId(good.getId());
             orderDetail.setNum(good.getGroupNum());
@@ -89,6 +90,7 @@ public class PayResultHandler implements Handler{
                 goodGroup.setTimeLong(24);
                 goodGroup.setTotalPrice(cost);
                 goodGroup = goodGroupService.add(goodGroup);
+                httpServletRequest.setAttribute("groupId", goodGroup.getId());
                 orderDetail.setGroupId(goodGroup.getId());
                 logger.debug("get customer by openid {}"+openid);
                 groupPartake.setGroupId(goodGroup.getId());
