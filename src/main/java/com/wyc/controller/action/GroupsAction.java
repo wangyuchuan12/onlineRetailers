@@ -154,6 +154,7 @@ public class GroupsAction {
 
     }
     
+    @UserInfoFromWebAnnotation
     @RequestMapping("/info/lastest_group_info")
     public String skipToLatestGroupInfo(HttpServletRequest httpServletRequest){
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
