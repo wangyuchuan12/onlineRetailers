@@ -155,7 +155,7 @@ public class GroupsAction {
     }
     
     @RequestMapping("/info/lastest_group_info")
-    public String skipToLatestGroupInfo(){
+    public String skipToLatestGroupInfo(HttpServletRequest httpServletRequest){
         GoodGroup goodGroup = goodGroupService.selectLastestGoodGroup();
         return "redirect:info/group_info2?id="+goodGroup.getId();
     }
