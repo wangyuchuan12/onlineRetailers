@@ -160,7 +160,7 @@ public class GroupsAction {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
         GoodGroup goodGroup = goodGroupService.selectLastestGoodGroupByGroupHead(userInfo.getId());
-        return "redirect:/info/group_info2?id="+goodGroup.getId();
+        return "redirect:/info/group_info2?id="+goodGroup.getId()+"&token="+myHttpServletRequest.getToken().getId();
     }
     
     @RequestMapping("/info/group_info2")
