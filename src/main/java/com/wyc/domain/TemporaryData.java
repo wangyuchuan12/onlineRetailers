@@ -13,7 +13,7 @@ public class TemporaryData {
     @Id
     private String id;
     @Column
-    private String key;
+    private String mykey;
     @Column
     private String name;
     @Column
@@ -42,10 +42,10 @@ public class TemporaryData {
         this.id = id;
     }
     public String getKey() {
-        return key;
+        return mykey;
     }
     public void setKey(String key) {
-        this.key = key;
+        this.mykey = key;
     }
     public String getValue() {
         return value;
