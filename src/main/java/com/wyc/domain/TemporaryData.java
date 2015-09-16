@@ -41,11 +41,12 @@ public class TemporaryData {
     public void setId(String id) {
         this.id = id;
     }
-    public String getKey() {
+   
+    public String getMykey() {
         return mykey;
     }
-    public void setKey(String key) {
-        this.mykey = key;
+    public void setMykey(String mykey) {
+        this.mykey = mykey;
     }
     public String getValue() {
         return value;

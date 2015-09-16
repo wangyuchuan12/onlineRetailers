@@ -118,13 +118,13 @@ public class WxChooseWxPayHandler implements Handler{
         
         
         TemporaryData goodIdTemporary = new TemporaryData();
-        goodIdTemporary.setKey(outTradeNo);
+        goodIdTemporary.setMykey(outTradeNo);
         goodIdTemporary.setName("goodId");
         goodIdTemporary.setValue(goodId);
         
         
         TemporaryData payTypeTemporary = new TemporaryData();
-        payTypeTemporary.setKey(outTradeNo);
+        payTypeTemporary.setMykey(outTradeNo);
         payTypeTemporary.setName("payType");
         payTypeTemporary.setValue(payType);
         

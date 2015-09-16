@@ -26,7 +26,7 @@ public class TemporaryDataService {
         return temporaryDataRespository.save(temporaryData);
     }
     
-    public Iterable<TemporaryData> findAllByKey(String key){
-        return temporaryDataRespository.findAllByKey(key);
+    public Iterable<TemporaryData> findAllByMykey(String key){
+        return temporaryDataRespository.findAllByMykey(key);
     }
 }

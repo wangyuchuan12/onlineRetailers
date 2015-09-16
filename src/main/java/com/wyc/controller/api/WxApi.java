@@ -41,7 +41,7 @@ public class WxApi {
         }else{
             paySuccess = wxPaySuccessService.add(paySuccess);
             if(paySuccess.getResultCode().toLowerCase().equals("success")){
-                Iterable<TemporaryData> temporaryDatas = temporaryDataService.findAllByKey(outTradeNo);
+                Iterable<TemporaryData> temporaryDatas = temporaryDataService.findAllByMykey(outTradeNo);
                 for(TemporaryData temporaryData:temporaryDatas){
                     if(temporaryData.getName().equals("goodId")){
                         httpServletRequest.setAttribute("good_id", temporaryData.getValue());
