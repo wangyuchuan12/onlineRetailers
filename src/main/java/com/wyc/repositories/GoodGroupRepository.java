@@ -10,6 +10,6 @@ public interface GoodGroupRepository extends CrudRepository<GoodGroup, String>{
     @Query("select g from com.wyc.domain.GoodGroup g where g.createAt = (select max(createAt) from com.wyc.domain.GoodGroup)")
     public GoodGroup selectLastestGoodGroup();
     
-    @Query("select g from com.wyc.domain.GoodGroup g where g.createAt = (select max(g2.createAt) from com.wyc.domain.GoodGroup g2 where g2.groupHead:groupHead)")
+    @Query("select g from com.wyc.domain.GoodGroup g where g.createAt = (select max(g2.createAt) from com.wyc.domain.GoodGroup g2 where g2.groupHead=:groupHead)")
     public GoodGroup selectLastestGoodGroupByGroupHead(@Param("groupHead") String groupHead);
 }
