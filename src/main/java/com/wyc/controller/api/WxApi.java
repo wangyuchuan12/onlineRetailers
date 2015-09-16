@@ -11,6 +11,7 @@ import com.wyc.annotation.BeforeHandlerAnnotation;
 import com.wyc.annotation.ResultBean;
 import com.wyc.annotation.handler.PayResultHandler;
 import com.wyc.annotation.handler.ReadXmlRequestToObjectHandler;
+import com.wyc.defineBean.StopToAfter;
 import com.wyc.domain.TemporaryData;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.OrderDetailService;
@@ -32,12 +33,12 @@ public class WxApi {
     @ResultBean(bean=PaySuccess.class)
     @AfterHandlerAnnotation(hanlerClasses=PayResultHandler.class)
     @RequestMapping(value = "/api/wx/pay_success")
-    public boolean paySuccess(HttpServletRequest httpServletRequest)throws Exception{
+    public Object paySuccess(HttpServletRequest httpServletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         PaySuccess paySuccess = (PaySuccess) myHttpServletRequest.getRequestObject(PaySuccess.class);
         String outTradeNo = paySuccess.getOutTradeNo();
         if(wxPaySuccessService.findByOutTradeNo(outTradeNo)!=null){
-            return false;
+            return new StopToAfter();
         }else{
             paySuccess = wxPaySuccessService.add(paySuccess);
             if(paySuccess.getResultCode().toLowerCase().equals("success")){
@@ -58,9 +59,9 @@ public class WxApi {
                     }
                 }
                 httpServletRequest.setAttribute("status", 2);
-                return true;
+                return null;
             }
-            return false;
+            return new StopToAfter();
             
         }
     }

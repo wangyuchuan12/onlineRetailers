@@ -28,6 +28,7 @@ import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.annotation.WxChooseWxPay;
 import com.wyc.annotation.WxConfigAnnotation;
 import com.wyc.annotation.handler.Handler;
+import com.wyc.defineBean.StopToAfter;
 import com.wyc.domain.Customer;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CustomerService;
@@ -401,11 +402,8 @@ public class InterceptConfig {
         try {
             Object url = proceedingJoinPoint.proceed(args);
             logger.debug("return url is {}",url);
-            if(url!=null&&TypeUtil.isBoolean(url.getClass())){
-                boolean b = (boolean)url;
-                if(!b){
-                    return null;
-                }
+            if(url!=null&&url.getClass().equals(StopToAfter.class)){
+                return null;
             }
             returnValue = url;
         } catch (Throwable e) {
