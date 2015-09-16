@@ -38,6 +38,7 @@ import com.wyc.smart.service.AuthorizeSmartService;
 import com.wyc.smart.service.UserSmartService;
 import com.wyc.smart.service.WxJsApiTicketSmartService;
 import com.wyc.util.RequestFactory;
+import com.wyc.util.TypeUtil;
 import com.wyc.wx.domain.JsapiTicketBean;
 import com.wyc.wx.domain.Token;
 import com.wyc.wx.domain.UserInfo;
@@ -400,6 +401,12 @@ public class InterceptConfig {
         try {
             Object url = proceedingJoinPoint.proceed(args);
             logger.debug("return url is {}",url);
+            if(url!=null&&TypeUtil.isBoolean(url.getClass())){
+                boolean b = (boolean)url;
+                if(!b){
+                    return null;
+                }
+            }
             returnValue = url;
         } catch (Throwable e) {
             // TODO Auto-generated catch block
@@ -414,7 +421,6 @@ public class InterceptConfig {
             logger.error(errorBuffer.toString());
             return null;
         }
-        
         if(method.getAnnotation(AfterHandlerAnnotation.class)!=null){
             AfterHandlerAnnotation afterHandlerAnnotation = method.getAnnotation(AfterHandlerAnnotation.class);
             Class<?>[] classes = afterHandlerAnnotation.hanlerClasses();

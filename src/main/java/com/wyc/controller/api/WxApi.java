@@ -32,12 +32,12 @@ public class WxApi {
     @ResultBean(bean=PaySuccess.class)
     @AfterHandlerAnnotation(hanlerClasses=PayResultHandler.class)
     @RequestMapping(value = "/api/wx/pay_success")
-    public void paySuccess(HttpServletRequest httpServletRequest)throws Exception{
+    public boolean paySuccess(HttpServletRequest httpServletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         PaySuccess paySuccess = (PaySuccess) myHttpServletRequest.getRequestObject(PaySuccess.class);
         String outTradeNo = paySuccess.getOutTradeNo();
         if(wxPaySuccessService.findByOutTradeNo(outTradeNo)!=null){
-            
+            return false;
         }else{
             paySuccess = wxPaySuccessService.add(paySuccess);
             if(paySuccess.getResultCode().toLowerCase().equals("success")){
@@ -58,7 +58,9 @@ public class WxApi {
                     }
                 }
                 httpServletRequest.setAttribute("status", 2);
+                return true;
             }
+            return false;
             
         }
     }
