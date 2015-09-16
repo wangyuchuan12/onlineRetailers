@@ -11,8 +11,10 @@ import com.wyc.annotation.BeforeHandlerAnnotation;
 import com.wyc.annotation.ResultBean;
 import com.wyc.annotation.handler.PayResultHandler;
 import com.wyc.annotation.handler.ReadXmlRequestToObjectHandler;
+import com.wyc.domain.TemporaryData;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.OrderDetailService;
+import com.wyc.service.TemporaryDataService;
 import com.wyc.service.WxPaySuccessService;
 import com.wyc.wx.response.domain.PaySuccess;
 
@@ -24,6 +26,8 @@ public class WxApi {
     private GoodsApi goodsApi;
     @Autowired
     private OrderDetailService orderDetailService;
+    @Autowired
+    private TemporaryDataService temporaryDataService;
     @BeforeHandlerAnnotation(hanlerClasses=ReadXmlRequestToObjectHandler.class)
     @ResultBean(bean=PaySuccess.class)
     @AfterHandlerAnnotation(hanlerClasses=PayResultHandler.class)
@@ -37,10 +41,15 @@ public class WxApi {
         }else{
             paySuccess = wxPaySuccessService.add(paySuccess);
             if(paySuccess.getResultCode().toLowerCase().equals("success")){
-                String goodId = httpServletRequest.getParameter("good_id");
-                String payType = httpServletRequest.getParameter("pay_type");
-                httpServletRequest.setAttribute("good_id", goodId);
-                httpServletRequest.setAttribute("pay_type", payType);
+                Iterable<TemporaryData> temporaryDatas = temporaryDataService.findAllByKey(outTradeNo);
+                for(TemporaryData temporaryData:temporaryDatas){
+                    if(temporaryData.getName().equals("goodId")){
+                        httpServletRequest.setAttribute("good_id", temporaryData.getValue());
+                    }
+                    if(temporaryData.getName().equals("payType")){
+                        httpServletRequest.setAttribute("pay_type", temporaryData.getValue());
+                    }
+                }
                 httpServletRequest.setAttribute("status", 2);
             }
             

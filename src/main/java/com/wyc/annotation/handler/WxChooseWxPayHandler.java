@@ -16,8 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.wyc.config.InterceptConfig;
+import com.wyc.domain.TemporaryData;
 import com.wyc.intercept.domain.MyHttpServletRequest;
+import com.wyc.service.TemporaryDataService;
 import com.wyc.util.MD5Util;
 import com.wyc.util.Request;
 import com.wyc.util.RequestFactory;
@@ -31,12 +32,16 @@ public class WxChooseWxPayHandler implements Handler{
     private RequestFactory requestFactory;
     @Autowired
     private WxContext wxContext;
+    @Autowired
+    private TemporaryDataService temporaryDataService;
     @Override
     public Object handle(HttpServletRequest httpServletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         float cost = (Float)httpServletRequest.getAttribute("cost");
         String goodId = httpServletRequest.getParameter("good_id");
         String payType=httpServletRequest.getParameter("pay_type");
+        
+      
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
         String openid = userInfo.getOpenid();
         Request request = requestFactory.payUnifiedorder();
@@ -110,6 +115,21 @@ public class WxChooseWxPayHandler implements Handler{
         httpServletRequest.setAttribute("signType", "MD5");
         httpServletRequest.setAttribute("timestamp", datetime);
         httpServletRequest.setAttribute("outTradeNo",outTradeNo);
+        
+        
+        TemporaryData goodIdTemporary = new TemporaryData();
+        goodIdTemporary.setKey(outTradeNo);
+        goodIdTemporary.setName("goodId");
+        goodIdTemporary.setValue(goodId);
+        
+        
+        TemporaryData payTypeTemporary = new TemporaryData();
+        payTypeTemporary.setKey(outTradeNo);
+        payTypeTemporary.setName("payType");
+        payTypeTemporary.setValue(payType);
+        
+        temporaryDataService.add(goodIdTemporary);
+        temporaryDataService.add(payTypeTemporary);
         logger.debug("prepayId is {}",prepayId);
         return null;
     }
