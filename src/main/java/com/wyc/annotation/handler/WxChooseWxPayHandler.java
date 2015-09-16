@@ -149,6 +149,8 @@ public class WxChooseWxPayHandler implements Handler{
             userInfo = wxUserInfoService.findByOpenid(openid);
         }
         userIdTemporary.setValue(userInfo.getId());
+        
+        temporaryDataService.add(userIdTemporary);
         return null;
     }
 
