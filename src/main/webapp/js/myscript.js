@@ -239,14 +239,12 @@ function request(url,token,callback){
 		url:url,
 		method:"POST",
 		success:function(resp){
-			alert(resp);
-			var content = resp.responseText;
 			if(callback){
-				callback.success(content);
+				callback.success(resp);
 			}
 		},
 		failure:function(){
-			callback.failure(content);
+			callback.failure(resp);
 		}
 	});
 }
@@ -399,9 +397,6 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 		    },
 		    
 		    cancel:function(res){
-		    	alert("cancel");
-		    	alert("paytype:"+payType);
-		    	alert("goodId:"+goodId);
 		    	var callback = new Object();
 		    	callback.success = function(resp){
 		    		alert("成功："+resp);
@@ -413,7 +408,6 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 		    },
 		    
 		    fail:function(res){
-		    	alert(res);
 		    	var callback = new Object();
 		    	callback.success = function(resp){
 		    		
