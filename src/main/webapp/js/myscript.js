@@ -243,6 +243,9 @@ function request(url,token,callback){
 			if(callback){
 				callback.call(content);
 			}
+		},
+		failure:function(){
+			callback.call(content);
 		}
 	});
 }
@@ -394,12 +397,11 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 		    	skipToLastestGroupInfo();
 		    },
 		    fail:function(res){
-		    	Ext.Ajax.request({
-		    		url:"/api/pay_failure?good_id="+goodId+"&pay_type="+payType,
-		    		success:function(resp){
-		    			alert(resp);
-		    		}
-		    	});
+		    	var callback = new Object();
+		    	callback.call = function(resp){
+		    		alert();
+		    	}
+		    	request("/api/pay_failure?good_id="+goodId+"&pay_type="+payType,token,callback);
 		    }
 		});
 		
