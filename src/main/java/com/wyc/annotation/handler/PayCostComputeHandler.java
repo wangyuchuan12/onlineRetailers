@@ -30,6 +30,8 @@ public class PayCostComputeHandler implements Handler{
         }else if (payType.equals("2")) {
             cost = good.getFlowPrice();
         }
+        
+        logger.debug("the cost is:{}",cost);
         httpServletRequest.setAttribute("cost", cost);
         return cost;
     }

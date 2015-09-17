@@ -64,7 +64,7 @@ public class WxChooseWxPayHandler implements Handler{
                 +"-"+new Random().nextInt(1000)+"";
         String spbillCreateIp = httpServletRequest.getRemoteAddr();
         String datetime = String.valueOf(System.currentTimeMillis() / 1000);
-        Long totalFee = (long)cost*100;
+        Long totalFee = (long)(cost*100);
         String tradeType = "JSAPI";
         TreeMap<String, String> map = new TreeMap<String, String>();
         map.put("openid", openid);
