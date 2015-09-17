@@ -394,7 +394,12 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 		    	skipToLastestGroupInfo();
 		    },
 		    fail:function(res){
-		    	alert(JSON.stringify(res));
+		    	Ext.Ajax.request({
+		    		url:"/api/pay_failure?good_id="+goodId+"&pay_type="+payType,
+		    		success:function(resp){
+		    			alert(resp);
+		    		}
+		    	});
 		    }
 		});
 		

@@ -44,7 +44,7 @@ public class MD5Util {
         }else{
            params = sb.deleteCharAt(sb.lastIndexOf("&")).toString();
         }
-        System.out.println("sha1 sb:" + params);
+        System.out.println("MD5 sb:" + params);
         return MD5Encode(params, "utf-8");
     }
 
