@@ -242,11 +242,11 @@ function request(url,token,callback){
 		success:function(resp){
 			var content = resp.responseText;
 			if(callback){
-				callback.call(content);
+				callback.success(content);
 			}
 		},
 		failure:function(){
-			callback.call(content);
+			callback.failure(content);
 		}
 	});
 }
@@ -403,8 +403,11 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 		    	alert("paytype:"+payType);
 		    	alert("goodId:"+goodId);
 		    	var callback = new Object();
-		    	callback.call = function(resp){
-		    		alert(resp);
+		    	callback.success = function(resp){
+		    		alert("成功："+resp);
+		    	};
+		    	callback.failure = function(resp){
+		    		alert("失败："+resp);
 		    	};
 		    	request("/api/pay_failure?good_id="+goodId+"&pay_type="+payType,token,callback);
 		    },
@@ -412,8 +415,11 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 		    fail:function(res){
 		    	alert(res);
 		    	var callback = new Object();
-		    	callback.call = function(resp){
-		    		alert();
+		    	callback.success = function(resp){
+		    		
+		    	};
+		    	callback.failure = function(resp){
+		    		
 		    	};
 		    	request("/api/pay_failure?good_id="+goodId+"&pay_type="+payType,token,callback);
 		    }
