@@ -41,14 +41,21 @@
 	        						</div>
 	        						<div class="order_good_p3">
 	        						<!--1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未处理6退款已处理 -->
-	        							
-	        							<div class="order_good_logistics_status">
-	        								<c:if test="${order.status==1}">未付款</c:if>
-	        								<c:if test="${order.status==2}">已付款，未发货</c:if>
-	        								<c:if test="${order.status==3}">已发货，未签收</c:if>
-	        								<c:if test="${order.status==4}">已签收</c:if>
-	        								<c:if test="${order.status==5}">退款中</c:if>
-	        								<c:if test="${order.status==6}">退款完成</c:if>
+	        							<div class="order_status_all">
+		        							<div class="order_good_logistics_status">
+		        								<c:if test="${order.status==1}">未付款</c:if>
+		        								<c:if test="${order.status==2}">已付款，未发货</c:if>
+		        								<c:if test="${order.status==3}">已发货，未签收</c:if>
+		        								<c:if test="${order.status==4}">已签收</c:if>
+		        								<c:if test="${order.status==5}">退款中</c:if>
+		        								<c:if test="${order.status==6}">退款完成</c:if>
+		        							</div>
+		        							<c:if test="${order.status==1}">
+			        							<div class="order_item_handle">
+			        								<a href="#">去支付</a>
+			        								<a href="#">取消订单</a>
+			        							</div>
+		        							</c:if>
 	        							</div>
 	        						</div>
 	        					</div>
