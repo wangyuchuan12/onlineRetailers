@@ -404,7 +404,7 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 		    	alert("goodId:"+goodId);
 		    	var callback = new Object();
 		    	callback.call = function(resp){
-		    		alert();
+		    		alert(resp);
 		    	};
 		    	request("/api/pay_failure?good_id="+goodId+"&pay_type="+payType,token,callback);
 		    },

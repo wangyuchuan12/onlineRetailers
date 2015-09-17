@@ -469,6 +469,7 @@ public class InterceptConfig {
         
         
         if(method.getAnnotation(ResponseJson.class)!=null){
+            logger.debug("has ResponseJson annotation");
             ResponseJson responseJson = method.getAnnotation(ResponseJson.class);
             Map<String, String> responseMap = new HashMap<String, String>();
             for(String name:responseJson.names()){
@@ -478,6 +479,7 @@ public class InterceptConfig {
             ObjectMapper objectMapper = new ObjectMapper();
             String json = objectMapper.writeValueAsString(responseMap);
             httpServletResponse.getWriter().write(json);
+            logger.debug("response json:{}",json);
             return null;
         }
         
@@ -485,6 +487,7 @@ public class InterceptConfig {
             ReturnUrl returnUrl = method.getAnnotation(ReturnUrl.class);
             return returnUrl.url();
         }
+        logger.debug("return value:{}",returnValue);
         return returnValue;
     }
 }
