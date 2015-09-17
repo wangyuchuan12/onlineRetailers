@@ -219,7 +219,6 @@ function skipToUrl(url,token,params){
 }
 
 function request(url,token,callback){
-	alert(url);
 	if(!token&&window.sessionStorage.getItem("userToken")){
 		token = window.sessionStorage.getItem("userToken");
 	}
@@ -240,6 +239,7 @@ function request(url,token,callback){
 		url:url,
 		method:"POST",
 		success:function(resp){
+			alert(resp);
 			var content = resp.responseText;
 			if(callback){
 				callback.success(content);
