@@ -384,7 +384,7 @@ function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl){
 }
 
 function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,payType,status,token){
-	$("#good_info_pay_button_href").html("正在支付").css("background-color:yellow");
+	$("#good_info_pay_button_href").text("正在支付").css("background-color:yellow");
 	wx.ready(function(){
 		wx.chooseWXPay({
 			timestamp:timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符

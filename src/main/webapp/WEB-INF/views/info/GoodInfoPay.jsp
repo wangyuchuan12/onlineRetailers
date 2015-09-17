@@ -78,8 +78,8 @@
         			</ul>
         		</div>
         	</div>
-	        	<div class="good_info_pay_button">
-	        		<a id=“good_info_pay_button_href” href="javascript:onChooseWXPay('${appId}','${package}','${nonceStr}','${paySign}','${signType}','${timestamp}','${payGoodInfo.good_id}','${payGoodInfo.pay_type}','${payGoodInfo.pay_type}','${token.id}');">立即支付</a>
+	        	<div class="good_info_pay_button" onclick="onChooseWXPay('${appId}','${package}','${nonceStr}','${paySign}','${signType}','${timestamp}','${payGoodInfo.good_id}','${payGoodInfo.pay_type}','${payGoodInfo.pay_type}','${token.id}');">
+	        		<a id=“good_info_pay_button_href”>立即支付</a>
 	        	</div>
 	        	 <div class="trade_flow">
             	<div class="trade_flow_details" onclick="window.location.href='/info/trade_flow_info'">查看详情&gt;</div>
