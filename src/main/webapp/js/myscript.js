@@ -219,6 +219,7 @@ function skipToUrl(url,token,params){
 }
 
 function request(url,token,callback){
+	alert(url);
 	if(!token&&window.sessionStorage.getItem("userToken")){
 		token = window.sessionStorage.getItem("userToken");
 	}
@@ -397,10 +398,11 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 		    	skipToLastestGroupInfo();
 		    },
 		    fail:function(res){
+		    	alert(res);
 		    	var callback = new Object();
 		    	callback.call = function(resp){
 		    		alert();
-		    	}
+		    	};
 		    	request("/api/pay_failure?good_id="+goodId+"&pay_type="+payType,token,callback);
 		    }
 		});
