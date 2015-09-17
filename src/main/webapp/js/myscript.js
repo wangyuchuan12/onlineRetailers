@@ -399,7 +399,8 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 		    cancel:function(res){
 		    	var callback = new Object();
 		    	callback.success = function(resp){
-		    		alert("成功："+resp);
+		    		var obj = eval("("+resp+")");
+		    		skipToOrderInfo(obj.orderId);
 		    	};
 		    	callback.failure = function(resp){
 		    		alert("失败："+resp);
