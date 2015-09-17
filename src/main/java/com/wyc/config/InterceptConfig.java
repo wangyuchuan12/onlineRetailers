@@ -466,11 +466,10 @@ public class InterceptConfig {
                 returnValue = handleMethod.invoke(handleTarget, myHttpServletRequest);
             }
         }
-        
-        
-        if(method.getAnnotation(ResponseJson.class)!=null){
+        ResponseJson responseJson = method.getAnnotation(ResponseJson.class);
+        logger.debug("responseJson is {}",responseJson);
+        if(responseJson!=null){
             logger.debug("has ResponseJson annotation");
-            ResponseJson responseJson = method.getAnnotation(ResponseJson.class);
             Map<String, String> responseMap = new HashMap<String, String>();
             for(String name:responseJson.names()){
                 responseMap.put(name, httpServletRequest.getAttribute(name).toString());
