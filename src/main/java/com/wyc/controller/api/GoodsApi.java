@@ -23,7 +23,7 @@ public class GoodsApi {
      //   String status = httpServletRequest.getParameter("status");
         
         httpServletRequest.setAttribute("good_id", goodId);
-        httpServletRequest.setAttribute("payt_type", payType);
+        httpServletRequest.setAttribute("pay_type", payType);
         httpServletRequest.setAttribute("status", 1);
         return null;
 
