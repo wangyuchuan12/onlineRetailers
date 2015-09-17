@@ -400,6 +400,8 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 		    
 		    cancel:function(res){
 		    	alert("cancel");
+		    	alert("paytype:"+payType);
+		    	alert("goodId:"+goodId);
 		    	var callback = new Object();
 		    	callback.call = function(resp){
 		    		alert();
