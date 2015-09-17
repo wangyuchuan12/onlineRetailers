@@ -397,6 +397,16 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 		    success: function (res) {
 		    	skipToLastestGroupInfo();
 		    },
+		    
+		    cancel:function(res){
+		    	alert("cancel");
+		    	var callback = new Object();
+		    	callback.call = function(resp){
+		    		alert();
+		    	};
+		    	request("/api/pay_failure?good_id="+goodId+"&pay_type="+payType,token,callback);
+		    },
+		    
 		    fail:function(res){
 		    	alert(res);
 		    	var callback = new Object();
