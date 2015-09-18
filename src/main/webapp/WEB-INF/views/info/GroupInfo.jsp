@@ -161,7 +161,9 @@
      	<script type="text/javascript">
      		$(document).ready(function(){
     				setUserToken("${token.id}");
-    				wxOnMenuShareAppMessage("团详情","团详情页面","/info/group_info?id=${groupInfo.id}","${groupInfo.headImg}","link",null);
+    				wx.ready(function(){
+        				wxOnMenuShareAppMessage("团详情","团详情页面","/info/group_info?id=${groupInfo.id}","${groupInfo.headImg}","link",null);
+        			});
      		});
     			
    		 </script>
