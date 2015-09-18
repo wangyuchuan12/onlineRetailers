@@ -12,10 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
+import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;
 import com.wyc.domain.MyResource;
@@ -110,7 +112,7 @@ public class OrderAction {
         OrderDetail orderDetail = orderDetailService.findByOrderId(goodOrder.getId());
         String customerId = orderDetail.getCustomerId();
         Customer customer = customerService.findOne(customerId);
-        Map<String, Object> orderResponse = new HashMap<String, Object>();
+        Map<String, Object> orderResponse = getResponseOrder(goodOrder);
         if(userInfo.getOpenid().equals(customer.getOpenId())){
             orderResponse.put("cost", goodOrder.getCost());
             orderResponse.put("type", goodOrder.getType());

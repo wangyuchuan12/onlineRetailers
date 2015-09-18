@@ -18,6 +18,8 @@ public class GoodOrder {
     private float cost;
     @Column
     private String goodId;
+    @Column
+    private String address;
     //商品价格
     @Column(name = "good_price")
     private float goodPrice;
@@ -32,7 +34,7 @@ public class GoodOrder {
     @Column(name = "refund_sign_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime refundSignTime;
-    //1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未处理6退款已处理
+    //1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未处理6退款已处理 7已取消
     @Column(name = "status")
     private int status;
   //付款方式 0表示组团购买，1表示单买，2表示开团劵购买
@@ -46,6 +48,17 @@ public class GoodOrder {
     @Column(name = "delivery_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime deliveryTime;
+    
+    
+    
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public int getType() {
         return type;
     }

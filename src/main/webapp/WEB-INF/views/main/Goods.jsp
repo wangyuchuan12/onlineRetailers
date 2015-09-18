@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
 <tiles:insertDefinition name="adminLayout">
@@ -11,7 +12,7 @@
             <div class="good activityStyle" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
             
            	 <div class="good_list_groupinfo">
-                	<div class="good_list_groupinfo_discount">${good.group_discount*10}折</div>
+                	<div class="good_list_groupinfo_discount"><fmt:formatNumber type="number" value="${good.group_discount*10}" maxFractionDigits="2"/>折</div>
                 	<div class="good_list_groupinfo_groupnum">${good.group_num}人团</div>
                 </div>
                 <div class="good-img">
@@ -26,7 +27,7 @@
                     <div class="tuan_g_price">
                     	${good.group_num}人团
                         <b>
-                         	￥${good.group_original_cost*good.group_discount}
+                        		￥<fmt:formatNumber type="number" value="${good.group_original_cost*good.group_discount}" maxFractionDigits="3"/>
                         </b>
                     </div>
                     <div class="tuan_g_btn">

@@ -78,7 +78,7 @@
         			</ul>
         		</div>
         	</div>
-	        	<div class="good_info_pay_button" onclick="onChooseWXPay('${appId}','${package}','${nonceStr}','${paySign}','${signType}','${timestamp}','${payGoodInfo.good_id}','${payGoodInfo.pay_type}','${payGoodInfo.pay_type}','${token.id}');">
+	        	<div class="good_info_pay_button" onclick="onChooseWXPay('${appId}','${package}','${nonceStr}','${paySign}','${signType}','${timestamp}','${payGoodInfo.good_id}','${payGoodInfo.pay_type}','${payGoodInfo.pay_type}','${token.id}','${payGoodInfo.address}','${payGoodInfo.person_name}','${payGoodInfo.phonenumber}','${outTradeNo}');">
 	        		<a id=“good_info_pay_button_href”>立即支付</a>
 	        	</div>
 	        	 <div class="trade_flow">
