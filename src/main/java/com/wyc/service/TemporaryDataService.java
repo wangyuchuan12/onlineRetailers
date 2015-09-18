@@ -30,7 +30,7 @@ public class TemporaryDataService {
         return temporaryDataRespository.findAllByMykey(key);
     }
     
-    public TemporaryData findMyKeyAndName(String key , String name){
-        return temporaryDataRespository.findMyKeyAndName(key, name);
+    public TemporaryData findByMyKeyAndName(String key , String name){
+        return temporaryDataRespository.findByMyKeyAndName(key, name);
     }
 }

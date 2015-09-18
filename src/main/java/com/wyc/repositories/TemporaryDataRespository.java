@@ -7,6 +7,6 @@ import com.wyc.domain.TemporaryData;
 public interface TemporaryDataRespository extends CrudRepository<TemporaryData, String>{
     public Iterable<TemporaryData> findAllByMykey(String key);
 
-    public TemporaryData findMyKeyAndName(String key, String name);
+    public TemporaryData findByMyKeyAndName(String key, String name);
     
 }
