@@ -48,7 +48,9 @@ public class PayResultHandler implements Handler{
         String status = httpServletRequest.getAttribute("status").toString();
         String openid = httpServletRequest.getAttribute("openId").toString();
         String userId = httpServletRequest.getAttribute("userId").toString();
-        String address =  httpServletRequest.getAttribute("address").toString();
+        if(httpServletRequest.getAttribute("address")!=null){
+            String address =  httpServletRequest.getAttribute("address").toString();
+        }
       //只有当状态为未付款或者已付款未发货才能生成订单
         if (status.equals("1") || status.equals("2")) {
             Good good = goodService.findOne(good_id);
