@@ -27,7 +27,7 @@
                     <div class="tuan_g_price">
                     	${good.group_num}人团
                         <b>
-                         	￥${good.group_original_cost*good.group_discount}
+                        		￥<fmt:formatNumber type="number" value="${good.group_original_cost*good.group_discount}" maxFractionDigits="3"/>
                         </b>
                     </div>
                     <div class="tuan_g_btn">
