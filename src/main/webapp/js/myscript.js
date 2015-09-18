@@ -409,10 +409,7 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 				    		var getOrderIdCallback = new Object();
 				    		getOrderIdCallback.success = function(resp){
 				    			
-				    			alert(resp);
-				    			var orderObject = eval("("+resp+")");
-				    			
-				    			skipToOrderInfo(orderObject.orderId);
+				    			skipToOrderInfo(resp.orderId);
 				    		}
 				    		request("/api/get_temporary_data?key="+outTradeNo+"&name=orderId",token,getOrderIdCallback);
 				    	}
