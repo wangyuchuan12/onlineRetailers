@@ -31,6 +31,6 @@ public class TemporaryDataService {
     }
     
     public TemporaryData findByMyKeyAndName(String key , String name){
-        return temporaryDataRespository.findByMyKeyAndName(key, name);
+        return temporaryDataRespository.findByMykeyAndName(key, name);
     }
 }
