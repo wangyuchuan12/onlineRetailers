@@ -407,8 +407,9 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 				    		skipToLastestGroupInfo();
 				    	}else{
 				    		var getOrderIdCallback = new Object();
-				    		getOrderIdCallback.success = function(var resp){
+				    		getOrderIdCallback.success = function(resp){
 				    			var orderObject = eval("("+resp+")");
+				    			alert(orderObject);
 				    			skipToOrderInfo(orderObject.orderId);
 				    		}
 				    		request("/api/get_temporary_data?key="+outTradeNo+"&name=orderId",token,getOrderIdCallback);
