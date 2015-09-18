@@ -110,7 +110,7 @@ public class OrderAction {
         OrderDetail orderDetail = orderDetailService.findByOrderId(goodOrder.getId());
         String customerId = orderDetail.getCustomerId();
         Customer customer = customerService.findOne(customerId);
-        Map<String, Object> orderResponse = new HashMap<String, Object>();
+        Map<String, Object> orderResponse = getResponseOrder(goodOrder);
         if(userInfo.getOpenid().equals(customer.getOpenId())){
             orderResponse.put("cost", goodOrder.getCost());
             orderResponse.put("type", goodOrder.getType());

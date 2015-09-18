@@ -57,6 +57,10 @@ public class WxApi {
                     if(temporaryData.getName().equals("userId")){
                         httpServletRequest.setAttribute("userId", temporaryData.getValue());
                     }
+                    
+                    if(temporaryData.getName().equals("address")){
+                        httpServletRequest.setAttribute("address", temporaryData.getValue());
+                    }
                 }
                 httpServletRequest.setAttribute("status", 2);
                 return null;

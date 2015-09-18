@@ -383,43 +383,50 @@ function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl){
 	});
 }
 
-function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,payType,status,token){
+function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,payType,status,token,address,personName,phonenumber,outTradeNo){
 	$("#good_info_pay_button_href").text("正在支付").css("background-color:yellow");
-	wx.ready(function(){
-		wx.chooseWXPay({
-			timestamp:timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-		    nonceStr: nonceStr, // 支付签名随机串，不长于 32 位
-		    package: pack, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
-		    signType:signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-		    paySign: paySign, // 支付签名
-		    success: function (res) {
-		    	skipToLastestGroupInfo();
-		    },
-		    
-		    cancel:function(res){
-		    	var callback = new Object();
-		    	callback.success = function(resp){
-		    		var obj = eval("("+resp+")");
-		    		skipToOrderInfo(obj.orderId);
-		    	};
-		    	callback.failure = function(resp){
-		    		alert("失败："+resp);
-		    	};
-		    	request("/api/pay_failure?good_id="+goodId+"&pay_type="+payType,token,callback);
-		    },
-		    
-		    fail:function(res){
-		    	var callback = new Object();
-		    	callback.success = function(resp){
-		    		
-		    	};
-		    	callback.failure = function(resp){
-		    		
-		    	};
-		    	request("/api/pay_failure?good_id="+goodId+"&pay_type="+payType,token,callback);
-		    }
-		});
-		
-	});
+	var receiveAddress = "收件人姓名："+personName+"-收件人地址："+address+"-联系号码："+phonenumber;
+	var setAddressCallback = new Object();
+	
+	request("/api/set_temporary_data?key="+outTradeNo+"&name=address"+"&value="+receiveAddress,token,setAddressCallback);
+		setAddressCallback.success = function(){
+			wx.ready(function(){
+				wx.chooseWXPay({
+					timestamp:timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+				    nonceStr: nonceStr, // 支付签名随机串，不长于 32 位
+				    package: pack, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+				    signType:signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+				    paySign: paySign, // 支付签名
+				    success: function (res) {
+				    	skipToLastestGroupInfo();
+				    },
+				    
+				    cancel:function(res){
+				    	var callback = new Object();
+				    	callback.success = function(resp){
+				    		var obj = eval("("+resp+")");
+				    		skipToOrderInfo(obj.orderId);
+				    	};
+				    	callback.failure = function(resp){
+				    		alert("失败："+resp);
+				    	};
+				    	request("/api/pay_failure?good_id="+goodId+"&pay_type="+payType,token,callback);
+				    },
+				    
+				    fail:function(res){
+				    	var callback = new Object();
+				    	callback.success = function(resp){
+				    		
+				    	};
+				    	callback.failure = function(resp){
+				    		
+				    	};
+				    	request("/api/pay_failure?good_id="+goodId+"&pay_type="+payType,token,callback);
+				    }
+				});
+				
+			});
+		}
+	
 
 }

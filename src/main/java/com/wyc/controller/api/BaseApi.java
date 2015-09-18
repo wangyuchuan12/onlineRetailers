@@ -1,4 +1,7 @@
 package com.wyc.controller.api;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.jdom.Document;
@@ -14,10 +17,12 @@ import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.domain.City;
 import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
+import com.wyc.domain.TemporaryData;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CityService;
 import com.wyc.service.CustomerAddressService;
 import com.wyc.service.CustomerService;
+import com.wyc.service.TemporaryDataService;
 import com.wyc.wx.domain.UserInfo;
 @RestController
 public class BaseApi {
@@ -27,6 +32,8 @@ public class BaseApi {
         private CustomerService customerService;
         @Autowired
         private CustomerAddressService customerAddressService;
+        @Autowired
+        private TemporaryDataService temporaryDataService;
         final static Logger logger = LoggerFactory.getLogger(BaseApi.class);
 	@RequestMapping(value = "/api/test")
 	public String test(HttpServletRequest servletRequest)throws Exception {
@@ -54,6 +61,24 @@ public class BaseApi {
 		return echostr;
 
 	}
+	
+	@RequestMapping(value = "/api/set_temporary_data")
+	public Object setTemporaryData(HttpServletRequest httpServletRequest){
+	    String key = httpServletRequest.getParameter("key");
+	    String name = httpServletRequest.getParameter("name");
+	    String value = httpServletRequest.getParameter("value");
+	    TemporaryData temporaryData = new TemporaryData();
+	    temporaryData.setMykey(key);
+	    temporaryData.setName(name);
+	    temporaryData.setValue(value);
+	    temporaryData = temporaryDataService.add(temporaryData);
+	    Map<String, Object> responseData = new HashMap<String, Object>();
+	    responseData.put("success", true);
+	    responseData.put("id",temporaryData.getId());
+	    
+	    return responseData;
+	}
+	
 	@RequestMapping(value = "/api/get_city_by_parentid")
 	public Object getCityByParentId(HttpServletRequest httpServletRequest){
 	    String parentId = httpServletRequest.getParameter("parent_id");
