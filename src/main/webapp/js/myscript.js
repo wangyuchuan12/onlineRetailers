@@ -253,6 +253,11 @@ function skipToLastestGroupInfo(token){
 	skipToUrl("/info/lastest_group_info",token);
 }
 
+
+function skipToLastestOrderInfo(token){
+	skipToUrl("/info/lastest_order_info",token);
+}
+
 function skipToGroupInfo(id , token){
 	skipToUrl("/info/group_info2?id="+id,token);
 }
@@ -398,7 +403,18 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 				    signType:signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
 				    paySign: paySign, // 支付签名
 				    success: function (res) {
-				    	skipToLastestGroupInfo();
+				    	if(payType=="0"){
+				    		skipToLastestGroupInfo();
+				    	}else{
+				    		var getOrderIdCallback = new Object();
+				    		getOrderIdCallback.success = function(var resp){
+				    			var orderObject = eval("("+resp+")");
+				    			skipToOrderInfo(orderObject.orderId);
+				    		}
+				    		request("/api/get_temporary_data?key="+outTradeNo+"&name=orderId",token,getOrderIdCallback);
+				    		skipToLastestOrderInfo();
+				    	}
+				    	
 				    },
 				    
 				    cancel:function(res){

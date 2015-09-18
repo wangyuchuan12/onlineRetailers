@@ -9,6 +9,7 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodGroup;
@@ -16,6 +17,7 @@ import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;
 import com.wyc.domain.OpenGroupCoupon;
 import com.wyc.domain.OrderDetail;
+import com.wyc.domain.TemporaryData;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodGroupService;
 import com.wyc.service.GoodOrderService;
@@ -23,6 +25,7 @@ import com.wyc.service.GoodService;
 import com.wyc.service.GroupPartakeService;
 import com.wyc.service.OpenGroupCouponService;
 import com.wyc.service.OrderDetailService;
+import com.wyc.service.TemporaryDataService;
 public class PayResultHandler implements Handler{
     @Autowired
     private GoodService goodService;
@@ -38,6 +41,8 @@ public class PayResultHandler implements Handler{
     private GroupPartakeService groupPartakeService;
     @Autowired
     private OpenGroupCouponService openGroupCouponService;
+    @Autowired
+    private TemporaryDataService temporaryDataService;
     final static Logger logger = LoggerFactory.getLogger(PayResultHandler.class);
     @Override
     @Transactional
@@ -48,6 +53,7 @@ public class PayResultHandler implements Handler{
         String status = httpServletRequest.getAttribute("status").toString();
         String openid = httpServletRequest.getAttribute("openId").toString();
         String userId = httpServletRequest.getAttribute("userId").toString();
+        String outTradeNo= httpServletRequest.getAttribute("outTradeNo").toString();
         String address = null;
         if(httpServletRequest.getAttribute("address")!=null){
             address = httpServletRequest.getAttribute("address").toString();
@@ -74,6 +80,7 @@ public class PayResultHandler implements Handler{
             goodOrder.setFlowPrice(good.getFlowPrice());
             goodOrder.setStatus(Integer.parseInt(status));
             goodOrder.setAddress(address);
+            goodOrder.setType(Integer.parseInt(payType));
             goodOrder = goodOrderService.add(goodOrder);
             httpServletRequest.setAttribute("orderId", goodOrder.getId());
             OrderDetail orderDetail = new OrderDetail();
@@ -117,6 +124,12 @@ public class PayResultHandler implements Handler{
             groupPartake.setType(Integer.parseInt(payType));
             groupPartakeService.add(groupPartake);
             orderDetailService.add(orderDetail);
+            
+            TemporaryData orderIdTemporaryData = new TemporaryData();
+            orderIdTemporaryData.setMykey(outTradeNo);
+            orderIdTemporaryData.setName("orderId");
+            orderIdTemporaryData.setValue(goodOrder.getId());
+            temporaryDataService.add(orderIdTemporaryData);
             return goodOrder;
         } else {
             return null;

@@ -79,6 +79,16 @@ public class BaseApi {
 	    return responseData;
 	}
 	
+	@RequestMapping(value = "/api/get_temporary_data")
+	public Object getTemporaryData(HttpServletRequest httpServletRequest){
+	    String key = httpServletRequest.getParameter("key");
+            String name = httpServletRequest.getParameter("name");
+            TemporaryData temporaryData = temporaryDataService.findMyKeyAndName(key, name);
+            Map<String, String> map = new HashMap<String, String>();
+            map.put(temporaryData.getName(), temporaryData.getValue());
+            return map;
+	}
+	
 	@RequestMapping(value = "/api/get_city_by_parentid")
 	public Object getCityByParentId(HttpServletRequest httpServletRequest){
 	    String parentId = httpServletRequest.getParameter("parent_id");

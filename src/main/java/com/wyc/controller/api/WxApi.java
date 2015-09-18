@@ -62,6 +62,7 @@ public class WxApi {
                         httpServletRequest.setAttribute("address", temporaryData.getValue());
                     }
                 }
+                httpServletRequest.setAttribute("outTradeNo", paySuccess.getOutTradeNo());
                 httpServletRequest.setAttribute("status", 2);
                 return null;
             }

@@ -29,4 +29,8 @@ public class TemporaryDataService {
     public Iterable<TemporaryData> findAllByMykey(String key){
         return temporaryDataRespository.findAllByMykey(key);
     }
+    
+    public TemporaryData findMyKeyAndName(String key , String name){
+        return temporaryDataRespository.findMyKeyAndName(key, name);
+    }
 }
