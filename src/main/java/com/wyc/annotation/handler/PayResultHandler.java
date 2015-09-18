@@ -53,7 +53,11 @@ public class PayResultHandler implements Handler{
         String status = httpServletRequest.getAttribute("status").toString();
         String openid = httpServletRequest.getAttribute("openId").toString();
         String userId = httpServletRequest.getAttribute("userId").toString();
-        String outTradeNo= httpServletRequest.getAttribute("outTradeNo").toString();
+        String outTradeNo = null;
+        if(httpServletRequest.getAttribute("outTradeNo")!=null){
+            outTradeNo = httpServletRequest.getAttribute("outTradeNo").toString();
+        }
+        
         String address = null;
         if(httpServletRequest.getAttribute("address")!=null){
             address = httpServletRequest.getAttribute("address").toString();
