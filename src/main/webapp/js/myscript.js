@@ -413,7 +413,6 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 				    			skipToOrderInfo(orderObject.orderId);
 				    		}
 				    		request("/api/get_temporary_data?key="+outTradeNo+"&name=orderId",token,getOrderIdCallback);
-				    		skipToLastestOrderInfo();
 				    	}
 				    	
 				    },
