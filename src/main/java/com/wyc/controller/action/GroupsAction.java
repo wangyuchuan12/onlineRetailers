@@ -18,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
+import com.wyc.annotation.WxConfigAnnotation;
 import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
@@ -56,7 +58,9 @@ public class GroupsAction {
     final static Logger logger = LoggerFactory.getLogger(GroupsAction.class);
 
     @RequestMapping("/main/group_list")
-    @UserInfoFromWebAnnotation
+    @JsApiTicketAnnotation
+	@UserInfoFromWebAnnotation
+	@WxConfigAnnotation
     public String groupList(HttpServletRequest servletRequest) throws Exception {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) servletRequest;
         String openId = null;
@@ -164,7 +168,9 @@ public class GroupsAction {
     }
     
     @RequestMapping("/info/group_info2")
-    @UserInfoFromWebAnnotation
+    @JsApiTicketAnnotation
+	@UserInfoFromWebAnnotation
+	@WxConfigAnnotation
     public String groupInfo(HttpServletRequest httpServletRequest)
             throws Exception {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) httpServletRequest;

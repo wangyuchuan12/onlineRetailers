@@ -161,6 +161,7 @@
      	<script type="text/javascript">
      		$(document).ready(function(){
     				setUserToken("${token.id}");
+    				wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
     				wx.ready(function(){
         				wxOnMenuShareAppMessage("团详情","团详情页面","/info/group_info?id=${groupInfo.id}","${groupInfo.headImg}","link",null);
         			});
