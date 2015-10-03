@@ -211,6 +211,7 @@ public class GroupsAction {
         groupInfoMap.put("goodName", goodName);
         groupInfoMap.put("headImg", headImg);
         groupInfoMap.put("id", id);
+        groupInfoMap.put("goodId", good.getId());
         groupInfoMap.put("groupNum", groupNum);
         groupInfoMap.put("totalPrice", totalPrice);
         groupInfoMap.put("groupPartake", groupMembers);
