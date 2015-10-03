@@ -48,12 +48,9 @@ public class PayResultHandler implements Handler{
     @Transactional
     public Object handle(HttpServletRequest httpServletRequest)
             throws Exception {
-        String good_id = httpServletRequest.getAttribute("good_id").toString();
-        String payType = httpServletRequest.getAttribute("pay_type").toString();
-        String status = httpServletRequest.getAttribute("status").toString();
-        String openid = httpServletRequest.getAttribute("openId").toString();
-        String userId = httpServletRequest.getAttribute("userId").toString();
+        
         String outTradeNo = null;
+        String status = httpServletRequest.getAttribute("status").toString();
         if(httpServletRequest.getAttribute("outTradeNo")!=null){
             outTradeNo = httpServletRequest.getAttribute("outTradeNo").toString();
         }
@@ -64,6 +61,11 @@ public class PayResultHandler implements Handler{
         }
       //只有当状态为未付款或者已付款未发货才能生成订单
         if (status.equals("1") || status.equals("2")) {
+        	String good_id = httpServletRequest.getAttribute("good_id").toString();
+            String payType = httpServletRequest.getAttribute("pay_type").toString();
+            
+            String openid = httpServletRequest.getAttribute("openId").toString();
+            String userId = httpServletRequest.getAttribute("userId").toString();
             Good good = goodService.findOne(good_id);
             float cost = 0;
             //购买方式，0表示团购，1表示单买，2表示开团劵购买
