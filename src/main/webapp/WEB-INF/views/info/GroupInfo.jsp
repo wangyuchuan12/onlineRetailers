@@ -153,7 +153,7 @@
 				<div class="footer3" onclick="javascript:toTakepartGroup('${groupInfo.id}',
 				<c:if test="${fn:length(groupInfo.groupPartake)==1}">2</c:if><c:if test="${fn:length(groupInfo.groupPartake)>1}">3</c:if>)">
 		                <i class="fa fa-home" onclick="javascript:skipToGoodList();"></i>
-		                <a class="goto_gootlist" href="javascript:skipToGoodPay('${groupInfo.goodId}','${token.id}')">点击参团</a>
+		                <a class="goto_gootlist" href="javascript:skipToGoodPay('${groupInfo.goodId}','0','${token.id}')">点击参团</a>
 		     	</div>
 	     	</c:if>
      	  </c:if>
