@@ -25,6 +25,7 @@ import com.wyc.domain.Good;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GroupPartake;
 import com.wyc.domain.OrderDetail;
+import com.wyc.domain.TemporaryData;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodGroupService;
@@ -32,6 +33,7 @@ import com.wyc.service.GoodService;
 import com.wyc.service.GroupPartakeService;
 import com.wyc.service.MyResourceService;
 import com.wyc.service.OrderDetailService;
+import com.wyc.service.TemporaryDataService;
 import com.wyc.service.WxUserInfoService;
 import com.wyc.wx.domain.UserInfo;
 
@@ -53,6 +55,8 @@ public class GroupsAction {
     private MySimpleDateFormat mySimpleDateFormat;
     @Autowired
     private OrderDetailService orderDetailService;
+    @Autowired
+    private TemporaryDataService temporaryDataService;
     final static Logger logger = LoggerFactory.getLogger(GroupsAction.class);
 
     @RequestMapping("/main/group_list")
@@ -159,7 +163,9 @@ public class GroupsAction {
     public String skipToLatestGroupInfo(HttpServletRequest httpServletRequest){
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
-        GoodGroup goodGroup = goodGroupService.selectLastestGoodGroupByGroupHead(userInfo.getId());
+        
+        TemporaryData lastGroupId = temporaryDataService.findByMyKeyAndName(userInfo.getOpenid(),"lastGroupId");
+        GoodGroup goodGroup = goodGroupService.findOne(lastGroupId.getValue());
         return "redirect:/info/group_info2?id="+goodGroup.getId()+"&token="+myHttpServletRequest.getToken().getId();
     }
     
