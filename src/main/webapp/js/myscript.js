@@ -379,8 +379,7 @@ function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl){
 	    imgUrl: imgUrl, // 分享图标
 	    type: type, // 分享类型,music、video或link，不填默认为link
 	    dataUrl: dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
-	    success: function () { 
-	    	
+	    success: function () {
 	    },
 	    cancel: function () { 
 	       // alert("cancel");

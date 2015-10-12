@@ -153,7 +153,7 @@
 				<div class="footer3" onclick="javascript:toTakepartGroup('${groupInfo.id}',
 				<c:if test="${fn:length(groupInfo.groupPartake)==1}">2</c:if><c:if test="${fn:length(groupInfo.groupPartake)>1}">3</c:if>)">
 		                <i class="fa fa-home" onclick="javascript:skipToGoodList();"></i>
-		                <a class="goto_gootlist">点击参团</a>
+		                <a class="goto_gootlist" href="javascript:skipToGoodPay('${groupInfo.goodId}','0','${token.id}')">点击参团</a>
 		     	</div>
 	     	</c:if>
      	  </c:if>
@@ -161,6 +161,10 @@
      	<script type="text/javascript">
      		$(document).ready(function(){
     				setUserToken("${token.id}");
+    				wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
+    				wx.ready(function(){
+        				wxOnMenuShareAppMessage("团详情","团详情页面","www.chengxihome.com/info/group_info2?id=${groupInfo.id}","${groupInfo.headImg}","link",null);
+        			});
      		});
     			
    		 </script>
