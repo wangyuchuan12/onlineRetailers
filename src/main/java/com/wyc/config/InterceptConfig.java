@@ -396,7 +396,7 @@ public class InterceptConfig {
                 temporaryDataService.save(temporaryData);
                 
             }
-            TemporaryData fromPageTemporaryData = temporaryDataService.findByMyKeyAndName("userInfo.getOpenid()", "frompage");
+            TemporaryData fromPageTemporaryData = temporaryDataService.findByMyKeyAndName(userInfo.getOpenid(), "frompage");
             if(fromPageTemporaryData==null){
                 fromPageTemporaryData = new TemporaryData();
                 fromPageTemporaryData.setName("frompage");
