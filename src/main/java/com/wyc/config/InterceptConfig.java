@@ -391,15 +391,26 @@ public class InterceptConfig {
                 temporaryDataService.add(temporaryData);
                 
             }else{
-                TemporaryData fromPageTemporaryData = new TemporaryData();
-                fromPageTemporaryData.setName("frompage");
-                fromPageTemporaryData.setMykey(userInfo.getOpenid());
-                fromPageTemporaryData.setValue(temporaryData.getValue());
-                temporaryDataService.add(fromPageTemporaryData);
+                
                 temporaryData.setValue(page+"");
                 temporaryDataService.save(temporaryData);
                 
             }
+            TemporaryData fromPageTemporaryData = temporaryDataService.findByMyKeyAndName("userInfo.getOpenid()", "frompage");
+            if(fromPageTemporaryData==null){
+                fromPageTemporaryData = new TemporaryData();
+                fromPageTemporaryData.setName("frompage");
+                fromPageTemporaryData.setMykey(userInfo.getOpenid());
+                fromPageTemporaryData.setValue(temporaryData.getValue());
+                temporaryDataService.add(fromPageTemporaryData);
+            }else{
+                fromPageTemporaryData = new TemporaryData();
+                fromPageTemporaryData.setName("frompage");
+                fromPageTemporaryData.setMykey(userInfo.getOpenid());
+                fromPageTemporaryData.setValue(temporaryData.getValue());
+                temporaryDataService.save(fromPageTemporaryData);
+            }
+            
         }
         
         if(method.getAnnotation(WxChooseWxPay.class)!=null){
