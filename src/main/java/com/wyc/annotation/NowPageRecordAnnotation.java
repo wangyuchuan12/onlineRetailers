@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface NowPageRecordAnnotation {
-    //0表示商品列表，1表示商品详情，2表示购买页面
+    //0表示商品列表，1表示商品详情，2表示购买页面 3团列表 4团详情
     public int page();
 }

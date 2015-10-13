@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wyc.annotation.JsApiTicketAnnotation;
+import com.wyc.annotation.NowPageRecordAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.annotation.WxConfigAnnotation;
 import com.wyc.defineBean.MySimpleDateFormat;
@@ -65,6 +66,7 @@ public class GroupsAction {
     @JsApiTicketAnnotation
 	@UserInfoFromWebAnnotation
 	@WxConfigAnnotation
+	@NowPageRecordAnnotation(page=3)
     public String groupList(HttpServletRequest servletRequest) throws Exception {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) servletRequest;
         String openId = null;
@@ -177,6 +179,7 @@ public class GroupsAction {
     @JsApiTicketAnnotation
 	@UserInfoFromWebAnnotation
 	@WxConfigAnnotation
+	@NowPageRecordAnnotation(page=4)
     public String groupInfo(HttpServletRequest httpServletRequest)
             throws Exception {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) httpServletRequest;
@@ -226,6 +229,20 @@ public class GroupsAction {
         groupInfoMap.put("timeLong", goodGroup.getTimeLong());
         groupInfoMap.put("role", role);
         httpServletRequest.setAttribute("groupInfo", groupInfoMap);
+        
+        
+        TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(requestUser.getOpenid(), "nowgroup");
+        if(temporaryData==null){
+            temporaryData = new TemporaryData();
+            temporaryData.setMykey(requestUser.getOpenid());
+            temporaryData.setName("nowgroup");
+            temporaryData.setValue(id);
+            temporaryDataService.add(temporaryData);
+            
+        }else{
+            temporaryData.setValue(id);
+            temporaryDataService.save(temporaryData);
+        }
         return "info/GroupInfo";
     }
 

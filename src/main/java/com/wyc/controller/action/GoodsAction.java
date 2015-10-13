@@ -143,6 +143,7 @@ public class GoodsAction {
 	@WxConfigAnnotation
 	@BeforeHandlerAnnotation(hanlerClasses={WxChooseWxPayHandler.class})
 	@RequestMapping("/info/good_info_pay")
+	@NowPageRecordAnnotation(page=2)
 	public String goodInfoPay(HttpServletRequest httpRequest){
 	    MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
