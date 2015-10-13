@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wyc.annotation.AfterHandlerAnnotation;
 import com.wyc.annotation.BeforeHandlerAnnotation;
 import com.wyc.annotation.JsApiTicketAnnotation;
+import com.wyc.annotation.NowPageRecordAnnotation;
 import com.wyc.annotation.ResponseJson;
 import com.wyc.annotation.ReturnUrl;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
@@ -37,8 +38,10 @@ import com.wyc.annotation.WxConfigAnnotation;
 import com.wyc.annotation.handler.Handler;
 import com.wyc.defineBean.StopToAfter;
 import com.wyc.domain.Customer;
+import com.wyc.domain.TemporaryData;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CustomerService;
+import com.wyc.service.TemporaryDataService;
 import com.wyc.service.TokenService;
 import com.wyc.service.WxUserInfoService;
 import com.wyc.smart.service.AccessTokenSmartService;
@@ -85,6 +88,8 @@ public class InterceptConfig {
     private WxJsApiTicketSmartService wxJsApiTicketSmartService;
     @Autowired
     private RequestFactory requestFactory;
+    @Autowired
+    private TemporaryDataService temporaryDataService;
     final static Logger logger = LoggerFactory.getLogger(InterceptConfig.class);
     
  //   @Around(value="execution (* com.wyc.wx.service.*.*(..))")
@@ -317,8 +322,9 @@ public class InterceptConfig {
         }
         
         
+        UserInfo userInfo = null;
         if(method.getAnnotation(UserInfoFromWebAnnotation.class)!=null){
-            UserInfo userInfo = null;
+            
             if(token!=null){
                 userInfo = userSmartService.getFromDatabase(tokenId);
                 logger.debug("get userInfo from database by token {} , return object is {}",tokenId , userInfo);
@@ -371,6 +377,23 @@ public class InterceptConfig {
             }
             myHttpServletRequest.setUserInfo(userInfo);
             myHttpServletRequest.setToken(token);
+        }
+        
+        if(method.getAnnotation(NowPageRecordAnnotation.class)!=null){
+            NowPageRecordAnnotation nowPageRecordAnnotation = method.getAnnotation(NowPageRecordAnnotation.class);
+            int page = nowPageRecordAnnotation.page();
+            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(userInfo.getOpenid(), "nowpage");
+            if(temporaryData==null){
+                temporaryData = new TemporaryData();
+                temporaryData.setMykey(userInfo.getOpenid());
+                temporaryData.setName("nowpage");
+                temporaryData.setValue(page+"");
+                temporaryDataService.add(temporaryData);
+                
+            }else{
+                temporaryData.setValue(page+"");
+                temporaryDataService.save(temporaryData);
+            }
         }
         
         if(method.getAnnotation(WxChooseWxPay.class)!=null){

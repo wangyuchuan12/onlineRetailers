@@ -113,9 +113,6 @@ public class PayResultHandler implements Handler{
                     groupIdTemporaryData.setMykey(outTradeNo);
                     groupIdTemporaryData.setName("groupId");
                     groupIdTemporaryData.setValue(goodGroup.getId());
-                    
-                    goodGroupService.add(goodGroup);
-                    
                     TemporaryData lastGroupId = temporaryDataService.findByMyKeyAndName(openid,"lastGroupId");
                     if(lastGroupId==null){
                         lastGroupId = new TemporaryData();

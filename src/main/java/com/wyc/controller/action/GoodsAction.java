@@ -17,6 +17,7 @@ import com.wyc.annotation.AccessTokenAnnotation;
 import com.wyc.annotation.AfterHandlerAnnotation;
 import com.wyc.annotation.BeforeHandlerAnnotation;
 import com.wyc.annotation.JsApiTicketAnnotation;
+import com.wyc.annotation.NowPageRecordAnnotation;
 import com.wyc.annotation.ReturnUrl;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.annotation.WxChooseWxPay;
@@ -63,6 +64,7 @@ public class GoodsAction {
 	@JsApiTicketAnnotation
 	@UserInfoFromWebAnnotation
 	@WxConfigAnnotation
+	@NowPageRecordAnnotation(page=0)
 	public String goodList(HttpServletRequest httpRequest)throws Exception{
 	        Iterable<Good> databaseGoods = goodService.findAll();
 		List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
@@ -92,6 +94,7 @@ public class GoodsAction {
 	@UserInfoFromWebAnnotation
 	@JsApiTicketAnnotation
 	@RequestMapping("/info/good_info")
+	@NowPageRecordAnnotation(page=1)
 	public String goodInfo(HttpServletRequest httpRequest)throws Exception{
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
