@@ -59,9 +59,8 @@ public class PayResultHandler implements Handler{
         }
         
         TemporaryData nowpageTemporaryData = temporaryDataService.findByMyKeyAndName(openid, "nowpage");
-        TemporaryData nowGroupTemporaryData = temporaryDataService.findByMyKeyAndName(openid, "nowgroup");
         
-        if(nowpageTemporaryData.getValue().equals("4")){
+        if(!nowpageTemporaryData.getValue().equals("4")){
             String address = null;
             if(httpServletRequest.getAttribute("address")!=null){
                 address = httpServletRequest.getAttribute("address").toString();
