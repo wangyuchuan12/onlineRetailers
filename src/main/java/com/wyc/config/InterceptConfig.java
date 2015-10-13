@@ -383,6 +383,8 @@ public class InterceptConfig {
             NowPageRecordAnnotation nowPageRecordAnnotation = method.getAnnotation(NowPageRecordAnnotation.class);
             int page = nowPageRecordAnnotation.page();
             TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(userInfo.getOpenid(), "nowpage");
+            
+            
             if(temporaryData==null){
                 temporaryData = new TemporaryData();
                 temporaryData.setMykey(userInfo.getOpenid());
@@ -390,25 +392,25 @@ public class InterceptConfig {
                 temporaryData.setValue(page+"");
                 temporaryDataService.add(temporaryData);
                 
-            }else{
-                
+            }else{  
+                TemporaryData fromPageTemporaryData = temporaryDataService.findByMyKeyAndName(userInfo.getOpenid(), "frompage");
+                if(fromPageTemporaryData==null){
+                    fromPageTemporaryData = new TemporaryData();
+                    fromPageTemporaryData.setName("frompage");
+                    fromPageTemporaryData.setMykey(userInfo.getOpenid());
+                    fromPageTemporaryData.setValue(temporaryData.getValue());
+                    temporaryDataService.add(fromPageTemporaryData);
+                }else{
+                    fromPageTemporaryData.setName("frompage");
+                    fromPageTemporaryData.setMykey(userInfo.getOpenid());
+                    fromPageTemporaryData.setValue(temporaryData.getValue());
+                    temporaryDataService.save(fromPageTemporaryData);
+                }
                 temporaryData.setValue(page+"");
                 temporaryDataService.save(temporaryData);
                 
             }
-            TemporaryData fromPageTemporaryData = temporaryDataService.findByMyKeyAndName(userInfo.getOpenid(), "frompage");
-            if(fromPageTemporaryData==null){
-                fromPageTemporaryData = new TemporaryData();
-                fromPageTemporaryData.setName("frompage");
-                fromPageTemporaryData.setMykey(userInfo.getOpenid());
-                fromPageTemporaryData.setValue(temporaryData.getValue());
-                temporaryDataService.add(fromPageTemporaryData);
-            }else{
-                fromPageTemporaryData.setName("frompage");
-                fromPageTemporaryData.setMykey(userInfo.getOpenid());
-                fromPageTemporaryData.setValue(temporaryData.getValue());
-                temporaryDataService.save(fromPageTemporaryData);
-            }
+            
             
         }
         
