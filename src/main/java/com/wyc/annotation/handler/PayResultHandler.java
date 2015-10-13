@@ -57,7 +57,11 @@ public class PayResultHandler implements Handler{
         if(httpServletRequest.getAttribute("outTradeNo")!=null){
             outTradeNo = httpServletRequest.getAttribute("outTradeNo").toString();
         }
-        if(temporaryDataService.findByMyKeyAndName(outTradeNo, "groupId")==null){
+        
+        TemporaryData nowpageTemporaryData = temporaryDataService.findByMyKeyAndName(openid, "nowpage");
+        TemporaryData nowGroupTemporaryData = temporaryDataService.findByMyKeyAndName(openid, "nowgroup");
+        
+        if(nowpageTemporaryData.getValue().equals("4")){
             String address = null;
             if(httpServletRequest.getAttribute("address")!=null){
                 address = httpServletRequest.getAttribute("address").toString();
@@ -178,7 +182,7 @@ public class PayResultHandler implements Handler{
                 return null;
             }
         }else{
-            TemporaryData groupId = temporaryDataService.findByMyKeyAndName(outTradeNo, "groupId");
+            TemporaryData groupId = temporaryDataService.findByMyKeyAndName(openid, "nowgroup");
             GoodGroup goodGroup = goodGroupService.findOne(groupId.getValue());
             Customer customer = customerService.findByOpenId(openid);
             GroupPartake groupPartake = new GroupPartake();
