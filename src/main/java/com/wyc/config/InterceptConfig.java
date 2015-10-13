@@ -391,8 +391,13 @@ public class InterceptConfig {
                 temporaryDataService.add(temporaryData);
                 
             }else{
+                TemporaryData fromPageTemporaryData = new TemporaryData();
+                fromPageTemporaryData.setName("frompage");
+                fromPageTemporaryData.setMykey(userInfo.getOpenid());
+                fromPageTemporaryData.setValue(temporaryData.getValue());
                 temporaryData.setValue(page+"");
                 temporaryDataService.save(temporaryData);
+                
             }
         }
         
