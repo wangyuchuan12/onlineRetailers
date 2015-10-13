@@ -190,6 +190,7 @@ public class PayResultHandler implements Handler{
             groupPartake.setDateTime(new DateTime());
             groupPartake.setRole(3);
             groupPartake.setType(0);
+            groupPartake.setGroupId(groupId.getValue());
             groupPartakeService.add(groupPartake);
             
             
