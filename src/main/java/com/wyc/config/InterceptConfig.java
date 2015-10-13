@@ -395,6 +395,7 @@ public class InterceptConfig {
                 fromPageTemporaryData.setName("frompage");
                 fromPageTemporaryData.setMykey(userInfo.getOpenid());
                 fromPageTemporaryData.setValue(temporaryData.getValue());
+                temporaryDataService.save(fromPageTemporaryData);
                 temporaryData.setValue(page+"");
                 temporaryDataService.save(temporaryData);
                 
