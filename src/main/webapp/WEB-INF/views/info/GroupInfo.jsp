@@ -96,6 +96,9 @@
 					<div class="groupinfo_situation_title" id="groupinfo_situation_title">还差<b>${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}</b>人，盼你如南方人盼暖气</div>
 					<div class="groupinfo_situation_time">剩余<b id="group_info_hour">00</b><b id="group_info_min">00</b><b id="group_info_second">00</b>结束</div>
 				</div>
+				<script type="text/javascript">
+		     		initGroupInvalidDate("${groupInfo.startTime}","${groupInfo.timeLong}");
+		     	</script>
 			</c:if>
 			
 			<c:if test="${groupInfo.result==0}">
@@ -143,9 +146,7 @@
 					<i class="fa fa-home" onclick="javascript:skipToGoodList();"></i>
 		                <a href="javascript:displayLinkGuid();" class="">还差${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}个人，发送链接</a>
 		     	</div>
-		     	<script type="text/javascript">
-		     		initGroupInvalidDate("${groupInfo.startTime}","${groupInfo.timeLong}");
-		     	</script>
+		     	
 	     	</c:if>
 	     	
 	     	
