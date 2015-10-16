@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.defineBean.MySimpleDateFormat;
+import com.wyc.domain.City;
 import com.wyc.domain.Customer;
+import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodOrder;
@@ -23,6 +25,7 @@ import com.wyc.domain.GroupPartake;
 import com.wyc.domain.MyResource;
 import com.wyc.domain.OrderDetail;
 import com.wyc.intercept.domain.MyHttpServletRequest;
+import com.wyc.service.CityService;
 import com.wyc.service.CustomerAddressService;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodOrderService;
@@ -53,6 +56,8 @@ public class OrderAction {
     private MyResourceService myResourceService;
     @Autowired
     private MySimpleDateFormat mySimpleDateFormat;
+    @Autowired
+    private CityService cityService;
     final static Logger logger = LoggerFactory.getLogger(OrderAction.class);
     @RequestMapping("/main/order_list")
     @UserInfoFromWebAnnotation
@@ -119,8 +124,15 @@ public class OrderAction {
             orderResponse.put("status", goodOrder.getStatus());
             orderResponse.put("id", goodOrder.getId());
             orderResponse.put("createTime", mySimpleDateFormat.format(goodOrder.getCreateTime().toDate()));
-           
-           
+            orderResponse.put("address", goodOrder.getAddress());
+            CustomerAddress customerAddress = customerAddressService.findOne(goodOrder.getAddressId());
+            orderResponse.put("recipient", customerAddress.getName());
+            orderResponse.put("phonenumber", customerAddress.getPhonenumber());
+            City city = cityService.findOne(customerAddress.getCity());
+            orderResponse.put("area", city.getName());
+            Good good = goodService.findOne(goodOrder.getGoodId());
+            orderResponse.put("goodName", good.getName());
+            orderResponse.put("goodPrice",goodOrder.getCost());
         }
         httpServletRequest.setAttribute("order", orderResponse);
         return "info/OrderInfo";

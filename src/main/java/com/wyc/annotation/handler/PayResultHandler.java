@@ -1,6 +1,8 @@
 package com.wyc.annotation.handler;
 
 import java.lang.annotation.Annotation;
+import java.util.Calendar;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
@@ -79,14 +81,25 @@ public class PayResultHandler implements Handler{
                 } else if (payType.equals("2")) {
                     cost = good.getFlowPrice();
                 }
+                Customer customer = customerService.findByOpenId(openid);
                 GoodOrder goodOrder = new GoodOrder();
                 goodOrder.setGoodId(good.getId());
                 goodOrder.setGoodPrice(good.getFlowPrice());
                 goodOrder.setCost(cost);
+                Calendar now = Calendar.getInstance();
+                String code = now.get(Calendar.YEAR)
+                        +"-"+(now.get(Calendar.MONTH) + 1)
+                        +"-"+now.get(Calendar.DAY_OF_MONTH)
+                        +"-"+now.get(Calendar.HOUR_OF_DAY)
+                        +"-"+now.get(Calendar.MINUTE)
+                        +"-"+now.get(Calendar.SECOND)
+                        +"-"+new Random().nextInt(1000)+"";
+                goodOrder.setCode(code);
                 goodOrder.setCreateTime(new DateTime());
                 goodOrder.setFlowPrice(good.getFlowPrice());
                 goodOrder.setStatus(Integer.parseInt(status));
                 goodOrder.setAddress(address);
+                goodOrder.setAddressId(customer.getDefaultAddress());
                 goodOrder.setType(Integer.parseInt(payType));
                 goodOrder = goodOrderService.add(goodOrder);
                 httpServletRequest.setAttribute("orderId", goodOrder.getId());
@@ -97,7 +110,7 @@ public class PayResultHandler implements Handler{
                 orderDetail.setStatus(Integer.parseInt(status));
                 orderDetail.setCustomerId(customerService.findByOpenId(openid).getId());
                 GroupPartake groupPartake = new GroupPartake();
-                Customer customer = customerService.findByOpenId(openid);
+                
                 //只有当状态为成功购买并且购买方式为团购或者开团劵购买才能生成团记录
                 if (status.equals("2")&&(payType.equals("0")||payType.equals("2"))) {
                     GoodGroup goodGroup = new GoodGroup();

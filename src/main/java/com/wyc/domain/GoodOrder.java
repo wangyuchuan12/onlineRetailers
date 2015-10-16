@@ -13,6 +13,8 @@ public class GoodOrder {
     //物流费用
     @Column(name = "flow_price")
     private float flowPrice;
+    @Column
+    private String code;
     //总共付款
     @Column(name = "cost")
     private float cost;
@@ -20,6 +22,8 @@ public class GoodOrder {
     private String goodId;
     @Column
     private String address;
+    @Column(name="address_id")
+    private String addressId;
     //商品价格
     @Column(name = "good_price")
     private float goodPrice;
@@ -51,6 +55,22 @@ public class GoodOrder {
     
     
     
+    public String getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String getAddress() {
         return address;
     }
