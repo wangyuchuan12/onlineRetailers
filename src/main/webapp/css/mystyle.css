@@ -1137,7 +1137,7 @@
 }
 
 .order_info_good_info_name{
-	display:inline-block;
+	display:block;
 	position:relative;
 	left:15px;
 	top:-20px;
@@ -1145,7 +1145,7 @@
 }
 
 .order_info_good_info_num{
-	display:inline-block;
+	display:block;
 	position:relative;
 	left:-83px;
 	top:5px;

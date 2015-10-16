@@ -133,6 +133,7 @@ public class OrderAction {
             Good good = goodService.findOne(goodOrder.getGoodId());
             orderResponse.put("goodName", good.getName());
             orderResponse.put("goodPrice",goodOrder.getCost());
+            orderResponse.put("code", goodOrder.getCode());
         }
         httpServletRequest.setAttribute("order", orderResponse);
         return "info/OrderInfo";
