@@ -189,6 +189,8 @@ public class PayResultHandler implements Handler{
             groupPartake.setDateTime(new DateTime());
             groupPartake.setRole(3);
             groupPartake.setType(0);
+            OrderDetail orderDetail = orderDetailService.findByGruopId(goodGroup.getId());
+            groupPartake.setOrderId(orderDetail.getOrderId());
             groupPartake.setGroupId(groupId.getValue());
             groupPartakeService.add(groupPartake);
             
