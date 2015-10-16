@@ -194,7 +194,7 @@ public class PayResultHandler implements Handler{
             
             int groupCount = groupPartakeService.countByGroupId(goodGroup.getId());
             if(groupCount==goodGroup.getNum()){
-                goodGroup.setResult(1);
+                goodGroup.setResult(2);
                 goodGroupService.save(goodGroup);
             }
             TemporaryData lastGroupId = temporaryDataService.findByMyKeyAndName(openid,"lastGroupId");
