@@ -62,36 +62,7 @@ public class OrderAction {
     @RequestMapping("/main/order_list")
     @UserInfoFromWebAnnotation
     public String orderList(HttpServletRequest httpServletRequest){
-        //0表示全部，1表示待付款，2表示待收获
-        String status = httpServletRequest.getParameter("status");
-        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
-        UserInfo userInfo = myHttpServletRequest.getUserInfo();
-        Customer customer = customerService.findByOpenId(userInfo.getOpenid());
-        
-        Iterable<GroupPartake> groupPatakes = groupPartakeService.findByCustomerid(customer.getId());
-        List<String> orderIds = new ArrayList<String>();
-        for(GroupPartake groupPartake:groupPatakes){
-            orderIds.add(groupPartake.getOrderId());
-            logger.debug("the orderId is {}",groupPartake.getOrderId());
-        }
-        Iterable<GoodOrder> orders = goodOrderService.findAll(orderIds);
-        List<Map<String, Object>> responseOrders = new ArrayList<Map<String,Object>>();
-        for(GoodOrder goodOrder:orders){
-            if(status.equals("0")){
-                responseOrders.add(getResponseOrder(goodOrder));
-            }else if (status.equals("1")) {
-                if(goodOrder.getStatus()==1){
-                    responseOrders.add(getResponseOrder(goodOrder));
-                }
-            }else if (status.equals("2")) {
-                if(goodOrder.getStatus()==2||goodOrder.getStatus()==3){
-                    responseOrders.add(getResponseOrder(goodOrder));
-                }
-            }
-        }
-        httpServletRequest.setAttribute("orders", responseOrders);
-        httpServletRequest.setAttribute("status", status);
-        return "main/Orders";
+        return null;
     }
     
     private Map<String, Object> getResponseOrder(GoodOrder goodOrder){
@@ -102,7 +73,6 @@ public class OrderAction {
         responseOrder.put("goodName", good.getName());
         responseOrder.put("goodImg", myResource.getUrl());
         responseOrder.put("cost", goodOrder.getCost());
-        responseOrder.put("status", goodOrder.getStatus());
         responseOrder.put("flowPrice", goodOrder.getFlowPrice());
         responseOrder.put("id", goodOrder.getId());
         return responseOrder;
@@ -117,17 +87,19 @@ public class OrderAction {
         OrderDetail orderDetail = orderDetailService.findByOrderId(goodOrder.getId());
         String customerId = orderDetail.getCustomerId();
         Customer customer = customerService.findOne(customerId);
+        logger.debug("这里总应该进来了吧。。。。。。。。。。。。。。");
         Map<String, Object> orderResponse = getResponseOrder(goodOrder);
         if(userInfo.getOpenid().equals(customer.getOpenId())){
             orderResponse.put("cost", goodOrder.getCost());
             orderResponse.put("type", goodOrder.getType());
-            orderResponse.put("status", goodOrder.getStatus());
             orderResponse.put("id", goodOrder.getId());
             orderResponse.put("createTime", mySimpleDateFormat.format(goodOrder.getCreateTime().toDate()));
             orderResponse.put("address", goodOrder.getAddress());
             CustomerAddress customerAddress = customerAddressService.findOne(goodOrder.getAddressId());
             orderResponse.put("recipient", customerAddress.getName());
+            logger.debug("recipient:"+customerAddress.getName());
             orderResponse.put("phonenumber", customerAddress.getPhonenumber());
+            logger.debug("phonenumber:"+customerAddress.getPhonenumber());
             City city = cityService.findOne(customerAddress.getCity());
             orderResponse.put("area", city.getName());
             Good good = goodService.findOne(goodOrder.getGoodId());

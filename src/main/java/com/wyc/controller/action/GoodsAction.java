@@ -30,6 +30,7 @@ import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodImg;
 import com.wyc.domain.MyResource;
+import com.wyc.domain.TempGroupOrder;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CityService;
 import com.wyc.service.CustomerAddressService;
@@ -38,6 +39,7 @@ import com.wyc.service.GoodImgService;
 import com.wyc.service.GoodService;
 import com.wyc.service.MyResourceService;
 import com.wyc.service.OpenGroupCouponService;
+import com.wyc.service.TempGroupOrderService;
 import com.wyc.wx.domain.UserInfo;
 import com.wyc.wx.domain.WxContext;
 @Controller
@@ -58,6 +60,8 @@ public class GoodsAction {
         private OpenGroupCouponService openGroupCouponService;
         @Autowired
         private WxContext wxContext;
+        @Autowired
+        private TempGroupOrderService tempGroupOrderService;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
@@ -201,6 +205,21 @@ public class GoodsAction {
             responseGood.put("head_img", myResource.getUrl());
             responseGood.put("cost", httpRequest.getAttribute("cost"));
             httpRequest.setAttribute("payGoodInfo", responseGood);
+            
+            TempGroupOrder tempGroupOrder = new TempGroupOrder();
+            tempGroupOrder.setOutTradeNo(httpRequest.getAttribute("outTradeNo").toString());
+            tempGroupOrder.setAddress(citySb.toString());
+            tempGroupOrder.setAddressId(customerAddress.getId());
+            tempGroupOrder.setCode(httpRequest.getAttribute("outTradeNo").toString());
+            tempGroupOrder.setCost(Float.parseFloat(httpRequest.getAttribute("cost").toString()));
+            tempGroupOrder.setCustomerAddress(customerAddress.getId());
+            tempGroupOrder.setFlowPrice(good.getFlowPrice());
+            tempGroupOrder.setGoodId(goodId);
+            tempGroupOrder.setGoodPrice(Float.parseFloat(httpRequest.getAttribute("cost").toString()));
+            tempGroupOrder.setNum(good.getGroupNum());
+            tempGroupOrder.setOpenid(userInfo.getOpenid());
+            tempGroupOrder.setGoodOrderType(Integer.parseInt(payType));
+            tempGroupOrderService.add(tempGroupOrder);
 	    return "info/GoodInfoPay";
 	}
 	

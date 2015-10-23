@@ -23,6 +23,8 @@ public class GroupPartake {
     private int type;
     //1团长 ， 2，沙发 3普通人
     private int role;
+    
+    //参加时间
     @Column(name = "date_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime dateTime;

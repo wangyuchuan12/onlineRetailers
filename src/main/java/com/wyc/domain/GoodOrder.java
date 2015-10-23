@@ -27,20 +27,6 @@ public class GoodOrder {
     //商品价格
     @Column(name = "good_price")
     private float goodPrice;
-    @Column(name="refund_amount")
-    private float refundAmount;
-    @Column(name = "refund_time")
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime refundTime;
-    @Column(name = "refund_devivery_time")
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime refundDeviveryTime;
-    @Column(name = "refund_sign_time")
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime refundSignTime;
-    //1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未处理6退款已处理 7已取消
-    @Column(name = "status")
-    private int status;
   //付款方式 0表示组团购买，1表示单买，2表示开团劵购买
     @Column
     private int type;
@@ -52,9 +38,19 @@ public class GoodOrder {
     @Column(name = "delivery_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime deliveryTime;
+    //0表示购买失败，1表示购买成功，2表示购买进行中
+    @Column
+    private int status;
     
     
-    
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public String getAddressId() {
         return addressId;
     }
@@ -85,38 +81,6 @@ public class GoodOrder {
 
     public void setType(int type) {
         this.type = type;
-    }
-
-    public float getRefundAmount() {
-        return refundAmount;
-    }
-
-    public void setRefundAmount(float refundAmount) {
-        this.refundAmount = refundAmount;
-    }
-
-    public DateTime getRefundTime() {
-        return refundTime;
-    }
-
-    public void setRefundTime(DateTime refundTime) {
-        this.refundTime = refundTime;
-    }
-
-    public DateTime getRefundDeviveryTime() {
-        return refundDeviveryTime;
-    }
-
-    public void setRefundDeviveryTime(DateTime refundDeviveryTime) {
-        this.refundDeviveryTime = refundDeviveryTime;
-    }
-
-    public DateTime getRefundSignTime() {
-        return refundSignTime;
-    }
-
-    public void setRefundSignTime(DateTime refundSignTime) {
-        this.refundSignTime = refundSignTime;
     }
 
     //签收时间
@@ -192,13 +156,6 @@ public class GoodOrder {
         this.goodPrice = goodPrice;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
     public DateTime getCreateTime() {
         return createTime;

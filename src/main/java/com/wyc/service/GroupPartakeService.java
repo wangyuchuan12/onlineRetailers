@@ -13,16 +13,16 @@ import com.wyc.repositories.GroupPartakeRepository;
 public class GroupPartakeService {
     @Autowired
     private GroupPartakeRepository groupPartakeRepository;
-    public void add(GroupPartake groupPartake){
+    public GroupPartake add(GroupPartake groupPartake){
         groupPartake.setId(UUID.randomUUID().toString());
         groupPartake.setCreateAt(new DateTime());
         groupPartake.setUpdateAt(new DateTime());
-        groupPartakeRepository.save(groupPartake);
+        return groupPartakeRepository.save(groupPartake);
     }
     
-    public void save(GroupPartake groupPartake){
+    public GroupPartake save(GroupPartake groupPartake){
         groupPartake.setUpdateAt(new DateTime());
-        groupPartakeRepository.save(groupPartake);
+        return groupPartakeRepository.save(groupPartake);
     }
     
     public Iterable<GroupPartake> findByCustomerid(String customerId){

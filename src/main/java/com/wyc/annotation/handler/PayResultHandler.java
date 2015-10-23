@@ -19,6 +19,7 @@ import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;
 import com.wyc.domain.OpenGroupCoupon;
 import com.wyc.domain.OrderDetail;
+import com.wyc.domain.TempGroupOrder;
 import com.wyc.domain.TemporaryData;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodGroupService;
@@ -27,6 +28,7 @@ import com.wyc.service.GoodService;
 import com.wyc.service.GroupPartakeService;
 import com.wyc.service.OpenGroupCouponService;
 import com.wyc.service.OrderDetailService;
+import com.wyc.service.TempGroupOrderService;
 import com.wyc.service.TemporaryDataService;
 public class PayResultHandler implements Handler{
     @Autowired
@@ -45,186 +47,63 @@ public class PayResultHandler implements Handler{
     private OpenGroupCouponService openGroupCouponService;
     @Autowired
     private TemporaryDataService temporaryDataService;
+    @Autowired
+    private TempGroupOrderService tempGroupOrderService;
     final static Logger logger = LoggerFactory.getLogger(PayResultHandler.class);
     @Override
     @Transactional
     public Object handle(HttpServletRequest httpServletRequest)
             throws Exception {
-        String good_id = httpServletRequest.getAttribute("good_id").toString();
-        String payType = httpServletRequest.getAttribute("pay_type").toString();
-        String status = httpServletRequest.getAttribute("status").toString();
-        String openid = httpServletRequest.getAttribute("openId").toString();
-        String userId = httpServletRequest.getAttribute("userId").toString();
-        String outTradeNo = null;
-        if(httpServletRequest.getAttribute("outTradeNo")!=null){
-            outTradeNo = httpServletRequest.getAttribute("outTradeNo").toString();
-        }
-        
-        TemporaryData nowpageTemporaryData = temporaryDataService.findByMyKeyAndName(openid, "nowpage");
-        TemporaryData frompageTemporaryData = temporaryDataService.findByMyKeyAndName(openid, "frompage");
-        if(!(frompageTemporaryData!=null&nowpageTemporaryData.getValue().equals("2")&&frompageTemporaryData.getValue().equals("4"))){
-            String address = null;
-            if(httpServletRequest.getAttribute("address")!=null){
-                address = httpServletRequest.getAttribute("address").toString();
-            }
-          //只有当状态为未付款或者已付款未发货才能生成订单
-            if (status.equals("1") || status.equals("2")) {
-                Good good = goodService.findOne(good_id);
-                float cost = 0;
-                //购买方式，0表示团购，1表示单买，2表示开团劵购买
-                if (payType.equals("0")) {
-                    cost = good.getFlowPrice() + good.getGroupDiscount()
-                            * good.getGroupOriginalCost();
-                } else if (payType.equals("1")) {
-                    cost = good.getFlowPrice() + good.getAloneDiscount()
-                            * good.getAloneOriginalCost();
-                } else if (payType.equals("2")) {
-                    cost = good.getFlowPrice();
-                }
-                Customer customer = customerService.findByOpenId(openid);
-                GoodOrder goodOrder = new GoodOrder();
-                goodOrder.setGoodId(good.getId());
-                goodOrder.setGoodPrice(good.getFlowPrice());
-                goodOrder.setCost(cost);
-                Calendar now = Calendar.getInstance();
-                String code = now.get(Calendar.YEAR)
-                        +"-"+(now.get(Calendar.MONTH) + 1)
-                        +"-"+now.get(Calendar.DAY_OF_MONTH)
-                        +"-"+now.get(Calendar.HOUR_OF_DAY)
-                        +"-"+now.get(Calendar.MINUTE)
-                        +"-"+now.get(Calendar.SECOND)
-                        +"-"+new Random().nextInt(1000)+"";
-                goodOrder.setCode(code);
-                goodOrder.setCreateTime(new DateTime());
-                goodOrder.setFlowPrice(good.getFlowPrice());
-                goodOrder.setStatus(Integer.parseInt(status));
-                goodOrder.setAddress(address);
-                goodOrder.setAddressId(customer.getDefaultAddress());
-                goodOrder.setType(Integer.parseInt(payType));
-                goodOrder = goodOrderService.add(goodOrder);
-                httpServletRequest.setAttribute("orderId", goodOrder.getId());
-                OrderDetail orderDetail = new OrderDetail();
-                orderDetail.setGoodId(good.getId());
-                orderDetail.setNum(good.getGroupNum());
-                orderDetail.setOrderId(goodOrder.getId());
-                orderDetail.setStatus(Integer.parseInt(status));
-                orderDetail.setCustomerId(customerService.findByOpenId(openid).getId());
-                GroupPartake groupPartake = new GroupPartake();
-                
-                //只有当状态为成功购买并且购买方式为团购或者开团劵购买才能生成团记录
-                if (status.equals("2")&&(payType.equals("0")||payType.equals("2"))) {
-                    GoodGroup goodGroup = new GoodGroup();
-                    goodGroup.setGoodId(good.getId());
-                    goodGroup.setNum(good.getGroupNum());
-                    goodGroup.setGroupHead(userId);
-                    goodGroup.setResult(1);
-                    goodGroup.setStartTime(new DateTime());
-                    goodGroup.setTimeLong(24);
-                    goodGroup.setTotalPrice(cost);
-                    
-                    
-                    goodGroup = goodGroupService.add(goodGroup);
-                    
-                    TemporaryData groupIdTemporaryData = new TemporaryData();
-                    groupIdTemporaryData.setMykey(outTradeNo);
-                    groupIdTemporaryData.setName("groupId");
-                    groupIdTemporaryData.setValue(goodGroup.getId());
-                    TemporaryData lastGroupId = temporaryDataService.findByMyKeyAndName(openid,"lastGroupId");
-                    if(lastGroupId==null){
-                        lastGroupId = new TemporaryData();
-                        lastGroupId.setMykey(openid);
-                        lastGroupId.setName("lastGroupId");
-                        lastGroupId.setValue(goodGroup.getId());
-                        temporaryDataService.add(lastGroupId);
-                    }else{
-                        lastGroupId.setValue(goodGroup.getId());
-                        temporaryDataService.save(lastGroupId);
-                    }
-                    
-                    TemporaryData groupId = temporaryDataService.findByMyKeyAndName(outTradeNo, "groupId");
-                    if(groupId==null){
-                        groupId = new TemporaryData();
-                        groupId.setMykey(outTradeNo);
-                        groupId.setName("groupId");
-                        groupId.setValue(goodGroup.getId());
-                        temporaryDataService.add(groupId);
-                    }else{
-                        groupId.setValue(goodGroup.getId());
-                        temporaryDataService.save(groupId);
-                    }
-                    httpServletRequest.setAttribute("groupId", goodGroup.getId());
-                    orderDetail.setGroupId(goodGroup.getId());
-                    logger.debug("get customer by openid {}"+openid);
-                    groupPartake.setGroupId(goodGroup.getId());
-                    if(payType.equals("2")){
-                        OpenGroupCoupon openGroupCoupon = openGroupCouponService.getFirstRecord(customer.getId(), good.getId(), new DateTime(),1);
-                        if(openGroupCoupon==null){
-                            return new RuntimeException("there is no available openGroupCoupon");
-                        }
-                        openGroupCoupon.setStatus(0);
-                        openGroupCouponService.save(openGroupCoupon);
-                    }
-                    
-                }
-                groupPartake.setOrderId(goodOrder.getId());
-               
-                groupPartake.setCustomerid(customer.getId());
-                groupPartake.setDateTime(new DateTime());
-                groupPartake.setRole(1);
-                groupPartake.setType(Integer.parseInt(payType));
-                groupPartakeService.add(groupPartake);
-                orderDetailService.add(orderDetail);
-                
-                TemporaryData orderIdTemporaryData = temporaryDataService.findByMyKeyAndName(outTradeNo, "orderId");
-                if(orderIdTemporaryData==null){
-                    orderIdTemporaryData = new TemporaryData();
-                    orderIdTemporaryData.setMykey(outTradeNo);
-                    orderIdTemporaryData.setName("orderId");
-                    orderIdTemporaryData.setValue(goodOrder.getId());
-                    temporaryDataService.add(orderIdTemporaryData);
-                }else{
-                    orderIdTemporaryData.setValue(goodOrder.getId());
-                    temporaryDataService.save(orderIdTemporaryData);
-                }
-                
-                
-               
-                return goodOrder;
-            } else {
-                return null;
-            }
-        }else{
-            TemporaryData groupId = temporaryDataService.findByMyKeyAndName(openid, "nowgroup");
-            GoodGroup goodGroup = goodGroupService.findOne(groupId.getValue());
+        String outTradeNo = httpServletRequest.getAttribute("outTradeNo").toString();
+        TempGroupOrder tempGroupOrder = tempGroupOrderService.findByOutTradeNo(outTradeNo);
+        if(tempGroupOrder.getGoodOrderType()==0){
+            GoodOrder goodOrder = new GoodOrder();
+            goodOrder.setAddress(tempGroupOrder.getAddress());
+            goodOrder.setAddressId(tempGroupOrder.getAddressId());
+            goodOrder.setCode(tempGroupOrder.getCode());
+            goodOrder.setCost(tempGroupOrder.getCost());
+            goodOrder.setDeliveryTime(new DateTime());
+            goodOrder.setFlowPrice(tempGroupOrder.getFlowPrice());
+            goodOrder.setGoodId(tempGroupOrder.getGoodId());
+            goodOrder.setGoodPrice(tempGroupOrder.getGoodPrice());
+            goodOrder.setPaymentTime(new DateTime());
+            goodOrder.setStatus(2);
+            goodOrder.setType(0);
+            goodOrder = goodOrderService.add(goodOrder);
+            String openid = tempGroupOrder.getOpenid();
             Customer customer = customerService.findByOpenId(openid);
+            GoodGroup goodGroup = new GoodGroup();
+            goodGroup.setGoodId(tempGroupOrder.getGoodId());
+            goodGroup.setGroupHead(customer.getId());
+            goodGroup.setNum(tempGroupOrder.getNum());
+            goodGroup.setResult(1);
+            goodGroup.setStartTime(new DateTime());
+            goodGroup.setTimeLong(24);
+            goodGroup.setTotalPrice(tempGroupOrder.getCost());
+            goodGroup = goodGroupService.add(goodGroup);
+            
             GroupPartake groupPartake = new GroupPartake();
+            groupPartake.setCustomerAddress(tempGroupOrder.getCustomerAddress());
             groupPartake.setCustomerid(customer.getId());
             groupPartake.setDateTime(new DateTime());
-            groupPartake.setRole(3);
+            groupPartake.setGroupId(goodGroup.getId());
+            groupPartake.setOrderId(goodOrder.getId());
+            groupPartake.setRole(1);
             groupPartake.setType(0);
-            OrderDetail orderDetail = orderDetailService.findByGruopId(goodGroup.getId());
-            groupPartake.setOrderId(orderDetail.getOrderId());
-            groupPartake.setGroupId(groupId.getValue());
-            groupPartakeService.add(groupPartake);
+            groupPartake = groupPartakeService.add(groupPartake);
             
-            int groupCount = groupPartakeService.countByGroupId(goodGroup.getId());
-            if(groupCount==goodGroup.getNum()){
-                goodGroup.setResult(2);
-                goodGroupService.save(goodGroup);
-            }
-            TemporaryData lastGroupId = temporaryDataService.findByMyKeyAndName(openid,"lastGroupId");
-            if(lastGroupId==null){
-                lastGroupId = new TemporaryData();
-                lastGroupId.setMykey(openid);
-                lastGroupId.setName("lastGroupId");
-                lastGroupId.setValue(goodGroup.getId());
-                temporaryDataService.add(lastGroupId);
-            }else{
-                lastGroupId.setValue(goodGroup.getId());
-                temporaryDataService.save(lastGroupId);
-            }
-            return null;
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setCustomerId(customer.getId());
+            orderDetail.setGoodId(tempGroupOrder.getGoodId());
+            orderDetail.setGroupId(goodGroup.getId());
+            orderDetail.setNum(tempGroupOrder.getNum());
+            orderDetail.setOrderId(goodOrder.getId());
+            orderDetail.setOutTradeNo(outTradeNo);
+            orderDetail.setStatus(2);
+            orderDetail = orderDetailService.add(orderDetail);
         }
+        return null;
+       
         
     }
 

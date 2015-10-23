@@ -42,28 +42,7 @@ public class WxApi {
         }else{
             paySuccess = wxPaySuccessService.add(paySuccess);
             if(paySuccess.getResultCode().toLowerCase().equals("success")){
-                Iterable<TemporaryData> temporaryDatas = temporaryDataService.findAllByMykey(outTradeNo);
-                for(TemporaryData temporaryData:temporaryDatas){
-                    if(temporaryData.getName().equals("goodId")){
-                        httpServletRequest.setAttribute("good_id", temporaryData.getValue());
-                    }
-                    if(temporaryData.getName().equals("payType")){
-                        httpServletRequest.setAttribute("pay_type", temporaryData.getValue());
-                    }
-                    if(temporaryData.getName().equals("openId")){
-                        httpServletRequest.setAttribute("openId", temporaryData.getValue());
-                    }
-                    
-                    if(temporaryData.getName().equals("userId")){
-                        httpServletRequest.setAttribute("userId", temporaryData.getValue());
-                    }
-                    
-                    if(temporaryData.getName().equals("address")){
-                        httpServletRequest.setAttribute("address", temporaryData.getValue());
-                    }
-                }
                 httpServletRequest.setAttribute("outTradeNo", paySuccess.getOutTradeNo());
-                httpServletRequest.setAttribute("status", 2);
                 return null;
             }
             return new StopToAfter();
