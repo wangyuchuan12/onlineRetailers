@@ -45,6 +45,7 @@ public class WxChooseWxPayHandler implements Handler{
             cost = (Float)httpServletRequest.getAttribute("cost");
         }else{
             cost = Float.parseFloat(httpServletRequest.getParameter("cost"));
+            httpServletRequest.setAttribute("cost", cost);
         }
         String goodId = httpServletRequest.getParameter("good_id");
         String payType=httpServletRequest.getParameter("pay_type");
