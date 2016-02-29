@@ -1,9 +1,6 @@
 package com.wyc.annotation.handler;
 
 import java.lang.annotation.Annotation;
-import java.util.Calendar;
-import java.util.Random;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
@@ -101,6 +98,20 @@ public class PayResultHandler implements Handler{
             orderDetail.setOutTradeNo(outTradeNo);
             orderDetail.setStatus(2);
             orderDetail = orderDetailService.add(orderDetail);
+            
+            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(openid, "lastGroupId");
+            if(temporaryData==null){
+                temporaryData = new TemporaryData();
+                temporaryData.setMykey(openid);
+                temporaryData.setName("lastGroupId");
+                temporaryData.setValue(goodGroup.getId());
+                temporaryDataService.add(temporaryData);
+            }else{
+                temporaryData.setMykey(openid);
+                temporaryData.setName("lastGroupId");
+                temporaryData.setValue(goodGroup.getId());
+                temporaryDataService.save(temporaryData);
+            }
         }
         return null;
        
