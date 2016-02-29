@@ -1,6 +1,9 @@
 package com.wyc.annotation.handler;
 
 import java.lang.annotation.Annotation;
+import java.util.Calendar;
+import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
@@ -53,7 +56,8 @@ public class PayResultHandler implements Handler{
             throws Exception {
         String outTradeNo = httpServletRequest.getAttribute("outTradeNo").toString();
         TempGroupOrder tempGroupOrder = tempGroupOrderService.findByOutTradeNo(outTradeNo);
-        if(tempGroupOrder.getGoodOrderType()==0){
+        String openid = tempGroupOrder.getOpenid();
+        if(tempGroupOrder!=null&&tempGroupOrder.getGoodOrderType()==0){
             GoodOrder goodOrder = new GoodOrder();
             goodOrder.setAddress(tempGroupOrder.getAddress());
             goodOrder.setAddressId(tempGroupOrder.getAddressId());
@@ -67,7 +71,7 @@ public class PayResultHandler implements Handler{
             goodOrder.setStatus(2);
             goodOrder.setType(0);
             goodOrder = goodOrderService.add(goodOrder);
-            String openid = tempGroupOrder.getOpenid();
+            
             Customer customer = customerService.findByOpenId(openid);
             GoodGroup goodGroup = new GoodGroup();
             goodGroup.setGoodId(tempGroupOrder.getGoodId());
@@ -111,6 +115,34 @@ public class PayResultHandler implements Handler{
                 temporaryData.setName("lastGroupId");
                 temporaryData.setValue(goodGroup.getId());
                 temporaryDataService.save(temporaryData);
+            }
+            
+        }else if (tempGroupOrder!=null&&tempGroupOrder.getGoodOrderType()==3) {
+            String groupId = tempGroupOrder.getGroupId();
+            GoodGroup goodGroup = goodGroupService.findOne(groupId);
+            if(goodGroup!=null){
+                GroupPartake groupPartake = new GroupPartake();
+                Customer customer = customerService.findByOpenId(openid);
+                groupPartake.setCustomerAddress(tempGroupOrder.getCustomerAddress());
+                groupPartake.setCustomerid(customer.getId());
+                groupPartake.setDateTime(new DateTime());
+                groupPartake.setGroupId(goodGroup.getId());
+                groupPartake.setRole(1);
+                groupPartake.setType(0);
+                groupPartake = groupPartakeService.add(groupPartake);
+                TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(openid, "lastGroupId");
+                if(temporaryData==null){
+                    temporaryData = new TemporaryData();
+                    temporaryData.setMykey(openid);
+                    temporaryData.setName("lastGroupId");
+                    temporaryData.setValue(goodGroup.getId());
+                    temporaryDataService.add(temporaryData);
+                }else{
+                    temporaryData.setMykey(openid);
+                    temporaryData.setName("lastGroupId");
+                    temporaryData.setValue(goodGroup.getId());
+                    temporaryDataService.save(temporaryData);
+                }
             }
         }
         return null;

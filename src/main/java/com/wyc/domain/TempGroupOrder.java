@@ -50,9 +50,18 @@ public class TempGroupOrder {
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
+    @Column(name="group_id")
+    private String groupId;
     
     
-    
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
     public int getGoodOrderType() {
         return goodOrderType;
     }
