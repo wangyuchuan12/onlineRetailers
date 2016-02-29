@@ -402,7 +402,7 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 				    signType:signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
 				    paySign: paySign, // 支付签名
 				    success: function (res) {
-				    	if(payType=="0"){
+				    	if(payType=="0"||payType=="3"){
 				    		skipToLastestGroupInfo();
 				    	}else{
 				    		var getOrderIdCallback = new Object();
