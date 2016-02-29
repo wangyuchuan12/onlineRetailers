@@ -282,8 +282,8 @@ function skipToPersonCenter(token){
 	skipToUrl("/main/personal_center",token);
 }
 
-function skipToGoodPay(id,pay_type,token,groupId){
-	skipToUrl("/info/good_info_pay?good_id="+id+"&pay_type="+pay_type+"&group_id="+groupId,token);
+function skipToGoodPay(id,pay_type,token,groupId,cost){
+	skipToUrl("/info/good_info_pay?good_id="+id+"&pay_type="+pay_type+"&group_id="+groupId+"&cost="+cost,token);
 }
 
 function skipToPersonCenter(){
