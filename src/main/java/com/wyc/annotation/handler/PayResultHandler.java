@@ -51,8 +51,9 @@ public class PayResultHandler implements Handler{
             throws Exception {
         String outTradeNo = httpServletRequest.getAttribute("outTradeNo").toString();
         TempGroupOrder tempGroupOrder = tempGroupOrderService.findByOutTradeNo(outTradeNo);
-        String openid = tempGroupOrder.getOpenid();
+        
         if(tempGroupOrder!=null&&tempGroupOrder.getGoodOrderType()==0){
+            String openid = tempGroupOrder.getOpenid();
             GoodOrder goodOrder = new GoodOrder();
             goodOrder.setAddress(tempGroupOrder.getAddress());
             goodOrder.setAddressId(tempGroupOrder.getAddressId());
@@ -114,7 +115,7 @@ public class PayResultHandler implements Handler{
         
         }else if (tempGroupOrder!=null&&tempGroupOrder.getGoodOrderType()==3) {
             String groupId = tempGroupOrder.getGroupId();
-           
+            String openid = tempGroupOrder.getOpenid();
             int partNum = groupPartakeService.countByGroupId(groupId);
             GoodGroup goodGroup = goodGroupService.findOne(groupId);
             int groupNum = goodGroup.getNum();
