@@ -126,7 +126,7 @@ public class PayResultHandler implements Handler{
                 groupPartake.setCustomerid(customer.getId());
                 groupPartake.setDateTime(new DateTime());
                 groupPartake.setGroupId(goodGroup.getId());
-                if(partNum==2){
+                if(partNum==1){
                     groupPartake.setRole(2);
                 }else{
                     groupPartake.setRole(3);
