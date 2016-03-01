@@ -17,6 +17,6 @@ public interface GroupPartakeRepository extends CrudRepository<GroupPartake, Str
     @Query("select count(*) from com.wyc.domain.GroupPartake g where g.groupId = :groupId")
     public int countByGroupId(@Param("groupId")String groupId);
 
-    public Iterable<GroupPartake> findAllByGroupIdOrderByDateTime(String id);
+    public Iterable<GroupPartake> findAllByGroupIdOrderByDateTimeAsc(String id);
 
 }
