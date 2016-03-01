@@ -128,7 +128,7 @@ public class PayResultHandler implements Handler{
                 groupPartake.setCustomerid(customer.getId());
                 groupPartake.setDateTime(new DateTime());
                 groupPartake.setGroupId(goodGroup.getId());
-                groupPartake.setRole(1);
+                groupPartake.setRole(3);
                 groupPartake.setType(0);
                 groupPartake = groupPartakeService.add(groupPartake);
                 TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(openid, "lastGroupId");

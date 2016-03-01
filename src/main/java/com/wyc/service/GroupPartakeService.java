@@ -41,4 +41,8 @@ public class GroupPartakeService {
     public int countByGroupId(String groupId){
     	return groupPartakeRepository.countByGroupId(groupId);
     }
+
+    public Iterable<GroupPartake> findAllByGroupIdOrderByDateTime(String id) {
+        return groupPartakeRepository.findAllByGroupIdOrderByDateTime(id);
+    }
 }

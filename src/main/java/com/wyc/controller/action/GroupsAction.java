@@ -189,7 +189,7 @@ public class GroupsAction {
         logger.debug("the group id is {}", id);
         int result = goodGroup.getResult();
         Iterable<GroupPartake> groupPartakes = groupPartakeService
-                .findAllByGroupIdOrderByRoleAsc(id);
+                .findAllByGroupIdOrderByDateTime(id);
         String goodId = goodGroup.getGoodId();
         Good good = goodService.findOne(goodId);
         String goodName = good.getName();
