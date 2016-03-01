@@ -1,9 +1,6 @@
 package com.wyc.annotation.handler;
 
 import java.lang.annotation.Annotation;
-import java.util.Calendar;
-import java.util.Random;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
@@ -13,11 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wyc.domain.Customer;
-import com.wyc.domain.Good;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;
-import com.wyc.domain.OpenGroupCoupon;
 import com.wyc.domain.OrderDetail;
 import com.wyc.domain.TempGroupOrder;
 import com.wyc.domain.TemporaryData;
@@ -57,7 +52,6 @@ public class PayResultHandler implements Handler{
         String outTradeNo = httpServletRequest.getAttribute("outTradeNo").toString();
         TempGroupOrder tempGroupOrder = tempGroupOrderService.findByOutTradeNo(outTradeNo);
         String openid = tempGroupOrder.getOpenid();
-        System.out.println("..............................."+tempGroupOrder.getGoodOrderType());
         if(tempGroupOrder!=null&&tempGroupOrder.getGoodOrderType()==0){
             GoodOrder goodOrder = new GoodOrder();
             goodOrder.setAddress(tempGroupOrder.getAddress());
@@ -120,7 +114,10 @@ public class PayResultHandler implements Handler{
         
         }else if (tempGroupOrder!=null&&tempGroupOrder.getGoodOrderType()==3) {
             String groupId = tempGroupOrder.getGroupId();
+           
+            int partNum = groupPartakeService.countByGroupId(groupId);
             GoodGroup goodGroup = goodGroupService.findOne(groupId);
+            int groupNum = goodGroup.getNum();
             if(goodGroup!=null){
                 GroupPartake groupPartake = new GroupPartake();
                 Customer customer = customerService.findByOpenId(openid);
@@ -128,7 +125,15 @@ public class PayResultHandler implements Handler{
                 groupPartake.setCustomerid(customer.getId());
                 groupPartake.setDateTime(new DateTime());
                 groupPartake.setGroupId(goodGroup.getId());
-                groupPartake.setRole(3);
+                if(partNum==2){
+                    groupPartake.setRole(2);
+                }else{
+                    groupPartake.setRole(3);
+                }
+                if(partNum+1==groupNum){
+                   goodGroup.setResult(2);
+                   goodGroupService.save(goodGroup);
+                }
                 groupPartake.setType(0);
                 groupPartake = groupPartakeService.add(groupPartake);
                 TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(openid, "lastGroupId");
