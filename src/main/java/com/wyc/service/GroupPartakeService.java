@@ -43,6 +43,6 @@ public class GroupPartakeService {
     }
 
     public Iterable<GroupPartake> findAllByGroupIdOrderByDateTime(String id) {
-        return groupPartakeRepository.findAllByGroupIdOrderByDateTime(id);
+        return groupPartakeRepository.findAllByGroupIdOrderByDateTimeAsc(id);
     }
 }
