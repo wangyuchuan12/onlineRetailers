@@ -118,7 +118,7 @@ public class WxChooseWxPayHandler implements Handler{
         logger.debug("paySign is {}",paySign);
         httpServletRequest.setAttribute("appId", wxContext.getAppid());
         httpServletRequest.setAttribute("prepayId", prepayId);
-        httpServletRequest.setAttribute("package", "prepay_id="+prepayId);
+        httpServletRequest.setAttribute("pack", "prepay_id="+prepayId);
         httpServletRequest.setAttribute("nonceStr", nonceStr);
         httpServletRequest.setAttribute("paySign", paySign);
         httpServletRequest.setAttribute("signType", "MD5");
