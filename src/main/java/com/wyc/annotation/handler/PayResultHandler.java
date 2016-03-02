@@ -184,6 +184,7 @@ public class PayResultHandler implements Handler{
                 temporaryData = new TemporaryData();
                 temporaryData.setMykey(tempGroupOrder.getOpenid());
                 temporaryData.setName("lastOrder");
+                temporaryData.setValue(tempGroupOrder.getOrderId());
                 temporaryDataService.add(temporaryData);
             }
             
