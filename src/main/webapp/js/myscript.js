@@ -253,10 +253,11 @@ function skipToLastestGroupInfo(token){
 	skipToUrl("/info/lastest_group_info",token);
 }
 
-
 function skipToLastestOrderInfo(token){
-	skipToUrl("/info/lastest_order_info",token);
+	skipToUrl("/info/last_order",token);
 }
+
+
 
 function skipToGroupInfo(id , token){
 	skipToUrl("/info/group_info2?id="+id,token);
@@ -406,11 +407,12 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 				    		skipToLastestGroupInfo();
 				    	}else{
 				    		var getOrderIdCallback = new Object();
-				    		getOrderIdCallback.success = function(resp){
-				    			
-				    			skipToOrderInfo(resp.orderId);
-				    		}
-				    		request("/api/get_temporary_data?key="+outTradeNo+"&name=orderId",token,getOrderIdCallback);
+				    		skipToLastestOrderInfo();
+//				    		getOrderIdCallback.success = function(resp){
+//				    			
+//				    			skipToLastestOrderInfo();
+//				    		}
+				    	//	request("/api/get_temporary_data?key="+outTradeNo+"&name=orderId",token,getOrderIdCallback);
 				    	}
 				    	
 				    },

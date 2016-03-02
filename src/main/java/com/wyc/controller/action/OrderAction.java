@@ -1,8 +1,6 @@
 package com.wyc.controller.action;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,11 +17,10 @@ import com.wyc.domain.City;
 import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
-import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodOrder;
-import com.wyc.domain.GroupPartake;
 import com.wyc.domain.MyResource;
 import com.wyc.domain.OrderDetail;
+import com.wyc.domain.TemporaryData;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CityService;
 import com.wyc.service.CustomerAddressService;
@@ -33,6 +30,7 @@ import com.wyc.service.GoodService;
 import com.wyc.service.GroupPartakeService;
 import com.wyc.service.MyResourceService;
 import com.wyc.service.OrderDetailService;
+import com.wyc.service.TemporaryDataService;
 import com.wyc.service.WxUserInfoService;
 import com.wyc.wx.domain.UserInfo;
 
@@ -58,6 +56,8 @@ public class OrderAction {
     private MySimpleDateFormat mySimpleDateFormat;
     @Autowired
     private CityService cityService;
+    @Autowired
+    private TemporaryDataService temporaryDataService;
     final static Logger logger = LoggerFactory.getLogger(OrderAction.class);
     @RequestMapping("/main/order_list")
     @UserInfoFromWebAnnotation
@@ -76,6 +76,15 @@ public class OrderAction {
         responseOrder.put("flowPrice", goodOrder.getFlowPrice());
         responseOrder.put("id", goodOrder.getId());
         return responseOrder;
+    }
+    
+    @RequestMapping("/info/last_order")
+    @UserInfoFromWebAnnotation
+    public String skipLastOrder(HttpServletRequest httpServletRequest){
+        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
+        UserInfo userInfo = myHttpServletRequest.getUserInfo();
+        TemporaryData lastOrderTemporaryData = temporaryDataService.findByMyKeyAndName(userInfo.getOpenid(),"lastOrder");
+        return "redirect:/info/order_info?id="+lastOrderTemporaryData.getValue();
     }
     @RequestMapping("/info/order_info")
     @UserInfoFromWebAnnotation

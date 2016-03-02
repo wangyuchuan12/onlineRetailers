@@ -51,7 +51,10 @@ public class PayResultHandler implements Handler{
             throws Exception {
         String outTradeNo = httpServletRequest.getAttribute("outTradeNo").toString();
         TempGroupOrder tempGroupOrder = tempGroupOrderService.findByOutTradeNo(outTradeNo);
-        
+        Customer customer = null;
+        if(tempGroupOrder!=null){
+            customer = customerService.findByOpenId(tempGroupOrder.getOpenid());
+        }
         if(tempGroupOrder!=null&&tempGroupOrder.getGoodOrderType()==0){
             String openid = tempGroupOrder.getOpenid();
             GoodOrder goodOrder = new GoodOrder();
@@ -68,7 +71,7 @@ public class PayResultHandler implements Handler{
             goodOrder.setType(0);
             goodOrder = goodOrderService.add(goodOrder);
             
-            Customer customer = customerService.findByOpenId(openid);
+            
             GoodGroup goodGroup = new GoodGroup();
             goodGroup.setGoodId(tempGroupOrder.getGoodId());
             goodGroup.setGroupHead(customer.getId());
@@ -121,7 +124,6 @@ public class PayResultHandler implements Handler{
             int groupNum = goodGroup.getNum();
             if(goodGroup!=null){
                 GroupPartake groupPartake = new GroupPartake();
-                Customer customer = customerService.findByOpenId(openid);
                 groupPartake.setCustomerAddress(tempGroupOrder.getCustomerAddress());
                 groupPartake.setCustomerid(customer.getId());
                 groupPartake.setDateTime(new DateTime());
@@ -151,6 +153,40 @@ public class PayResultHandler implements Handler{
                     temporaryDataService.save(temporaryData);
                 }
             }
+        }else if (tempGroupOrder!=null&&tempGroupOrder.getGoodOrderType()==1) {
+            GoodOrder goodOrder = new GoodOrder();
+            goodOrder.setAddress(tempGroupOrder.getAddress());
+            goodOrder.setAddressId(tempGroupOrder.getAddressId());
+            goodOrder.setCode(tempGroupOrder.getCode());
+            goodOrder.setCost(tempGroupOrder.getCost());
+            goodOrder.setCreateTime(new DateTime());
+            goodOrder.setFlowPrice(tempGroupOrder.getFlowPrice());
+            goodOrder.setGoodId(tempGroupOrder.getGoodId());
+            goodOrder.setGoodPrice(tempGroupOrder.getGoodPrice());
+            goodOrder.setStatus(1);
+            goodOrder.setType(1);
+            goodOrder = goodOrderService.add(goodOrder);
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setCustomerId(customer.getId());
+            orderDetail.setGoodId(tempGroupOrder.getGoodId());
+            orderDetail.setNum(tempGroupOrder.getNum());
+            orderDetail.setOrderId(goodOrder.getId());
+            orderDetail.setOutTradeNo(tempGroupOrder.getOutTradeNo());
+            orderDetail.setStatus(1);
+            orderDetail = orderDetailService.add(orderDetail);
+            
+            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(tempGroupOrder.getOpenid(), "lastOrder");
+            if(temporaryData!=null){
+                temporaryData.setMykey(tempGroupOrder.getOpenid());
+                temporaryData.setName("lastOrder");
+                temporaryDataService.save(temporaryData);
+            }else{
+                temporaryData = new TemporaryData();
+                temporaryData.setMykey(tempGroupOrder.getOpenid());
+                temporaryData.setName("lastOrder");
+                temporaryDataService.add(temporaryData);
+            }
+            
         }
         return null;
        
