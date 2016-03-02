@@ -69,6 +69,7 @@ public class PayResultHandler implements Handler{
             goodOrder.setPaymentTime(new DateTime());
             goodOrder.setStatus(2);
             goodOrder.setType(0);
+            goodOrder.setCreateTime(new DateTime());
             goodOrder = goodOrderService.add(goodOrder);
             
             
