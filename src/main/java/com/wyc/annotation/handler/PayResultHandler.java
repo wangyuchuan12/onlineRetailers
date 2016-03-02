@@ -67,7 +67,7 @@ public class PayResultHandler implements Handler{
             goodOrder.setGoodId(tempGroupOrder.getGoodId());
             goodOrder.setGoodPrice(tempGroupOrder.getGoodPrice());
             goodOrder.setPaymentTime(new DateTime());
-            goodOrder.setStatus(2);
+            goodOrder.setStatus(1);
             goodOrder.setType(0);
             goodOrder.setCreateTime(new DateTime());
             goodOrder = goodOrderService.add(goodOrder);
@@ -176,6 +176,13 @@ public class PayResultHandler implements Handler{
             orderDetail.setStatus(1);
             orderDetail = orderDetailService.add(orderDetail);
             
+            GroupPartake groupPartake = new GroupPartake();
+            groupPartake.setCustomerAddress(tempGroupOrder.getCustomerAddress());
+            groupPartake.setCustomerid(customer.getId());
+            groupPartake.setDateTime(new DateTime());
+            groupPartake.setOrderId(goodOrder.getId());
+            groupPartake.setType(1);
+            groupPartakeService.add(groupPartake);
             TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(tempGroupOrder.getOpenid(), "lastOrder");
             if(temporaryData!=null){
                 temporaryData.setMykey(tempGroupOrder.getOpenid());
