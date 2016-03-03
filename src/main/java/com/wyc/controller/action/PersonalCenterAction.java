@@ -100,6 +100,7 @@ public class PersonalCenterAction {
         if(prepareRedirect!=null){
             httpServletRequest.setAttribute("prepareRedirect", prepareRedirect);
         }
+        System.out.println("................redirect:"+prepareRedirect);
         httpServletRequest.setAttribute("cities", responseProvinces);
         return "info/AddressInfoAdd";
     }
