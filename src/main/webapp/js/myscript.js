@@ -341,6 +341,7 @@ function onOrderClick(){
 }
 
 function toAddAddress(prepareRedirect){
+	alert(prepareRedirect);
 	skipToUrl("/info/address_add?prepareRedirect="+prepareRedirect);
 }
 function footActive(id){
