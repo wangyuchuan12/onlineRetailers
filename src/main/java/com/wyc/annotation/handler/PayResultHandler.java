@@ -67,7 +67,7 @@ public class PayResultHandler implements Handler{
             goodOrder.setGoodId(tempGroupOrder.getGoodId());
             goodOrder.setGoodPrice(tempGroupOrder.getGoodPrice());
             goodOrder.setPaymentTime(new DateTime());
-            goodOrder.setStatus(1);
+            goodOrder.setStatus(2);
             goodOrder.setType(0);
             goodOrder.setCreateTime(new DateTime());
             goodOrder = goodOrderService.add(goodOrder);
@@ -164,7 +164,7 @@ public class PayResultHandler implements Handler{
             goodOrder.setFlowPrice(tempGroupOrder.getFlowPrice());
             goodOrder.setGoodId(tempGroupOrder.getGoodId());
             goodOrder.setGoodPrice(tempGroupOrder.getGoodPrice());
-            goodOrder.setStatus(1);
+            goodOrder.setStatus(2);
             goodOrder.setType(1);
             goodOrder = goodOrderService.add(goodOrder);
             OrderDetail orderDetail = new OrderDetail();
