@@ -39,6 +39,7 @@ public class GoodOrder {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime deliveryTime;
     //0表示购买失败，1表示购买成功，2表示购买进行中
+    //1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未处理6退款已处理
     @Column
     private int status;
     

@@ -83,9 +83,7 @@ public class OrderAction {
             if(status.equals("0")){
                 responseOrders.add(getResponseOrder(goodOrder));
             }else if (status.equals("1")) {
-                if(goodOrder.getStatus()==1){
-                    responseOrders.add(getResponseOrder(goodOrder));
-                }
+                //购买失败时添加的数据
             }else if (status.equals("2")) {
                 if(goodOrder.getStatus()==2||goodOrder.getStatus()==3){
                     responseOrders.add(getResponseOrder(goodOrder));
@@ -109,6 +107,7 @@ public class OrderAction {
         responseOrder.put("cost", goodOrder.getCost());
         responseOrder.put("flowPrice", goodOrder.getFlowPrice());
         responseOrder.put("id", goodOrder.getId());
+        responseOrder.put("status", goodOrder.getStatus());
         return responseOrder;
     }
     
@@ -130,7 +129,6 @@ public class OrderAction {
         OrderDetail orderDetail = orderDetailService.findByOrderId(goodOrder.getId());
         String customerId = orderDetail.getCustomerId();
         Customer customer = customerService.findOne(customerId);
-        logger.debug("这里总应该进来了吧。。。。。。。。。。。。。。");
         Map<String, Object> orderResponse = getResponseOrder(goodOrder);
         if(userInfo.getOpenid().equals(customer.getOpenId())){
             orderResponse.put("cost", goodOrder.getCost());
