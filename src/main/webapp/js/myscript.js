@@ -4,7 +4,6 @@ var currentCity;
 var currentAddress;
 var currentProvince;
 function addressAddSbumit(prepareRedirect,token,id){
-	alert(prepareRedirect);
 	if(!token&&window.localStorage.getItem("userToken")){
 		token = window.localStorage.getItem("userToken");
 	}
