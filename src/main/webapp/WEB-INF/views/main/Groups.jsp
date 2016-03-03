@@ -29,7 +29,7 @@
 									</span>
 									
 									<div class="group_details activityStyle" onclick="javascript:skipToGroupInfo('${group.group_id}');">查看团详情</div>
-									<div class="group_details activityStyle">查看订单详情</div>
+									<div class="group_details activityStyle" onclick="javascript:skipToOrderInfo('${group.order_id}');">查看订单详情</div>
 								</div>
 							</a>
 					</li>

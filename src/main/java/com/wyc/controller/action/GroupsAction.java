@@ -26,12 +26,14 @@ import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodGroup;
+import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;
 import com.wyc.domain.OrderDetail;
 import com.wyc.domain.TemporaryData;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodGroupService;
+import com.wyc.service.GoodOrderService;
 import com.wyc.service.GoodService;
 import com.wyc.service.GroupPartakeService;
 import com.wyc.service.MyResourceService;
@@ -60,6 +62,8 @@ public class GroupsAction {
     private OrderDetailService orderDetailService;
     @Autowired
     private TemporaryDataService temporaryDataService;
+    @Autowired
+    private GoodOrderService goodOrderService;
     final static Logger logger = LoggerFactory.getLogger(GroupsAction.class);
 
     @RequestMapping("/main/group_list")
@@ -104,7 +108,7 @@ public class GroupsAction {
                     goodGroup = goodGroupService.save(goodGroup);
                 }
             }
-            
+            OrderDetail orderDetail = orderDetailService.findByGruopId(goodGroup.getId());
             responseGroup.put("result", goodGroup.getResult() + "");
             Good good = goodService.findOne(goodGroup.getGoodId());
             responseGroup.put("name", good.getName());
@@ -112,6 +116,7 @@ public class GroupsAction {
                     myResourceService.findOne(good.getHeadImg()).getUrl());
             responseGroup.put("total_price", goodGroup.getTotalPrice() + "");
             responseGroup.put("group_id", goodGroup.getId());
+            responseGroup.put("order_id", orderDetail.getOrderId());
             responseGroups.add(responseGroup);
         }
         servletRequest.setAttribute("groups", responseGroups);
