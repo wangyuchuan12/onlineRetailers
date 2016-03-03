@@ -340,9 +340,10 @@ function onOrderClick(){
 	});
 }
 
-function toAddAddress(prepareRedirect){
-	alert(prepareRedirect);
-	skipToUrl("/info/address_add?prepareRedirect="+prepareRedirect);
+function toAddAddress(prepareRedirect,token){
+	var obj = new Object();
+	obj.prepareRedirect = prepareRedirect;
+	skipToUrl("/info/address_add",token,obj);
 }
 function footActive(id){
 	var footGoodList = $("#foot_good_list");	
