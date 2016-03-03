@@ -339,8 +339,8 @@ function onOrderClick(){
 	});
 }
 
-function toAddAddress(){
-	skipToUrl("/info/address_add");
+function toAddAddress(prepareRedirect){
+	skipToUrl("/info/address_add?prepareRedirect="+prepareRedirect);
 }
 function footActive(id){
 	var footGoodList = $("#foot_good_list");	

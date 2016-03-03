@@ -54,6 +54,7 @@ public class PersonalCenterAction {
     
     @RequestMapping("/info/address_add")
     public String addressAdd(HttpServletRequest httpServletRequest){
+        String prepareRedirect = httpServletRequest.getParameter("prepareRedirect");
         String goodDistributions = applicationProperties.getProperty("good_distributions");
         String[] goodDistributionCodes= null;
         if(goodDistributions.contains(",")){
@@ -95,6 +96,9 @@ public class PersonalCenterAction {
                     responseAddresses.add(responseAddress);
                 }
             }
+        }
+        if(prepareRedirect!=null){
+            httpServletRequest.setAttribute("prepareRedirect", prepareRedirect);
         }
         httpServletRequest.setAttribute("cities", responseProvinces);
         return "info/AddressInfoAdd";
@@ -161,6 +165,7 @@ public class PersonalCenterAction {
     @UserInfoFromWebAnnotation
     public String address(HttpServletRequest httpServletRequest){
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
+        String prepareRedirect = myHttpServletRequest.getParameter("prepare_redirect");
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
         String openid = userInfo.getOpenid();
         Customer customer = customerService.findByOpenId(openid);
@@ -189,6 +194,9 @@ public class PersonalCenterAction {
             responseCustomerAddresses.add(responseCustomerAddress);
         }
         httpServletRequest.setAttribute("addresses", responseCustomerAddresses);
+        if(prepareRedirect!=null){
+            httpServletRequest.setAttribute("prepareRedirect",prepareRedirect);
+        }
         return "info/Address";
     }
    

@@ -48,7 +48,7 @@
       </div>  
        	
   </div>
-  <div class="foot4" onclick="javascript:toAddAddress();"><a>新增地址</a></div>
+  <div class="foot4" onclick="javascript:toAddAddress('${prepareRedirect}');"><a>新增地址</a></div>
   <script type="text/javascript">
 	  $(document).ready(function(){
 		setUserToken("${token.id}");
