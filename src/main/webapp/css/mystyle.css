@@ -44,7 +44,7 @@
 
 
 
-.good_info_introduce{background-color:#FFF;font-size:12px;margin:0 -10px;padding:10px 10px 0;height:150%;}
+.good_info_introduce{background-color:#FFF;font-size:12px;margin:0 -10px;padding:10px 10px 0;height:100%;}
 .good_info_introduce_name{color:#191919;font-size:20px;height:20px;line-height:20px;margin-bottom:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;word-break:break-all;word-wrap:break-word}
 .good_info_introduce_ico{background-color:#F0373D;border-radius:15px;color:#FFF;display:inline-block;font-size:9px;height:15px;line-height:15px;margin-right:5px;text-align:center;width:38px}
 .good_info_introduce_cx{color:#A1A1A1;line-height:15px}
@@ -55,20 +55,15 @@
 .good_info_introduce_num span{margin:0 5px}
 
 .good_info_btns{
-	float: left;
-	display: block;
-	left:-100px;
-	width:500px;
-	
+	background-color:RGBA(214,214,214,.4);
+	padding-left:5px;
 	
 }
 
 .good_info_btns ul li{
-	width:80px;
+	width:32%;
 	position:relative;
 	display:inline-block;
-	float: left;
-	margin-left: 20px;
 }
 
 .good_info_btn{
