@@ -42,7 +42,42 @@
                         <div class="good_info_introduce_price">市场价：<b id="market_price">${good.market_price}</b> <span>已售：<i id="sold_quantity">10</i>件</span></div>
                         <div class="good_info_introduce_num">支付开团并邀请<span id="tuan_more_need_number"></span>人参团，人数不足自动退款，详见下方拼团玩法</div>
                     </div>
-                </div>
+				<div class="good_info_btns">
+					<ul>
+						<li>
+							<div class="good_info_btn activityStyle"
+								onclick="skipToGoodPay('${good.id}',0)">
+								<div class="good_info_btn_price_group">￥${good.group_cost}/件</div>
+								<div class="good_info_btn_type">${good.group_num}人团</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="good_info_btn activityStyle"
+								onclick="skipToGoodPay('${good.id}',1)">
+								<div class="good_info_btn_price_alone">￥${good.alone_cost}/件</div>
+								<div class="good_info_btn_type">单独买</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="good_info_btn activityStyle"
+								<c:if test="${couponCount>0}">
+    					onclick="skipToGoodPay('${good.id}',2)"
+    				</c:if>>
+								<c:if test="${couponCount>0}">
+									<div class="good_info_btn_price_integral">${good.coupon_cost}张/件</div>
+									<div class="good_info_btn_type">开团劵开团(${couponCount})</div>
+								</c:if>
+								<c:if test="${couponCount==0}">
+									<div class="good_info_btn_price_disable">${good.coupon_cost}张/件</div>
+									<div class="good_info_btn_type_disable">开团劵开团(${couponCount})</div>
+								</c:if>
+							</div>
+						</li>
+					</ul>
+				</div>
+				</div>
             </div>
             <div class="trade_flow">
             	<div class="trade_flow_details" onclick="window.location.href='/info/trade_flow_info'">查看详情&gt;</div>
@@ -86,40 +121,7 @@
 		</div>
         </section>
     </div>
-    <div class="good_info_btns footer2">
-    		<ul>
-    			<li>
-    				<div class="good_info_btn activityStyle" onclick="skipToGoodPay('${good.id}',0)">
-    					<div class="good_info_btn_price_group">￥${good.group_cost}/件</div>
-    					<div class="good_info_btn_type">${good.group_num}人团</div>
-    				</div>
-    			</li>
-    			
-    			<li>
-    				<div class="good_info_btn activityStyle" onclick="skipToGoodPay('${good.id}',1)">
-    					<div class="good_info_btn_price_alone">￥${good.alone_cost}/件</div>
-    					<div class="good_info_btn_type">单独买</div>
-    				</div>
-    			</li>
-    			
-    			<li>
-    				<div class="good_info_btn activityStyle"
-	    				<c:if test="${couponCount>0}">
-	    					onclick="skipToGoodPay('${good.id}',2)"
-	    				</c:if>
-    				>
-	    				<c:if test="${couponCount>0}">
-		    				<div class="good_info_btn_price_integral">${good.coupon_cost}张/件</div>
-	    					<div class="good_info_btn_type">开团劵开团(${couponCount})</div>
-	    				</c:if>
-    					<c:if test="${couponCount==0}">
-		    				<div class="good_info_btn_price_disable">${good.coupon_cost}张/件</div>
-	    					<div class="good_info_btn_type_disable">开团劵开团(${couponCount})</div>
-	    				</c:if>
-    				</div>
-    			</li>
-    		</ul>
-    </div>
+    
     <script type="text/javascript">
     		$(document).ready(function(){
     			setUserToken("${token.id}");
