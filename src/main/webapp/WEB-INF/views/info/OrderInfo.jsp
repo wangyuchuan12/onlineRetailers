@@ -87,5 +87,10 @@
        	</div>
        </div>
      </div>
+      <script type="text/javascript">
+    		$(document).ready(function(){
+    			footActive("foot_order_list");
+    		});
+    </script>
 </tiles:putAttribute>
 </tiles:insertDefinition>
