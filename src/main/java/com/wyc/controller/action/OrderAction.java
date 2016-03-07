@@ -147,6 +147,7 @@ public class OrderAction {
             orderResponse.put("goodName", good.getName());
             orderResponse.put("goodPrice",goodOrder.getCost());
             orderResponse.put("code", goodOrder.getCode());
+            orderResponse.put("groupId", orderDetail.getGroupId());
         }
         httpServletRequest.setAttribute("order", orderResponse);
         return "info/OrderInfo";

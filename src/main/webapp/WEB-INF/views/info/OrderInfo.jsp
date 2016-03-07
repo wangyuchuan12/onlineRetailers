@@ -80,11 +80,15 @@
        		<div class="order_info_good_info_num">数量：1</div>
        		<div class="order_info_good_info_price">￥${order.goodPrice}/件</div>
        	</div>
-       	<div class="order_info_good_info_btns">
-       		<div class="order_info_good_info_btn_group_detail">
-       			查看团详情
-       		</div>
-       	</div>
+       	<c:if test="${order.type==0 || order.type==2}">
+	       	<div class="order_info_good_info_btns" onclick="javascript:skipToGroupInfo('${order.groupId}');">
+	       		<div class="order_info_good_info_btn_group_detail">
+	       			查看团详情
+	       		</div>
+	       	</div>
+       	</c:if>
+       	
+       	
        </div>
      </div>
       <script type="text/javascript">
