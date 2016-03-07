@@ -44,6 +44,7 @@ public class MyResourceService {
         String fileName = UUID.randomUUID()+"."+myResource.getSuffix();
         File resource = new File(file.getAbsoluteFile(),fileName);
         myResource.setUrl("/file/"+fileName);
+        myResource.setSystemUrl(resource.getAbsolutePath());
         logger.debug("save image to {}",resource.getAbsoluteFile());
         FileOutputStream fileOutputStream = null;
         try {
@@ -69,5 +70,11 @@ public class MyResourceService {
 
     public Iterable<MyResource> findAll(Iterable<String> resourceIds) {
        return resourceRepository.findAll(resourceIds);
+    }
+
+    public MyResource save(MyResource myResource) {
+        myResource.setUpdateAt(new DateTime());
+        return resourceRepository.save(myResource);
+        
     }
 }

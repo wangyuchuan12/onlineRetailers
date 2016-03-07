@@ -1,4 +1,5 @@
 package com.wyc.manager.controller.api;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qiniu.http.Response;
+import com.qiniu.storage.UploadManager;
+import com.qiniu.util.Auth;
 import com.wyc.defineBean.ApiResponse;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodDistribution;
@@ -43,6 +47,18 @@ public class GoodManagerApi {
     private GoodDistributionService goodDistributionService;
     @Autowired
     private CityService cityService;
+    
+    
+  //设置好账号的ACCESS_KEY和SECRET_KEY
+    String ACCESS_KEY = "0aPSy8Q-S-e7eb7OsYc6xjRO2PjLivG774Jp7tI5";
+    String SECRET_KEY = "nL8W-aLnv1hxZeZECQRmsln15kO8F-EvmMbltCBM";
+    //要上传的空间
+    String bucketname = "picture";
+    
+  //密钥配置
+    Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
+    //创建上传对象
+    UploadManager uploadManager = new UploadManager();
     private Logger logger = LoggerFactory.getLogger(GoodManagerApi.class);
     @RequestMapping("/manager/api/add_good")
     public Object addGood(MultipartHttpServletRequest servletRequest){
@@ -270,6 +286,38 @@ public class GoodManagerApi {
         }else{
             return null;
         }
+    }
+    
+    private String upload(String filePath , String key) throws IOException{
+        String token = auth.uploadToken(bucketname,key);
+        //调用put方法上传
+        Response res = uploadManager.put(filePath, key, token);
+        //打印返回的信息
+        return res.bodyString(); 
+
+    }
+    @RequestMapping("/manager/api/sync_data")
+    public Object synchData(HttpServletRequest httpServletRequest){
+        Iterable<MyResource> myResources = resourceService.findAll();
+        HashMap<String, Object> response = new HashMap<String, Object>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<String> successIds = new ArrayList<String>();
+        List<String> errorIds = new ArrayList<String>();
+        for(MyResource myResource:myResources){
+            try {
+                String returnBody = upload(myResource.getSystemUrl(), myResource.getId());
+                HashMap<String, String> hashMap = objectMapper.readValue(returnBody, HashMap.class);
+                myResource.setUrl("http://7xlw44.com1.z0.glb.clouddn.com/"+hashMap.get("key"));
+                resourceService.save(myResource);
+                successIds.add(myResource.getId());
+            } catch (Exception e) {
+                logger.error("has error:{}",e);
+                errorIds.add(myResource.getId());
+            }
+        }
+        response.put("successIds", successIds);
+        response.put("errorIds", errorIds);
+        return response;
     }
     
     @RequestMapping("/manager/api/good_delete")

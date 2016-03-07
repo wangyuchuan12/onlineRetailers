@@ -16,6 +16,8 @@ public class MyResource {
     private String id;
     @Column(name = "url")
     private String url;
+    @Column(name="system_url")
+    private String systemUrl;
     @Column(name = "name")
     private String name;
     @Column(name = "instruction")
@@ -34,6 +36,14 @@ public class MyResource {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
     private DateTime updateAt;
+    
+    
+    public String getSystemUrl() {
+        return systemUrl;
+    }
+    public void setSystemUrl(String systemUrl) {
+        this.systemUrl = systemUrl;
+    }
     public DateTime getCreateAt() {
         return createAt;
     }
