@@ -99,15 +99,7 @@ public class GroupsAction {
         List<Map<String, String>> responseGroups = new ArrayList<Map<String, String>>();
         for (GoodGroup goodGroup : goodGroups) {
             Map<String, String> responseGroup = new HashMap<String, String>();
-            if(goodGroup.getResult()==1){
-                Calendar calendar = new GregorianCalendar();
-                calendar.setTime(goodGroup.getStartTime().toDate());
-                calendar.add(Calendar.HOUR, goodGroup.getTimeLong());
-                if(calendar.getTime().getTime()<new Date().getTime()){
-                    goodGroup.setResult(0);
-                    goodGroup = goodGroupService.save(goodGroup);
-                }
-            }
+            goodGroup = checkTimeout(goodGroup);
             OrderDetail orderDetail = orderDetailService.findByGruopId(goodGroup.getId());
             responseGroup.put("result", goodGroup.getResult() + "");
             Good good = goodService.findOne(goodGroup.getGoodId());
@@ -122,7 +114,23 @@ public class GroupsAction {
         servletRequest.setAttribute("groups", responseGroups);
         return "main/Groups";
     }
-
+    
+    private GoodGroup checkTimeout(GoodGroup goodGroup){
+        if(goodGroup.getResult()==1){
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(goodGroup.getStartTime().toDate());
+            calendar.add(Calendar.HOUR, goodGroup.getTimeLong());
+            if(calendar.getTime().getTime()<new Date().getTime()){
+                goodGroup.setResult(0);
+                goodGroup = goodGroupService.save(goodGroup);
+                OrderDetail orderDetail = orderDetailService.findByGruopId(goodGroup.getId());
+                GoodOrder goodOrder = goodOrderService.findOne(orderDetail.getOrderId());
+                goodOrder.setStatus(5);
+                goodOrderService.save(goodOrder);
+            }
+        }
+        return goodGroup;
+    }
     @RequestMapping("/info/takepart_group")
     @UserInfoFromWebAnnotation
     @Transactional
@@ -191,6 +199,7 @@ public class GroupsAction {
         UserInfo requestUser = myHttpServletRequest.getUserInfo();
         String id = httpServletRequest.getParameter("id");
         GoodGroup goodGroup = goodGroupService.findOne(id);
+        goodGroup = checkTimeout(goodGroup);
         logger.debug("the group id is {}", id);
         int result = goodGroup.getResult();
         Iterable<GroupPartake> groupPartakes = groupPartakeService
