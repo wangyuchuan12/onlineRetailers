@@ -42,6 +42,8 @@ public class Good {
     //商品说明
     @Column(length=5000)
     private String instruction;
+    @Column
+    private String title;
     @Column(name="group_num")
     @JsonProperty(value = "group_num")
     private int groupNum;
@@ -65,6 +67,14 @@ public class Good {
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
+    
+    
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
     public int getGroupDuration() {
         return groupDuration;
     }

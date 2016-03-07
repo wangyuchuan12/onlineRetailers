@@ -23,6 +23,9 @@
 	<body>
 		<div class="container">
 			<img class="linkGuid" style="display:none" id="linkGuid" src="/img/arrow.png" onclick="javascript:hideLinkGuid();"></img>
+			<input hidden="true" id = "group_info_img" value="${groupInfo.headImg}">
+			<input hidden="true" id = "group_info_good_name" value="${groupInfo.goodName}">
+			<input hidden="true" id = "group_info_good_title" value="${groupInfo.title}">
 			<div class="group_goodinfo">
 			      
 					<div class="group_goodinfo_img">
@@ -163,8 +166,11 @@
      		$(document).ready(function(){
     				setUserToken("${token.id}");
     				wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
+    				var groupInfoImg = $("#group_info_img").val();
+    				var groupInfoGoodName = $("#group_info_good_name").val();
+    				var groupInfoGoodTitle = $("#group_info_good_title").val();
     				wx.ready(function(){
-        				wxOnMenuShareAppMessage("团详情","团详情页面","www.chengxihome.com/info/group_info2?id=${groupInfo.id}","${groupInfo.headImg}","link",null);
+        				wxOnMenuShareAppMessage(groupInfoGoodName,groupInfoGoodTitle,"www.chengxihome.com/info/group_info2?id=${groupInfo.id}",groupInfoImg,"link",null);
         			});
      		});
     			
