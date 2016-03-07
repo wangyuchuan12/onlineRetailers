@@ -9,7 +9,7 @@
         <div class="personal_center">
         	<div class="personal_center_header">
         		<div class="personal_center_header_img">
-        			<img src="${userInfo.headimgurl}"/>
+        			<img src="${userInfo.headImgurl}"/>
         		</div>
         		<div class="personal_center_userinfo">
         			<div class="personal_center_userinfo_name">${userInfo.nickname}</div>
