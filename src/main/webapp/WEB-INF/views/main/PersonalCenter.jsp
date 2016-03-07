@@ -40,7 +40,7 @@
         			
         			
         			<li>
-        				<div class="personal_center_item activityStyle">
+        				<div class="personal_center_item activityStyle"  onclick="skipToHelp();">
         					<div class="personal_center_item_icon" style="background-color:green;padding-top:3px;padding-left:5px;">
         						<i class="fa fa-question-circle"></i>
         					</div>

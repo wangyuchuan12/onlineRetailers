@@ -325,6 +325,10 @@ function orderActive(status){
 	
 }
 
+function skipToHelp(){
+	skipToUrl("/info/help");
+}
+
 function onOrderClick(){
 	$("#all_orders").on("click",function(){
 		skipToUrl("/main/order_list?status=0");

@@ -248,4 +248,9 @@ public class PersonalCenterAction {
         customerService.save(customer);
         return address(myHttpServletRequest);
     }
+    
+    @RequestMapping(value="/info/help")
+    public String help(HttpServletRequest httpServletRequest){
+        return "info/help";
+    }
 }
