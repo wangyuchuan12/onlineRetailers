@@ -27,6 +27,14 @@ public class Customer {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
     private DateTime updateAt;
+    @Column(name="integral")
+    private Long integral;
+    public Long getIntegral() {
+        return integral;
+    }
+    public void setIntegral(Long integral) {
+        this.integral = integral;
+    }
     public String getDefaultAddress() {
         return defaultAddress;
     }

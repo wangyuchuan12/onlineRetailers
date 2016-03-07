@@ -48,7 +48,16 @@ public class PersonalCenterAction {
     public String personCenter(HttpServletRequest httpServletRequest){
     	MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
     	UserInfo userInfo = myHttpServletRequest.getUserInfo();
-    	httpServletRequest.setAttribute("userInfo",userInfo);
+    	
+    	Map<String, String> responseUserInfo = new HashMap<String, String>();
+    	responseUserInfo.put("nickname", userInfo.getNickname());
+    	responseUserInfo.put("headImgurl", userInfo.getHeadimgurl());
+    	
+    	
+    	Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+    	responseUserInfo.put("integral", customer.getIntegral()+"");
+    	
+    	httpServletRequest.setAttribute("userInfo",responseUserInfo);
         return "main/PersonalCenter";
     }
     

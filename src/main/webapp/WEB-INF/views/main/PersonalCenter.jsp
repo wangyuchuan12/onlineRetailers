@@ -9,11 +9,11 @@
         <div class="personal_center">
         	<div class="personal_center_header">
         		<div class="personal_center_header_img">
-        			<img src="/img/good.jpg"/>
+        			<img src="${userInfo.headimgurl}"/>
         		</div>
         		<div class="personal_center_userinfo">
-        			<div class="personal_center_userinfo_name">川川</div>
-        			<div class="personal_center_userinfo_integral">积分：50</div>
+        			<div class="personal_center_userinfo_name">${userInfo.nickname}</div>
+        			<div class="personal_center_userinfo_integral">积分：${userInfo.integral}</div>
         		</div>
         	</div>
         	<div class="personal_center_entry">
