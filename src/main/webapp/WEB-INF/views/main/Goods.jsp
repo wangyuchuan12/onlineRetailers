@@ -48,7 +48,7 @@
     			setUserToken("${token.id}");
     			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
     			wx.ready(function(){
-    				wxOnMenuShareAppMessage("GEE2.极适.午睡枕","放松肌肉，消除疲劳",webPath+"/main/good_list","7xlw44.com1.z0.glb.clouddn.com/e5d3c0de-8b40-4323-a9fb-752e0f60fe99","");
+    				wxOnMenuShareAppMessage("GEE2.极适.午睡枕","放松肌肉，消除疲劳",webPath+"/main/good_list","7xlw44.com1.z0.glb.clouddn.com/e5d3c0de-8b40-4323-a9fb-752e0f60fe99","link");
     			});
     		});
     </script>
