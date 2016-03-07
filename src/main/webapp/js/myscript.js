@@ -14,6 +14,41 @@ function addressAddSbumit(prepareRedirect,token,id){
 	var addressAddress = $("#address_address").val();
 	var addressType = $("#address_type").val();
 	var addressContent = $("#address_content").val();
+	if(!addressName){
+		alert("收件人不能为空");
+		return false;
+	}
+	
+	if(!addressPhonenumber){
+		alert("电话号码不能为空");
+		return false;
+	}
+	
+	if(!addressProvince){
+		alert("省份不能为空");
+		return false;
+	}
+	
+	if(!addressCity){
+		alert("城市不能为空");
+		return false;
+	}
+	
+	if(!addressAddress){
+		alert("区/县不能为空");
+		return false;
+	}
+	
+	if(!addressType){
+		alert("地址类别不能为空");
+		return false;
+	}
+	
+	if(!addressContent){
+		alert("详细地址不能为空");
+		return false;
+	}
+	
 	if(!prepareRedirect){
 		if(!id){
 			skipToUrl("/action/do_address_save?city_id="+addressAddress+"&type="+addressType+"&content="+addressContent+"&phonenumber="+addressPhonenumber+"&name="+addressName);
