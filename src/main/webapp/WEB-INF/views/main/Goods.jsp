@@ -48,7 +48,7 @@
     			setUserToken("${token.id}");
     			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
     			wx.ready(function(){
-    				wxOnMenuShareAppMessage("分享测试","测试分享功能","www.baidu.com","","link");
+    				wxOnMenuShareAppMessage("GEE2.极适.午睡枕","放松肌肉，消除疲劳","/main/good_list","http://7xlw44.com1.z0.glb.clouddn.com/e5d3c0de-8b40-4323-a9fb-752e0f60fe99","");
     			});
     		});
     </script>
