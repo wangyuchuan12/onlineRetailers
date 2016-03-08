@@ -125,6 +125,9 @@
     <script type="text/javascript">
     		$(document).ready(function(){
     			setUserToken("${token.id}");
+    			wx.ready(function(){
+    				wxOnMenuShareAppMessage("${good.name}","${good.title}","www.chengxihome.com/info/good_info?id=${good.id}","${good.head_img}","link",null);
+    			});
     		});
     </script>
 </body>

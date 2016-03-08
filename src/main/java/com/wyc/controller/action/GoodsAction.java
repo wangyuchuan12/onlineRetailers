@@ -112,6 +112,7 @@ public class GoodsAction {
             responseGood.put("id", good.getId());
             responseGood.put("instruction", good.getInstruction());
             responseGood.put("name", good.getName());
+            responseGood.put("head_img", good.getHeadImg());
             responseGood.put("alone_discount", good.getAloneDiscount());
             responseGood.put("alone_original_cost", good.getAloneOriginalCost());
             responseGood.put("flow_price", good.getFlowPrice());
