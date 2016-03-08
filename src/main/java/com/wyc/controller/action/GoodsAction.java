@@ -99,6 +99,7 @@ public class GoodsAction {
 	@JsApiTicketAnnotation
 	@RequestMapping("/info/good_info")
 	@NowPageRecordAnnotation(page=1)
+	@WxConfigAnnotation
 	public String goodInfo(HttpServletRequest httpRequest)throws Exception{
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
