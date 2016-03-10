@@ -85,6 +85,7 @@ public class GoodsAction {
 		    responseGood.put("group_original_cost", good.getGroupOriginalCost());
 		    responseGood.put("market_price", good.getMarketPrice());
 		    responseGood.put("coupon_cost", good.getCouponCost());
+		    responseGood.put("title", good.getTitle());
 		    MyResource myResource = resourceService.findOne(good.getHeadImg());
 		    if(myResource!=null){
 		        responseGood.put("head_img", myResource.getUrl());
@@ -111,6 +112,7 @@ public class GoodsAction {
 	    Map<String, Object> responseGood = new HashMap<String, Object>();
             responseGood.put("id", good.getId());
             responseGood.put("instruction", good.getInstruction());
+            responseGood.put("title", good.getTitle());
             responseGood.put("name", good.getName());
             responseGood.put("head_img", good.getHeadImg());
             responseGood.put("alone_discount", good.getAloneDiscount());

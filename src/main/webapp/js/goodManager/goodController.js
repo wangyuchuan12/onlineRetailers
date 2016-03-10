@@ -98,7 +98,7 @@ var GoodController = Ext.extend(Ext.util.Observable,{
 						goodUpdateForm.marketPriceText.setValue(obj.market_price);
 						goodUpdateForm.nameText.setValue(obj.name);
 						goodUpdateForm.statusPanel.setValue(obj.status);
-						
+						goodUpdateForm.titleText.setValue(obj.title);
 						
 					}
 					

@@ -37,7 +37,7 @@
         		<div class="good_info_pay_goodinfo_detail">
         			<div class="good_info_pay_goodinfo_detail_title">${payGoodInfo.name}</div>
         			<div class="good_info_pay_goodinfo_detail_num">数量：1</div>
-        			<div class="good_info_pay_goodinfo_detail_stock">库存：2000000件</div>
+        			<div class="good_info_pay_goodinfo_detail_stock">库存：999+件</div>
         		</div>
         		<div class="good_info_pay_goodinfo_price">	
         			<c:if test="${payGoodInfo.pay_type==0}">

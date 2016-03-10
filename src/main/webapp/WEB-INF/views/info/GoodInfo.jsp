@@ -39,7 +39,7 @@
                     <div class="good_info_introduce_name"><b>${good.name}</b></div>
                     <div class="good_info_introduce_cx"></div>
                     <div class="good_info_introduce_info">
-                        <div class="good_info_introduce_price">市场价：<b id="market_price">${good.market_price}</b> <span>已售：<i id="sold_quantity">10</i>件</span></div>
+                        <div class="good_info_introduce_price">市场价：<b id="market_price">${good.market_price}</b> <span>已售：<i id="sold_quantity">9999+</i>件</span></div>
                         <div class="good_info_introduce_num">支付开团并邀请<span id="tuan_more_need_number"></span>人参团，人数不足自动退款，详见下方拼团玩法</div>
                     </div>
 				<div class="good_info_btns">

@@ -19,7 +19,7 @@
 
                         <img src="${good.head_img}" />
                         <div class="good-title">
-                          ${good.name}
+                          ${good.title}
                         </div>
       
                 </div>
