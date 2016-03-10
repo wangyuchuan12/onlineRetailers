@@ -89,6 +89,11 @@ var GoodInfo = Ext.extend(Ext.form.FormPanel,{
 																						name:"title",
 																						allowBlank:false
 																					}); 
+												this.rankText = new Ext.form.NumberField({
+																						fieldLabel:"优先级",
+																						name:"rank",
+																						allowBlank:false
+																					});
 												this.statusPanel = new Ext.form.RadioGroup({
 													layout: 'table',
 													fieldLabel: '启用',
@@ -113,7 +118,7 @@ var GoodInfo = Ext.extend(Ext.form.FormPanel,{
 																									fileUpload:true,
 																							   		items:[this.idText,this.nameText,this.titleText,this.aloneDiscountText,this.aloneOriginalCostText,
 																										this.couponCostText,this.flowPriceText,this.groupDiscountText,
-																										this.groupNumText,this.groupOriginalCostText,this.instructionText,this.marketPriceText,this.fileText,this.statusPanel],
+																										this.groupNumText,this.groupOriginalCostText,this.instructionText,this.marketPriceText,this.fileText,this.rankText,this.statusPanel],
 																									buttons:[{text:"确定",scope:this,handler:function(){
 																										
 																									}}]

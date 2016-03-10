@@ -28,6 +28,10 @@ public class GoodService {
         return goodRepository.findAll();
     }
     
+    public Iterable<Good> findAllByStatusOrderByRank(int status){
+        return goodRepository.findAllByStatusOrderByRankAsc(status);
+    }
+    
     public Good findOne(String id){
         logger.debug("findOne by id {}",id);
         return goodRepository.findOne(id);

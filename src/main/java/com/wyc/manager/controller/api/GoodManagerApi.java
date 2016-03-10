@@ -77,6 +77,7 @@ public class GoodManagerApi {
         good.setMarketPrice(Float.parseFloat(servletRequest.getParameter("market_price")));
         good.setName(servletRequest.getParameter("name"));
         good.setTitle(servletRequest.getParameter("title"));
+        good.setTitle(servletRequest.getParameter("rank"));
         MyResource myResource = new MyResource();
         String resourceId = UUID.randomUUID().toString();
         myResource.setId(resourceId);
@@ -112,6 +113,7 @@ public class GoodManagerApi {
         good.setName(servletRequest.getParameter("name"));
         good.setStatus(Integer.parseInt(servletRequest.getParameter("status")));
         good.setTitle(servletRequest.getParameter("title"));
+        good.setRank(Integer.parseInt(servletRequest.getParameter("rank")));
         MyResource myResource = new MyResource();
         String resourceId = UUID.randomUUID().toString();
         myResource.setId(resourceId);

@@ -59,8 +59,11 @@ public class Good {
     @Column(name="group_duration")
     @JsonProperty(value = "group_duration")
     private int groupDuration;
+    //0表示停用，1表示启用
     @Column
     private int status;
+    @Column
+    private int rank;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
@@ -69,6 +72,12 @@ public class Good {
     private DateTime updateAt;
     
     
+    public int getRank() {
+        return rank;
+    }
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
     public String getTitle() {
         return title;
     }

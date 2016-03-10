@@ -70,7 +70,7 @@ public class GoodsAction {
 	@WxConfigAnnotation
 	@NowPageRecordAnnotation(page=0)
 	public String goodList(HttpServletRequest httpRequest)throws Exception{
-	        Iterable<Good> databaseGoods = goodService.findAll();
+	        Iterable<Good> databaseGoods = goodService.findAllByStatusOrderByRank(1);
 		List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
 		for(Good good:databaseGoods){
 		    Map<String, Object> responseGood = new HashMap<String, Object>();

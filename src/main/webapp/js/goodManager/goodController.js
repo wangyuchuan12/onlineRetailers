@@ -27,7 +27,7 @@ var GoodController = Ext.extend(Ext.util.Observable,{
 		var goodAddFormWin = new Ext.Window({
 			title : '商品新增',
 			 width : 400,
-			 height : 450,
+			 height : 500,
 			 minWidth : 300,
 			 minHeight : 100,
 			 layout : 'fit',
@@ -41,7 +41,7 @@ var GoodController = Ext.extend(Ext.util.Observable,{
 		var goodUpdateFormWin = new Ext.Window({
 			title : '商品修改',
 			 width : 400,
-			 height : 450,
+			 height : 500,
 			 minWidth : 300,
 			 minHeight : 100,
 			 layout : 'fit',
@@ -99,6 +99,7 @@ var GoodController = Ext.extend(Ext.util.Observable,{
 						goodUpdateForm.nameText.setValue(obj.name);
 						goodUpdateForm.statusPanel.setValue(obj.status);
 						goodUpdateForm.titleText.setValue(obj.title);
+						goodUpdateForm.rankText.setValue(obj.rank);
 						
 					}
 					
