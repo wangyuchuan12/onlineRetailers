@@ -86,7 +86,7 @@ public class AppConfig {
                     .build();
                     return httpclient;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("there is has an error:{}",e);
             try {
                 instream.close();
             } catch (IOException e1) {
