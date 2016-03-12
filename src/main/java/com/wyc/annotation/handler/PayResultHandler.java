@@ -13,6 +13,7 @@ import com.wyc.domain.Customer;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;
+import com.wyc.domain.OpenGroupCoupon;
 import com.wyc.domain.OrderDetail;
 import com.wyc.domain.TempGroupOrder;
 import com.wyc.domain.TemporaryData;
@@ -104,6 +105,12 @@ public class PayResultHandler implements Handler{
             orderDetail.setStatus(2);
             orderDetail = orderDetailService.add(orderDetail);
             
+            
+            OpenGroupCoupon openGroupCoupon = openGroupCouponService.getFirstRecord(customer.getId(), tempGroupOrder.getGoodId(), new DateTime(), 1);
+            if(openGroupCoupon!=null){
+            	openGroupCoupon.setStatus(0);
+            	openGroupCouponService.save(openGroupCoupon);
+            }
             TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(openid, "lastGroupId");
             if(temporaryData==null){
                 temporaryData = new TemporaryData();

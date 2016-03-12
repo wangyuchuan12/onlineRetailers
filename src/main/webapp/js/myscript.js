@@ -433,7 +433,6 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 	$("#good_info_pay_button_href").text("正在支付").css("background-color:yellow");
 	var receiveAddress = "收件人姓名："+personName+"-收件人地址："+address+"-联系号码："+phonenumber;
 	var setAddressCallback = new Object();
-	alert(payType==2);
 	request("/api/set_temporary_data?key="+outTradeNo+"&name=address"+"&value="+receiveAddress,token,setAddressCallback);
 		setAddressCallback.success = function(){
 			if(payType!=2){
@@ -485,7 +484,6 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 					
 				});
 			}else{
-				alert();
 				var callback = new Object();
 				callback.success = function(a){
 					skipToLastestGroupInfo();

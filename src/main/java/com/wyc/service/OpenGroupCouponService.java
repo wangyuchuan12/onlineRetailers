@@ -41,6 +41,9 @@ public class OpenGroupCouponService {
         query.setParameter("customerId", customerId);
         query.setParameter("beforeTime", beforeTime);
         query.setParameter("status", status);
+        if(query.getResultList()==null||query.getResultList().size()==0){
+        	return null;
+        }
         return (OpenGroupCoupon)query.getResultList().get(0);
     }
 }
