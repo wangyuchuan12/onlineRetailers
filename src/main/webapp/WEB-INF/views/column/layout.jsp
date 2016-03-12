@@ -10,7 +10,7 @@
 	 <meta http-equiv="Pragma" content="no-cache">   
 	 <meta http-equiv="Cache-Control" content="no-store">
 	 <meta http-equiv="Expires" content="0">
-	 <title> <tiles:insertAttribute name="title" /></title>
+	 <title>晨曦拼货商城</title>
 <tiles:insertAttribute name="resource"/>
 </head>
 <body>
