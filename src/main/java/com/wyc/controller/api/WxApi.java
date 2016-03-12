@@ -35,6 +35,12 @@ public class WxApi {
     @RequestMapping(value = "/api/wx/pay_success")
     public Object paySuccess(HttpServletRequest httpServletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
+        String payType = myHttpServletRequest.getParameter("pay_type");
+        if(payType!=null&&payType.equals("2")){
+        	String outTradeNo = httpServletRequest.getParameter("outTradeNo");
+        	httpServletRequest.setAttribute("outTradeNo", outTradeNo);
+        	return null;
+        }
         PaySuccess paySuccess = (PaySuccess) myHttpServletRequest.getRequestObject(PaySuccess.class);
         String outTradeNo = paySuccess.getOutTradeNo();
         if(wxPaySuccessService.findByOutTradeNo(outTradeNo)!=null){

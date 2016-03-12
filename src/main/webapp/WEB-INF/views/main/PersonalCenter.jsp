@@ -13,7 +13,7 @@
         		</div>
         		<div class="personal_center_userinfo">
         			<div class="personal_center_userinfo_name">${userInfo.nickname}</div>
-        			<div class="personal_center_userinfo_integral">积分：${userInfo.integral}</div>
+        			<%-- <div class="personal_center_userinfo_integral">积分：${userInfo.integral}</div> --%>
         		</div>
         	</div>
         	<div class="personal_center_entry">

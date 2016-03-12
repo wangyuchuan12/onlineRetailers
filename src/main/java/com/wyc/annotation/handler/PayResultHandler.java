@@ -49,13 +49,14 @@ public class PayResultHandler implements Handler{
     @Transactional
     public Object handle(HttpServletRequest httpServletRequest)
             throws Exception {
+    	
         String outTradeNo = httpServletRequest.getAttribute("outTradeNo").toString();
         TempGroupOrder tempGroupOrder = tempGroupOrderService.findByOutTradeNo(outTradeNo);
         Customer customer = null;
         if(tempGroupOrder!=null){
             customer = customerService.findByOpenId(tempGroupOrder.getOpenid());
         }
-        if(tempGroupOrder!=null&&tempGroupOrder.getGoodOrderType()==0){
+        if(tempGroupOrder!=null&&(tempGroupOrder.getGoodOrderType()==0||tempGroupOrder.getGoodOrderType()==2)){
             String openid = tempGroupOrder.getOpenid();
             GoodOrder goodOrder = new GoodOrder();
             goodOrder.setAddress(tempGroupOrder.getAddress());
@@ -165,7 +166,7 @@ public class PayResultHandler implements Handler{
             goodOrder.setGoodId(tempGroupOrder.getGoodId());
             goodOrder.setGoodPrice(tempGroupOrder.getGoodPrice());
             goodOrder.setStatus(2);
-            goodOrder.setType(1);
+            goodOrder.setType(tempGroupOrder.getGoodOrderType());
             goodOrder = goodOrderService.add(goodOrder);
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setCustomerId(customer.getId());

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wyc.service.TokenService;
 import com.wyc.wx.domain.AccessTokenBean;
 import com.wyc.wx.domain.Authorize;
@@ -99,7 +100,24 @@ public class ServiceTest {
     @RequestMapping("/wx/create_menu_test")
     public Result createMenu(){
         try {
-            String responeJsonStr = "{"+
+        	Map<String, Object> map = new HashMap<>();
+        	List<Object> buttons = new ArrayList<>();
+        	Map<String, Object> button1 = new HashMap<>();
+        	button1.put("name", "进入商场");
+        	button1.put("type", "view");
+        	button1.put("url", "http://www.chengxihome.com/main/good_list");
+        	button1.put("key", "V01_S01");
+        	Map<String, Object> button2 = new HashMap<>();
+        	button2.put("name", "类别");
+        	button2.put("type", "view");
+        	button2.put("url", "http://www.chengxihome.com/main/good_list");
+        	button2.put("key", "V02_S01");
+        	buttons.add(button1);
+        	buttons.add(button2);
+        	map.put("button", buttons);
+        	ObjectMapper objectMapper = new ObjectMapper();
+        	String responseJsonStr = objectMapper.writeValueAsString(map);
+            /*String responeJsonStr = "{"+
                     "\"button\":["+
                         "{\"name\":\"进入商城\","+
                         "\"type\":\"view\"," +
@@ -112,8 +130,10 @@ public class ServiceTest {
                         "}"+
                     "]"+
                 "}";
+             */
+        	System.out.println(responseJsonStr);
             AccessTokenBean accessToken = basicSupportService.getAccessTokenBean();
-            return menuService.createMenu(responeJsonStr, accessToken.getAccessToken());
+            return menuService.createMenu(responseJsonStr, accessToken.getAccessToken());
         } catch (Exception e) {
             e.printStackTrace();
         }
