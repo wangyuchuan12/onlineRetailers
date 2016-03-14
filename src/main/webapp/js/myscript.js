@@ -406,7 +406,7 @@ function wxConfig(appId,signature,noncestr,t){
 	    timestamp:t, // 必填，生成签名的时间戳
 	    nonceStr:noncestr, // 必填，生成签名的随机串
 	    signature: signature,// 必填，签名，见附录1
-	    jsApiList: ['onMenuShareAppMessage','chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+	    jsApiList: ['onMenuShareAppMessage','chooseWXPay','onMenuShareTimeline'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	});
 	wx.ready(function(){
 		//alert("配置成功了");
@@ -414,19 +414,21 @@ function wxConfig(appId,signature,noncestr,t){
 }
 
 function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl){
-	wx.onMenuShareAppMessage({
-	    title: title, // 分享标题
-	    desc: desc, // 分享描述
-	    link: link, // 分享链接
-	    imgUrl: imgUrl, // 分享图标
-	    type: type, // 分享类型,music、video或link，不填默认为link
-	    dataUrl: dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
-	    success: function () {
-	    },
-	    cancel: function () { 
-	       // alert("cancel");
-	    }
-	});
+	var obj = new Object();
+	obj.title = title;
+	obj.desc = desc;
+	obj.link = link;
+	obj.imgUrl = imgUrl;
+	obj.type = type;
+	obj.dataUrl = dataUrl;
+	obj.success = function(){
+		
+	}
+	obj.cancel = function(){
+		
+	}
+	wx.onMenuShareAppMessage(obj);
+	wx.onMenuShareTimeline(obj);
 }
 
 function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,payType,status,token,address,personName,phonenumber,outTradeNo){
