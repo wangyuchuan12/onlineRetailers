@@ -1,6 +1,7 @@
 package com.wyc.annotation.handler;
 
 import java.lang.annotation.Annotation;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
@@ -13,6 +14,8 @@ import com.wyc.domain.Customer;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;
+import com.wyc.domain.GroupPartakeDeliver;
+import com.wyc.domain.GroupPartakePayment;
 import com.wyc.domain.OpenGroupCoupon;
 import com.wyc.domain.OrderDetail;
 import com.wyc.domain.TempGroupOrder;
@@ -21,6 +24,8 @@ import com.wyc.service.CustomerService;
 import com.wyc.service.GoodGroupService;
 import com.wyc.service.GoodOrderService;
 import com.wyc.service.GoodService;
+import com.wyc.service.GroupPartakeDeliverService;
+import com.wyc.service.GroupPartakePaymentService;
 import com.wyc.service.GroupPartakeService;
 import com.wyc.service.OpenGroupCouponService;
 import com.wyc.service.OrderDetailService;
@@ -45,6 +50,10 @@ public class PayResultHandler implements Handler{
     private TemporaryDataService temporaryDataService;
     @Autowired
     private TempGroupOrderService tempGroupOrderService;
+    @Autowired
+    private GroupPartakeDeliverService groupPartakeDeliverService;
+    @Autowired
+    private GroupPartakePaymentService groupPartakePaymentService;
     final static Logger logger = LoggerFactory.getLogger(PayResultHandler.class);
     @Override
     @Transactional
@@ -95,6 +104,12 @@ public class PayResultHandler implements Handler{
             groupPartake.setType(0);
             groupPartake = groupPartakeService.add(groupPartake);
             
+            GroupPartakeDeliver groupPartakeDeliver = new GroupPartakeDeliver();
+            groupPartakeDeliver.setGroupPartakeId(groupPartake.getId());
+            groupPartakeDeliverService.add(groupPartakeDeliver);
+            GroupPartakePayment groupPartakePayment = new GroupPartakePayment();
+            groupPartakePayment.setGroupPartakeId(groupPartake.getId());
+            groupPartakePaymentService.add(groupPartakePayment);
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setCustomerId(customer.getId());
             orderDetail.setGoodId(tempGroupOrder.getGoodId());
@@ -148,6 +163,15 @@ public class PayResultHandler implements Handler{
                 }
                 groupPartake.setType(0);
                 groupPartake = groupPartakeService.add(groupPartake);
+                
+                
+                GroupPartakeDeliver groupPartakeDeliver = new GroupPartakeDeliver();
+                groupPartakeDeliver.setGroupPartakeId(groupPartake.getId());
+                groupPartakeDeliverService.add(groupPartakeDeliver);
+                GroupPartakePayment groupPartakePayment = new GroupPartakePayment();
+                groupPartakePayment.setGroupPartakeId(groupPartake.getId());
+                groupPartakePaymentService.add(groupPartakePayment);
+                
                 TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(openid, "lastGroupId");
                 if(temporaryData==null){
                     temporaryData = new TemporaryData();
@@ -191,6 +215,15 @@ public class PayResultHandler implements Handler{
             groupPartake.setOrderId(goodOrder.getId());
             groupPartake.setType(1);
             groupPartakeService.add(groupPartake);
+            
+            
+            GroupPartakeDeliver groupPartakeDeliver = new GroupPartakeDeliver();
+            groupPartakeDeliver.setGroupPartakeId(groupPartake.getId());
+            groupPartakeDeliverService.add(groupPartakeDeliver);
+            GroupPartakePayment groupPartakePayment = new GroupPartakePayment();
+            groupPartakePayment.setGroupPartakeId(groupPartake.getId());
+            groupPartakePaymentService.add(groupPartakePayment);
+            
             TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(tempGroupOrder.getOpenid(), "lastOrder");
             if(temporaryData!=null){
                 temporaryData.setMykey(tempGroupOrder.getOpenid());

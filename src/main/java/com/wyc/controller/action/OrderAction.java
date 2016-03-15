@@ -21,6 +21,7 @@ import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;
+import com.wyc.domain.GroupPartakeDeliver;
 import com.wyc.domain.MyResource;
 import com.wyc.domain.OrderDetail;
 import com.wyc.domain.TemporaryData;
@@ -30,6 +31,8 @@ import com.wyc.service.CustomerAddressService;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodOrderService;
 import com.wyc.service.GoodService;
+import com.wyc.service.GroupPartakeDeliverService;
+import com.wyc.service.GroupPartakePaymentService;
 import com.wyc.service.GroupPartakeService;
 import com.wyc.service.MyResourceService;
 import com.wyc.service.OrderDetailService;
@@ -61,6 +64,10 @@ public class OrderAction {
     private CityService cityService;
     @Autowired
     private TemporaryDataService temporaryDataService;
+    @Autowired
+    private GroupPartakeDeliverService groupPartakeDeliverService;
+    @Autowired
+    private GroupPartakePaymentService groupPartakePaymentService;
     final static Logger logger = LoggerFactory.getLogger(OrderAction.class);
     @RequestMapping("/main/order_list")
     @UserInfoFromWebAnnotation
@@ -85,8 +92,14 @@ public class OrderAction {
             }else if (status.equals("1")) {
                 //购买失败时添加的数据
             }else if (status.equals("2")) {
-                if(goodOrder.getStatus()==2||goodOrder.getStatus()==3){
-                    responseOrders.add(getResponseOrder(goodOrder));
+                for(GroupPartake groupPartake:groupPatakes){
+                    if(groupPartake.getOrderId().equals(goodOrder.getId())){
+                        GroupPartakeDeliver groupPartakeDeliver = groupPartakeDeliverService.findByGroupPartakeId(groupPartake.getId());
+                        if(groupPartakeDeliver.getStatus()==1){
+                            responseOrders.add(getResponseOrder(goodOrder));
+                            break;
+                        }
+                    }
                 }
             }
         }
