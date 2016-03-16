@@ -90,7 +90,7 @@ public class PayResultHandler implements Handler{
             goodGroup.setNum(tempGroupOrder.getNum());
             goodGroup.setResult(1);
             goodGroup.setStartTime(new DateTime());
-            goodGroup.setTimeLong(24);
+            goodGroup.setTimeLong(tempGroupOrder.getTimeLong());
             goodGroup.setTotalPrice(tempGroupOrder.getCost());
             goodGroup = goodGroupService.add(goodGroup);
             

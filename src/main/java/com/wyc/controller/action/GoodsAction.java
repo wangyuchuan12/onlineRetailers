@@ -223,6 +223,7 @@ public class GoodsAction {
             tempGroupOrder.setNum(good.getGroupNum());
             tempGroupOrder.setOpenid(userInfo.getOpenid());
             tempGroupOrder.setGoodOrderType(Integer.parseInt(payType));
+            tempGroupOrder.setTimeLong(good.getTimeLong());
             if(payType.equals("3")){
                 tempGroupOrder.setGroupId(httpRequest.getParameter("group_id"));
             }

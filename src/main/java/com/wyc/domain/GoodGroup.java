@@ -30,6 +30,12 @@ public class GoodGroup {
     //组团截止时长
     @Column(name = "time_long")
     private int timeLong;
+    public int getTimeLong() {
+        return timeLong;
+    }
+    public void setTimeLong(int timeLong) {
+        this.timeLong = timeLong;
+    }
     @Column(name="good_id")
     private String goodId;
     @Column(name = "create_at")
@@ -77,12 +83,7 @@ public class GoodGroup {
     public void setStartTime(DateTime startTime) {
         this.startTime = startTime;
     }
-    public int getTimeLong() {
-        return timeLong;
-    }
-    public void setTimeLong(int timeLong) {
-        this.timeLong = timeLong;
-    }
+    
     public String getId() {
         return id;
     }

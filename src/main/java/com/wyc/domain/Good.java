@@ -64,6 +64,8 @@ public class Good {
     private int status;
     @Column
     private int rank;
+    @Column(name="time_long")
+    private int timeLong = 24;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
@@ -72,6 +74,13 @@ public class Good {
     private DateTime updateAt;
     
     
+   
+    public int getTimeLong() {
+        return timeLong;
+    }
+    public void setTimeLong(int timeLong) {
+        this.timeLong = timeLong;
+    }
     public int getRank() {
         return rank;
     }

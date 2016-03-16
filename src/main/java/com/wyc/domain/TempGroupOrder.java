@@ -52,8 +52,20 @@ public class TempGroupOrder {
     private DateTime updateAt;
     @Column(name="group_id")
     private String groupId;
+    @Column(name="time_long")
+    private int timeLong;
     
-    
+   
+
+
+    public int getTimeLong() {
+        return timeLong;
+    }
+
+    public void setTimeLong(int timeLong) {
+        this.timeLong = timeLong;
+    }
+
     public String getGroupId() {
         return groupId;
     }
