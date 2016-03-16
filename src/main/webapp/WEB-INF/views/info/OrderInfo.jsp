@@ -74,7 +74,7 @@
        <div class="order_info_good_info">
        	<div class="order_info_good_info_header">商品信息</div>
        	<div class="order_info_good_info_detail">
-       		<img src="/img/good.jpg"/>
+       		<img src="${order.goodImg}"/>
        		<div class="order_info_good_info_name">${order.goodName}</div>
        		<div class="order_info_good_info_num">数量：1</div>
        		<div class="order_info_good_info_price">￥${order.goodPrice}/件</div>

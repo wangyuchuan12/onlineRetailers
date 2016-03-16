@@ -197,7 +197,9 @@ public class OrderAction {
             }else if (groupPartakePayment.getStatus()==3) {
                 orderResponse.put("status", 6);
             }
-            
+            Good good = goodService.findOne(goodOrder.getGoodId());
+            MyResource myResource = myResourceService.findOne(good.getHeadImg());
+            orderResponse.put("goodImg", myResource.getUrl());
             orderResponse.put("cost", goodOrder.getCost());
             orderResponse.put("type", goodOrder.getType());
             orderResponse.put("id", goodOrder.getId());
@@ -210,7 +212,6 @@ public class OrderAction {
             logger.debug("phonenumber:"+customerAddress.getPhonenumber());
             City city = cityService.findOne(customerAddress.getCity());
             orderResponse.put("area", city.getName());
-            Good good = goodService.findOne(goodOrder.getGoodId());
             orderResponse.put("goodName", good.getName());
             orderResponse.put("goodPrice",goodOrder.getCost());
             orderResponse.put("code", goodOrder.getCode());
