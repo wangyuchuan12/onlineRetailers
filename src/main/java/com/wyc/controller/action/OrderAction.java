@@ -118,8 +118,22 @@ public class OrderAction {
                 for(GroupPartake groupPartake:groupPatakes){
                     if(groupPartake.getOrderId().equals(goodOrder.getId())){
                         GroupPartakeDeliver groupPartakeDeliver = groupPartakeDeliverService.findByGroupPartakeId(groupPartake.getId());
+                        GroupPartakePayment groupPartakePayment = groupPartakePaymentService.findByGroupPartakeId(groupPartake.getId());
+                        if(groupPartakePayment.getStatus()==0){
+                            responseOrder.put("status", 1);
+                        }else if (groupPartakePayment.getStatus()==1&&groupPartakeDeliver.getStatus()==0) {
+                            responseOrder.put("status", 2);
+                        }else if (groupPartakePayment.getStatus()==1&&groupPartakeDeliver.getStatus()==1) {
+                            responseOrder.put("status", 3);
+                        }else if (groupPartakePayment.getStatus()==1&&groupPartakeDeliver.getStatus()==2) {
+                            responseOrder.put("status", 4);
+                        }else if (groupPartakePayment.getStatus()==2) {
+                            responseOrder.put("status", 5);
+                        }else if (groupPartakePayment.getStatus()==3) {
+                            responseOrder.put("status", 6);
+                        }
                         if(groupPartakeDeliver.getStatus()==1){
-                            responseOrders.add(getResponseOrder(goodOrder));
+                            responseOrders.add(responseOrder);
                             break;
                         }
                     }
@@ -167,6 +181,23 @@ public class OrderAction {
         Customer customer = customerService.findOne(customerId);
         Map<String, Object> orderResponse = getResponseOrder(goodOrder);
         if(userInfo.getOpenid().equals(customer.getOpenId())){
+            GroupPartake groupPartake = groupPartakeService.findByCustomeridAndGroupId(customer.getId(), orderDetail.getGroupId());
+            GroupPartakeDeliver groupPartakeDeliver = groupPartakeDeliverService.findByGroupPartakeId(groupPartake.getId());
+            GroupPartakePayment groupPartakePayment = groupPartakePaymentService.findByGroupPartakeId(groupPartake.getId());
+            if(groupPartakePayment.getStatus()==0){
+                orderResponse.put("status", 1);
+            }else if (groupPartakePayment.getStatus()==1&&groupPartakeDeliver.getStatus()==0) {
+                orderResponse.put("status", 2);
+            }else if (groupPartakePayment.getStatus()==1&&groupPartakeDeliver.getStatus()==1) {
+                orderResponse.put("status", 3);
+            }else if (groupPartakePayment.getStatus()==1&&groupPartakeDeliver.getStatus()==2) {
+                orderResponse.put("status", 4);
+            }else if (groupPartakePayment.getStatus()==2) {
+                orderResponse.put("status", 5);
+            }else if (groupPartakePayment.getStatus()==3) {
+                orderResponse.put("status", 6);
+            }
+            
             orderResponse.put("cost", goodOrder.getCost());
             orderResponse.put("type", goodOrder.getType());
             orderResponse.put("id", goodOrder.getId());
