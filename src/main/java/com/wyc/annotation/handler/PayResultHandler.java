@@ -109,6 +109,7 @@ public class PayResultHandler implements Handler{
             groupPartakeDeliverService.add(groupPartakeDeliver);
             GroupPartakePayment groupPartakePayment = new GroupPartakePayment();
             groupPartakePayment.setGroupPartakeId(groupPartake.getId());
+            groupPartakePayment.setStatus(1);
             groupPartakePaymentService.add(groupPartakePayment);
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setCustomerId(customer.getId());
@@ -170,6 +171,7 @@ public class PayResultHandler implements Handler{
                 groupPartakeDeliverService.add(groupPartakeDeliver);
                 GroupPartakePayment groupPartakePayment = new GroupPartakePayment();
                 groupPartakePayment.setGroupPartakeId(groupPartake.getId());
+                groupPartakePayment.setStatus(1);
                 groupPartakePaymentService.add(groupPartakePayment);
                 
                 TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(openid, "lastGroupId");
@@ -222,6 +224,7 @@ public class PayResultHandler implements Handler{
             groupPartakeDeliverService.add(groupPartakeDeliver);
             GroupPartakePayment groupPartakePayment = new GroupPartakePayment();
             groupPartakePayment.setGroupPartakeId(groupPartake.getId());
+            groupPartakePayment.setStatus(1);
             groupPartakePaymentService.add(groupPartakePayment);
             
             TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(tempGroupOrder.getOpenid(), "lastOrder");
