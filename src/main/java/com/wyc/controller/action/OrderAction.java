@@ -22,6 +22,7 @@ import com.wyc.domain.Good;
 import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;
 import com.wyc.domain.GroupPartakeDeliver;
+import com.wyc.domain.GroupPartakePayment;
 import com.wyc.domain.MyResource;
 import com.wyc.domain.OrderDetail;
 import com.wyc.domain.TemporaryData;
@@ -87,8 +88,30 @@ public class OrderAction {
         Iterable<GoodOrder> orders = goodOrderService.findAll(orderIds);
         List<Map<String, Object>> responseOrders = new ArrayList<Map<String,Object>>();
         for(GoodOrder goodOrder:orders){
+            //1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未处理6退款已处理
+            
+            Map<String, Object> responseOrder = getResponseOrder(goodOrder);
             if(status.equals("0")){
-                responseOrders.add(getResponseOrder(goodOrder));
+                for(GroupPartake groupPartake:groupPatakes){
+                    if(groupPartake.getOrderId().equals(goodOrder.getId())){
+                        GroupPartakeDeliver groupPartakeDeliver = groupPartakeDeliverService.findByGroupPartakeId(groupPartake.getId());
+                        GroupPartakePayment groupPartakePayment = groupPartakePaymentService.findByGroupPartakeId(groupPartake.getId());
+                        if(groupPartakePayment.getStatus()==0){
+                            responseOrder.put("status", 1);
+                        }else if (groupPartakePayment.getStatus()==1&&groupPartakeDeliver.getStatus()==0) {
+                            responseOrder.put("status", 2);
+                        }else if (groupPartakePayment.getStatus()==1&&groupPartakeDeliver.getStatus()==1) {
+                            responseOrder.put("status", 3);
+                        }else if (groupPartakePayment.getStatus()==1&&groupPartakeDeliver.getStatus()==2) {
+                            responseOrder.put("status", 4);
+                        }else if (groupPartakePayment.getStatus()==2) {
+                            responseOrder.put("status", 5);
+                        }else if (groupPartakePayment.getStatus()==3) {
+                            responseOrder.put("status", 6);
+                        }
+                    }
+                }
+                responseOrders.add(responseOrder);
             }else if (status.equals("1")) {
                 //购买失败时添加的数据
             }else if (status.equals("2")) {
@@ -120,7 +143,7 @@ public class OrderAction {
         responseOrder.put("cost", goodOrder.getCost());
         responseOrder.put("flowPrice", goodOrder.getFlowPrice());
         responseOrder.put("id", goodOrder.getId());
-        responseOrder.put("status", goodOrder.getStatus());
+
         return responseOrder;
     }
     

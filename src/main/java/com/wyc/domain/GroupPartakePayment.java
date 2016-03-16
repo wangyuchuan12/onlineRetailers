@@ -29,7 +29,7 @@ public class GroupPartakePayment {
     @Column(name="pay_time")
     private DateTime payTime;
     
-    //0表示未付款 1已付款 2已退款
+    //0表示未付款 1已付款 2申请退款 3退款完成
     @Column
     private int status;
     

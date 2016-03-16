@@ -20,5 +20,8 @@ public class GroupPartakePaymentService {
         return groupPartakePaymentRepository.save(groupPartakePayment);
         
     }
+    public GroupPartakePayment findByGroupPartakeId(String groupPartakeId) {
+        return groupPartakePaymentRepository.findByGroupPartakeId(groupPartakeId);
+    }
 
 }
