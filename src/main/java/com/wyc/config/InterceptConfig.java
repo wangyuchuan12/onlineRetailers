@@ -156,8 +156,8 @@ public class InterceptConfig {
             return aroundHandler(proceedingJoinPoint);
         } catch (Exception e) {
             Object[] args  = proceedingJoinPoint.getArgs();
-            HttpServletRequest httpServletRequest = (HttpServletRequest)args[0];
-            MyHttpServletRequest myHttpServletRequest = new MyHttpServletRequest(httpServletRequest);
+            MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)proceedingJoinPoint.getArgs()[0];
+            UserInfo userInfo = myHttpServletRequest.getUserInfo();
             String tokenId = myHttpServletRequest.getParameter("token");
             ExceptionRecord exceptionRecord = new ExceptionRecord();
             exceptionRecord.setFromUrl(myHttpServletRequest.getRequestURI());
@@ -167,9 +167,8 @@ public class InterceptConfig {
                     exceptionRecord.setMessage(e.getCause().getMessage());
                 }
             }
-            UserInfo userInfo = myHttpServletRequest.getUserInfo();
             exceptionRecord.setOpenId(userInfo.getOpenid());
-            Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
+            Map<String, String[]> parameterMap = myHttpServletRequest.getParameterMap();
             StringBuffer sb = new StringBuffer();
             for(Entry<String, String[]> entry:parameterMap.entrySet()){
                 sb.append("&"+entry.getKey()+"="+entry.getValue()[0]);
