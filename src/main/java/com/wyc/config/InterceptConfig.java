@@ -38,9 +38,11 @@ import com.wyc.annotation.WxConfigAnnotation;
 import com.wyc.annotation.handler.Handler;
 import com.wyc.defineBean.StopToAfter;
 import com.wyc.domain.Customer;
+import com.wyc.domain.ExceptionRecord;
 import com.wyc.domain.TemporaryData;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CustomerService;
+import com.wyc.service.ExceptionRecordService;
 import com.wyc.service.TemporaryDataService;
 import com.wyc.service.TokenService;
 import com.wyc.service.WxUserInfoService;
@@ -90,6 +92,8 @@ public class InterceptConfig {
     private RequestFactory requestFactory;
     @Autowired
     private TemporaryDataService temporaryDataService;
+    @Autowired
+    private ExceptionRecordService exceptionRecordService;
     final static Logger logger = LoggerFactory.getLogger(InterceptConfig.class);
     
  //   @Around(value="execution (* com.wyc.wx.service.*.*(..))")
@@ -148,6 +152,38 @@ public class InterceptConfig {
     
     @Around(value="execution (* com.wyc.controller.action.*.*(..))")
     public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
+        try {
+            return aroundHandler(proceedingJoinPoint);
+        } catch (Exception e) {
+            Object[] args  = proceedingJoinPoint.getArgs();
+            HttpServletRequest httpServletRequest = (HttpServletRequest)args[0];
+            MyHttpServletRequest myHttpServletRequest = new MyHttpServletRequest(httpServletRequest);
+            String tokenId = myHttpServletRequest.getParameter("token");
+            ExceptionRecord exceptionRecord = new ExceptionRecord();
+            exceptionRecord.setFromUrl(myHttpServletRequest.getRequestURI());
+            exceptionRecord.setToken(tokenId);
+            exceptionRecord.setMessage(e.getCause().getMessage());
+            UserInfo userInfo = myHttpServletRequest.getUserInfo();
+            exceptionRecord.setOpenId(userInfo.getOpenid());
+            Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
+            StringBuffer sb = new StringBuffer();
+            for(Entry<String, String[]> entry:parameterMap.entrySet()){
+                sb.append("&"+entry.getKey()+"="+entry.getValue()[0]);
+            }
+            if(parameterMap.size()>0){
+                sb.deleteCharAt(0);
+            }
+            exceptionRecord.setParams(sb.toString());
+            exceptionRecord.setToken(tokenId);
+            exceptionRecord.setUserName(userInfo.getNickname());
+            
+            exceptionRecordService.add(exceptionRecord);
+            return "redirect:/main/good_list";
+        }
+        
+    }
+    
+    public Object aroundHandler(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
         Object target = proceedingJoinPoint.getTarget();
         logger.debug("around target is {}",target);
         Object[] args  = proceedingJoinPoint.getArgs();
@@ -350,6 +386,8 @@ public class InterceptConfig {
                     userInfo.setNickname("无法识别");
                     //做最后一层保障，保证在数据库当中有userInfo
                     token = userSmartService.saveToDatabase(userInfo, key);
+                    
+                    throw e;
                 }
                 
             }
@@ -485,7 +523,7 @@ public class InterceptConfig {
             }
             
             logger.error(errorBuffer.toString());
-            return null;
+            throw e;
         }
         if(method.getAnnotation(AfterHandlerAnnotation.class)!=null){
             AfterHandlerAnnotation afterHandlerAnnotation = method.getAnnotation(AfterHandlerAnnotation.class);
