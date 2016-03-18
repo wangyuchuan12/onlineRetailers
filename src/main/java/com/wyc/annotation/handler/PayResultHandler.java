@@ -1,6 +1,8 @@
 package com.wyc.annotation.handler;
 
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
@@ -9,7 +11,8 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import com.wyc.annotation.handler.pay.PayHandler;
 import com.wyc.domain.Customer;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodOrder;
@@ -18,6 +21,7 @@ import com.wyc.domain.GroupPartakeDeliver;
 import com.wyc.domain.GroupPartakePayment;
 import com.wyc.domain.OpenGroupCoupon;
 import com.wyc.domain.OrderDetail;
+import com.wyc.domain.PayActivity;
 import com.wyc.domain.TempGroupOrder;
 import com.wyc.domain.TemporaryData;
 import com.wyc.service.CustomerService;
@@ -29,6 +33,8 @@ import com.wyc.service.GroupPartakePaymentService;
 import com.wyc.service.GroupPartakeService;
 import com.wyc.service.OpenGroupCouponService;
 import com.wyc.service.OrderDetailService;
+import com.wyc.service.PayActivityService;
+import com.wyc.service.PayHandlerService;
 import com.wyc.service.TempGroupOrderService;
 import com.wyc.service.TemporaryDataService;
 public class PayResultHandler implements Handler{
@@ -54,6 +60,12 @@ public class PayResultHandler implements Handler{
     private GroupPartakeDeliverService groupPartakeDeliverService;
     @Autowired
     private GroupPartakePaymentService groupPartakePaymentService;
+    @Autowired
+    private PayActivityService payActivityService;
+    @Autowired
+    private AutowireCapableBeanFactory factory;
+    @Autowired
+    private PayHandlerService payHandlerService;
     final static Logger logger = LoggerFactory.getLogger(PayResultHandler.class);
     @Override
     @Transactional
@@ -63,12 +75,21 @@ public class PayResultHandler implements Handler{
         String outTradeNo = httpServletRequest.getAttribute("outTradeNo").toString();
         TempGroupOrder tempGroupOrder = tempGroupOrderService.findByOutTradeNo(outTradeNo);
         Customer customer = null;
+        GoodGroup goodGroup = null;
+        GoodOrder goodOrder = null;
         if(tempGroupOrder!=null){
             customer = customerService.findByOpenId(tempGroupOrder.getOpenid());
         }
         if(tempGroupOrder!=null&&(tempGroupOrder.getGoodOrderType()==0||tempGroupOrder.getGoodOrderType()==2)){
+            OpenGroupCoupon openGroupCoupon = null;
+            if(tempGroupOrder.getGoodOrderType()==2){
+                openGroupCoupon = openGroupCouponService.getFirstRecord(customer.getId(), tempGroupOrder.getGoodId(), new DateTime(), 1);
+                if(openGroupCoupon==null){
+                    return null;
+                }
+            }
             String openid = tempGroupOrder.getOpenid();
-            GoodOrder goodOrder = new GoodOrder();
+            goodOrder = new GoodOrder();
             goodOrder.setAddress(tempGroupOrder.getAddress());
             goodOrder.setAddressId(tempGroupOrder.getAddressId());
             goodOrder.setCode(tempGroupOrder.getCode());
@@ -84,7 +105,7 @@ public class PayResultHandler implements Handler{
             goodOrder = goodOrderService.add(goodOrder);
             
             
-            GoodGroup goodGroup = new GoodGroup();
+            goodGroup = new GoodGroup();
             goodGroup.setGoodId(tempGroupOrder.getGoodId());
             goodGroup.setGroupHead(customer.getId());
             goodGroup.setNum(tempGroupOrder.getNum());
@@ -122,7 +143,7 @@ public class PayResultHandler implements Handler{
             orderDetail = orderDetailService.add(orderDetail);
             
             
-            OpenGroupCoupon openGroupCoupon = openGroupCouponService.getFirstRecord(customer.getId(), tempGroupOrder.getGoodId(), new DateTime(), 1);
+            
             if(openGroupCoupon!=null){
             	openGroupCoupon.setStatus(0);
             	openGroupCouponService.save(openGroupCoupon);
@@ -140,12 +161,14 @@ public class PayResultHandler implements Handler{
                 temporaryData.setValue(goodGroup.getId());
                 temporaryDataService.save(temporaryData);
             }
+            
+            
         
         }else if (tempGroupOrder!=null&&tempGroupOrder.getGoodOrderType()==3) {
             String groupId = tempGroupOrder.getGroupId();
             String openid = tempGroupOrder.getOpenid();
             int partNum = groupPartakeService.countByGroupId(groupId);
-            GoodGroup goodGroup = goodGroupService.findOne(groupId);
+            goodGroup = goodGroupService.findOne(groupId);
             int groupNum = goodGroup.getNum();
             if(goodGroup!=null){
                 GroupPartake groupPartake = new GroupPartake();
@@ -189,7 +212,7 @@ public class PayResultHandler implements Handler{
                 }
             }
         }else if (tempGroupOrder!=null&&tempGroupOrder.getGoodOrderType()==1) {
-            GoodOrder goodOrder = new GoodOrder();
+            goodOrder = new GoodOrder();
             goodOrder.setAddress(tempGroupOrder.getAddress());
             goodOrder.setAddressId(tempGroupOrder.getAddressId());
             goodOrder.setCode(tempGroupOrder.getCode());
@@ -240,6 +263,50 @@ public class PayResultHandler implements Handler{
                 temporaryDataService.add(temporaryData);
             }
             
+        }
+        
+        
+        List<PayActivity> payActivities = payActivityService.findAllByGoodIdAndPayType(tempGroupOrder.getGoodId(),tempGroupOrder.getGoodOrderType());
+        List<PayActivity> payActivities2 = payActivityService.findAllByGoodIdAndPayType(tempGroupOrder.getGoodId(), 7);
+        List<PayActivity> payActivitiesAll = new ArrayList<PayActivity>();
+        payActivitiesAll.addAll(payActivities);
+        payActivitiesAll.addAll(payActivities2);
+        logger.debug("payActivities:{}",payActivities);
+        for(PayActivity payActivity:payActivitiesAll){
+            boolean flag = false;
+            if(payActivity.getUserOpenIds().equals("*")){
+                flag = true;
+            }
+            for(String userOpenId:payActivity.getUserOpenIds().split(",")){
+               if(userOpenId.equals(tempGroupOrder.getOpenid())){
+                   flag = true;
+                   break;
+               }
+            }
+            if(!flag){
+                continue;
+            }
+            String handlersStr = payActivity.getHandlers();
+            String[] handlersArrayStr = handlersStr.split(",");
+            List<String> arrayIteratorStr = new ArrayList<String>();
+            for(String str:handlersArrayStr){
+                arrayIteratorStr.add(str);
+            }
+            Iterable<com.wyc.domain.PayHandler> payHandlerEntitys = payHandlerService.findAll(arrayIteratorStr);
+            logger.debug("handlersStr:{}",handlersArrayStr);
+            logger.debug("payHandlerEntitys:{}",payHandlerEntitys);
+            for(com.wyc.domain.PayHandler payHandlerEntity:payHandlerEntitys){
+                try {
+                    Class<PayHandler> handlerClass = (Class<PayHandler>) Class.forName(payHandlerEntity.getClassPath());
+                    PayHandler payHandler = handlerClass.newInstance();
+                    factory.autowireBean(payHandler);
+                    payHandler.handler(tempGroupOrder.getOpenid(), tempGroupOrder.getGoodId(), goodGroup.getId(), goodOrder.getId(), outTradeNo, tempGroupOrder.getGoodOrderType());
+                    
+                } catch (Exception e) {
+                    logger.error("has an error:{}",e);
+                }
+                
+            }
         }
         return null;
        
