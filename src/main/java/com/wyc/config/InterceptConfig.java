@@ -162,7 +162,11 @@ public class InterceptConfig {
             ExceptionRecord exceptionRecord = new ExceptionRecord();
             exceptionRecord.setFromUrl(myHttpServletRequest.getRequestURI());
             exceptionRecord.setToken(tokenId);
-            exceptionRecord.setMessage(e.getCause().getMessage());
+            if(e!=null){
+                if(e.getCause()!=null){
+                    exceptionRecord.setMessage(e.getCause().getMessage());
+                }
+            }
             UserInfo userInfo = myHttpServletRequest.getUserInfo();
             exceptionRecord.setOpenId(userInfo.getOpenid());
             Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
@@ -513,7 +517,7 @@ public class InterceptConfig {
                 return null;
             }
             returnValue = url;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             logger.error("invoke action method has error");
             StackTraceElement[] stackTraceElements = e.getStackTrace();
             StringBuffer errorBuffer = new StringBuffer();
