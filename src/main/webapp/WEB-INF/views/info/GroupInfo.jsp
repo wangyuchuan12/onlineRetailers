@@ -143,6 +143,12 @@
 	     	</div>
      	  </c:if>
      	  
+     	  <c:if test="${groupInfo.result==0}">
+			<div class="footer3" onclick="javascript:skipToGoodList();">
+	                <a class="goto_gootlist">我也开个团，点此回商品列表</a>
+	     	</div>
+     	  </c:if>
+     	  
      	  <c:if test="${groupInfo.result==1}">
      	  	<c:if test="${groupInfo.role==1||groupInfo.role==2||groupInfo.role==3}">
 				<div class="footer3" >
