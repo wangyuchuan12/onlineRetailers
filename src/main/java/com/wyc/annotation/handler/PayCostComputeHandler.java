@@ -22,9 +22,9 @@ public class PayCostComputeHandler implements Handler{
         String payType=httpServletRequest.getParameter("pay_type");
         
         Good good = goodService.findOne(goodId);
-        Float cost = Float.parseFloat(httpServletRequest.getParameter("cost"));;
+        Float cost = null;
         //0表示团购 1表示单独买 2表示开团劵购买
-        if(payType.equals("0")){
+        if(payType.equals("0")||payType.equals("3")){
             cost = good.getFlowPrice()+good.getGroupDiscount()*good.getGroupOriginalCost();
         }else if (payType.equals("1")) {
             cost = good.getFlowPrice()+good.getAloneDiscount()*good.getAloneOriginalCost();
