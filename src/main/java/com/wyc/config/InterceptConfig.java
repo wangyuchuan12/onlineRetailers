@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -134,6 +135,7 @@ public class InterceptConfig {
        
         return object;
     }
+
     
     @Before(value="execution (* com.wyc.controller.action.*.*(..))")
     public void beforeAction(JoinPoint joinPoint){
@@ -151,29 +153,7 @@ public class InterceptConfig {
                 logger.debug("add customer to database and openid = {},id = {}",openid,customer.getId());
             }
         }
-        String goodTypeId = httpServletRequest.getParameter("good_type");
-        if(goodTypeId==null||goodTypeId.trim().equals("")){
-            
-            goodTypeId = customer.getDefaultGoodType();
-        }
         
-        if(goodTypeId==null||goodTypeId.trim().equals("")){
-            List<GoodType> goodTypes = goodTypeService.findAllByIsDefault(true);
-            if(goodTypes.size()>0){
-                GoodType goodType = goodTypes.get(0);
-                goodTypeId = goodType.getId();
-            }else{
-                Iterable<GoodType> goodTypeIterable = goodTypeService.findAll();
-                Iterator<GoodType> goodIterator = goodTypeIterable.iterator();
-                GoodType goodType = goodIterator.next();
-                goodTypeId = goodType.getId();
-            }
-        }
-        customer.setDefaultGoodType(goodTypeId);
-        customerService.save(customer);
-        
-        
-        httpServletRequest.setAttribute("goodType", customer.getDefaultGoodType());
     }
     
     @Around(value="execution (* com.wyc.controller.api.*.*(..))")
@@ -448,6 +428,35 @@ public class InterceptConfig {
                 logger.debug("redirect to url [{}]",wxRequestUrl);
                 return "redirect:"+wxRequestUrl;
             }
+            
+            Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+            
+            String goodTypeId = httpServletRequest.getParameter("good_type");
+            if(goodTypeId==null||goodTypeId.trim().equals("")){
+                
+                goodTypeId = customer.getDefaultGoodType();
+            }
+            
+            if(goodTypeId==null||goodTypeId.trim().equals("")){
+                List<GoodType> goodTypes = goodTypeService.findAllByIsDefault(true);
+                if(goodTypes.size()>0){
+                    GoodType goodType = goodTypes.get(0);
+                    goodTypeId = goodType.getId();
+                }else{
+                    Iterable<GoodType> goodTypeIterable = goodTypeService.findAll();
+                    Iterator<GoodType> goodIterator = goodTypeIterable.iterator();
+                    GoodType goodType = goodIterator.next();
+                    goodTypeId = goodType.getId();
+                }
+            }
+            customer.setDefaultGoodType(goodTypeId);
+            customerService.save(customer);
+            
+            
+            httpServletRequest.setAttribute("goodType", customer.getDefaultGoodType());
+            
+            
+            
             myHttpServletRequest.setUserInfo(userInfo);
             myHttpServletRequest.setToken(token);
         }
