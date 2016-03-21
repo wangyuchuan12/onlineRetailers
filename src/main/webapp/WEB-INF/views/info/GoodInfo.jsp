@@ -3,28 +3,8 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
 <!doctype html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <meta name="format-detection" content="telephone=no">
-    <meta http-equiv="Pragma" content="no-cache">   
-    <meta http-equiv="Cache-Control" content="no-store">
-    <meta http-equiv="Expires" content="0">
-    <link rel="stylesheet" href="/css/mystyle.css">
-	<link rel="stylesheet" href="/css/core.css">
-	<link rel="stylesheet"
-		href="/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/css/address.css">
-	<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
-	
-	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-	<script type="text/javascript" src="/js/myscript.js"></script>
-	
-</head>
-
-<body >
+<tiles:insertDefinition name="adminLayout">
+<tiles:putAttribute name="body">
     <div class="container" >
         <section class="main-view">
             <div id="focus" class="focus goods-focus ect-padding-lr ect-margin-tb">
@@ -134,5 +114,5 @@
     			});
     		});
     </script>
-</body>
-</html>
+</tiles:putAttribute>
+</tiles:insertDefinition>
