@@ -41,6 +41,7 @@ public class WxChooseWxPayHandler implements Handler{
     public Object handle(HttpServletRequest httpServletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         float cost = 0;
+        System.out.println("........cost:"+httpServletRequest.getParameter("cost"));
         if(httpServletRequest.getAttribute("cost")!=null){
             cost = (Float)httpServletRequest.getAttribute("cost");
         }else{
