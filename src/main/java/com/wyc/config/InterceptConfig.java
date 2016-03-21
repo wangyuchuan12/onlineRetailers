@@ -155,6 +155,7 @@ public class InterceptConfig {
         try {
             return aroundHandler(proceedingJoinPoint);
         } catch (Exception e) {
+            e.printStackTrace();
             Object[] args  = proceedingJoinPoint.getArgs();
             MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)proceedingJoinPoint.getArgs()[0];
             UserInfo userInfo = myHttpServletRequest.getUserInfo();
