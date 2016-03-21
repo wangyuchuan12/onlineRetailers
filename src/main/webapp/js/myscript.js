@@ -3,6 +3,26 @@ var cityObject = new Object();
 var currentCity;
 var currentAddress;
 var currentProvince;
+
+function checkMobile(mobile){
+	if(!/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i.test(mobile))
+	{
+	  return false;
+	}else{
+		return true;
+	}
+}
+
+function checkStr(str){
+	 var pattern = /^[\w\u4e00-\u9fa5]+$/gi;
+     if(pattern.test(str))
+     {
+         return true;
+     }
+     return false;
+}
+
+
 function addressAddSbumit(prepareRedirect,token,id){
 	if(!token&&window.localStorage.getItem("userToken")){
 		token = window.localStorage.getItem("userToken");
@@ -21,6 +41,11 @@ function addressAddSbumit(prepareRedirect,token,id){
 	
 	if(!addressPhonenumber){
 		alert("电话号码不能为空");
+		return false;
+	}
+	
+	if(!checkMobile(addressPhonenumber)){
+		alert("手机号码格式错误");
 		return false;
 	}
 	
@@ -46,6 +71,16 @@ function addressAddSbumit(prepareRedirect,token,id){
 	
 	if(!addressContent){
 		alert("详细地址不能为空");
+		return false;
+	}
+	
+	if(!checkStr(addressContent)){
+		alert("地址不能包含特殊字符");
+		return false;
+	}
+	
+	if(!checkStr(addressName)){
+		alert("收件人不能包含特殊字符");
 		return false;
 	}
 	
