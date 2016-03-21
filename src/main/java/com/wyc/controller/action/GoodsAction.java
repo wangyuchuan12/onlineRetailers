@@ -1,6 +1,7 @@
 package com.wyc.controller.action;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodImg;
+import com.wyc.domain.GoodType;
 import com.wyc.domain.MyResource;
 import com.wyc.domain.TempGroupOrder;
 import com.wyc.intercept.domain.MyHttpServletRequest;
@@ -37,6 +39,7 @@ import com.wyc.service.CustomerAddressService;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodImgService;
 import com.wyc.service.GoodService;
+import com.wyc.service.GoodTypeService;
 import com.wyc.service.MyResourceService;
 import com.wyc.service.OpenGroupCouponService;
 import com.wyc.service.TempGroupOrderService;
@@ -62,6 +65,8 @@ public class GoodsAction {
         private WxContext wxContext;
         @Autowired
         private TempGroupOrderService tempGroupOrderService;
+        @Autowired
+        private GoodTypeService goodTypeService;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
@@ -70,11 +75,34 @@ public class GoodsAction {
 	@WxConfigAnnotation
 	@NowPageRecordAnnotation(page=0)
 	public String goodList(HttpServletRequest httpRequest)throws Exception{
-	        Iterable<Good> databaseGoods = goodService.findAllByStatusOrderByRank(1);
-		List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
-		for(Good good:databaseGoods){
-		    Map<String, Object> responseGood = new HashMap<String, Object>();
-		    responseGood.put("id", good.getId());
+	    String goodTypeId = httpRequest.getParameter("good_type");
+	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
+            UserInfo userInfo = myHttpServletRequest.getUserInfo();
+            Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+	    if(goodTypeId==null||goodTypeId.trim().equals("")){
+	        
+	        goodTypeId = customer.getDefaultGoodType();
+	    }
+	    
+	    if(goodTypeId==null||goodTypeId.trim().equals("")){
+	        List<GoodType> goodTypes = goodTypeService.findAllByIsDefault(true);
+	        if(goodTypes.size()>0){
+	            GoodType goodType = goodTypes.get(0);
+	            goodTypeId = goodType.getId();
+	        }else{
+	            Iterable<GoodType> goodTypeIterable = goodTypeService.findAll();
+	            Iterator<GoodType> goodIterator = goodTypeIterable.iterator();
+	            GoodType goodType = goodIterator.next();
+	            goodTypeId = goodType.getId();
+	        }
+	    }
+	    customer.setDefaultGoodType(goodTypeId);
+	    customerService.save(customer);
+	    Iterable<Good> databaseGoods = goodService.findAllByStatusAndGoodTypeOrderByRank(1,goodTypeId);
+            List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
+            for(Good good:databaseGoods){
+		 Map<String, Object> responseGood = new HashMap<String, Object>();
+		  responseGood.put("id", good.getId());
 		    responseGood.put("instruction", good.getInstruction());
 		    responseGood.put("name", good.getName());
 		    responseGood.put("alone_discount", good.getAloneDiscount());
@@ -92,8 +120,9 @@ public class GoodsAction {
 		    }
 		    responseGoods.add(responseGood);
 		}
-		httpRequest.setAttribute("goods", responseGoods);
-		return "main/Goods";
+               httpRequest.setAttribute("goodType", goodTypeId);
+	       httpRequest.setAttribute("goods", responseGoods);
+	       return "main/Goods";
 	}
 	
 	@UserInfoFromWebAnnotation

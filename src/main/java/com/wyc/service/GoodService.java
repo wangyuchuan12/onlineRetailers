@@ -47,5 +47,10 @@ public class GoodService {
         goodRepository.save(good);
         
     }
+
+    public Iterable<Good> findAllByStatusAndGoodTypeOrderByRank(int status,
+            String goodTypeId) {
+        return goodRepository.findAllByStatusAndGoodTypeOrderByRankAsc(status,goodTypeId);
+    }
     
 }

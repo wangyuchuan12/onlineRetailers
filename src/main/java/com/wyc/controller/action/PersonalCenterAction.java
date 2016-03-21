@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +19,14 @@ import com.wyc.domain.City;
 import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
+import com.wyc.domain.GoodType;
 import com.wyc.domain.OpenGroupCoupon;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CityService;
 import com.wyc.service.CustomerAddressService;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodService;
+import com.wyc.service.GoodTypeService;
 import com.wyc.service.OpenGroupCouponService;
 import com.wyc.wx.domain.UserInfo;
 
@@ -43,6 +46,8 @@ public class PersonalCenterAction {
 	private MySimpleDateFormat mySimpleDateFormat;
 	@Autowired
 	private GoodService goodService;
+	@Autowired
+	private GoodTypeService goodTypeService;
     @RequestMapping("/main/personal_center")
     @UserInfoFromWebAnnotation
     public String personCenter(HttpServletRequest httpServletRequest){
@@ -244,6 +249,31 @@ public class PersonalCenterAction {
         }
         httpServletRequest.setAttribute("coupons", responseCoupons);
         return "info/coupon";
+    }
+    
+    @UserInfoFromWebAnnotation
+    @RequestMapping(value="/info/good_type")
+    public String goodType(HttpServletRequest httpServletRequest){
+        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
+        UserInfo userInfo = myHttpServletRequest.getUserInfo();
+        Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+        String defaultGoodType = customer.getDefaultGoodType();
+        Iterable<GoodType> goodTypes = goodTypeService.findAll();
+        List<Map<String, String>> responseTypes = new ArrayList<Map<String,String>>();
+        for(GoodType goodType:goodTypes){
+            Map<String, String> responseType = new HashMap<String, String>();
+            responseType.put("id", goodType.getId());
+            responseType.put("name",goodType.getName());
+            if(defaultGoodType!=null&&defaultGoodType.equals(goodType.getId())){
+                responseType.put("isDefault","true");
+            }else{
+                responseType.put("isDefault","false");
+            }
+            responseTypes.add(responseType);
+        }
+        
+        httpServletRequest.setAttribute("goodTypes", responseTypes);
+        return "info/GoodType";
     }
     
     @UserInfoFromWebAnnotation

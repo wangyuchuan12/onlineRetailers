@@ -29,6 +29,14 @@ public class Customer {
     private DateTime updateAt;
     @Column(name="integral")
     private Long integral;
+    @Column(name="default_good_type")
+    private String defaultGoodType;
+    public String getDefaultGoodType() {
+        return defaultGoodType;
+    }
+    public void setDefaultGoodType(String defaultGoodType) {
+        this.defaultGoodType = defaultGoodType;
+    }
     public Long getIntegral() {
         return integral;
     }

@@ -66,6 +66,9 @@ public class Good {
     private int rank;
     @Column(name="time_long")
     private int timeLong = 24;
+    
+    @Column(name="good_type")
+    private String goodType;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
@@ -73,8 +76,12 @@ public class Good {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
     
-    
-   
+    public String getGoodType() {
+        return goodType;
+    }
+    public void setGoodType(String goodType) {
+        this.goodType = goodType;
+    }
     public int getTimeLong() {
         return timeLong;
     }

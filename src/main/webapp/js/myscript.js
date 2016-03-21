@@ -302,8 +302,8 @@ function skipToGoodInfo(id , token){
 	skipToUrl("/info/good_info?id="+id,token);
 }
 
-function skipToGoodList(){
-	skipToUrl("/main/good_list");
+function skipToGoodList(goodType,token){
+	skipToUrl("/main/good_list?good_type="+goodType,token);
 }
 
 function skipToGroupList(token){

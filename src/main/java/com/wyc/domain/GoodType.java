@@ -1,0 +1,55 @@
+package com.wyc.domain;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
+@Entity(name = "good_type")
+public class GoodType {
+    @Id
+    private String id;
+    @Column
+    private String name;
+    @Column(name="is_default")
+    private boolean isDefault;
+    @Column(name = "create_at")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime createAt;
+    @Column(name = "update_at")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime updateAt;
+    
+    public boolean isDefault() {
+        return isDefault;
+    }
+    public void setDefault(boolean isDefault) {
+        this.isDefault = isDefault;
+    }
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public DateTime getCreateAt() {
+        return createAt;
+    }
+    public void setCreateAt(DateTime createAt) {
+        this.createAt = createAt;
+    }
+    public DateTime getUpdateAt() {
+        return updateAt;
+    }
+    public void setUpdateAt(DateTime updateAt) {
+        this.updateAt = updateAt;
+    }
+}
