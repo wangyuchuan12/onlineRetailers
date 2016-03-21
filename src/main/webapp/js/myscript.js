@@ -303,7 +303,12 @@ function skipToGoodInfo(id , token){
 }
 
 function skipToGoodList(goodType,token){
-	skipToUrl("/main/good_list?good_type="+goodType,token);
+	if(goodType){
+		skipToUrl("/main/good_list?good_type="+goodType,token);
+	}else{
+		skipToUrl("/main/good_list",token);
+	}
+	
 }
 
 function skipToGroupList(token){
