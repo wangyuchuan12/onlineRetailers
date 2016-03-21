@@ -4,7 +4,7 @@
 <footer class="footer">
 		<nav>
 			<ul>
-				<li><a href="javascript:skipToGoodList()" class="nav-controller active" id="foot_good_list"><i
+				<li><a href="javascript:skipToGoodList()" class="nav-controller" id="foot_good_list"><i
 						class="fa fa-home"></i>首页</a></li>
 				<li><a href="javascript:skipToGroupList()" class="nav-controller" id="foot_group_list"><i
 						class="fa fa-group"></i>我的团</a></li>
