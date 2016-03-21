@@ -4,7 +4,6 @@ var currentCity;
 var currentAddress;
 var currentProvince;
 function addressAddSbumit(prepareRedirect,token,id){
-	alert(prepareRedirect);
 	if(!token&&window.localStorage.getItem("userToken")){
 		token = window.localStorage.getItem("userToken");
 	}
@@ -321,7 +320,6 @@ function skipToPersonCenter(token){
 
 function skipToGoodPay(id,pay_type,token,groupId,cost){
 	var url = "/info/good_info_pay?good_id="+id+"&pay_type="+pay_type+"&group_id="+groupId+"&cost="+cost;
-	alert(url);
 	skipToUrl(url,token);
 }
 
