@@ -339,6 +339,10 @@ function skipToCoupons(){
 	skipToUrl("/info/coupon");
 }
 
+function skipToGoodType(){
+	skipToUrl("/info/good_type");
+}
+
 function paySuccess(goodId,payType,status,token,callback){
 	var random = Math.random()*Math.random();
 	request("/api/pay_success?pay_type="+payType+"&good_id="+goodId+"&status="+status+"&random="+random,token,callback);

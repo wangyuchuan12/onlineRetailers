@@ -50,7 +50,7 @@
         			
         			
         			<li>
-        				<div class="personal_center_item activityStyle"  onclick="skipToHelp();">
+        				<div class="personal_center_item activityStyle"  onclick="skipToGoodType();">
         					<div class="personal_center_item_icon" style="background-color:orange;padding-top:3px;padding-left:5px;">
         						<i class="fa fa-book"></i>
         					</div>
