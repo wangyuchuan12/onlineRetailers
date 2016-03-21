@@ -227,6 +227,13 @@ function setUserToken(userToken){
 	}
 }
 
+function setGoodType(goodType){
+	if(userToken){
+		window.localStorage.setItem("goodType",goodType);
+
+	}
+}
+
 function skipToUrl(url,token,params){
 	var temp = document.createElement("form");        
     temp.action = webPath+url;        
@@ -257,6 +264,11 @@ function request(url,token,callback){
 	if(!token&&window.sessionStorage.getItem("userToken")){
 		token = window.sessionStorage.getItem("userToken");
 	}
+	var params = new Object();
+	if(window.sessionStorage.getItem("goodTpe")){
+		params.good_type = window.sessionStorage.getItem("goodType");
+	}
+	
 	if(url.indexOf("?")>0){
 		if(token){
 			url=webPath+url+"&token="+token;
@@ -273,6 +285,7 @@ function request(url,token,callback){
 	$.ajax({
 		url:url,
 		method:"POST",
+		params:params,
 		success:function(resp){
 			if(callback){
 				callback.success(resp);

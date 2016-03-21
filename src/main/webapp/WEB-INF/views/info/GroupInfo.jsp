@@ -176,7 +176,7 @@
     				var groupInfoGoodName = $("#group_info_good_name").val();
     				var groupInfoGoodTitle = $("#group_info_good_title").val();
     				wx.ready(function(){
-        				wxOnMenuShareAppMessage(groupInfoGoodName,groupInfoGoodTitle,"www.chengxihome.com/info/group_info2?id=${groupInfo.id}",groupInfoImg,"link",null);
+        				wxOnMenuShareAppMessage(groupInfoGoodName,groupInfoGoodTitle,"www.chengxihome.com/info/group_info2?id=${groupInfo.id}&good_type=${goodType}",groupInfoImg,"link",null);
         			});
      		});
     			

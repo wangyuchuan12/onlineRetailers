@@ -1,7 +1,6 @@
 package com.wyc.controller.action;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +29,6 @@ import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodImg;
-import com.wyc.domain.GoodType;
 import com.wyc.domain.MyResource;
 import com.wyc.domain.TempGroupOrder;
 import com.wyc.intercept.domain.MyHttpServletRequest;
@@ -74,30 +72,9 @@ public class GoodsAction {
 	@UserInfoFromWebAnnotation
 	@WxConfigAnnotation
 	@NowPageRecordAnnotation(page=0)
-	public String goodList(HttpServletRequest httpRequest)throws Exception{
-	    String goodTypeId = httpRequest.getParameter("good_type");
+	public String goodList(HttpServletRequest httpRequest)throws Exception{  
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
-            UserInfo userInfo = myHttpServletRequest.getUserInfo();
-            Customer customer = customerService.findByOpenId(userInfo.getOpenid());
-	    if(goodTypeId==null||goodTypeId.trim().equals("")){
-	        
-	        goodTypeId = customer.getDefaultGoodType();
-	    }
-	    
-	    if(goodTypeId==null||goodTypeId.trim().equals("")){
-	        List<GoodType> goodTypes = goodTypeService.findAllByIsDefault(true);
-	        if(goodTypes.size()>0){
-	            GoodType goodType = goodTypes.get(0);
-	            goodTypeId = goodType.getId();
-	        }else{
-	            Iterable<GoodType> goodTypeIterable = goodTypeService.findAll();
-	            Iterator<GoodType> goodIterator = goodTypeIterable.iterator();
-	            GoodType goodType = goodIterator.next();
-	            goodTypeId = goodType.getId();
-	        }
-	    }
-	    customer.setDefaultGoodType(goodTypeId);
-	    customerService.save(customer);
+	    String goodTypeId = myHttpServletRequest.getAttribute("goodType").toString();
 	    Iterable<Good> databaseGoods = goodService.findAllByStatusAndGoodTypeOrderByRank(1,goodTypeId);
             List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
             for(Good good:databaseGoods){
@@ -120,7 +97,6 @@ public class GoodsAction {
 		    }
 		    responseGoods.add(responseGood);
 		}
-               httpRequest.setAttribute("goodType", goodTypeId);
 	       httpRequest.setAttribute("goods", responseGoods);
 	       return "main/Goods";
 	}

@@ -110,7 +110,7 @@
     			setUserToken("${token.id}");
     			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
     			wx.ready(function(){
-    				wxOnMenuShareAppMessage("${good.name}","${good.title}","www.chengxihome.com/info/good_info?id=${good.id}","${good.head_img}","link");
+    				wxOnMenuShareAppMessage("${good.name}","${good.title}","www.chengxihome.com/info/good_info?id=${good.id}&good_type=${goodType}","${good.head_img}","link");
     			});
     		});
     </script>

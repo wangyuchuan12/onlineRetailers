@@ -2,6 +2,8 @@ package com.wyc.config;
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -39,10 +41,12 @@ import com.wyc.annotation.handler.Handler;
 import com.wyc.defineBean.StopToAfter;
 import com.wyc.domain.Customer;
 import com.wyc.domain.ExceptionRecord;
+import com.wyc.domain.GoodType;
 import com.wyc.domain.TemporaryData;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CustomerService;
 import com.wyc.service.ExceptionRecordService;
+import com.wyc.service.GoodTypeService;
 import com.wyc.service.TemporaryDataService;
 import com.wyc.service.TokenService;
 import com.wyc.service.WxUserInfoService;
@@ -94,6 +98,8 @@ public class InterceptConfig {
     private TemporaryDataService temporaryDataService;
     @Autowired
     private ExceptionRecordService exceptionRecordService;
+    @Autowired
+    private GoodTypeService goodTypeService;
     final static Logger logger = LoggerFactory.getLogger(InterceptConfig.class);
     
  //   @Around(value="execution (* com.wyc.wx.service.*.*(..))")
@@ -133,9 +139,11 @@ public class InterceptConfig {
     public void beforeAction(JoinPoint joinPoint){
         MyHttpServletRequest httpServletRequest = (MyHttpServletRequest)joinPoint.getArgs()[0];
         UserInfo userInfo = httpServletRequest.getUserInfo();
+        String openid = null;
+        Customer customer = null;
         if(userInfo!=null){
-            String openid = userInfo.getOpenid();
-            Customer customer = customerService.findByOpenId(openid);
+            openid = userInfo.getOpenid();
+            customer = customerService.findByOpenId(openid);
             if(customer==null){
                 customer = new Customer();
                 customer.setOpenId(openid);
@@ -143,6 +151,29 @@ public class InterceptConfig {
                 logger.debug("add customer to database and openid = {},id = {}",openid,customer.getId());
             }
         }
+        String goodTypeId = httpServletRequest.getParameter("good_type");
+        if(goodTypeId==null||goodTypeId.trim().equals("")){
+            
+            goodTypeId = customer.getDefaultGoodType();
+        }
+        
+        if(goodTypeId==null||goodTypeId.trim().equals("")){
+            List<GoodType> goodTypes = goodTypeService.findAllByIsDefault(true);
+            if(goodTypes.size()>0){
+                GoodType goodType = goodTypes.get(0);
+                goodTypeId = goodType.getId();
+            }else{
+                Iterable<GoodType> goodTypeIterable = goodTypeService.findAll();
+                Iterator<GoodType> goodIterator = goodTypeIterable.iterator();
+                GoodType goodType = goodIterator.next();
+                goodTypeId = goodType.getId();
+            }
+        }
+        customer.setDefaultGoodType(goodTypeId);
+        customerService.save(customer);
+        
+        
+        httpServletRequest.setAttribute("goodType", customer.getDefaultGoodType());
     }
     
     @Around(value="execution (* com.wyc.controller.api.*.*(..))")
