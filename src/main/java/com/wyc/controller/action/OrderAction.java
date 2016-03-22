@@ -177,10 +177,9 @@ public class OrderAction {
         String id = httpServletRequest.getParameter("id");
         GoodOrder goodOrder = goodOrderService.findOne(id);
         OrderDetail orderDetail = orderDetailService.findByOrderId(goodOrder.getId());
-        String customerId = orderDetail.getCustomerId();
-        Customer customer = customerService.findOne(customerId);
+        Customer customer = customerService.findByOpenId(userInfo.getOpenid());
         Map<String, Object> orderResponse = getResponseOrder(goodOrder);
-        if(userInfo.getOpenid().equals(customer.getOpenId())){
+        if(customer!=null){
             GroupPartake groupPartake = groupPartakeService.findByCustomeridAndGroupId(customer.getId(), orderDetail.getGroupId());
             GroupPartakeDeliver groupPartakeDeliver = groupPartakeDeliverService.findByGroupPartakeId(groupPartake.getId());
             GroupPartakePayment groupPartakePayment = groupPartakePaymentService.findByGroupPartakeId(groupPartake.getId());
