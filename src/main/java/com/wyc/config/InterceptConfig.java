@@ -209,20 +209,6 @@ public class InterceptConfig {
         String str = null;
         HttpServletRequest httpServletRequest = (HttpServletRequest)args[0];
         HttpSession session = httpServletRequest.getSession();
-        if(httpServletRequest.getParameter("good_type")!=null&&!httpServletRequest.getParameter("good_type").trim().equals("")){
-            
-            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(session.getId(), "good_type");
-            if(temporaryData==null){
-                temporaryData = new TemporaryData();
-                temporaryData.setMykey(session.getId());
-                temporaryData.setName("good_type");
-                temporaryData.setValue(httpServletRequest.getParameter("good_type"));
-                temporaryDataService.add(temporaryData);
-            }else{
-                temporaryData.setValue(httpServletRequest.getParameter("good_type"));
-                temporaryDataService.save(temporaryData);
-            }
-        }
         logger.debug("the session id is {}",httpServletRequest.getSession().getId());
         logger.debug("the good_type param is {}",httpServletRequest.getParameter("good_type"));
         for(Object arg:args){
@@ -454,45 +440,7 @@ public class InterceptConfig {
                 "appid="+wxContext.getAppid()+"&redirect_uri="+urlBuffer.toString()+"&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect";
                 logger.debug("redirect to url [{}]",wxRequestUrl);
                 return "redirect:"+wxRequestUrl;
-            }
-            
-            Customer customer = customerService.findByOpenId(userInfo.getOpenid());
-            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(session.getId(), "good_type");
-            
-            Object goodTypeId = null;
-            if(temporaryData!=null){
-                goodTypeId = temporaryData.getValue();
-                logger.debug("get good_type attribute from temp and the value is {}",goodTypeId);
-            }
-            if(goodTypeId==null||goodTypeId.toString().trim().equals("")){
-                
-                goodTypeId = customer.getDefaultGoodType();
-                logger.debug("get good_type attribute from database and the value is {}",goodTypeId);
-            }
-            
-            if(goodTypeId==null||goodTypeId.toString().trim().equals("")){
-                List<GoodType> goodTypes = goodTypeService.findAllByIsDefault(true);
-                if(goodTypes.size()>0){
-                    GoodType goodType = goodTypes.get(0);
-                    goodTypeId = goodType.getId();
-                    logger.debug("get good_type from goodType about default");
-                }else{
-                    Iterable<GoodType> goodTypeIterable = goodTypeService.findAll();
-                    Iterator<GoodType> goodIterator = goodTypeIterable.iterator();
-                    GoodType goodType = goodIterator.next();
-                    goodTypeId = goodType.getId();
-                    logger.debug("get good_type from goodType of all");
-                }
-            }
-            logger.debug("the good_type is {}",goodTypeId);
-            customer.setDefaultGoodType(goodTypeId.toString());
-            customerService.save(customer);
-            
-            
-            httpServletRequest.setAttribute("goodType", customer.getDefaultGoodType());
-            
-            
-            
+            }  
             myHttpServletRequest.setUserInfo(userInfo);
             myHttpServletRequest.setToken(token);
         }

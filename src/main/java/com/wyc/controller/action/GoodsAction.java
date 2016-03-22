@@ -74,7 +74,15 @@ public class GoodsAction {
 	@NowPageRecordAnnotation(page=0)
 	public String goodList(HttpServletRequest httpRequest)throws Exception{  
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
-	    String goodTypeId = myHttpServletRequest.getAttribute("goodType").toString();
+	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
+	    String goodTypeId = myHttpServletRequest.getParameter("good_type");
+	    Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+	    if(goodTypeId==null||goodTypeId.trim().equals("")){
+	        goodTypeId = customer.getDefaultGoodType();
+	    }else{
+	        customer.setDefaultGoodType(goodTypeId);
+	        customerService.save(customer);
+	    }
 	    Iterable<Good> databaseGoods = goodService.findAllByStatusAndGoodTypeOrderByRank(1,goodTypeId);
             List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
             for(Good good:databaseGoods){
@@ -109,11 +117,14 @@ public class GoodsAction {
 	public String goodInfo(HttpServletRequest httpRequest)throws Exception{
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
-            Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+            
            
 	    String goodId = httpRequest.getParameter("id");
 	    logger.debug("get js api tick is {}",myHttpServletRequest.getJsapiTicketBean().getTicket());
 	    Good good = goodService.findOne(goodId);
+	    Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+	    customer.setDefaultGoodType(good.getGoodType());
+	    customerService.save(customer);
 	    logger.debug("get the good object is {}",good);
 	    Map<String, Object> responseGood = new HashMap<String, Object>();
             responseGood.put("id", good.getId());
