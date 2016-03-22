@@ -239,12 +239,13 @@ public class GroupsAction {
         groupInfoMap.put("groupNum", groupNum);
         groupInfoMap.put("totalPrice", totalPrice);
         groupInfoMap.put("groupPartake", groupMembers);
+        
         groupInfoMap.put("startTime",
                 mySimpleDateFormat.format(goodGroup.getStartTime().toDate()));
         groupInfoMap.put("timeLong", goodGroup.getTimeLong());
         groupInfoMap.put("role", role);
         httpServletRequest.setAttribute("groupInfo", groupInfoMap);
-        
+        httpServletRequest.setAttribute("good_type", good.getGoodType());
         
         TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(requestUser.getOpenid(), "nowgroup");
         if(temporaryData==null){
