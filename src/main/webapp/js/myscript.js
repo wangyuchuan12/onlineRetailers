@@ -263,7 +263,7 @@ function setUserToken(userToken){
 }
 
 function setGoodType(goodType){
-	if(userToken){
+	if(goodType){
 		window.localStorage.setItem("goodType",goodType);
 
 	}
