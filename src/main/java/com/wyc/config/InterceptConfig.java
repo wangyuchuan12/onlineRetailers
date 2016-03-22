@@ -205,6 +205,7 @@ public class InterceptConfig {
         String str = null;
         HttpServletRequest httpServletRequest = (HttpServletRequest)args[0];
         logger.debug("the session id is {}",httpServletRequest.getSession().getId());
+        logger.debug("the good_type param is {}",httpServletRequest.getParameter("good_type"));
         for(Object arg:args){
             str+=arg+",";
             
