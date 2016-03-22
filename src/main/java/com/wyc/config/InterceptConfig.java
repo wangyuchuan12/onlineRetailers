@@ -1,6 +1,7 @@
 package com.wyc.config;
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -9,8 +10,11 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.shiro.session.Session;
+import org.apache.taglibs.standard.lang.jstl.EnumeratedMap;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -438,7 +442,12 @@ public class InterceptConfig {
             }
             
             Customer customer = customerService.findByOpenId(userInfo.getOpenid());
-            
+            HttpSession session = httpServletRequest.getSession();
+            Enumeration<String> sessionAttributes = session.getAttributeNames();
+            while(sessionAttributes.hasMoreElements()){
+                String sessionName = sessionAttributes.nextElement();
+                logger.debug("the session name is {} and the session value is {}",sessionName,session.getAttribute(sessionName));
+            }
             Object goodTypeId = httpServletRequest.getSession().getAttribute("good_type");
             if(goodTypeId==null||goodTypeId.toString().trim().equals("")){
                 
