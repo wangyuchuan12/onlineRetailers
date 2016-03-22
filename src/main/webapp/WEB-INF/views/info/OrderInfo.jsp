@@ -64,11 +64,12 @@
        			<div class="order_info_detail_header">下单时间：</div>
        			<div class="order_info_detail_content">${order.createTime}</div>
        		</div>
-       		<div class="order_info_detail_block">
+       		<!--  <div class="order_info_detail_block">
        			<div class="order_info_detail_header">配送方法：</div>
        			<div class="order_info_detail_content">圆通快递</div>
-       			<!--  <div class="order_info_detail_number">802965705849</div> -->
+       			 <div class="order_info_detail_number">802965705849</div>
        		</div>
+       		-->
        	</div>
        </div>
        <div class="order_info_good_info">
