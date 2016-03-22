@@ -245,7 +245,7 @@ public class GroupsAction {
         groupInfoMap.put("timeLong", goodGroup.getTimeLong());
         groupInfoMap.put("role", role);
         httpServletRequest.setAttribute("groupInfo", groupInfoMap);
-        httpServletRequest.setAttribute("good_type", good.getGoodType());
+        httpServletRequest.setAttribute("goodType", good.getGoodType());
         
         TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(requestUser.getOpenid(), "nowgroup");
         if(temporaryData==null){
