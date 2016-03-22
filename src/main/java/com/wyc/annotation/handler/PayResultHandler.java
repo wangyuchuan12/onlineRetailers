@@ -174,6 +174,7 @@ public class PayResultHandler implements Handler{
                 GroupPartake groupPartake = new GroupPartake();
                 groupPartake.setCustomerAddress(tempGroupOrder.getCustomerAddress());
                 groupPartake.setCustomerid(customer.getId());
+                groupPartake.setOrderId(tempGroupOrder.getOrderId());
                 groupPartake.setDateTime(new DateTime());
                 groupPartake.setGroupId(goodGroup.getId());
                 if(partNum==1){
