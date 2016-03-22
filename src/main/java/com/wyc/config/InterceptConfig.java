@@ -435,6 +435,7 @@ public class InterceptConfig {
             if(goodTypeId==null||goodTypeId.trim().equals("")){
                 
                 goodTypeId = customer.getDefaultGoodType();
+                logger.debug("get good_type attribute from http param");
             }
             
             if(goodTypeId==null||goodTypeId.trim().equals("")){
@@ -442,13 +443,16 @@ public class InterceptConfig {
                 if(goodTypes.size()>0){
                     GoodType goodType = goodTypes.get(0);
                     goodTypeId = goodType.getId();
+                    logger.debug("get good_type from goodType about default");
                 }else{
                     Iterable<GoodType> goodTypeIterable = goodTypeService.findAll();
                     Iterator<GoodType> goodIterator = goodTypeIterable.iterator();
                     GoodType goodType = goodIterator.next();
                     goodTypeId = goodType.getId();
+                    logger.debug("get good_type from goodType of all");
                 }
             }
+            logger.debug("the good_type is {}",goodTypeId);
             customer.setDefaultGoodType(goodTypeId);
             customerService.save(customer);
             
