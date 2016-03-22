@@ -51,6 +51,10 @@
         			<c:if test="${payGoodInfo.pay_type==2}">
         				${payGoodInfo.coupon_cost}张开团劵
         			</c:if>
+        			
+        			<c:if test="${payGoodInfo.pay_type==3}">
+        				￥${payGoodInfo.group_cost}
+        			</c:if>
         			/件
         		</div>
         	</div>
