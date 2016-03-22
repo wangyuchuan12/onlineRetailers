@@ -435,7 +435,7 @@ public class InterceptConfig {
             if(goodTypeId==null||goodTypeId.trim().equals("")){
                 
                 goodTypeId = customer.getDefaultGoodType();
-                logger.debug("get good_type attribute from http param");
+                logger.debug("get good_type attribute from http param and the value is {}",goodTypeId);
             }
             
             if(goodTypeId==null||goodTypeId.trim().equals("")){
