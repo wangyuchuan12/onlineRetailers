@@ -208,6 +208,15 @@ public class InterceptConfig {
         Object[] args  = proceedingJoinPoint.getArgs();
         String str = null;
         HttpServletRequest httpServletRequest = (HttpServletRequest)args[0];
+        HttpSession session = httpServletRequest.getSession();
+        if(httpServletRequest.getParameter("good_type")!=null&&!httpServletRequest.getParameter("good_type").trim().equals("")){
+            
+            TemporaryData temporaryData = new TemporaryData();
+            temporaryData.setMykey(session.getId());
+            temporaryData.setName("good_type");
+            temporaryData.setValue(httpServletRequest.getParameter("good_type"));
+            temporaryDataService.add(temporaryData);
+        }
         logger.debug("the session id is {}",httpServletRequest.getSession().getId());
         logger.debug("the good_type param is {}",httpServletRequest.getParameter("good_type"));
         for(Object arg:args){
@@ -442,17 +451,17 @@ public class InterceptConfig {
             }
             
             Customer customer = customerService.findByOpenId(userInfo.getOpenid());
-            HttpSession session = httpServletRequest.getSession();
-            Enumeration<String> sessionAttributes = session.getAttributeNames();
-            while(sessionAttributes.hasMoreElements()){
-                String sessionName = sessionAttributes.nextElement();
-                logger.debug("the session name is {} and the session value is {}",sessionName,session.getAttribute(sessionName));
+            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(session.getId(), "good_type");
+            
+            Object goodTypeId = null;
+            if(temporaryData!=null){
+                goodTypeId = temporaryData.getValue();
+                logger.debug("get good_type attribute from temp and the value is {}",goodTypeId);
             }
-            Object goodTypeId = httpServletRequest.getSession().getAttribute("good_type");
             if(goodTypeId==null||goodTypeId.toString().trim().equals("")){
                 
                 goodTypeId = customer.getDefaultGoodType();
-                logger.debug("get good_type attribute from http param and the value is {}",goodTypeId);
+                logger.debug("get good_type attribute from database and the value is {}",goodTypeId);
             }
             
             if(goodTypeId==null||goodTypeId.toString().trim().equals("")){
