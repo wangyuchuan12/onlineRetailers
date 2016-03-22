@@ -592,12 +592,12 @@
 
 .linkGuid{
 	width: 100%;
-	height: 100%;
+	height: 2000px;
 	position: absolute;
 	background-color: RGBA(0,0,0,0.5);
 	background-repeat: no-repeat;
 	z-index: 2000;
-	top: -165px;
+	top: -325px;
 	
 }
 
