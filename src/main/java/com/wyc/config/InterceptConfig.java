@@ -211,11 +211,17 @@ public class InterceptConfig {
         HttpSession session = httpServletRequest.getSession();
         if(httpServletRequest.getParameter("good_type")!=null&&!httpServletRequest.getParameter("good_type").trim().equals("")){
             
-            TemporaryData temporaryData = new TemporaryData();
-            temporaryData.setMykey(session.getId());
-            temporaryData.setName("good_type");
-            temporaryData.setValue(httpServletRequest.getParameter("good_type"));
-            temporaryDataService.add(temporaryData);
+            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(session.getId(), "good_type");
+            if(temporaryData==null){
+                temporaryData = new TemporaryData();
+                temporaryData.setMykey(session.getId());
+                temporaryData.setName("good_type");
+                temporaryData.setValue(httpServletRequest.getParameter("good_type"));
+                temporaryDataService.add(temporaryData);
+            }else{
+                temporaryData.setValue(httpServletRequest.getParameter("good_type"));
+                temporaryDataService.save(temporaryData);
+            }
         }
         logger.debug("the session id is {}",httpServletRequest.getSession().getId());
         logger.debug("the good_type param is {}",httpServletRequest.getParameter("good_type"));
