@@ -247,6 +247,9 @@ public class GroupsAction {
         httpServletRequest.setAttribute("groupInfo", groupInfoMap);
         httpServletRequest.setAttribute("goodType", good.getGoodType());
         
+        Customer customer = customerService.findByOpenId(requestUser.getOpenid());
+        customer.setDefaultGoodType(good.getGoodType());
+        customerService.save(customer);
         TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(requestUser.getOpenid(), "nowgroup");
         if(temporaryData==null){
             temporaryData = new TemporaryData();
