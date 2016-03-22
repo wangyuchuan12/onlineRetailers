@@ -106,6 +106,7 @@ public class GoodsAction {
 		    responseGoods.add(responseGood);
 		}
 	       httpRequest.setAttribute("goods", responseGoods);
+	       httpRequest.setAttribute("goodType", goodTypeId);
 	       return "main/Goods";
 	}
 	
