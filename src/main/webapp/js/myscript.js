@@ -22,6 +22,14 @@ function checkStr(str){
      return false;
 }
 
+function checkAddress(value){
+	var myreg=/^([\"\”\“\’\'\'\&lt;\&gt;]).*$/;
+	if(myreg.test(value)){
+		return false;
+	}else{
+		return true;
+	}
+}
 
 function addressAddSbumit(prepareRedirect,token,id){
 	if(!token&&window.localStorage.getItem("userToken")){
@@ -74,7 +82,7 @@ function addressAddSbumit(prepareRedirect,token,id){
 		return false;
 	}
 	
-	if(!checkStr(addressContent)){
+	if(!checkAddress(addressContent)){
 		alert("地址不能包含特殊字符");
 		return false;
 	}
