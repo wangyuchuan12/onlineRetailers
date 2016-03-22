@@ -207,7 +207,9 @@ public class InterceptConfig {
             str+=arg+",";
         }
         logger.debug("the args is {}",str);
+        
         HttpServletRequest httpServletRequest = (HttpServletRequest)args[0];
+        logger.debug("the session id is {}",httpServletRequest.getSession().getId());
         String prepareRedirect = httpServletRequest.getParameter("prepare_redirect");
         if(prepareRedirect!=null){
             StringBuffer sb = new StringBuffer();
@@ -220,6 +222,7 @@ public class InterceptConfig {
             }
             logger.debug("the prepareRedirect is {}",sb.toString());
             httpServletRequest.setAttribute("prepareRedirect", sb.toString());
+            
         }
         String remoteAddress = httpServletRequest.getRemoteAddr();
         logger.debug("remoteAddress is {}",remoteAddress);
