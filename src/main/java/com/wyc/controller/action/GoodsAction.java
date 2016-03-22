@@ -146,6 +146,7 @@ public class GoodsAction {
             httpRequest.setAttribute("token", myHttpServletRequest.getToken());
             int couponCount = openGroupCouponService.countByCustomerIdAndGoodIdAndEndTimeBeforeAndStatus(customer.getId(), goodId, new DateTime(),1);
             httpRequest.setAttribute("couponCount", couponCount);
+            httpRequest.setAttribute("goodType", good.getGoodType());
             logger.debug("the token is :{}",myHttpServletRequest.getToken());
             return "info/GoodInfo";
 	}
