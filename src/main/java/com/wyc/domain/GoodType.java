@@ -15,6 +15,10 @@ public class GoodType {
     private String name;
     @Column(name="is_default")
     private boolean isDefault;
+    @Column
+    private String title;
+    @Column
+    private String img;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
@@ -22,6 +26,18 @@ public class GoodType {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
     
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public String getImg() {
+        return img;
+    }
+    public void setImg(String img) {
+        this.img = img;
+    }
     public boolean isDefault() {
         return isDefault;
     }

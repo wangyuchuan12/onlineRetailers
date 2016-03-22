@@ -29,6 +29,7 @@ import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodImg;
+import com.wyc.domain.GoodType;
 import com.wyc.domain.MyResource;
 import com.wyc.domain.TempGroupOrder;
 import com.wyc.intercept.domain.MyHttpServletRequest;
@@ -107,6 +108,10 @@ public class GoodsAction {
 		}
 	       httpRequest.setAttribute("goods", responseGoods);
 	       httpRequest.setAttribute("goodType", goodTypeId);
+	       GoodType goodType = goodTypeService.findOne(goodTypeId);
+	       httpRequest.setAttribute("typeTitle", goodType.getTitle());
+	       httpRequest.setAttribute("typeName", goodType.getName());
+	       httpRequest.setAttribute("typeImg", goodType.getImg());
 	       return "main/Goods";
 	}
 	
