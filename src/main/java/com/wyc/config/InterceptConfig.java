@@ -203,13 +203,16 @@ public class InterceptConfig {
         logger.debug("around target is {}",target);
         Object[] args  = proceedingJoinPoint.getArgs();
         String str = null;
+        HttpServletRequest httpServletRequest = (HttpServletRequest)args[0];
+        logger.debug("the session id is {}",httpServletRequest.getSession().getId());
         for(Object arg:args){
             str+=arg+",";
+            
         }
         logger.debug("the args is {}",str);
         
-        HttpServletRequest httpServletRequest = (HttpServletRequest)args[0];
-        logger.debug("the session id is {}",httpServletRequest.getSession().getId());
+        
+        
         String prepareRedirect = httpServletRequest.getParameter("prepare_redirect");
         if(prepareRedirect!=null){
             StringBuffer sb = new StringBuffer();
@@ -218,6 +221,7 @@ public class InterceptConfig {
                 Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
                 for(Entry<String, String[]> entry:parameterMap.entrySet()){
                     sb.append("&"+entry.getKey()+"="+entry.getValue()[0]);
+                    httpServletRequest.getSession().setAttribute(entry.getKey(),entry.getValue()[0]);
                 }
             }
             logger.debug("the prepareRedirect is {}",sb.toString());
@@ -434,14 +438,14 @@ public class InterceptConfig {
             
             Customer customer = customerService.findByOpenId(userInfo.getOpenid());
             
-            String goodTypeId = httpServletRequest.getParameter("good_type");
-            if(goodTypeId==null||goodTypeId.trim().equals("")){
+            Object goodTypeId = httpServletRequest.getSession().getAttribute("good_type");
+            if(goodTypeId==null||goodTypeId.toString().trim().equals("")){
                 
                 goodTypeId = customer.getDefaultGoodType();
                 logger.debug("get good_type attribute from http param and the value is {}",goodTypeId);
             }
             
-            if(goodTypeId==null||goodTypeId.trim().equals("")){
+            if(goodTypeId==null||goodTypeId.toString().trim().equals("")){
                 List<GoodType> goodTypes = goodTypeService.findAllByIsDefault(true);
                 if(goodTypes.size()>0){
                     GoodType goodType = goodTypes.get(0);
@@ -456,7 +460,7 @@ public class InterceptConfig {
                 }
             }
             logger.debug("the good_type is {}",goodTypeId);
-            customer.setDefaultGoodType(goodTypeId);
+            customer.setDefaultGoodType(goodTypeId.toString());
             customerService.save(customer);
             
             
