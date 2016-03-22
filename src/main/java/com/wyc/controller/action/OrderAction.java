@@ -203,8 +203,9 @@ public class OrderAction {
             orderResponse.put("type", goodOrder.getType());
             orderResponse.put("id", goodOrder.getId());
             orderResponse.put("createTime", mySimpleDateFormat.format(goodOrder.getCreateTime().toDate()));
-            orderResponse.put("address", goodOrder.getAddress());
-            CustomerAddress customerAddress = customerAddressService.findOne(goodOrder.getAddressId());
+            
+            CustomerAddress customerAddress = customerAddressService.findOne(groupPartake.getCustomerAddress());
+            orderResponse.put("address", customerAddress.getContent());
             orderResponse.put("recipient", customerAddress.getName());
             logger.debug("recipient:"+customerAddress.getName());
             orderResponse.put("phonenumber", customerAddress.getPhonenumber());
