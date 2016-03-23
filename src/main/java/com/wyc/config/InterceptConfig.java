@@ -477,6 +477,7 @@ public class InterceptConfig {
                 temporaryData.setMykey(userInfo.getOpenid());
                 temporaryData.setName("nowpage");
                 temporaryData.setValue(page+"");
+                temporaryData.setKeyName("openid");
                 temporaryDataService.add(temporaryData);
                 
             }else{  
@@ -486,11 +487,13 @@ public class InterceptConfig {
                     fromPageTemporaryData.setName("frompage");
                     fromPageTemporaryData.setMykey(userInfo.getOpenid());
                     fromPageTemporaryData.setValue(temporaryData.getValue());
+                    fromPageTemporaryData.setKeyName("openid");
                     temporaryDataService.add(fromPageTemporaryData);
                 }else{
                     fromPageTemporaryData.setName("frompage");
                     fromPageTemporaryData.setMykey(userInfo.getOpenid());
                     fromPageTemporaryData.setValue(temporaryData.getValue());
+                    fromPageTemporaryData.setKeyName("openid");
                     temporaryDataService.save(fromPageTemporaryData);
                 }
                 temporaryData.setValue(page+"");

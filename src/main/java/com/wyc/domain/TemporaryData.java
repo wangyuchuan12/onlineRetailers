@@ -20,7 +20,8 @@ public class TemporaryData {
     private String value;
     @Column
     private int status = 1;
-    
+    @Column(name="key_name")
+    private String keyName;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -31,6 +32,12 @@ public class TemporaryData {
     private DateTime updateAt;
     
     
+    public String getKeyName() {
+        return keyName;
+    }
+    public void setKeyName(String keyName) {
+        this.keyName = keyName;
+    }
     public int getStatus() {
         return status;
     }

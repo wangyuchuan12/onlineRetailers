@@ -135,6 +135,7 @@ public class WxChooseWxPayHandler implements Handler{
         
         TemporaryData goodIdTemporary = new TemporaryData();
         goodIdTemporary.setMykey(outTradeNo);
+        goodIdTemporary.setKeyName("outTradeNo");
         goodIdTemporary.setName("goodId");
         goodIdTemporary.setValue(goodId);
         
@@ -142,6 +143,7 @@ public class WxChooseWxPayHandler implements Handler{
         TemporaryData payTypeTemporary = new TemporaryData();
         payTypeTemporary.setMykey(outTradeNo);
         payTypeTemporary.setName("payType");
+        payTypeTemporary.setKeyName("outTradeNo");
         payTypeTemporary.setValue(payType);
         
         temporaryDataService.add(goodIdTemporary);
@@ -152,12 +154,14 @@ public class WxChooseWxPayHandler implements Handler{
         TemporaryData openIdTemporary = new TemporaryData();
         openIdTemporary.setMykey(outTradeNo);
         openIdTemporary.setName("openId");
+        openIdTemporary.setKeyName("outTradeNo");
         openIdTemporary.setValue(userInfo.getOpenid());
         temporaryDataService.add(openIdTemporary);
         
         TemporaryData userIdTemporary = new TemporaryData();
         userIdTemporary.setMykey(outTradeNo);
         userIdTemporary.setName("userId");
+        userIdTemporary.setKeyName("outTradeNo");
         if(userInfo.getId()==null){
             userInfo = wxUserInfoService.findByOpenid(openid);
         }

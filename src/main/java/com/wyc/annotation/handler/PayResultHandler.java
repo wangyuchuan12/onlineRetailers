@@ -156,6 +156,7 @@ public class PayResultHandler implements Handler{
             if(temporaryData==null){
                 temporaryData = new TemporaryData();
                 temporaryData.setMykey(openid);
+                temporaryData.setKeyName("openid");
                 temporaryData.setName("lastGroupId");
                 temporaryData.setValue(goodGroup.getId());
                 temporaryDataService.add(temporaryData);

@@ -68,6 +68,7 @@ public class BaseApi {
 	    String name = httpServletRequest.getParameter("name");
 	    String value = httpServletRequest.getParameter("value");
 	    TemporaryData temporaryData = new TemporaryData();
+	    temporaryData.setKeyName("setTemporaryData");
 	    temporaryData.setMykey(key);
 	    temporaryData.setName(name);
 	    temporaryData.setValue(value);

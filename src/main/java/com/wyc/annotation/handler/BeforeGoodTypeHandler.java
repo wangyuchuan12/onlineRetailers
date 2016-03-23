@@ -24,6 +24,7 @@ public class BeforeGoodTypeHandler implements Handler{
                 temporaryData = new TemporaryData();
                 temporaryData.setMykey(httpSession.getId());
                 temporaryData.setName("goodType");
+                temporaryData.setKeyName("session_id");
                 temporaryData.setValue(goodType);
                 temporaryDataService.add(temporaryData);
             }else{

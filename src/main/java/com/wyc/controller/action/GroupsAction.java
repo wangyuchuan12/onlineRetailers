@@ -260,6 +260,7 @@ public class GroupsAction {
             temporaryData.setMykey(requestUser.getOpenid());
             temporaryData.setName("nowgroup");
             temporaryData.setValue(id);
+            temporaryData.setKeyName("openid");
             temporaryDataService.add(temporaryData);
             
         }else{
