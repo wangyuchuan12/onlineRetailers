@@ -9,6 +9,6 @@ public interface TemporaryDataRespository extends CrudRepository<TemporaryData, 
 
     public TemporaryData findByMykeyAndNameAndStatus(String key, String name , int status);
 
-    public TemporaryData findByMyKeyAndName(String key, String name);
+    public TemporaryData findByMykeyAndName(String key, String name);
     
 }
