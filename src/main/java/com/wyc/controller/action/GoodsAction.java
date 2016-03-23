@@ -149,6 +149,7 @@ public class GoodsAction {
 	    customer.setDefaultGoodType(good.getGoodType());
 	    customerService.save(customer);
 	    logger.debug("get the good object is {}",good);
+	    myHttpServletRequest.setAttribute("goodType", good.getGoodType());
 	    Map<String, Object> responseGood = new HashMap<String, Object>();
             responseGood.put("id", good.getId());
             responseGood.put("instruction", good.getInstruction());
