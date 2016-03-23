@@ -1,6 +1,8 @@
 package com.wyc.service;
 
 
+import java.util.UUID;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -45,5 +47,12 @@ public class OpenGroupCouponService {
         	return null;
         }
         return (OpenGroupCoupon)query.getResultList().get(0);
+    }
+
+    public OpenGroupCoupon add(OpenGroupCoupon openGroupCoupon) {
+       openGroupCoupon.setUpdateAt(new DateTime());
+       openGroupCoupon.setCreateAt(new DateTime());
+       openGroupCoupon.setId(UUID.randomUUID().toString());
+       return openGroupCouponRepository.save(openGroupCoupon);
     }
 }

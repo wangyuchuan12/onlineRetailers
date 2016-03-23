@@ -295,14 +295,13 @@ public class PayResultHandler implements Handler{
                 arrayIteratorStr.add(str);
             }
             Iterable<com.wyc.domain.PayHandler> payHandlerEntitys = payHandlerService.findAll(arrayIteratorStr);
-            logger.debug("handlersStr:{}",handlersArrayStr);
             logger.debug("payHandlerEntitys:{}",payHandlerEntitys);
             for(com.wyc.domain.PayHandler payHandlerEntity:payHandlerEntitys){
                 try {
                     Class<PayHandler> handlerClass = (Class<PayHandler>) Class.forName(payHandlerEntity.getClassPath());
                     PayHandler payHandler = handlerClass.newInstance();
                     factory.autowireBean(payHandler);
-                    payHandler.handler(tempGroupOrder.getOpenid(), tempGroupOrder.getGoodId(), goodGroup.getId(), goodOrder.getId(), outTradeNo, tempGroupOrder.getGoodOrderType());
+                    payHandler.handler(tempGroupOrder.getOpenid(), tempGroupOrder.getGoodId(), goodGroup.getId(), goodOrder.getId(), outTradeNo, tempGroupOrder.getGoodOrderType(),payActivity.getId());
                     
                 } catch (Exception e) {
                     logger.error("has an error:{}",e);

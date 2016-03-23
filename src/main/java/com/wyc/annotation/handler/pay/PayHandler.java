@@ -6,5 +6,5 @@ public interface PayHandler {
     public final static int SINGLE_TYPE = 1;
     public final static int OPEN_GROUP_TYPE = 2;
     public final static int PART_TAKE_TYPE = 3;
-    public void handler(String openId , String goodId , String groupId , String orderId , String outTradeNo , int payHandlerType);
+    public void handler(String openId , String goodId , String groupId , String orderId , String outTradeNo , int payHandlerType,String activityId);
 }
