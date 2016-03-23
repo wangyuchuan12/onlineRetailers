@@ -30,8 +30,7 @@ public class GroupSuccessGiveOpenGroupCouponHandler implements PayHandler{
     @Override
     public void handler(String openId, String goodId, String groupId,
             String orderId, String outTradeNo, int payHandlerType,String activityId) {
-        logger.debug("openId:{},goodId:{},groupId:{},orderId:{},outTradeNo:{},payHandlerType:{},activityId:{}",
-                openId,goodId,groupId,orderId,outTradeNo,payHandlerType,activityId);
+        logger.debug("openId:"+openId+",goodId:"+goodId+",groupId:"+groupId+",orderId:"+orderId+",outTradeNo:"+outTradeNo+",payHandlerType:"+payHandlerType+",activityId:"+activityId);
         GoodGroup goodGroup = goodGroupService.findOne(groupId);
         int count = groupPartakeService.countByGroupId(groupId);
         if(goodGroup.getNum()==count){
