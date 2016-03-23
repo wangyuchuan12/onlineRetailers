@@ -33,4 +33,8 @@ public class TemporaryDataService {
     public TemporaryData findByMyKeyAndNameAndStatus(String key , String name , int status){
         return temporaryDataRespository.findByMykeyAndNameAndStatus(key, name , status);
     }
+
+    public TemporaryData findByMyKeyAndName(String key, String name) {
+        return temporaryDataRespository.findByMyKeyAndName(key,name);
+    }
 }

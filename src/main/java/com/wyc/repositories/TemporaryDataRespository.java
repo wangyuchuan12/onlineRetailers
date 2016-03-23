@@ -8,5 +8,7 @@ public interface TemporaryDataRespository extends CrudRepository<TemporaryData, 
     public Iterable<TemporaryData> findAllByMykey(String key);
 
     public TemporaryData findByMykeyAndNameAndStatus(String key, String name , int status);
+
+    public TemporaryData findByMyKeyAndName(String key, String name);
     
 }
