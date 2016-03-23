@@ -1,23 +1,15 @@
 package com.wyc.config;
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.shiro.session.Session;
-import org.apache.taglibs.standard.lang.jstl.EnumeratedMap;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -46,7 +38,6 @@ import com.wyc.annotation.handler.Handler;
 import com.wyc.defineBean.StopToAfter;
 import com.wyc.domain.Customer;
 import com.wyc.domain.ExceptionRecord;
-import com.wyc.domain.GoodType;
 import com.wyc.domain.TemporaryData;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CustomerService;
@@ -171,20 +162,28 @@ public class InterceptConfig {
             return aroundHandler(proceedingJoinPoint);
         } catch (Exception e) {
             e.printStackTrace();
-            Object[] args  = proceedingJoinPoint.getArgs();
-            MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)proceedingJoinPoint.getArgs()[0];
-            UserInfo userInfo = myHttpServletRequest.getUserInfo();
-            String tokenId = myHttpServletRequest.getParameter("token");
             ExceptionRecord exceptionRecord = new ExceptionRecord();
-            exceptionRecord.setFromUrl(myHttpServletRequest.getRequestURI());
-            exceptionRecord.setToken(tokenId);
+            HttpServletRequest httpServletRequest = (HttpServletRequest)proceedingJoinPoint.getArgs()[0];
+            try {
+                MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
+                UserInfo userInfo = myHttpServletRequest.getUserInfo();
+                String tokenId = myHttpServletRequest.getParameter("token");
+                exceptionRecord.setToken(tokenId);
+                exceptionRecord.setOpenId(userInfo.getOpenid());
+                exceptionRecord.setUserName(userInfo.getNickname());
+                
+                
+            } catch (Exception e2) {
+                logger.error("has error:{}",e2);
+            }
+            
             if(e!=null){
                 if(e.getCause()!=null){
                     exceptionRecord.setMessage(e.getCause().getMessage());
                 }
             }
-            exceptionRecord.setOpenId(userInfo.getOpenid());
-            Map<String, String[]> parameterMap = myHttpServletRequest.getParameterMap();
+            exceptionRecord.setFromUrl(httpServletRequest.getRequestURI());
+            Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
             StringBuffer sb = new StringBuffer();
             for(Entry<String, String[]> entry:parameterMap.entrySet()){
                 sb.append("&"+entry.getKey()+"="+entry.getValue()[0]);
@@ -193,11 +192,10 @@ public class InterceptConfig {
                 sb.deleteCharAt(0);
             }
             exceptionRecord.setParams(sb.toString());
-            exceptionRecord.setToken(tokenId);
-            exceptionRecord.setUserName(userInfo.getNickname());
-            
-            exceptionRecordService.add(exceptionRecord);
+            exceptionRecordService.add(exceptionRecord); 
             return "redirect:/main/good_list";
+            
+            
         }
         
     }
@@ -208,7 +206,6 @@ public class InterceptConfig {
         Object[] args  = proceedingJoinPoint.getArgs();
         String str = null;
         HttpServletRequest httpServletRequest = (HttpServletRequest)args[0];
-        HttpSession session = httpServletRequest.getSession();
         logger.debug("the session id is {}",httpServletRequest.getSession().getId());
         logger.debug("the good_type param is {}",httpServletRequest.getParameter("good_type"));
         for(Object arg:args){
@@ -570,7 +567,10 @@ public class InterceptConfig {
                         extendHandleMethod.invoke(extendHandlerTarget, myHttpServletRequest);
                     }
                 }
-                returnValue = handleMethod.invoke(handleTarget, myHttpServletRequest);
+                Object afterReturnValue = handleMethod.invoke(handleTarget, myHttpServletRequest);
+                if(afterReturnValue!=null){
+                    returnValue = afterReturnValue;
+                }
             }
         }
         ResponseJson responseJson = method.getAnnotation(ResponseJson.class);
