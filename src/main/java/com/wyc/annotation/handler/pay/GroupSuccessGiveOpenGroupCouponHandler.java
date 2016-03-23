@@ -8,8 +8,6 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.wyc.controller.action.GoodsAction;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GroupPartake;
 import com.wyc.domain.GroupSuccessGiveOpenGroupCouponActivity;
