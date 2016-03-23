@@ -204,6 +204,7 @@ public class GroupsAction {
             throws Exception {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) httpServletRequest;
         UserInfo requestUser = myHttpServletRequest.getUserInfo();
+        
         String id = httpServletRequest.getParameter("id");
         GoodGroup goodGroup = goodGroupService.findOne(id);
         goodGroup = checkTimeout(goodGroup);
@@ -213,6 +214,7 @@ public class GroupsAction {
                 .findAllByGroupIdOrderByDateTime(id);
         String goodId = goodGroup.getGoodId();
         Good good = goodService.findOne(goodId);
+        myHttpServletRequest.setAttribute("goodType", good.getGoodType());
         String goodName = good.getName();
         String headImg = myResourceService.findOne(good.getHeadImg()).getUrl();
         int groupNum = goodGroup.getNum();

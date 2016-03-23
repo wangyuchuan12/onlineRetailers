@@ -49,7 +49,13 @@ public class AfterGoodTypeHandler implements Handler{
                 
             }
         }
-        GoodType goodType = goodTypeService.findOne(goodTypeId);
+        GoodType goodType = null;
+        if(httpServletRequest.getAttribute("goodType")==null){
+            goodType = goodTypeService.findOne(goodTypeId);
+        }else{
+            goodType = goodTypeService.findOne(httpServletRequest.getAttribute("goodType").toString());
+        }
+        
         customer.setDefaultGoodType(goodTypeId);
         customerService.save(customer);
         httpServletRequest.setAttribute("goodType", goodTypeId);

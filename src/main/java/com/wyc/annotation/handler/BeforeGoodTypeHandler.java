@@ -30,6 +30,7 @@ public class BeforeGoodTypeHandler implements Handler{
                 temporaryData.setValue(goodType);
                 temporaryDataService.save(temporaryData);
             }
+            httpServletRequest.setAttribute("goodType", goodType);
         }
         return null;
     }
