@@ -220,7 +220,7 @@ public class PersonalCenterAction {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
         Customer customer = customerService.findByOpenId(userInfo.getOpenid());
-        Iterable<OpenGroupCoupon> openGroupCoupons = openGroupCouponService.findAllByCustomerId(customer.getId());
+        Iterable<OpenGroupCoupon> openGroupCoupons = openGroupCouponService.findAllByCustomerIdOrderByStatusAsc(customer.getId());
         List<Map<String, String>> responseCoupons = new ArrayList<Map<String,String>>();
         for(OpenGroupCoupon openGroupCoupon:openGroupCoupons){
             Map<String, String> responseCoupon = new HashMap<String, String>();

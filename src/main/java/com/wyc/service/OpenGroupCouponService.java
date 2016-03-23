@@ -55,4 +55,9 @@ public class OpenGroupCouponService {
        openGroupCoupon.setId(UUID.randomUUID().toString());
        return openGroupCouponRepository.save(openGroupCoupon);
     }
+
+    public Iterable<OpenGroupCoupon> findAllByCustomerIdOrderByStatusAsc(
+            String customerId) {
+        return openGroupCouponRepository.findAllByCustomerIdOrderByStatusAsc(customerId);
+    }
 }

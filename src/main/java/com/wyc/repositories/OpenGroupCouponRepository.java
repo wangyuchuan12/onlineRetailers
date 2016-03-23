@@ -11,4 +11,6 @@ public interface OpenGroupCouponRepository extends CrudRepository<OpenGroupCoupo
     public Iterable<OpenGroupCoupon> findAllByCustomerId(String customerId);
     @Query("select count(*) from com.wyc.domain.OpenGroupCoupon g where g.customerId = :customerId and g.goodId = :goodId and g.endTime>:beforeTime and status=:status")
     public int countByCustomerIdAndGoodIdAndEndTimeBeforeAndStatus(@Param("customerId")String customerId ,@Param("goodId")String goodId,@Param("beforeTime")DateTime beforeTime,@Param("status")int status);
+    public Iterable<OpenGroupCoupon> findAllByCustomerIdOrderByStatusAsc(
+            String customerId);
 }
