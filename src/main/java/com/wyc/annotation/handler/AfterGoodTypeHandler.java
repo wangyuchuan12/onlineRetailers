@@ -35,6 +35,8 @@ public class AfterGoodTypeHandler implements Handler{
             goodTypeId = goodTypeTemporaryData.getValue();
             goodTypeTemporaryData.setStatus(0);
             temporaryDataService.save(goodTypeTemporaryData);
+            customer.setDefaultGoodType(goodTypeId);
+            customerService.save(customer);
         }else{
             goodTypeId = customer.getDefaultGoodType();
             if(goodTypeId==null||goodTypeId.trim().equals("")){
@@ -57,8 +59,7 @@ public class AfterGoodTypeHandler implements Handler{
             goodTypeId = goodType.getId();
         }
         
-        customer.setDefaultGoodType(goodTypeId);
-        customerService.save(customer);
+        
         
         httpServletRequest.setAttribute("goodType", goodTypeId);
         httpServletRequest.setAttribute("typeTitle", goodType.getTitle());
