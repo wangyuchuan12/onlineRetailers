@@ -165,6 +165,7 @@ public class PayResultHandler implements Handler{
             
         
         }else if (tempGroupOrder!=null&&tempGroupOrder.getGoodOrderType()==3) {
+            
             String groupId = tempGroupOrder.getGroupId();
             String openid = tempGroupOrder.getOpenid();
             int partNum = groupPartakeService.countByGroupId(groupId);
@@ -178,6 +179,7 @@ public class PayResultHandler implements Handler{
                 groupPartake.setOrderId(orderDetail.getOrderId());
                 groupPartake.setDateTime(new DateTime());
                 groupPartake.setGroupId(goodGroup.getId());
+                goodOrder = goodOrderService.findOne(orderDetail.getOrderId());
                 if(partNum==1){
                     groupPartake.setRole(2);
                 }else{
