@@ -18,10 +18,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.wyc.annotation.AfterHandlerAnnotation;
+import com.wyc.annotation.BeforeHandlerAnnotation;
 import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.NowPageRecordAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.annotation.WxConfigAnnotation;
+import com.wyc.annotation.handler.AfterGoodTypeHandler;
+import com.wyc.annotation.handler.BeforeGoodTypeHandler;
 import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
@@ -193,6 +197,8 @@ public class GroupsAction {
 	@UserInfoFromWebAnnotation
 	@WxConfigAnnotation
 	@NowPageRecordAnnotation(page=4)
+    @BeforeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     public String groupInfo(HttpServletRequest httpServletRequest)
             throws Exception {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) httpServletRequest;
@@ -245,11 +251,6 @@ public class GroupsAction {
         groupInfoMap.put("timeLong", goodGroup.getTimeLong());
         groupInfoMap.put("role", role);
         httpServletRequest.setAttribute("groupInfo", groupInfoMap);
-        httpServletRequest.setAttribute("goodType", good.getGoodType());
-        
-        Customer customer = customerService.findByOpenId(requestUser.getOpenid());
-        customer.setDefaultGoodType(good.getGoodType());
-        customerService.save(customer);
         TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(requestUser.getOpenid(), "nowgroup");
         if(temporaryData==null){
             temporaryData = new TemporaryData();

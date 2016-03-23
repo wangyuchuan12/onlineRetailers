@@ -22,6 +22,8 @@ import com.wyc.annotation.ReturnUrl;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.annotation.WxChooseWxPay;
 import com.wyc.annotation.WxConfigAnnotation;
+import com.wyc.annotation.handler.AfterGoodTypeHandler;
+import com.wyc.annotation.handler.BeforeGoodTypeHandler;
 import com.wyc.annotation.handler.PayResultHandler;
 import com.wyc.annotation.handler.WxChooseWxPayHandler;
 import com.wyc.domain.City;
@@ -80,6 +82,18 @@ public class GoodsAction {
 	    Customer customer = customerService.findByOpenId(userInfo.getOpenid());
 	    if(goodTypeId==null||goodTypeId.trim().equals("")){
 	        goodTypeId = customer.getDefaultGoodType();
+	        if(goodTypeId==null||goodTypeId.trim().equals("")){
+	                Iterable<GoodType> goodTypeIterable = goodTypeService.findAll();
+	                for(GoodType goodTypeEntity:goodTypeIterable){
+	                    if(goodTypeEntity.isDefault()){
+	                        goodTypeId = goodTypeEntity.getId();
+	                        break;
+	                    }
+	                    goodTypeId = goodTypeEntity.getId();
+	                }
+	                customer.setDefaultGoodType(goodTypeId);
+	                customerService.save(customer);
+	        }
 	    }else{
 	        customer.setDefaultGoodType(goodTypeId);
 	        customerService.save(customer);
@@ -120,6 +134,8 @@ public class GoodsAction {
 	@RequestMapping("/info/good_info")
 	@NowPageRecordAnnotation(page=1)
 	@WxConfigAnnotation
+	@BeforeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+	@AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
 	public String goodInfo(HttpServletRequest httpRequest)throws Exception{
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
@@ -163,7 +179,6 @@ public class GoodsAction {
             httpRequest.setAttribute("token", myHttpServletRequest.getToken());
             int couponCount = openGroupCouponService.countByCustomerIdAndGoodIdAndEndTimeBeforeAndStatus(customer.getId(), goodId, new DateTime(),1);
             httpRequest.setAttribute("couponCount", couponCount);
-            httpRequest.setAttribute("goodType", good.getGoodType());
             logger.debug("the token is :{}",myHttpServletRequest.getToken());
             return "info/GoodInfo";
 	}
