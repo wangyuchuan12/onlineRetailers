@@ -48,6 +48,7 @@ public class GroupSuccessGiveOpenGroupCouponHandler implements PayHandler{
                     openGroupCoupon.setEndTime(new DateTime(calendar.getTime()));
                     openGroupCoupon.setCustomerId(groupPartake.getCustomerid());
                     openGroupCoupon.setCreateManager("system");
+                    openGroupCoupon.setGoodId(groupSuccessGiveOpenGroupCouponActivity.getGoodId());
                     openGroupCoupon.setStatus(1);
                     openGroupCouponService.add(openGroupCoupon);
                 }
