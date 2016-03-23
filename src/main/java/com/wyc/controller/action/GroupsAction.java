@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wyc.annotation.AfterHandlerAnnotation;
 import com.wyc.annotation.BeforeHandlerAnnotation;
+import com.wyc.annotation.BeforeNativeHandlerAnnotation;
 import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.NowPageRecordAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
@@ -197,7 +198,7 @@ public class GroupsAction {
 	@UserInfoFromWebAnnotation
 	@WxConfigAnnotation
 	@NowPageRecordAnnotation(page=4)
-    @BeforeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+    @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
     @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     public String groupInfo(HttpServletRequest httpServletRequest)
             throws Exception {

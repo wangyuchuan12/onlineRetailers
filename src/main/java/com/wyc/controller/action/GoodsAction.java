@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.wyc.annotation.AccessTokenAnnotation;
 import com.wyc.annotation.AfterHandlerAnnotation;
 import com.wyc.annotation.BeforeHandlerAnnotation;
+import com.wyc.annotation.BeforeNativeHandlerAnnotation;
 import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.NowPageRecordAnnotation;
 import com.wyc.annotation.ReturnUrl;
@@ -134,7 +135,7 @@ public class GoodsAction {
 	@RequestMapping("/info/good_info")
 	@NowPageRecordAnnotation(page=1)
 	@WxConfigAnnotation
-	@BeforeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+	@BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
 	@AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
 	public String goodInfo(HttpServletRequest httpRequest)throws Exception{
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;

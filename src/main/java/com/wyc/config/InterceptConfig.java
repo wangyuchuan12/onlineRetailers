@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringEscapeUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -27,6 +28,7 @@ import com.danga.MemCached.MemCachedClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wyc.annotation.AfterHandlerAnnotation;
 import com.wyc.annotation.BeforeHandlerAnnotation;
+import com.wyc.annotation.BeforeNativeHandlerAnnotation;
 import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.NowPageRecordAnnotation;
 import com.wyc.annotation.ResponseJson;
@@ -318,6 +320,28 @@ public class InterceptConfig {
 //            }
 //            myHttpServletRequest.setAuthorize(authorize);
 //        }
+        
+        
+        if(method.getAnnotation(BeforeNativeHandlerAnnotation.class)!=null){
+            BeforeNativeHandlerAnnotation beforeHandlerAnnotation = method.getAnnotation(BeforeNativeHandlerAnnotation.class);
+            Class<?>[] classes = beforeHandlerAnnotation.hanlerClasses();
+            for(Class<?> clazz:classes){
+                Method handleMethod = clazz.getMethod("handle", HttpServletRequest.class);
+                Handler handleTarget = (Handler) clazz.newInstance();
+                handleTarget.setAnnotation(beforeHandlerAnnotation);
+                factory.autowireBean(handleTarget);
+                Class<?>[] extendHandlers = handleTarget.extendHandlers();
+                if(extendHandlers!=null){
+                    for(Class<?> handlerClass:extendHandlers){
+                        Handler extendHandlerTarget =(Handler)handlerClass.newInstance();
+                        Method extendHandleMethod = handlerClass.getMethod("handle", HttpServletRequest.class);
+                        factory.autowireBean(extendHandlerTarget);
+                        extendHandleMethod.invoke(extendHandlerTarget, myHttpServletRequest);
+                    }
+                }
+                handleMethod.invoke(handleTarget, myHttpServletRequest);
+            }
+        }
         
         
         
