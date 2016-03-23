@@ -469,7 +469,7 @@ public class InterceptConfig {
         if(method.getAnnotation(NowPageRecordAnnotation.class)!=null){
             NowPageRecordAnnotation nowPageRecordAnnotation = method.getAnnotation(NowPageRecordAnnotation.class);
             int page = nowPageRecordAnnotation.page();
-            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(userInfo.getOpenid(), "nowpage");
+            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(userInfo.getOpenid(), "nowpage" , 1);
             
             
             if(temporaryData==null){
@@ -480,7 +480,7 @@ public class InterceptConfig {
                 temporaryDataService.add(temporaryData);
                 
             }else{  
-                TemporaryData fromPageTemporaryData = temporaryDataService.findByMyKeyAndName(userInfo.getOpenid(), "frompage");
+                TemporaryData fromPageTemporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(userInfo.getOpenid(), "frompage" , 1);
                 if(fromPageTemporaryData==null){
                     fromPageTemporaryData = new TemporaryData();
                     fromPageTemporaryData.setName("frompage");

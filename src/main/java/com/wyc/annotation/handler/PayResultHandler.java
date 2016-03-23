@@ -148,7 +148,7 @@ public class PayResultHandler implements Handler{
             	openGroupCoupon.setStatus(0);
             	openGroupCouponService.save(openGroupCoupon);
             }
-            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(openid, "lastGroupId");
+            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(openid, "lastGroupId",1);
             if(temporaryData==null){
                 temporaryData = new TemporaryData();
                 temporaryData.setMykey(openid);
@@ -199,7 +199,7 @@ public class PayResultHandler implements Handler{
                 groupPartakePayment.setStatus(1);
                 groupPartakePaymentService.add(groupPartakePayment);
                 
-                TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(openid, "lastGroupId");
+                TemporaryData temporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(openid, "lastGroupId",1);
                 if(temporaryData==null){
                     temporaryData = new TemporaryData();
                     temporaryData.setMykey(openid);
@@ -252,7 +252,7 @@ public class PayResultHandler implements Handler{
             groupPartakePayment.setStatus(1);
             groupPartakePaymentService.add(groupPartakePayment);
             
-            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(tempGroupOrder.getOpenid(), "lastOrder");
+            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(tempGroupOrder.getOpenid(), "lastOrder",1);
             if(temporaryData!=null){
                 temporaryData.setMykey(tempGroupOrder.getOpenid());
                 temporaryData.setName("lastOrder");

@@ -28,11 +28,13 @@ public class AfterGoodTypeHandler implements Handler{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
         HttpSession httpSession = myHttpServletRequest.getSession();
-        TemporaryData goodTypeTemporaryData = temporaryDataService.findByMyKeyAndName(httpSession.getId(), "goodType");
+        TemporaryData goodTypeTemporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(httpSession.getId(), "goodType" , 1);
         Customer customer = customerService.findByOpenId(userInfo.getOpenid());
         String goodTypeId = null;
         if(goodTypeTemporaryData!=null){
             goodTypeId = goodTypeTemporaryData.getValue();
+            goodTypeTemporaryData.setStatus(0);
+            temporaryDataService.save(goodTypeTemporaryData);
         }else{
             goodTypeId = customer.getDefaultGoodType();
             if(goodTypeId==null||goodTypeId.trim().equals("")){

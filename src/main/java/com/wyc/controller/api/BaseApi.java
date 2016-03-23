@@ -83,7 +83,7 @@ public class BaseApi {
 	public Object getTemporaryData(HttpServletRequest httpServletRequest){
 	    String key = httpServletRequest.getParameter("key");
             String name = httpServletRequest.getParameter("name");
-            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(key, name);
+            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(key, name ,1);
             Map<String, String> map = new HashMap<String, String>();
             map.put(temporaryData.getName(), temporaryData.getValue());
             return map;

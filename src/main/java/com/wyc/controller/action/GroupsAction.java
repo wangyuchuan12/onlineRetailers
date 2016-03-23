@@ -188,7 +188,7 @@ public class GroupsAction {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
         
-        TemporaryData lastGroupId = temporaryDataService.findByMyKeyAndName(userInfo.getOpenid(),"lastGroupId");
+        TemporaryData lastGroupId = temporaryDataService.findByMyKeyAndNameAndStatus(userInfo.getOpenid(),"lastGroupId" , 1);
         GoodGroup goodGroup = goodGroupService.findOne(lastGroupId.getValue());
         return "redirect:/info/group_info2?id="+goodGroup.getId()+"&token="+myHttpServletRequest.getToken().getId();
     }
@@ -252,7 +252,7 @@ public class GroupsAction {
         groupInfoMap.put("timeLong", goodGroup.getTimeLong());
         groupInfoMap.put("role", role);
         httpServletRequest.setAttribute("groupInfo", groupInfoMap);
-        TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(requestUser.getOpenid(), "nowgroup");
+        TemporaryData temporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(requestUser.getOpenid(), "nowgroup" , 1);
         if(temporaryData==null){
             temporaryData = new TemporaryData();
             temporaryData.setMykey(requestUser.getOpenid());

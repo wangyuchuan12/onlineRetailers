@@ -18,7 +18,7 @@ public class BeforeGoodTypeHandler implements Handler{
             throws Exception {
         HttpSession httpSession = httpServletRequest.getSession();
         String goodType = httpServletRequest.getParameter("good_type");
-        TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(httpSession.getId(), "good_type");
+        TemporaryData temporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(httpSession.getId(), "good_type" , 1);
         if(goodType!=null&&!goodType.trim().equals("")){
             if(temporaryData==null){
                 temporaryData = new TemporaryData();

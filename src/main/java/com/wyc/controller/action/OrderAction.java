@@ -166,7 +166,7 @@ public class OrderAction {
     public String skipLastOrder(HttpServletRequest httpServletRequest){
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
-        TemporaryData lastOrderTemporaryData = temporaryDataService.findByMyKeyAndName(userInfo.getOpenid(),"lastOrder");
+        TemporaryData lastOrderTemporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(userInfo.getOpenid(),"lastOrder" , 1);
         return "redirect:/info/order_info?id="+lastOrderTemporaryData.getValue();
     }
     @RequestMapping("/info/order_info")

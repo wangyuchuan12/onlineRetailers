@@ -18,6 +18,8 @@ public class TemporaryData {
     private String name;
     @Column
     private String value;
+    @Column
+    private int status = 1;
     
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -29,6 +31,12 @@ public class TemporaryData {
     private DateTime updateAt;
     
     
+    public int getStatus() {
+        return status;
+    }
+    public void setStatus(int status) {
+        this.status = status;
+    }
     public String getName() {
         return name;
     }
