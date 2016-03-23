@@ -12,8 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+
 import com.wyc.annotation.handler.pay.PayHandler;
 import com.wyc.domain.Customer;
+import com.wyc.domain.Good;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;
@@ -88,12 +90,14 @@ public class PayResultHandler implements Handler{
                     return null;
                 }
             }
+            Good good = goodService.findOne(tempGroupOrder.getGoodId());
+            float cost = good.getFlowPrice()+good.getGroupDiscount()*good.getGroupOriginalCost();
             String openid = tempGroupOrder.getOpenid();
             goodOrder = new GoodOrder();
             goodOrder.setAddress(tempGroupOrder.getAddress());
             goodOrder.setAddressId(tempGroupOrder.getAddressId());
             goodOrder.setCode(tempGroupOrder.getCode());
-            goodOrder.setCost(tempGroupOrder.getCost());
+            goodOrder.setCost(cost);
             goodOrder.setDeliveryTime(new DateTime());
             goodOrder.setFlowPrice(tempGroupOrder.getFlowPrice());
             goodOrder.setGoodId(tempGroupOrder.getGoodId());
@@ -112,7 +116,7 @@ public class PayResultHandler implements Handler{
             goodGroup.setResult(1);
             goodGroup.setStartTime(new DateTime());
             goodGroup.setTimeLong(tempGroupOrder.getTimeLong());
-            goodGroup.setTotalPrice(tempGroupOrder.getCost());
+            goodGroup.setTotalPrice(cost);
             goodGroup = goodGroupService.add(goodGroup);
             
             GroupPartake groupPartake = new GroupPartake();
