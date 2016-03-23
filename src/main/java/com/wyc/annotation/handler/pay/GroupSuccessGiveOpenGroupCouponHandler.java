@@ -5,8 +5,11 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wyc.controller.action.GoodsAction;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GroupPartake;
 import com.wyc.domain.GroupSuccessGiveOpenGroupCouponActivity;
@@ -25,9 +28,12 @@ public class GroupSuccessGiveOpenGroupCouponHandler implements PayHandler{
     private GroupPartakeService groupPartakeService;
     @Autowired
     private GroupSuccessGiveOpenGroupCouponActivityService groupSuccessGiveOpenGroupCouponActivityService;
+    final static Logger logger = LoggerFactory.getLogger(GroupSuccessGiveOpenGroupCouponHandler.class);
     @Override
     public void handler(String openId, String goodId, String groupId,
             String orderId, String outTradeNo, int payHandlerType,String activityId) {
+        logger.debug("openId:{},goodId:{},groupId:{},orderId:{},outTradeNo:{},payHandlerType:{},activityId:{}",
+                openId,goodId,groupId,orderId,outTradeNo,payHandlerType,activityId);
         GoodGroup goodGroup = goodGroupService.findOne(groupId);
         int count = groupPartakeService.countByGroupId(groupId);
         if(goodGroup.getNum()==count){
