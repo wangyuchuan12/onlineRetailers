@@ -13,7 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.wyc.annotation.AfterHandlerAnnotation;
+import com.wyc.annotation.BeforeNativeHandlerAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
+import com.wyc.annotation.handler.AfterGoodTypeHandler;
+import com.wyc.annotation.handler.BeforeGoodTypeHandler;
 import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.City;
 import com.wyc.domain.Customer;
@@ -72,6 +76,8 @@ public class OrderAction {
     final static Logger logger = LoggerFactory.getLogger(OrderAction.class);
     @RequestMapping("/main/order_list")
     @UserInfoFromWebAnnotation
+    @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     public String orderList(HttpServletRequest httpServletRequest){
         //0表示全部，1表示待付款，2表示待收获
         String status = httpServletRequest.getParameter("status");
@@ -171,6 +177,8 @@ public class OrderAction {
     }
     @RequestMapping("/info/order_info")
     @UserInfoFromWebAnnotation
+    @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     public String orderInfo(HttpServletRequest httpServletRequest){
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         UserInfo userInfo = myHttpServletRequest.getUserInfo();

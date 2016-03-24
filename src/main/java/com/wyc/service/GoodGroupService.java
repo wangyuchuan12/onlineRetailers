@@ -1,4 +1,5 @@
 package com.wyc.service;
+import java.util.List;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
@@ -35,5 +36,9 @@ public class GoodGroupService {
     
     public GoodGroup selectLastestGoodGroupByGroupHead(String groupHead){
         return goodGroupRepository.selectLastestGoodGroupByGroupHead(groupHead);
+    }
+
+    public Iterable<GoodGroup> findAllOrderByCreateAtDesc(List<String> groupIds) {
+        return goodGroupRepository.goodGroupRepository(groupIds);
     }
 }

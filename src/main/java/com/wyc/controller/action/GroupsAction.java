@@ -76,6 +76,8 @@ public class GroupsAction {
 	@UserInfoFromWebAnnotation
 	@WxConfigAnnotation
 	@NowPageRecordAnnotation(page=3)
+    @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     public String groupList(HttpServletRequest servletRequest) throws Exception {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) servletRequest;
         String openId = null;
@@ -100,7 +102,7 @@ public class GroupsAction {
             }
         }
         logger.debug("current customer group id list is {}", groupIds);
-        Iterable<GoodGroup> goodGroups = goodGroupService.findAll(groupIds);
+        Iterable<GoodGroup> goodGroups = goodGroupService.findAllOrderByCreateAtDesc(groupIds);
         List<Map<String, String>> responseGroups = new ArrayList<Map<String, String>>();
         for (GoodGroup goodGroup : goodGroups) {
             Map<String, String> responseGroup = new HashMap<String, String>();
@@ -139,6 +141,8 @@ public class GroupsAction {
     @RequestMapping("/info/takepart_group")
     @UserInfoFromWebAnnotation
     @Transactional
+    @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     public String takepartGroup(HttpServletRequest httpServletRequest)
             throws Exception {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) httpServletRequest;

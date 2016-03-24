@@ -76,6 +76,9 @@
 	            	   onCitySelect();
 	            	   getCities();
 	            	   setUserToken("${token.id}");
+	            	   wx.ready(function(){
+	       				wxOnMenuShareAppMessage("${typeName}","${typeTitle}",webPath+"/main/good_list?good_type=${goodType}","${typeImg}","link");
+	       			});
 	               });
     			</script>
     </body>

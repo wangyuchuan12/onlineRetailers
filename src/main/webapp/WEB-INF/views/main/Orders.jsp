@@ -71,6 +71,9 @@
     			setUserToken("${token.id}");
     			orderActive("${status}");
     			onOrderClick();
+    			wx.ready(function(){
+    				wxOnMenuShareAppMessage("${typeName}","${typeTitle}",webPath+"/main/good_list?good_type=${goodType}","${typeImg}","link");
+    			});
     		});
     </script>
 </tiles:putAttribute>

@@ -211,6 +211,7 @@ public class PayResultHandler implements Handler{
                     temporaryData = new TemporaryData();
                     temporaryData.setMykey(openid);
                     temporaryData.setName("lastGroupId");
+                    temporaryData.setKeyName("openid");
                     temporaryData.setValue(goodGroup.getId());
                     temporaryDataService.add(temporaryData);
                 }else{
@@ -268,6 +269,7 @@ public class PayResultHandler implements Handler{
                 temporaryData = new TemporaryData();
                 temporaryData.setMykey(tempGroupOrder.getOpenid());
                 temporaryData.setName("lastOrder");
+                temporaryData.setKeyName("openid");
                 temporaryData.setValue(goodOrder.getId());
                 temporaryDataService.add(temporaryData);
             }

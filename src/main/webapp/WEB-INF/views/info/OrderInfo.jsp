@@ -94,6 +94,9 @@
       <script type="text/javascript">
     		$(document).ready(function(){
     			footActive("foot_order_list");
+    			wx.ready(function(){
+    				wxOnMenuShareAppMessage("${typeName}","${typeTitle}",webPath+"/main/good_list?good_type=${goodType}","${typeImg}","link");
+    			});
     		});
     </script>
 </tiles:putAttribute>

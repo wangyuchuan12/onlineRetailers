@@ -12,7 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.wyc.annotation.AfterHandlerAnnotation;
+import com.wyc.annotation.BeforeNativeHandlerAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
+import com.wyc.annotation.handler.AfterGoodTypeHandler;
+import com.wyc.annotation.handler.BeforeGoodTypeHandler;
 import com.wyc.defineBean.ApplicationProperties;
 import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.City;
@@ -50,6 +54,8 @@ public class PersonalCenterAction {
 	private GoodTypeService goodTypeService;
     @RequestMapping("/main/personal_center")
     @UserInfoFromWebAnnotation
+    @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     public String personCenter(HttpServletRequest httpServletRequest){
     	MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
     	UserInfo userInfo = myHttpServletRequest.getUserInfo();
@@ -67,6 +73,8 @@ public class PersonalCenterAction {
     }
     
     @RequestMapping("/info/address_add")
+    @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     public String addressAdd(HttpServletRequest httpServletRequest){
         String prepareRedirect = httpServletRequest.getParameter("prepareRedirect");
         String goodDistributions = applicationProperties.getProperty("good_distributions");
@@ -119,6 +127,8 @@ public class PersonalCenterAction {
     }
     
     @RequestMapping("/info/address_save")
+    @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     public String addressSave(HttpServletRequest httpServletRequest){
         addressAdd(httpServletRequest);
         String addressId = httpServletRequest.getParameter("address_id");
@@ -139,6 +149,8 @@ public class PersonalCenterAction {
     
     @RequestMapping("/action/do_address_save")
     @UserInfoFromWebAnnotation
+    @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     public String doAddressSave(HttpServletRequest httpServletRequest){
     	MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
     	UserInfo userInfo = myHttpServletRequest.getUserInfo();
@@ -177,6 +189,8 @@ public class PersonalCenterAction {
     }
     @RequestMapping("/info/address")
     @UserInfoFromWebAnnotation
+    @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     public String address(HttpServletRequest httpServletRequest){
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         String prepareRedirect = myHttpServletRequest.getParameter("prepare_redirect");
@@ -216,6 +230,8 @@ public class PersonalCenterAction {
    
     @RequestMapping("/info/coupon")
     @UserInfoFromWebAnnotation
+    @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     public String coupon(HttpServletRequest httpServletRequest){
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
@@ -253,6 +269,8 @@ public class PersonalCenterAction {
     
     @UserInfoFromWebAnnotation
     @RequestMapping(value="/info/good_type")
+    @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     public String goodType(HttpServletRequest httpServletRequest){
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
@@ -289,6 +307,9 @@ public class PersonalCenterAction {
     }
     
     @RequestMapping(value="/info/help")
+    @UserInfoFromWebAnnotation
+    @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     public String help(HttpServletRequest httpServletRequest){
         return "info/help";
     }
