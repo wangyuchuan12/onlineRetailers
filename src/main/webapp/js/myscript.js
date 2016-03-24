@@ -472,7 +472,7 @@ function wxConfig(appId,signature,noncestr,t){
 	    timestamp:t, // 必填，生成签名的时间戳
 	    nonceStr:noncestr, // 必填，生成签名的随机串
 	    signature: signature,// 必填，签名，见附录1
-	    jsApiList: ['onMenuShareAppMessage','chooseWXPay','onMenuShareTimeline'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+	    jsApiList: ['onMenuShareAppMessage','chooseWXPay','onMenuShareTimeline','menuItem:profile','menuItem:addContact'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	});
 	wx.ready(function(){
 		//alert("配置成功了");
