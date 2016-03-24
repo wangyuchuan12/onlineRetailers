@@ -141,7 +141,7 @@ public class GroupsAction {
         }
         return goodGroup;
     }
-    @RequestMapping("/info/takepart_group")
+ //   @RequestMapping("/info/takepart_group")
     @UserInfoFromWebAnnotation
     @Transactional
     public String takepartGroup(HttpServletRequest httpServletRequest)

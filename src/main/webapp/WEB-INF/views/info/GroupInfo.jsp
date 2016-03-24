@@ -161,8 +161,7 @@
 	     	
 	     	
 	     	<c:if test="${groupInfo.role==0}">
-				<div class="footer3" onclick="javascript:toTakepartGroup('${groupInfo.id}',
-				<c:if test="${fn:length(groupInfo.groupPartake)==1}">2</c:if><c:if test="${fn:length(groupInfo.groupPartake)>1}">3</c:if>)">
+				<div class="footer3">
 		                <i class="fa fa-home" onclick="javascript:skipToGoodList();"></i>
 		                <a class="goto_gootlist" href="javascript:skipToGoodPay('${groupInfo.goodId}','3','${token.id}','${groupInfo.id}','${groupInfo.totalPrice}')">点击参团</a>
 		     	</div>
