@@ -18,11 +18,16 @@
                 <div class="good-img">
 
                         <img src="${good.head_img}" />
-                        <div class="good-title">
-                          ${good.title}
-                        </div>
+                        
       
                 </div>
+                
+                <div class="good-title">
+                          ${good.title}
+                    
+                   <br/><b>活动：开团成功赠送一张开团劵 </b>
+                </div>
+                
                 <div class="tuan_g_core">
                     <div class="tuan_g_price">
                     	${good.group_num}人团
@@ -34,7 +39,7 @@
                         	去开团
                     </div>
                 </div>
-                <div style="position: relative;left:10px;top:-35px;">
+                <div style="position: relative;padding-left:10px;top:-50px;">
 	                <div class="good_name">${good.name}</div>
 	                <div class="good_market_price">市场价：￥${good.market_price}</div>
                 </div>

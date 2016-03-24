@@ -1,8 +1,13 @@
 .goods{margin:8px 10px}
-.good{font-size:18px;background-color:white;margin:10px;display:inline-block;border-color: red;height:380px;width:95%}
-.good-img{width:100%;position:relative;overflow:hidden;border:0;top:-50px;height: 70%;}
+.good{font-size:18px;background-color:white;margin:10px;display:inline-block;border-color: red;width:95%;}
+.good-img{width:100%;position:relative;overflow:hidden;border:0;top:-50px;height:320px;}
 .good-img img{width:100%;height: 90%;}
-.good-img .good-title{width:100%;height:24px;z-index:100;position:absolute;color:#fff;font-size:16px;font-family:initial;bottom:0;left:0;background-color:rgba(0,0,0,.2);padding:0 5px;}
+.good-title{width:100%;z-index:100;position:relative;font:normal lighter 10pt ºÚÌå;top:-80px;left:0;padding-top: 10px;padding-left: 10px;padding-right: 10px;}
+.good-title b{
+	color:red;
+	display: block;
+	padding-top: 10px; 
+}
 .good_market_price{
 	text-align: left;
 	font-size: 15px;
@@ -10,16 +15,17 @@
 	position:relative;
 	font-weight: bold;
 	font-size:10px;
+	top:14px;
 	text-decoration:line-through;
 	
 }
 .good_name{
-	font-size:20px;
-	font-weight:200px;
+	font:normal bold 10pt ºÚÌå;
 	display:block;
 	position:relative;
+	color:black;
 }
-.tuan_g_core{color:white;display:block;line-height:34px;top:-45px;position:relative;width:290px;}
+.tuan_g_core{color:white;display:block;line-height:34px;top:-70px;position:relative;width:250px;}
 .tuan_g_price{background-color:#3E3E3E;float:left;height:34px;margin-left:0px;overflow:hidden;padding-left:10px;width:145px;left:-20px;}
 .tuan_g_price b{font-size:18px;font-weight:400;margin-left:5px;margin-right:2px}
 .tuan_g_btn{background-color:#DF2127;border-bottom-right-radius:17px;border-top-right-radius:17px;}
