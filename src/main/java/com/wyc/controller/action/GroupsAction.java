@@ -102,23 +102,26 @@ public class GroupsAction {
             }
         }
         logger.debug("current customer group id list is {}", groupIds);
-        Iterable<GoodGroup> goodGroups = goodGroupService.findAllByIdInOrderByCreateAtDesc(groupIds);
-        List<Map<String, String>> responseGroups = new ArrayList<Map<String, String>>();
-        for (GoodGroup goodGroup : goodGroups) {
-            Map<String, String> responseGroup = new HashMap<String, String>();
-            goodGroup = checkTimeout(goodGroup);
-            OrderDetail orderDetail = orderDetailService.findByGruopId(goodGroup.getId());
-            responseGroup.put("result", goodGroup.getResult() + "");
-            Good good = goodService.findOne(goodGroup.getGoodId());
-            responseGroup.put("name", good.getName());
-            responseGroup.put("head_img",
-                    myResourceService.findOne(good.getHeadImg()).getUrl());
-            responseGroup.put("total_price", goodGroup.getTotalPrice() + "");
-            responseGroup.put("group_id", goodGroup.getId());
-            responseGroup.put("order_id", orderDetail.getOrderId());
-            responseGroups.add(responseGroup);
+        if(groupIds.size()>0){
+            Iterable<GoodGroup> goodGroups = goodGroupService.findAllByIdInOrderByCreateAtDesc(groupIds);
+            List<Map<String, String>> responseGroups = new ArrayList<Map<String, String>>();
+            for (GoodGroup goodGroup : goodGroups) {
+                Map<String, String> responseGroup = new HashMap<String, String>();
+                goodGroup = checkTimeout(goodGroup);
+                OrderDetail orderDetail = orderDetailService.findByGruopId(goodGroup.getId());
+                responseGroup.put("result", goodGroup.getResult() + "");
+                Good good = goodService.findOne(goodGroup.getGoodId());
+                responseGroup.put("name", good.getName());
+                responseGroup.put("head_img",
+                        myResourceService.findOne(good.getHeadImg()).getUrl());
+                responseGroup.put("total_price", goodGroup.getTotalPrice() + "");
+                responseGroup.put("group_id", goodGroup.getId());
+                responseGroup.put("order_id", orderDetail.getOrderId());
+                responseGroups.add(responseGroup);
+            }
+            servletRequest.setAttribute("groups", responseGroups);
         }
-        servletRequest.setAttribute("groups", responseGroups);
+        
         return "main/Groups";
     }
     

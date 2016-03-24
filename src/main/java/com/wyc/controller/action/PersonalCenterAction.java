@@ -81,6 +81,7 @@ public class PersonalCenterAction {
     @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     @JsApiTicketAnnotation
     @WxConfigAnnotation
+    @UserInfoFromWebAnnotation
     public String addressAdd(HttpServletRequest httpServletRequest){
         String prepareRedirect = httpServletRequest.getParameter("prepareRedirect");
         String goodDistributions = applicationProperties.getProperty("good_distributions");
@@ -137,6 +138,7 @@ public class PersonalCenterAction {
     @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     @JsApiTicketAnnotation
     @WxConfigAnnotation
+    @UserInfoFromWebAnnotation
     public String addressSave(HttpServletRequest httpServletRequest){
         addressAdd(httpServletRequest);
         String addressId = httpServletRequest.getParameter("address_id");
