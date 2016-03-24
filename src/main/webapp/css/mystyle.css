@@ -426,15 +426,23 @@
 	top:0px;
 }
 .group_goodinfo_detail_title{
-	top:-20px;
+	top:-10px;
 	position:relative;
 	font-weight:bold;
 	font-size:15px;
 }
 .group_goodinfo_detail_price{
-	top:-15px;
+	top:-5px;
 	position:relative;
 }
+
+.group_goodinfo_detail_notice{
+	top:0px;
+	color:red;
+	font-weight:bold;
+	position:relative;	
+}
+
 .group_goodinfo_detail_price2{
 	color:red;
 	font-weight:bold;

@@ -35,7 +35,7 @@
 					<div class="group_goodinfo_detail">
 						<div class="group_goodinfo_detail_title">${groupInfo.goodName}</div>
 						<div class="group_goodinfo_detail_price">${groupInfo.groupNum}人团：<span class="group_goodinfo_detail_price2">￥${groupInfo.totalPrice}/件</span></div>
-					
+						<div class="group_goodinfo_detail_notice">${groupInfo.notice} </div>
 					</div>
 					<c:if test="${groupInfo.result==2}">
 						<div class="group_head_success" id="group_head">组团成功</div>

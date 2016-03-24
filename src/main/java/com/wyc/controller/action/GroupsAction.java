@@ -255,6 +255,7 @@ public class GroupsAction {
                 mySimpleDateFormat.format(goodGroup.getStartTime().toDate()));
         groupInfoMap.put("timeLong", goodGroup.getTimeLong());
         groupInfoMap.put("role", role);
+        groupInfoMap.put("notice",good.getNotice());
         httpServletRequest.setAttribute("groupInfo", groupInfoMap);
         TemporaryData temporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(requestUser.getOpenid(), "nowgroup" , 1);
         if(temporaryData==null){
