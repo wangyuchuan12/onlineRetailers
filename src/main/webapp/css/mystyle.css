@@ -395,8 +395,7 @@
 
 
 .group_goodinfo{
-	min-height:100px;
-	max-width:30000px;
+	height:100px;
 	background:white;
 	position:relative;
 	top:0px;
@@ -417,33 +416,35 @@
 	height:80px;
 	width:80px;
 	left:10px;
-	
 	position:relative;
 }
 .group_goodinfo_detail{
 	display:inline-block;
-	position:relative;
-	left:30px;
-	top:0px;
+	position:absolute;
+	left:100px;
+	top:20px;
 	width:50%;
+	height:150px;
+	
 }
 .group_goodinfo_detail_title{
-	padding-top:10px;
 	position:relative;
 	font-weight:bold;
 	font-size:15px;
+
 }
 .group_goodinfo_detail_price{
-	padding-top:0px;
 	position:relative;
+	height:30%;
 }
 
 .group_goodinfo_detail_notice{
-	top:0px;
 	color:red;
 	font-weight:bold;
 	position:relative;
 	display:block;
+	height:30%;
+	top:-20px;
 	
 }
 
