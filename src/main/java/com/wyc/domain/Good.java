@@ -69,6 +69,8 @@ public class Good {
     
     @Column(name="good_type")
     private String goodType;
+    @Column
+    private String notice;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
@@ -76,6 +78,12 @@ public class Good {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
     
+    public String getNotice() {
+        return notice;
+    }
+    public void setNotice(String notice) {
+        this.notice = notice;
+    }
     public String getGoodType() {
         return goodType;
     }

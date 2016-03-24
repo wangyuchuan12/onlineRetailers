@@ -115,6 +115,7 @@ public class GoodsAction {
 		    responseGood.put("market_price", good.getMarketPrice());
 		    responseGood.put("coupon_cost", good.getCouponCost());
 		    responseGood.put("title", good.getTitle());
+		    responseGood.put("notice", good.getNotice());
 		    MyResource myResource = resourceService.findOne(good.getHeadImg());
 		    if(myResource!=null){
 		        responseGood.put("head_img", myResource.getUrl());

@@ -25,7 +25,7 @@
                 <div class="good-title">
                           ${good.title}
                     
-                   <br/><b>活动：开团成功赠送一张开团劵 </b>
+                   <br/><b>${good.notice}</b>
                 </div>
                 
                 <div class="tuan_g_core">
