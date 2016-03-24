@@ -38,7 +38,7 @@ public class GoodGroupService {
         return goodGroupRepository.selectLastestGoodGroupByGroupHead(groupHead);
     }
 
-    public Iterable<GoodGroup> findAllOrderByCreateAtDesc(List<String> groupIds) {
-        return goodGroupRepository.findAllOrderByCreateAtDesc(groupIds);
+    public Iterable<GoodGroup> findAllByIdInOrderByCreateAtDesc(List<String> groupIds) {
+        return goodGroupRepository.findAllByIdInOrderByCreateAtDesc(groupIds);
     }
 }

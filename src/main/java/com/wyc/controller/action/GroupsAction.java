@@ -102,7 +102,7 @@ public class GroupsAction {
             }
         }
         logger.debug("current customer group id list is {}", groupIds);
-        Iterable<GoodGroup> goodGroups = goodGroupService.findAllOrderByCreateAtDesc(groupIds);
+        Iterable<GoodGroup> goodGroups = goodGroupService.findAllByIdInOrderByCreateAtDesc(groupIds);
         List<Map<String, String>> responseGroups = new ArrayList<Map<String, String>>();
         for (GoodGroup goodGroup : goodGroups) {
             Map<String, String> responseGroup = new HashMap<String, String>();
