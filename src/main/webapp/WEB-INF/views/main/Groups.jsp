@@ -41,6 +41,7 @@
     		$(document).ready(function(){
     			footActive("foot_group_list");
     			setUserToken("${token.id}");
+    			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
     			wx.ready(function(){
     				wxOnMenuShareAppMessage("${typeName}","${typeTitle}",webPath+"/main/good_list?good_type=${goodType}","${typeImg}","link");
     			});
