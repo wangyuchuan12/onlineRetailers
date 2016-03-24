@@ -71,6 +71,7 @@
     			setUserToken("${token.id}");
     			orderActive("${status}");
     			onOrderClick();
+    			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
     			wx.ready(function(){
     				wxOnMenuShareAppMessage("${typeName}","${typeTitle}",webPath+"/main/good_list?good_type=${goodType}","${typeImg}","link");
     			});

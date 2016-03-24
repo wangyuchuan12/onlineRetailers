@@ -32,6 +32,7 @@
 	  $(document).ready(function(){
 		setUserToken("${token.id}");
 		footActive("foot_personal_center_list");
+		wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
 		wx.ready(function(){
 			wxOnMenuShareAppMessage("${typeName}","${typeTitle}",webPath+"/main/good_list?good_type=${goodType}","${typeImg}","link");
 		});
