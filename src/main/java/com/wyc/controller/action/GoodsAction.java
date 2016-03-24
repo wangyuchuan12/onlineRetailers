@@ -72,8 +72,8 @@ public class GoodsAction {
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
-	@JsApiTicketAnnotation
 	@UserInfoFromWebAnnotation
+	@JsApiTicketAnnotation
 	@WxConfigAnnotation
 	@NowPageRecordAnnotation(page=0)
 	public String goodList(HttpServletRequest httpRequest)throws Exception{  

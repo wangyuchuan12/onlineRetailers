@@ -141,8 +141,6 @@ public class GroupsAction {
     @RequestMapping("/info/takepart_group")
     @UserInfoFromWebAnnotation
     @Transactional
-    @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
-    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
     public String takepartGroup(HttpServletRequest httpServletRequest)
             throws Exception {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) httpServletRequest;

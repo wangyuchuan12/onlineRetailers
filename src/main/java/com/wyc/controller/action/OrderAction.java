@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wyc.annotation.AfterHandlerAnnotation;
 import com.wyc.annotation.BeforeNativeHandlerAnnotation;
+import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
+import com.wyc.annotation.WxConfigAnnotation;
 import com.wyc.annotation.handler.AfterGoodTypeHandler;
 import com.wyc.annotation.handler.BeforeGoodTypeHandler;
 import com.wyc.defineBean.MySimpleDateFormat;
@@ -78,6 +80,8 @@ public class OrderAction {
     @UserInfoFromWebAnnotation
     @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
     @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
+    @JsApiTicketAnnotation
+    @WxConfigAnnotation
     public String orderList(HttpServletRequest httpServletRequest){
         //0表示全部，1表示待付款，2表示待收获
         String status = httpServletRequest.getParameter("status");
@@ -179,6 +183,8 @@ public class OrderAction {
     @UserInfoFromWebAnnotation
     @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
     @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
+    @JsApiTicketAnnotation
+    @WxConfigAnnotation
     public String orderInfo(HttpServletRequest httpServletRequest){
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
