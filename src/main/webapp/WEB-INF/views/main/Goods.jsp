@@ -24,7 +24,7 @@
                 
                 <div class="good-title">
                           ${good.title}
-                    <c:if test="${good.notice}">
+                    <c:if test="${good.notice!=null}">
                     	<br/><b>${good.notice}</b>
                     </c:if>
                    
