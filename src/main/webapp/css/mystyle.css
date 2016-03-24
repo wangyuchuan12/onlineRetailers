@@ -410,13 +410,14 @@
 }
 .group_goodinfo_img{
 	display:inline-block;
+	padding-top:10px;
 	
 }
 .group_goodinfo_img img{
 	width:100px;
 	height:80px;
 	left:10px;
-	top:10px;
+	
 	position:relative;
 }
 .group_goodinfo_detail{
@@ -426,13 +427,13 @@
 	top:0px;
 }
 .group_goodinfo_detail_title{
-	top:-10px;
+	padding-top:10px;
 	position:relative;
 	font-weight:bold;
 	font-size:15px;
 }
 .group_goodinfo_detail_price{
-	top:-5px;
+	padding-top:0px;
 	position:relative;
 }
 
@@ -440,7 +441,8 @@
 	top:0px;
 	color:red;
 	font-weight:bold;
-	position:relative;	
+	position:relative;
+	width:300px;
 }
 
 .group_goodinfo_detail_price2{
