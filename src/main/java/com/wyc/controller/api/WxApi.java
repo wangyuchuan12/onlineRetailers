@@ -42,7 +42,11 @@ public class WxApi {
         	return null;
         }
         PaySuccess paySuccess = (PaySuccess) myHttpServletRequest.getRequestObject(PaySuccess.class);
+        if(!paySuccess.getResultCode().equals("SUCCESS")){
+            return new StopToAfter();
+        }
         String outTradeNo = paySuccess.getOutTradeNo();
+       
         if(wxPaySuccessService.findByOutTradeNo(outTradeNo)!=null){
             return new StopToAfter();
         }else{
