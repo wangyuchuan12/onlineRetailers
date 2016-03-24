@@ -24,8 +24,10 @@
                 
                 <div class="good-title">
                           ${good.title}
-                    
-                   <br/><b>${good.notice}</b>
+                    <c:if test="${good.notice}">
+                    	<br/><b>${good.notice}</b>
+                    </c:if>
+                   
                 </div>
                 
                 <div class="tuan_g_core">
