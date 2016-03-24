@@ -410,12 +410,12 @@
 }
 .group_goodinfo_img{
 	display:inline-block;
-	padding-top:10px;
+	padding-top: 10px;
 	
 }
 .group_goodinfo_img img{
-	width:100px;
 	height:80px;
+	width:80px;
 	left:10px;
 	
 	position:relative;
@@ -425,6 +425,7 @@
 	position:relative;
 	left:30px;
 	top:0px;
+	width:50%;
 }
 .group_goodinfo_detail_title{
 	padding-top:10px;
@@ -442,7 +443,8 @@
 	color:red;
 	font-weight:bold;
 	position:relative;
-	width:300px;
+	display:block;
+	
 }
 
 .group_goodinfo_detail_price2{
