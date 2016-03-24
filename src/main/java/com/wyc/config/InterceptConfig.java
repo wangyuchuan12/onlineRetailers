@@ -435,8 +435,6 @@ public class InterceptConfig {
                     userInfo.setNickname("无法识别");
                     //做最后一层保障，保证在数据库当中有userInfo
                     token = userSmartService.saveToDatabase(userInfo, key);
-                    
-                    throw e;
                 }
                 
             }
