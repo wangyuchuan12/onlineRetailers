@@ -7,54 +7,37 @@ import javax.persistence.Id;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
-@Entity(name = "good_type")
-public class GoodType {
+@Entity(name="text_article_item")
+public class TextArticleItem {
     @Id
     private String id;
+    @Column(name="article_id")
+    private String articleId;
     @Column
-    private String name;
-    @Column(name="is_default")
-    private boolean isDefault;
-    @Column
-    private String title;
-    @Column
-    private String img;
+    private String content;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
-    
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    public String getImg() {
-        return img;
-    }
-    public void setImg(String img) {
-        this.img = img;
-    }
-    public boolean isDefault() {
-        return isDefault;
-    }
-    public void setDefault(boolean isDefault) {
-        this.isDefault = isDefault;
-    }
     public String getId() {
         return id;
     }
     public void setId(String id) {
         this.id = id;
     }
-    public String getName() {
-        return name;
+    public String getArticleId() {
+        return articleId;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setArticleId(String articleId) {
+        this.articleId = articleId;
+    }
+    public String getContent() {
+        return content;
+    }
+    public void setContent(String content) {
+        this.content = content;
     }
     public DateTime getCreateAt() {
         return createAt;
