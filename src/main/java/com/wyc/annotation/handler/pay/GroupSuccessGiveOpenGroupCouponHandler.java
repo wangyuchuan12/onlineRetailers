@@ -92,9 +92,10 @@ public class GroupSuccessGiveOpenGroupCouponHandler implements PayHandler{
                     NewsArticleItem newsArticleItem = new NewsArticleItem();
                     newsArticleItem.setArticleId(pushArticle.getId());
                     newsArticleItem.setDescription("获得一张免费开团劵，用此卷可以免费购买开团价为"+
-                    good.getGroupDuration()*good.getGroupDiscount()+"元的"+good.getName()+"开团劵，用此开团卷可以免费购买该商品");
+                    good.getGroupDiscount()*good.getGroupOriginalCost()+"元的"+good.getName()+"开团劵，用此开团卷可以免费购买该商品");
                     newsArticleItem.setPicurl(headImgUrl);
                     newsArticleItem.setUrl("http://www.chengxihome.com/info/coupon");
+                    newsArticleItem.setTitle("获取免费开团卷");
                     newsArticleItem = newsArticleItemService.add(newsArticleItem);
                     
                 }
