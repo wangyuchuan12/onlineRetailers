@@ -56,31 +56,14 @@
     			setGoodType("${goodType}");
     			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
     			wx.ready(function(){
-    				wx.showAllNonBaseMenuItem();
     				wxOnMenuShareAppMessage("${typeName}","${typeTitle}",webPath+"/main/good_list?good_type=${goodType}","${typeImg}","link");
     				wx.hideMenuItems({
     				    menuList: ["menuItem:copyUrl","menuItem:exposeArticle","menuItem:setFont","menuItem:readMode","menuItem:originPage","menuItem:share:email","menuItem:openWithQQBrowser","menuItem:openWithSafari"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
     				});
     				wx.showMenuItems({
-    				  success:function(res){
-    					  var str;
-    					  for(var i in res){
-    						  str = i+res[i]+",";
-    					  }
-    					  alert(str);
-    				  },
-    				  fail:function(res){
-    					  alert("fail:"+res);
-    				  },
     		            menuList: [
     		                "menuItem:profile",// 添加查看公众号
-    		                "menuItem:addContact",
-    		                "menuItem:share:brand",
-    		                "menuItem:refresh",
-    		                "menuItem:share:qq",
-    		                "menuItem:delete",
-    		                "menuItem:copyUrl",
-    		                "menuItem:originPage"
+    		                "menuItem:addContact"
     		            ]
     		        	});
     			});
