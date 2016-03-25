@@ -63,7 +63,11 @@
     				});
     				wx.showMenuItems({
     				  success:function(res){
-    					  alert("success:"+res);
+    					  var str;
+    					  for(var i in res){
+    						  str = i+res[i]+",";
+    					  }
+    					  alert(str);
     				  },
     				  fail:function(res){
     					  alert("fail:"+res);
