@@ -13,7 +13,7 @@
 			<div class="coupon_list">
 				<ul>
 				<c:forEach items="${coupons}" var="coupon">
-					<li onclick="javascript:skipToGoodInfo('${coupon.goodId}')">
+					<li onclick="javascript:skipToGoodInfo('${coupon.goodId}')" class="activityStyle">
 						<div class="coupon_list_goods">${coupon.goodName}</div>
 						<div class="coupon_list_limit">
 							<ul>
