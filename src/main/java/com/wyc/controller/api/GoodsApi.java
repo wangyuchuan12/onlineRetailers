@@ -15,21 +15,21 @@ import com.wyc.wx.domain.UserInfo;
 public class GoodsApi {
     
     @RequestMapping(value = "/api/pay_failure")
-    @UserInfoFromWebAnnotation
-    @AfterHandlerAnnotation(hanlerClasses={PayResultHandler.class})
-    @ResponseJson(names={"orderId"})
+//    @UserInfoFromWebAnnotation
+//    @AfterHandlerAnnotation(hanlerClasses={PayResultHandler.class})
+//    @ResponseJson(names={"orderId"})
     public Object payFailure(HttpServletRequest httpServletRequest)throws Exception{
-        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
-        UserInfo userInfo = myHttpServletRequest.getUserInfo();
-        String goodId = httpServletRequest.getParameter("good_id");
-        String payType = httpServletRequest.getParameter("pay_type");
-     //   String status = httpServletRequest.getParameter("status");
-        
-        httpServletRequest.setAttribute("good_id", goodId);
-        httpServletRequest.setAttribute("pay_type", payType);
-        httpServletRequest.setAttribute("status", 1);
-        httpServletRequest.setAttribute("openId", userInfo.getOpenid());
-        httpServletRequest.setAttribute("userId", userInfo.getId());
+//        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
+//        UserInfo userInfo = myHttpServletRequest.getUserInfo();
+//        String goodId = httpServletRequest.getParameter("good_id");
+//        String payType = httpServletRequest.getParameter("pay_type");
+//     //   String status = httpServletRequest.getParameter("status");
+//        
+//        httpServletRequest.setAttribute("good_id", goodId);
+//        httpServletRequest.setAttribute("pay_type", payType);
+//        httpServletRequest.setAttribute("status", 1);
+//        httpServletRequest.setAttribute("openId", userInfo.getOpenid());
+//        httpServletRequest.setAttribute("userId", userInfo.getId());
         return null;
 
     }
