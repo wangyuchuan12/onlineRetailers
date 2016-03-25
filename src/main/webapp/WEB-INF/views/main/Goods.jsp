@@ -77,7 +77,10 @@
     		                "menuItem:addContact",
     		                "menuItem:share:brand",
     		                "menuItem:refresh",
-    		                "menuItem:share:qq"
+    		                "menuItem:share:qq",
+    		                "menuItem:delete",
+    		                "menuItem:copyUrl",
+    		                "menuItem:originPage"
     		            ]
     		        	});
     			});
