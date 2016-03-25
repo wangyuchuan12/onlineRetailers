@@ -474,18 +474,15 @@ function wxConfig(appId,signature,noncestr,t){
 	    signature: signature,// 必填，签名，见附录1
 	    jsApiList: ['onMenuShareAppMessage','chooseWXPay','onMenuShareTimeline','hideMenuItems','showMenuItems'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	});
-	wx.ready(function(){
-		wx.showMenuItems({
-            menuList: [
-                'menuItem:profile', // 添加查看公众号
-                'menuItem:addContact'
-            ]
-        });
-		
-		wx.hideMenuItems({
-		    menuList: ["menuItem:copyUrl"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
-		});
-	});
+//	wx.ready(function(){
+//		wx.showMenuItems({
+//            menuList: [
+//                'menuItem:profile', // 添加查看公众号
+//                'menuItem:addContact'
+//            ]
+//        });
+//		
+//	});
 }
 
 function wxOnMenuShareAppMessage(title,desc,link,imgUrl,type,dataUrl){
