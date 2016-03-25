@@ -58,8 +58,8 @@
     			wx.ready(function(){
     				wx.showMenuItems({
     		            menuList: [
-    		                'menuItem:profile', // 添加查看公众号
-    		                'menuItem:addContact'
+    		                "menuItem:profile",// 添加查看公众号
+    		                "menuItem:addContact"
     		            ]
     		        	});
     				wxOnMenuShareAppMessage("${typeName}","${typeTitle}",webPath+"/main/good_list?good_type=${goodType}","${typeImg}","link");
