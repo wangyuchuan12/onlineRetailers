@@ -60,12 +60,14 @@
     				wxOnMenuShareAppMessage("${typeName}","${typeTitle}",webPath+"/main/good_list?good_type=${goodType}","${typeImg}","link");
 
     				wx.hideMenuItems({
-    				    menuList: ["menuItem:copyUrl"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+    				    menuList: ["menuItem:copyUrl","menuItem:exposeArticle","menuItem:setFont","menuItem:readMode","menuItem:originPage","menuItem:share:email"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
     				});
     				wx.showMenuItems({
     		            menuList: [
     		                "menuItem:profile",// 添加查看公众号
-    		                "menuItem:addContact"
+    		                "menuItem:addContact",
+    		                "menuItem:share:brand",
+    		                "menuItem:refresh"
     		            ]
     		        	});
     			});
