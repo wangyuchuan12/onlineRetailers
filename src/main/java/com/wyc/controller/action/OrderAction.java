@@ -196,7 +196,7 @@ public class OrderAction {
         if(customer!=null){
             GroupPartake groupPartake = null;
             if(goodOrder.getType()==1){
-            	groupPartake = groupPartakeService.findByCustomeridAndGroupId(customer.getId(),goodOrder.getId());
+            	groupPartake = groupPartakeService.findByCustomeridAndOrderId(customer.getId(),goodOrder.getId());
             }else{
                 groupPartake = groupPartakeService.findByCustomeridAndGroupId(customer.getId(), orderDetail.getGroupId());
 

@@ -19,6 +19,6 @@ public interface GroupPartakeRepository extends CrudRepository<GroupPartake, Str
 
     public Iterable<GroupPartake> findAllByGroupIdOrderByDateTimeAsc(String id);
 
-	public Iterable<GroupPartake> findByCustomeridAndOrderId(String customerId, String orderId);
+	public GroupPartake findByCustomeridAndOrderId(String customerId, String orderId);
 
 }

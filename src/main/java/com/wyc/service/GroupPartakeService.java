@@ -29,7 +29,7 @@ public class GroupPartakeService {
         return groupPartakeRepository.findByCustomerid(customerId);
     }
     
-    public Iterable<GroupPartake> findByCustomeridAndOrderId(String customerId,String orderId){
+    public GroupPartake findByCustomeridAndOrderId(String customerId,String orderId){
         return groupPartakeRepository.findByCustomeridAndOrderId(customerId , orderId);
     }
     
