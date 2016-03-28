@@ -7,6 +7,24 @@
 <tiles:putAttribute name="title">商品列表</tiles:putAttribute>
 <tiles:putAttribute name="body">
 	<div class="container">
+		
+		<div class="pro-switch">
+			<div class="slider">
+				<div class="flexslider">
+					<ul class="slides">
+						<c:forEach items="${adGoodHeaderImgs}" var="adGoodHeaderImg">
+							<li>
+								<div class="img"><img src="${adGoodHeaderImg.url}" style="width:100%;"/></div>
+							</li>
+						</c:forEach>
+						
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		
         <div class="goods">
         	<c:forEach items="${goods}" var="good">
             <div class="good activityStyle" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
@@ -51,6 +69,19 @@
     </div>
     <script type="text/javascript">
     		$(document).ready(function(){
+    			
+    			$(function(){
+    			      $('.flexslider').flexslider({
+    			        animation: "slide",
+    			        start: function(slider){
+    			          $('body').removeClass('loading');
+    			        }
+    			      });
+    			    });
+    		
+    			
+    			
+    			
     			footActive("foot_good_list");
     			setUserToken("${token.id}");
     			setGoodType("${goodType}");

@@ -27,6 +27,7 @@ import com.wyc.annotation.handler.AfterGoodTypeHandler;
 import com.wyc.annotation.handler.BeforeGoodTypeHandler;
 import com.wyc.annotation.handler.PayResultHandler;
 import com.wyc.annotation.handler.WxChooseWxPayHandler;
+import com.wyc.domain.AdGoodHeaderImg;
 import com.wyc.domain.City;
 import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
@@ -36,6 +37,7 @@ import com.wyc.domain.GoodType;
 import com.wyc.domain.MyResource;
 import com.wyc.domain.TempGroupOrder;
 import com.wyc.intercept.domain.MyHttpServletRequest;
+import com.wyc.service.AdGoodHeaderImgService;
 import com.wyc.service.CityService;
 import com.wyc.service.CustomerAddressService;
 import com.wyc.service.CustomerService;
@@ -69,6 +71,8 @@ public class GoodsAction {
         private TempGroupOrderService tempGroupOrderService;
         @Autowired
         private GoodTypeService goodTypeService;
+        @Autowired
+        private AdGoodHeaderImgService adGoodHeaderImgService;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
@@ -99,6 +103,9 @@ public class GoodsAction {
 	        customer.setDefaultGoodType(goodTypeId);
 	        customerService.save(customer);
 	    }
+	    
+	    Iterable<AdGoodHeaderImg> adGoodHeaderImgs = adGoodHeaderImgService.findAllByGoodTypeId(goodTypeId);
+	    
 	    Iterable<Good> databaseGoods = goodService.findAllByStatusAndGoodTypeOrderByRank(1,goodTypeId);
             List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
             for(Good good:databaseGoods){
@@ -122,6 +129,7 @@ public class GoodsAction {
 		    }
 		    responseGoods.add(responseGood);
 		}
+               httpRequest.setAttribute("adGoodHeaderImgs", adGoodHeaderImgs);
 	       httpRequest.setAttribute("goods", responseGoods);
 	       httpRequest.setAttribute("goodType", goodTypeId);
 	       GoodType goodType = goodTypeService.findOne(goodTypeId);
