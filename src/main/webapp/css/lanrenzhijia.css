@@ -15,19 +15,7 @@ ins {
 del {
 	text-decoration:line-through;
 }
-table {
-	border-collapse:collapse;
-	border-spacing:0;
-}
-/* Globe Font Control */
-body, table, input, textarea, button, select {
-	font-family:Tahoma, 'simsun';
-	font-size:12px;
-}
-body {
-	font-family:"Microsoft Yahei", "??鍦�", Tahoma, 'simsun';
-	font-size: 14px;
-}
+
 .head {
 	background-color: #F7F7F7;
 	height: 106px;

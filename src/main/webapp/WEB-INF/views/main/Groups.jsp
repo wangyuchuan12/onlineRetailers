@@ -2,12 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <tiles:insertDefinition name="adminLayout">
 <tiles:putAttribute name="body">
 	<div class="container">
         <div class="groups">
 		        <c:if test="${fn:length(groups)==0}">
-		        		还没有组团哦！
+		        		<div style="padding-top: 50px;font-size: 15px;margin: 0 auto;text-align: center;">还没有组团哦！</div>
 		        </c:if>
 				<ul>
 				<c:forEach items="${groups}" var="group">
