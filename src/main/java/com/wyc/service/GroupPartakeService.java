@@ -29,6 +29,10 @@ public class GroupPartakeService {
         return groupPartakeRepository.findByCustomerid(customerId);
     }
     
+    public GroupPartake findByCustomeridAndOrderId(String customerId,String orderId){
+        return groupPartakeRepository.findByCustomeridAndOrderId(customerId , orderId);
+    }
+    
     public GroupPartake findByCustomeridAndGroupId(String customerId , String groupId){
         return groupPartakeRepository.findByCustomeridAndGroupId(customerId , groupId);
     }

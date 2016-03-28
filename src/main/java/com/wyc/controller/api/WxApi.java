@@ -36,15 +36,17 @@ public class WxApi {
     public Object paySuccess(HttpServletRequest httpServletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         PaySuccess paySuccess = (PaySuccess) myHttpServletRequest.getRequestObject(PaySuccess.class);
-        if(!paySuccess.getResultCode().equals("SUCCESS")){
-            return new StopToAfter();
-        }
+        
         
         String payType = myHttpServletRequest.getParameter("pay_type");
         if(payType!=null&&payType.equals("2")){
         	String outTradeNo = httpServletRequest.getParameter("outTradeNo");
         	httpServletRequest.setAttribute("outTradeNo", outTradeNo);
         	return null;
+        }
+        
+        if(!paySuccess.getResultCode().equals("SUCCESS")){
+            return new StopToAfter();
         }
         
         String outTradeNo = paySuccess.getOutTradeNo();

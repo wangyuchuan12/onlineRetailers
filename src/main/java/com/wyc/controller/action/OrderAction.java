@@ -194,7 +194,13 @@ public class OrderAction {
         Customer customer = customerService.findByOpenId(userInfo.getOpenid());
         Map<String, Object> orderResponse = getResponseOrder(goodOrder);
         if(customer!=null){
-            GroupPartake groupPartake = groupPartakeService.findByCustomeridAndGroupId(customer.getId(), orderDetail.getGroupId());
+            GroupPartake groupPartake = null;
+            if(goodOrder.getType()==1){
+            	groupPartake = groupPartakeService.findByCustomeridAndOrderId(customer.getId(),goodOrder.getId());
+            }else{
+                groupPartake = groupPartakeService.findByCustomeridAndGroupId(customer.getId(), orderDetail.getGroupId());
+
+            }
             GroupPartakeDeliver groupPartakeDeliver = groupPartakeDeliverService.findByGroupPartakeId(groupPartake.getId());
             GroupPartakePayment groupPartakePayment = groupPartakePaymentService.findByGroupPartakeId(groupPartake.getId());
             if(groupPartakePayment.getStatus()==0){
