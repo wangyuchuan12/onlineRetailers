@@ -277,6 +277,10 @@ function setGoodType(goodType){
 	}
 }
 
+function skipToRedirectUrl(url){
+	 window.location.href=url;
+}
+
 function skipToUrl(url,token,params){
 	var temp = document.createElement("form");        
     temp.action = webPath+url;        

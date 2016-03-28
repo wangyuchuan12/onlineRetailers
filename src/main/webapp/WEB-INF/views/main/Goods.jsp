@@ -15,7 +15,7 @@
 						<ul class="slides">
 							<c:forEach items="${adGoodHeaderImgs}" var="adGoodHeaderImg">
 								<li>
-									<div class="img" onclick="skipToUrl('${adGoodHeaderImg.url}');"><img src="${adGoodHeaderImg.imgUrl}" style="width:100%;"/></div>
+									<div class="img" onclick="skipToRedirectUrl('${adGoodHeaderImg.url}');"><img src="${adGoodHeaderImg.imgUrl}" style="width:100%;"/></div>
 								</li>
 							</c:forEach>
 							
