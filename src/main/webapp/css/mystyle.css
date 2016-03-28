@@ -469,9 +469,10 @@
 
 .group_goodinfo_detail_good_info{
 	position: relative;
-	top:-60px;
 	color:red;
 	font-weight: 900;
+	font-size:20px;
+	padding-left: 15px;
 }
 
 .group_goodinfo_detail_price2{
