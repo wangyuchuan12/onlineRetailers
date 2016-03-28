@@ -239,6 +239,7 @@ function getCities(){
 		url:"/api/get_city_by_parentid?parent_id="+$("#address_province").val(),
 		success:function(resp){
 			$("#address_city").empty();
+			$("#address_city").append("<option></option>");
 			for(var i = 0 ;i<resp.length;i++){
 				$("#address_city").append("<option value='"+resp[i].id+"'>"+resp[i].name+"</option>");
 			}
@@ -254,6 +255,7 @@ function getAddresses(){
 		url:"/api/get_city_by_parentid?parent_id="+$("#address_city").val(),
 		success:function(resp){
 			$("#address_address").empty();
+			$("#address_city").append("<option></option>");
 			for(var i = 0 ;i<resp.length;i++){
 				$("#address_address").append("<option value='"+resp[i].id+"'>"+resp[i].name+"</option>");
 			}

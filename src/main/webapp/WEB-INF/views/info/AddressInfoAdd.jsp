@@ -38,6 +38,7 @@
                     <div class="address_item">
                     	<div class="address_label">省</div>
                         <select name="省" size="1" id="address_province">
+                        		<option value=""></option>
                         		<c:forEach items="${cities}" var="province">
                         			<option value="${province.id}">${province.name}</option>
                         		</c:forEach>
@@ -46,13 +47,13 @@
                     <div class="address_item">
                     	<div class="address_label">市</div>
                         <select name="市" size="1" id="address_city">
-                        
+                        		<option value=""></option>
                         </select>
                     </div>
                     <div class="address_item">
                        	 <div class="address_label">区/县</div>
                         <select name="区/县" size="1" id="address_address">
-                            
+                            <option value=""></option>
                         </select>
                     </div>
                     <div class="address_item">
