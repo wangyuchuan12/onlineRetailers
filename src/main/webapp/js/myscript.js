@@ -239,7 +239,7 @@ function getCities(){
 		url:"/api/get_city_by_parentid?parent_id="+$("#address_province").val(),
 		success:function(resp){
 			$("#address_city").empty();
-			$("#address_city").append("<option></option>");
+			$("#address_city").append("<option value=''>请选择</option>");
 			for(var i = 0 ;i<resp.length;i++){
 				$("#address_city").append("<option value='"+resp[i].id+"'>"+resp[i].name+"</option>");
 			}
@@ -255,7 +255,7 @@ function getAddresses(){
 		url:"/api/get_city_by_parentid?parent_id="+$("#address_city").val(),
 		success:function(resp){
 			$("#address_address").empty();
-			$("#address_address").append("<option></option>");
+			$("#address_address").append("<option value=''>请选择</option>");
 			for(var i = 0 ;i<resp.length;i++){
 				$("#address_address").append("<option value='"+resp[i].id+"'>"+resp[i].name+"</option>");
 			}
