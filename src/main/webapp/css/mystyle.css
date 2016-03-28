@@ -243,6 +243,12 @@
 	padding-left:10px;
 }
 
+.good_info_details h{
+	display:block;
+}
+.good_info_details p{
+	display: block;	
+}
 
 .good_info_btn{
 	height:60px;

@@ -38,11 +38,6 @@ body {
 	position: relative;
 	width: 100%;
 }
-h1 {
-	float: left;
-	height:82px;
-	line-height:82px;
-}
 .logo, .logo-des, .ctrl-l, .ctrl-r {
 	text-indent: -99em;
 }
