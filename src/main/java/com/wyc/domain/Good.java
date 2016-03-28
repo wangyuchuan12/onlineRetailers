@@ -39,6 +39,8 @@ public class Good {
     //商品主题图片，这里指向了Resource表
     @Column(name = "head_img")
     private String headImg;
+    @Column(name="good_info_head_img")
+    private String goodInfoHeadImg;
     //商品说明
     @Column(length=5000)
     private String instruction;
@@ -78,6 +80,12 @@ public class Good {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
     
+    public String getGoodInfoHeadImg() {
+        return goodInfoHeadImg;
+    }
+    public void setGoodInfoHeadImg(String goodInfoHeadImg) {
+        this.goodInfoHeadImg = goodInfoHeadImg;
+    }
     public String getNotice() {
         return notice;
     }

@@ -167,9 +167,15 @@ public class GoodsAction {
             responseGood.put("coupon_cost", good.getCouponCost());
             responseGood.put("group_cost", good.getGroupDiscount()*good.getGroupOriginalCost());
             responseGood.put("alone_cost", good.getAloneDiscount()*good.getAloneOriginalCost());
+            responseGood.put("goodInfoHeadImg", good.getGoodInfoHeadImg());
             MyResource myResource = resourceService.findOne(good.getHeadImg());
+            MyResource goodInfoHeadImgResource = resourceService.findOne(good.getGoodInfoHeadImg());
             if(myResource!=null){
                 responseGood.put("head_img", myResource.getUrl());
+            }
+            
+            if(goodInfoHeadImgResource!=null){
+                responseGood.put("goodInfoHeadImg", goodInfoHeadImgResource.getUrl());
             }
             List<String> resourceIds = new ArrayList<>();
             Iterable<GoodImg> iterable = goodImgService.findAllByGoodIdOrderByLevel(goodId);
