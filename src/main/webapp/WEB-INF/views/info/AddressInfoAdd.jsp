@@ -59,6 +59,7 @@
                     <div class="address_item">
                     	<div class="address_label">地址类别</div>
                         <select name="地址类别" size="1" id="address_type">
+                            <option value=""></option>
                             <option value="1" selected>家</option>
                             <option value="2">公司</option>
                         </select>
