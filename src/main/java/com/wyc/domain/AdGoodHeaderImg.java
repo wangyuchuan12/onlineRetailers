@@ -16,6 +16,9 @@ public class AdGoodHeaderImg {
     @Column
     private String url;
     
+    @Column(name="img_url")
+    private String imgUrl;
+    
     @Column(name="good_type_id")
     private String goodTypeId;
     
@@ -30,6 +33,12 @@ public class AdGoodHeaderImg {
     
     
     
+    public String getImgUrl() {
+        return imgUrl;
+    }
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
     public String getGoodTypeId() {
         return goodTypeId;
     }

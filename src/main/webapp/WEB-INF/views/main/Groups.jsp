@@ -6,6 +6,9 @@
 <tiles:putAttribute name="body">
 	<div class="container">
         <div class="groups">
+		        <c:if test="${fn:length(groups)==0}">
+		        		还没有组团哦！
+		        </c:if>
 				<ul>
 				<c:forEach items="${groups}" var="group">
 				

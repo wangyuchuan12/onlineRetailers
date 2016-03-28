@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
@@ -7,22 +8,24 @@
 <tiles:putAttribute name="title">商品列表</tiles:putAttribute>
 <tiles:putAttribute name="body">
 	<div class="container">
-		
-		<div class="pro-switch">
-			<div class="slider">
-				<div class="flexslider">
-					<ul class="slides">
-						<c:forEach items="${adGoodHeaderImgs}" var="adGoodHeaderImg">
-							<li>
-								<div class="img"><img src="${adGoodHeaderImg.url}" style="width:100%;"/></div>
-							</li>
-						</c:forEach>
-						
-						
-					</ul>
+		<c:if test="${fn:length(adGoodHeaderImgs)>0}">
+			<div class="pro-switch">
+				<div class="slider">
+					<div class="flexslider">
+						<ul class="slides">
+							<c:forEach items="${adGoodHeaderImgs}" var="adGoodHeaderImg">
+								<li>
+									<div class="img" onclick="skipToUrl('${adGoodHeaderImg.url}');"><img src="${adGoodHeaderImg.imgUrl}" style="width:100%;"/></div>
+								</li>
+							</c:forEach>
+							
+							
+						</ul>
+					</div>
 				</div>
 			</div>
-		</div>
+		</c:if>
+		
 		
 		
         <div class="goods">
