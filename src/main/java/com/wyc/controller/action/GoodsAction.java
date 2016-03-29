@@ -35,6 +35,7 @@ import com.wyc.domain.Good;
 import com.wyc.domain.GoodImg;
 import com.wyc.domain.GoodType;
 import com.wyc.domain.MyResource;
+import com.wyc.domain.QuickEntrance;
 import com.wyc.domain.TempGroupOrder;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.AdGoodHeaderImgService;
@@ -46,6 +47,7 @@ import com.wyc.service.GoodService;
 import com.wyc.service.GoodTypeService;
 import com.wyc.service.MyResourceService;
 import com.wyc.service.OpenGroupCouponService;
+import com.wyc.service.QuickEntranceService;
 import com.wyc.service.TempGroupOrderService;
 import com.wyc.wx.domain.UserInfo;
 import com.wyc.wx.domain.WxContext;
@@ -73,6 +75,8 @@ public class GoodsAction {
         private GoodTypeService goodTypeService;
         @Autowired
         private AdGoodHeaderImgService adGoodHeaderImgService;
+        @Autowired
+        private QuickEntranceService quickEntranceService;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
@@ -107,7 +111,8 @@ public class GoodsAction {
 	    Iterable<AdGoodHeaderImg> adGoodHeaderImgs = adGoodHeaderImgService.findAllByGoodTypeId(goodTypeId);
 	    
 	    Iterable<Good> databaseGoods = goodService.findAllByStatusAndGoodTypeOrderByRank(1,goodTypeId);
-            List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
+            Iterable<QuickEntrance> quickEntrances = quickEntranceService.findAllOrderByRankAsc();
+	    List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
             for(Good good:databaseGoods){
 		 Map<String, Object> responseGood = new HashMap<String, Object>();
 		  responseGood.put("id", good.getId());
@@ -130,6 +135,7 @@ public class GoodsAction {
 		    responseGoods.add(responseGood);
 		}
                httpRequest.setAttribute("adGoodHeaderImgs", adGoodHeaderImgs);
+               httpRequest.setAttribute("quickEntrances", quickEntrances);
 	       httpRequest.setAttribute("goods", responseGoods);
 	       httpRequest.setAttribute("goodType", goodTypeId);
 	       GoodType goodType = goodTypeService.findOne(goodTypeId);

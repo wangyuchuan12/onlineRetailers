@@ -11,3 +11,7 @@
 
 <link rel="stylesheet" type="text/css" href="/css/lanrenzhijia.css" />
 <script defer src="/js/slider.js"></script> 
+<link href="/css/haohaios.css" rel="stylesheet">
+
+<link href="/css/swiper.min.css" rel="stylesheet">
+<script type="text/javascript" src="/js/swiper.min.js"></script>

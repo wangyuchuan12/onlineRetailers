@@ -8,26 +8,25 @@
 <tiles:putAttribute name="title">商品列表</tiles:putAttribute>
 <tiles:putAttribute name="body">
 	<div class="container">
-		<c:if test="${fn:length(adGoodHeaderImgs)>0}">
-			<div class="pro-switch">
-				<div class="slider">
-					<div class="flexslider">
-						<ul class="slides">
-							<c:forEach items="${adGoodHeaderImgs}" var="adGoodHeaderImg">
-								<li>
-									<div class="img" onclick="skipToRedirectUrl('${adGoodHeaderImg.url}');"><img src="${adGoodHeaderImg.imgUrl}" style="width:100%;"/></div>
-								</li>
-							</c:forEach>
-							
-							
-						</ul>
-					</div>
-				</div>
-			</div>
-		</c:if>
 		
-		
-		
+		<div class="swiper-container swiper-container-horizontal">
+	        <div class="swiper-wrapper" style="transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(0px, 0px, 0px);">
+	             <c:forEach items="${adGoodHeaderImgs}" var="adGoodHeaderImg">
+		             <div class="swiper-slide swiper-slide-active" style="width: 98%;">
+						<a href="javascript:skipToRedirectUrl('${adGoodHeaderImg.url}')"><img src="${adGoodHeaderImg.imgUrl}" style="height:250px;width:100%;"></a>
+		             </div>
+	             </c:forEach>
+	            
+	        </div>
+	        <div class="swiper-pagination swiper-pagination-clickable"><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span></div>
+		</div>
+    <div class="quick_entrance">
+        <ul>
+        	  <c:forEach items="${quickEntrances}" var="quickEntrance">
+            	<li><a href="${quickEntrance.url}"><img src="${quickEntrance.imgUrl}"><em></em><span>${quickEntrance.name}</span></a></li>                       
+        	  </c:forEach>
+        </ul>
+    </div>
         <div class="goods">
         	<c:forEach items="${goods}" var="good">
             <div class="good activityStyle" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
@@ -81,6 +80,16 @@
     			        }
     			      });
     			    });
+    			
+    			
+    			$(function(){
+  			      $('.test').flexslider({
+  			        animation: "slide",
+  			        start: function(slider){
+  			          $('body').removeClass('loading');
+  			        }
+  			      });
+  			    });
     		
     			
     			
@@ -102,6 +111,17 @@
     		        	});
     			});
     		});
+    		
+    		window.onload=function(){		
+				var swiper = new Swiper('.swiper-container', {
+	        pagination: '.swiper-pagination',
+	        paginationClickable: true,
+	        spaceBetween: 30,
+	        centeredSlides: true,
+	        autoplay: 2500,
+	        autoplayDisableOnInteraction: false
+	    });
+	}
     </script>
 </tiles:putAttribute>
 </tiles:insertDefinition>
