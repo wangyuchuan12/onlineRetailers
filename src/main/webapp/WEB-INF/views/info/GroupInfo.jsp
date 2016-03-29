@@ -33,7 +33,8 @@
 						<img src="${groupInfo.headImg}"></img>
 					</div>
 					<div class="group_goodinfo_detail">
-						<div class="group_goodinfo_detail_title">${groupInfo.goodName}<b class="group_goodinfo_detail_good_info">商品详情</b></div>
+						<div class="group_goodinfo_detail_title">${groupInfo.goodName}</div>
+						<div class="group_goodinfo_footer">&gt</div>
 						<div class="group_goodinfo_detail_price">${groupInfo.groupNum}人团：<span class="group_goodinfo_detail_price2">￥${groupInfo.totalPrice}/件</span></div>
 						<div class="group_goodinfo_detail_notice">${groupInfo.notice} </div>
 						

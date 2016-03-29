@@ -255,6 +255,18 @@
 	display: block;
 }
 
+.group_goodinfo_footer{
+	font-size: 30px;
+	float: right;
+	color:red;
+	font-weight: bold;
+	margin: 0 auto;
+	position: relative;
+	left:30px;
+	top:-5px;
+	
+}
+
 .trade_flow{
 	display:block;
 	height:100px;
