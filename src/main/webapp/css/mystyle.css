@@ -261,9 +261,9 @@
 	color:red;
 	font-weight: bold;
 	margin: 0 auto;
-	position: relative;
-	left:30px;
-	top:-5px;
+	position: absolute;
+	right: 10px;
+	top:5px; 
 	
 }
 
@@ -432,7 +432,6 @@
 
 
 .group_goodinfo{
-	height:100px;
 	background:white;
 	position:relative;
 	top:0px;
@@ -450,15 +449,15 @@
 	
 }
 .group_goodinfo_img img{
-	height:80px;
-	width:80px;
+	height:93px;
+	width:93px;
 	left:10px;
 	position:relative;
 }
 .group_goodinfo_detail{
 	display:inline-block;
 	position:absolute;
-	left:100px;
+	left:110px;
 	top:5px;
 	width:70%;
 	height:150px;
@@ -468,6 +467,7 @@
 	position:relative;
 	font-weight:bold;
 	font-size:15px;
+	width:80%;
 
 }
 .group_goodinfo_detail_price{
