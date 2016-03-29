@@ -45,7 +45,7 @@
                 <div class="good-title">
                           ${good.title}
                     <c:if test="${good.notice!=null}">
-                    	<br/><b>${good.notice}</b>
+                    	<br/><b style="color:black;">${good.notice}</b>
                     </c:if>
                    
                 </div>
