@@ -52,5 +52,10 @@ public class GoodService {
             String goodTypeId) {
         return goodRepository.findAllByStatusAndGoodTypeOrderByRankAsc(status,goodTypeId);
     }
+
+    public Iterable<Good> findAllByGoodTypeAndIsDisplayMainOrderByRank(
+            String goodTypeId, boolean b) {
+        return goodRepository.findAllByGoodTypeAndIsDisplayMainOrderByRank(goodTypeId,b);
+    }
     
 }

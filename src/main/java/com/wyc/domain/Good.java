@@ -73,6 +73,8 @@ public class Good {
     private String goodType;
     @Column
     private String notice;
+    @Column(name="is_display_main")
+    private boolean isDisplayMain;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
@@ -80,6 +82,12 @@ public class Good {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
     
+    public boolean isDisplayMain() {
+        return isDisplayMain;
+    }
+    public void setDisplayMain(boolean isDisplayMain) {
+        this.isDisplayMain = isDisplayMain;
+    }
     public String getGoodInfoHeadImg() {
         return goodInfoHeadImg;
     }

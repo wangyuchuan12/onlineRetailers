@@ -110,7 +110,7 @@ public class GoodsAction {
 	    
 	    Iterable<AdGoodHeaderImg> adGoodHeaderImgs = adGoodHeaderImgService.findAllByGoodTypeId(goodTypeId);
 	    
-	    Iterable<Good> databaseGoods = goodService.findAllByStatusAndGoodTypeOrderByRank(1,goodTypeId);
+	    Iterable<Good> databaseGoods = goodService.findAllByGoodTypeAndIsDisplayMainOrderByRank(goodTypeId,true);
             Iterable<QuickEntrance> quickEntrances = quickEntranceService.findAllOrderByRankAsc();
 	    List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
             for(Good good:databaseGoods){
