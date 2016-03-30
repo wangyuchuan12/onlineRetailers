@@ -226,6 +226,7 @@ public class GroupsAction {
         float totalPrice = goodGroup.getTotalPrice();
         List<Map<String, String>> groupMembers = new ArrayList<Map<String, String>>();
         Integer role = 0;
+        
         for (GroupPartake groupPartake : groupPartakes) {
             Map<String, String> groupMember = new HashMap<String, String>();
             String customerId = groupPartake.getCustomerid();
@@ -259,6 +260,9 @@ public class GroupsAction {
         groupInfoMap.put("timeLong", goodGroup.getTimeLong());
         groupInfoMap.put("role", role);
         groupInfoMap.put("notice",good.getNotice());
+        
+        groupInfoMap.put("stock", good.getStock());
+        groupInfoMap.put("salesVolume", good.getSalesVolume());
         httpServletRequest.setAttribute("groupInfo", groupInfoMap);
         TemporaryData temporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(requestUser.getOpenid(), "nowgroup" , 1);
         if(temporaryData==null){

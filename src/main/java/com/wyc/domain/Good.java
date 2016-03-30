@@ -76,10 +76,10 @@ public class Good {
     @Column(name="is_display_main")
     private boolean isDisplayMain=false;
     @Column
-    private Long stock;
+    private Long stock=0L;
     
     @Column(name="sales_volume")
-    private Long salesVolume;
+    private Long salesVolume=0L;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;

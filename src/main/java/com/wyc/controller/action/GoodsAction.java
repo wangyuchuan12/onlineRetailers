@@ -128,6 +128,8 @@ public class GoodsAction {
 		    responseGood.put("coupon_cost", good.getCouponCost());
 		    responseGood.put("title", good.getTitle());
 		    responseGood.put("notice", good.getNotice());
+		    responseGood.put("stock", good.getStock());
+		    responseGood.put("salesVolume", good.getSalesVolume());
 		    MyResource myResource = resourceService.findOne(good.getHeadImg());
 		    if(myResource!=null){
 		        responseGood.put("head_img", myResource.getUrl());
@@ -182,6 +184,9 @@ public class GoodsAction {
             responseGood.put("group_cost", good.getGroupDiscount()*good.getGroupOriginalCost());
             responseGood.put("alone_cost", good.getAloneDiscount()*good.getAloneOriginalCost());
             responseGood.put("goodInfoHeadImg", good.getGoodInfoHeadImg());
+            
+            responseGood.put("stock", good.getStock());
+            responseGood.put("salesVolume", good.getSalesVolume());
             MyResource myResource = resourceService.findOne(good.getHeadImg());
             MyResource goodInfoHeadImgResource = resourceService.findOne(good.getGoodInfoHeadImg());
             if(myResource!=null){
