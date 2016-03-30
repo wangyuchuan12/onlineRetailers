@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.wyc.domain.SystemQuickEntrance;
 
 public interface QuickEntranceRepository extends CrudRepository<SystemQuickEntrance,String>{
-    @Query("from com.wyc.domain.QuickEntrance order by rank")
+    @Query("from com.wyc.domain.SystemQuickEntrance order by rank")
     Iterable<SystemQuickEntrance> findOrderByRankAsc();
 
 }
