@@ -13,7 +13,8 @@
 			<div class="coupon_list">
 				<ul>
 				<c:forEach items="${coupons}" var="coupon">
-					<li onclick="javascript:skipToGoodInfo('${coupon.goodId}')" class="activityStyle">
+					<li  <c:if test="${coupon.status==1}"> onclick="javascript:skipToGoodInfo('${coupon.goodId}')" </c:if>  class="activityStyle"  <c:if test="${coupon.status==0 || coupon.status==2}">style="background-color:RGBA(130,132,129,.4);"</c:if>
+					<c:if test="${coupon.status==1}">style="background-color:RGBA(212,75,64,0.03);"</c:if>>
 						<div class="coupon_list_good_img"><img src="${coupon.goodImg}"></div>
 						<div class="coupon_list_limit">
 							<ul>
@@ -26,7 +27,7 @@
 										已使用
 									</c:if>
 									<c:if test="${coupon.status==1}">
-										未使用
+										<font style="color:black">未使用</font>
 									</c:if>
 									
 									<c:if test="${coupon.status==2}">
