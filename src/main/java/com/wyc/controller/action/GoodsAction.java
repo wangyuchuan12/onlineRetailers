@@ -278,6 +278,9 @@ public class GoodsAction {
             responseGood.put("pay_type", payType);
             responseGood.put("head_img", myResource.getUrl());
             responseGood.put("cost", httpRequest.getAttribute("cost"));
+            
+            responseGood.put("stock", good.getStock());
+            responseGood.put("salesVolume", good.getSalesVolume());
             httpRequest.setAttribute("payGoodInfo", responseGood);
             
             TempGroupOrder tempGroupOrder = new TempGroupOrder();
