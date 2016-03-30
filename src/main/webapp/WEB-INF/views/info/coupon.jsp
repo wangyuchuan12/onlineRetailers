@@ -14,12 +14,12 @@
 				<ul>
 				<c:forEach items="${coupons}" var="coupon">
 					<li onclick="javascript:skipToGoodInfo('${coupon.goodId}')" class="activityStyle">
-						<div class="coupon_list_goods">${coupon.goodName}</div>
+						<div class="coupon_list_good_img"><img src="${coupon.goodImg}"></div>
 						<div class="coupon_list_limit">
 							<ul>
-								<li>免单团券
+								<li>免单团券<font color="red">(团长免费开团)</font></li>
 								<li>有效期:<br/>${coupon.beginTime}至${coupon.endTime}
-								<li>团长免费开团
+								<li>${coupon.goodName}
 								<li>
 								<b style="color:red">
 									<c:if test="${coupon.status==0}">

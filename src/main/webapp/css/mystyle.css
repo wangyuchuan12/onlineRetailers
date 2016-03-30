@@ -1396,7 +1396,6 @@
 	top: 1px;
 	position: relative;
 	width: 100%;
-	height: 580px;
 	max-width: 360px;
 	margin: auto;
 	padding: 0;
@@ -1437,21 +1436,20 @@
 	height:120px;
 }
 
-.coupon_list_goods {
+.coupon_list_good_img {
 	width: 25%;
 	height:100%;
 	position: relative;
 	float: left;
 	text-align: center;
 	font-size:large;
-	top: 20px
 }
 
 .coupon_list_limit {
 	width: 75%;
 	position: relative;
 	float: left;
-	top: 10px;
+	left:10px;
 	text-align: center line-height: 300%;
 }
 

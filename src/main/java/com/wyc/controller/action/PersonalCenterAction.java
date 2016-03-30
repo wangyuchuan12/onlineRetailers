@@ -26,6 +26,7 @@ import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodType;
+import com.wyc.domain.MyResource;
 import com.wyc.domain.OpenGroupCoupon;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CityService;
@@ -33,6 +34,7 @@ import com.wyc.service.CustomerAddressService;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodService;
 import com.wyc.service.GoodTypeService;
+import com.wyc.service.MyResourceService;
 import com.wyc.service.OpenGroupCouponService;
 import com.wyc.wx.domain.UserInfo;
 
@@ -54,6 +56,8 @@ public class PersonalCenterAction {
 	private GoodService goodService;
 	@Autowired
 	private GoodTypeService goodTypeService;
+	@Autowired
+	private MyResourceService myResourceService;
     @RequestMapping("/main/personal_center")
     @UserInfoFromWebAnnotation
     @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
@@ -260,6 +264,8 @@ public class PersonalCenterAction {
             responseCoupon.put("customerId", openGroupCoupon.getCustomerId());
             responseCoupon.put("goodId", openGroupCoupon.getGoodId());
             Good good = goodService.findOne(openGroupCoupon.getGoodId());
+            MyResource myResource = myResourceService.findOne(good.getHeadImg());
+            responseCoupon.put("goodImg",myResource.getUrl());
             responseCoupon.put("goodName", good.getName());
             responseCoupon.put("beginTime", mySimpleDateFormat.format(openGroupCoupon.getBeginTime().toDate()));
             responseCoupon.put("endTime", mySimpleDateFormat.format(openGroupCoupon.getEndTime().toDate()));
