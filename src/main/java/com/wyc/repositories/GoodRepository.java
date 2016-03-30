@@ -11,6 +11,6 @@ public interface GoodRepository extends CrudRepository<Good, String>{
     Iterable<Good> findAllByStatusAndGoodTypeOrderByRankAsc(int status,
             String goodTypeId);
 
-    Iterable<Good> findAllByGoodTypeAndIsDisplayMainOrderByRank(
+    Iterable<Good> findAllByGoodTypeAndIsDisplayMainOrderByRankAsc(
             String goodTypeId, boolean b);
 }

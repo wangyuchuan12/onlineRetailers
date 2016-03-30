@@ -74,7 +74,7 @@ public class Good {
     @Column
     private String notice;
     @Column(name="is_display_main")
-    private boolean isDisplayMain;
+    private boolean isDisplayMain=false;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;

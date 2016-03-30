@@ -55,7 +55,7 @@ public class GoodService {
 
     public Iterable<Good> findAllByGoodTypeAndIsDisplayMainOrderByRank(
             String goodTypeId, boolean b) {
-        return goodRepository.findAllByGoodTypeAndIsDisplayMainOrderByRank(goodTypeId,b);
+        return goodRepository.findAllByGoodTypeAndIsDisplayMainOrderByRankAsc(goodTypeId,b);
     }
     
 }
