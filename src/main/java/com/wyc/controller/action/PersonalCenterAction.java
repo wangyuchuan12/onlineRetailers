@@ -21,11 +21,11 @@ import com.wyc.annotation.handler.AfterGoodTypeHandler;
 import com.wyc.annotation.handler.BeforeGoodTypeHandler;
 import com.wyc.defineBean.ApplicationProperties;
 import com.wyc.defineBean.MySimpleDateFormat;
-import com.wyc.domain.City;
+import com.wyc.domain.SystemCity;
 import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
-import com.wyc.domain.GoodType;
+import com.wyc.domain.SystemGoodType;
 import com.wyc.domain.MyResource;
 import com.wyc.domain.OpenGroupCoupon;
 import com.wyc.intercept.domain.MyHttpServletRequest;
@@ -96,32 +96,32 @@ public class PersonalCenterAction {
             goodDistributionCodes = new String[]{goodDistributions};
         }
         List<Map<String, Object>> responseProvinces = new ArrayList<Map<String,Object>>();
-        List<City> provinces = new ArrayList<City>();
+        List<SystemCity> provinces = new ArrayList<SystemCity>();
         for(String goodDistributionCode:goodDistributionCodes){
-            Iterable<City> iterable = cityService.findAllByCodeAndType(goodDistributionCode,1);
-            for(City city:iterable){
+            Iterable<SystemCity> iterable = cityService.findAllByCodeAndType(goodDistributionCode,1);
+            for(SystemCity city:iterable){
                 provinces.add(city);
             }
         }
-        for(City provice:provinces){
+        for(SystemCity provice:provinces){
             Map<String, Object> responseProvince = new HashMap<String, Object>();
             responseProvince.put("id", provice.getId());
             responseProvince.put("name", provice.getName());
             responseProvince.put("code", provice.getCode());
-            Iterable<City> citys = cityService.findAllByParentId(provice.getId());
+            Iterable<SystemCity> citys = cityService.findAllByParentId(provice.getId());
             List<Map<String, Object>> responseCities = new ArrayList<Map<String,Object>>();
             responseProvince.put("cities", responseCities);
             responseProvinces.add(responseProvince);
-            for(City city:citys){
+            for(SystemCity city:citys){
                 Map<String, Object> responseCity = new HashMap<String, Object>();
                 responseCity.put("id", city.getId());
                 responseCity.put("name", city.getName());
                 responseCity.put("code", city.getCode());
                 List<Map<String, String>> responseAddresses = new ArrayList<Map<String,String>>();
-                Iterable<City> addresses = cityService.findAllByParentId(city.getId());
+                Iterable<SystemCity> addresses = cityService.findAllByParentId(city.getId());
                 responseCity.put("addresses", responseAddresses);
                 responseCities.add(responseCity);
-                for(City address:addresses){
+                for(SystemCity address:addresses){
                     Map<String, String> responseAddress = new HashMap<String, String>();
                     responseAddress.put("id", address.getId());
                     responseAddress.put("name", address.getName());
@@ -148,9 +148,9 @@ public class PersonalCenterAction {
         String addressId = httpServletRequest.getParameter("address_id");
         CustomerAddress customerAddress = customerAddressService.findOne(addressId);
         httpServletRequest.setAttribute("address", customerAddress.getCity());
-        City address = cityService.findOne(customerAddress.getCity());
-        City city = cityService.findOne(address.getParentId());
-        City province = cityService.findOne(city.getParentId());
+        SystemCity address = cityService.findOne(customerAddress.getCity());
+        SystemCity city = cityService.findOne(address.getParentId());
+        SystemCity province = cityService.findOne(city.getParentId());
         httpServletRequest.setAttribute("city", city.getId());
         httpServletRequest.setAttribute("province", province.getId());
         httpServletRequest.setAttribute("content", customerAddress.getContent());
@@ -221,9 +221,9 @@ public class PersonalCenterAction {
         for(CustomerAddress customerAddress:customerAddresses){
             Map<String, Object> responseCustomerAddress = new HashMap<String, Object>();
             String addressId = customerAddress.getCity();
-            City address = cityService.findOne(addressId);
-            City city = cityService.findOne(address.getParentId());
-            City province = cityService.findOne(city.getParentId());
+            SystemCity address = cityService.findOne(addressId);
+            SystemCity city = cityService.findOne(address.getParentId());
+            SystemCity province = cityService.findOne(city.getParentId());
             responseCustomerAddress.put("address", address.getName());
             responseCustomerAddress.put("city", city.getName());
             responseCustomerAddress.put("province", province.getName());
@@ -300,9 +300,9 @@ public class PersonalCenterAction {
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
         Customer customer = customerService.findByOpenId(userInfo.getOpenid());
         String defaultGoodType = customer.getDefaultGoodType();
-        Iterable<GoodType> goodTypes = goodTypeService.findAll();
+        Iterable<SystemGoodType> goodTypes = goodTypeService.findAll();
         List<Map<String, String>> responseTypes = new ArrayList<Map<String,String>>();
-        for(GoodType goodType:goodTypes){
+        for(SystemGoodType goodType:goodTypes){
             Map<String, String> responseType = new HashMap<String, String>();
             responseType.put("id", goodType.getId());
             responseType.put("name",goodType.getName());

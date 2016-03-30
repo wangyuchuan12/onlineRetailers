@@ -9,8 +9,8 @@ import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name = "city")
-public class City {
+@Entity(name = "system_city")
+public class SystemCity {
     @Id
     private String id;
     @Column(name = "name")

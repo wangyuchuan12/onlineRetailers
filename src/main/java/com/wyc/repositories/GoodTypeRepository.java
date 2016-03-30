@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.wyc.domain.GoodType;
+import com.wyc.domain.SystemGoodType;
 
-public interface GoodTypeRepository extends CrudRepository<GoodType, String>{
+public interface GoodTypeRepository extends CrudRepository<SystemGoodType, String>{
 
-    List<GoodType> findAllByIsDefault(boolean isDefault);
+    List<SystemGoodType> findAllByIsDefault(boolean isDefault);
 
 }

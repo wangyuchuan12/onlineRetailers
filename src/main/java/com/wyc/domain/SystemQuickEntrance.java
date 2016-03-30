@@ -10,7 +10,7 @@ import org.joda.time.DateTime;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name="quick_entrance")
-public class QuickEntrance {
+public class SystemQuickEntrance {
     @Id
     private String id;
     @Column

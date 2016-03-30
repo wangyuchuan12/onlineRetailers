@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import com.wyc.domain.Customer;
-import com.wyc.domain.GoodType;
+import com.wyc.domain.SystemGoodType;
 import com.wyc.domain.TemporaryData;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CustomerService;
@@ -40,8 +40,8 @@ public class AfterGoodTypeHandler implements Handler{
         }else{
             goodTypeId = customer.getDefaultGoodType();
             if(goodTypeId==null||goodTypeId.trim().equals("")){
-                Iterable<GoodType> goodTypeIterable = goodTypeService.findAll();
-                for(GoodType goodTypeEntity:goodTypeIterable){
+                Iterable<SystemGoodType> goodTypeIterable = goodTypeService.findAll();
+                for(SystemGoodType goodTypeEntity:goodTypeIterable){
                     if(goodTypeEntity.isDefault()){
                         goodTypeId = goodTypeEntity.getId();
                         break;
@@ -51,7 +51,7 @@ public class AfterGoodTypeHandler implements Handler{
                 
             }
         }
-        GoodType goodType = null;
+        SystemGoodType goodType = null;
         if(httpServletRequest.getAttribute("goodType")==null){
             goodType = goodTypeService.findOne(goodTypeId);
         }else{

@@ -2,8 +2,8 @@ package com.wyc.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.wyc.domain.PayHandler;
+import com.wyc.domain.SystemPayHandler;
 
-public interface PayHandlerRepository extends CrudRepository<PayHandler, String>{
+public interface PayHandlerRepository extends CrudRepository<SystemPayHandler, String>{
 
 }

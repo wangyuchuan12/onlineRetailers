@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.wyc.domain.PayActivity;
+import com.wyc.domain.SystemPayActivity;
 
-public interface PayActivityRepository extends CrudRepository<PayActivity,String>{
+public interface PayActivityRepository extends CrudRepository<SystemPayActivity,String>{
 
-    List<PayActivity> findAllByGoodIdAndPayType(String goodId, int groupType);
+    List<SystemPayActivity> findAllByGoodIdAndPayType(String goodId, int groupType);
 
 }

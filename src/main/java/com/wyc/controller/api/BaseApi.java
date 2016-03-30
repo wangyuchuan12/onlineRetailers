@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wyc.annotation.UserInfoFromWebAnnotation;
-import com.wyc.domain.City;
+import com.wyc.domain.SystemCity;
 import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.TemporaryData;
@@ -93,7 +93,7 @@ public class BaseApi {
 	@RequestMapping(value = "/api/get_city_by_parentid")
 	public Object getCityByParentId(HttpServletRequest httpServletRequest){
 	    String parentId = httpServletRequest.getParameter("parent_id");
-	    Iterable<City> cities = cityService.findAllByParentId(parentId);
+	    Iterable<SystemCity> cities = cityService.findAllByParentId(parentId);
 	    return cities;
 	}
 	

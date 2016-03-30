@@ -6,45 +6,45 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wyc.domain.City;
+import com.wyc.domain.SystemCity;
 import com.wyc.repositories.CityRepository;
 
 @Service
 public class CityService {
     @Autowired
     private CityRepository cityRepository;
-    public void add(City city){
+    public void add(SystemCity city){
         city.setId(UUID.randomUUID().toString());
         city.setCreateAt(new DateTime());
         city.setUpdateAt(new DateTime());
         cityRepository.save(city);
     }
     
-    public void update(City city){
+    public void update(SystemCity city){
         cityRepository.save(city);
     }
     
-    public void delete(City city){
+    public void delete(SystemCity city){
         cityRepository.delete(city);
     }
     
-    public City findOne(String id){
+    public SystemCity findOne(String id){
         return cityRepository.findOne(id);
     }
     
-    public Iterable<City> findAll(){
+    public Iterable<SystemCity> findAll(){
         return cityRepository.findAll();
     }
     
-    public Iterable<City> findAllByParentId(String parentId){
+    public Iterable<SystemCity> findAllByParentId(String parentId){
         return cityRepository.findAllByParentId(parentId);
     }
 
-    public Iterable<City> findAllByName(String name) {
+    public Iterable<SystemCity> findAllByName(String name) {
         return cityRepository.findAllByName(name);
     }
 
-    public Iterable<City> findAllByCodeAndType(String goodDistributionCode,int type) {
+    public Iterable<SystemCity> findAllByCodeAndType(String goodDistributionCode,int type) {
         return cityRepository.findAllByCodeAndType(goodDistributionCode,type);
     }
 }

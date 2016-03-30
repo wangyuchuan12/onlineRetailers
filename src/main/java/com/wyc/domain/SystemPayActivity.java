@@ -6,8 +6,8 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.Index;
 
-@Entity(name="pay_actity")
-public class PayActivity {
+@Entity(name="system_pay_actity")
+public class SystemPayActivity {
     @Id
     private String id;
     @Column

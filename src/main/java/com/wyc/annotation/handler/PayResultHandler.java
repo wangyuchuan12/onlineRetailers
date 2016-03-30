@@ -23,7 +23,7 @@ import com.wyc.domain.GroupPartakeDeliver;
 import com.wyc.domain.GroupPartakePayment;
 import com.wyc.domain.OpenGroupCoupon;
 import com.wyc.domain.OrderDetail;
-import com.wyc.domain.PayActivity;
+import com.wyc.domain.SystemPayActivity;
 import com.wyc.domain.TempGroupOrder;
 import com.wyc.domain.TemporaryData;
 import com.wyc.service.CustomerService;
@@ -279,13 +279,13 @@ public class PayResultHandler implements Handler{
         }
         
         
-        List<PayActivity> payActivities = payActivityService.findAllByGoodIdAndPayType(tempGroupOrder.getGoodId(),tempGroupOrder.getGoodOrderType());
-        List<PayActivity> payActivities2 = payActivityService.findAllByGoodIdAndPayType(tempGroupOrder.getGoodId(), 7);
-        List<PayActivity> payActivitiesAll = new ArrayList<PayActivity>();
+        List<SystemPayActivity> payActivities = payActivityService.findAllByGoodIdAndPayType(tempGroupOrder.getGoodId(),tempGroupOrder.getGoodOrderType());
+        List<SystemPayActivity> payActivities2 = payActivityService.findAllByGoodIdAndPayType(tempGroupOrder.getGoodId(), 7);
+        List<SystemPayActivity> payActivitiesAll = new ArrayList<SystemPayActivity>();
         payActivitiesAll.addAll(payActivities);
         payActivitiesAll.addAll(payActivities2);
         logger.debug("payActivities:{}",payActivities);
-        for(PayActivity payActivity:payActivitiesAll){
+        for(SystemPayActivity payActivity:payActivitiesAll){
             boolean flag = false;
             if(payActivity.getUserOpenIds().equals("*")){
                 flag = true;
@@ -305,9 +305,9 @@ public class PayResultHandler implements Handler{
             for(String str:handlersArrayStr){
                 arrayIteratorStr.add(str);
             }
-            Iterable<com.wyc.domain.PayHandler> payHandlerEntitys = payHandlerService.findAll(arrayIteratorStr);
+            Iterable<com.wyc.domain.SystemPayHandler> payHandlerEntitys = payHandlerService.findAll(arrayIteratorStr);
             logger.debug("payHandlerEntitys:{}",payHandlerEntitys);
-            for(com.wyc.domain.PayHandler payHandlerEntity:payHandlerEntitys){
+            for(com.wyc.domain.SystemPayHandler payHandlerEntity:payHandlerEntitys){
                 try {
                     Class<PayHandler> handlerClass = (Class<PayHandler>) Class.forName(payHandlerEntity.getClassPath());
                     PayHandler payHandler = handlerClass.newInstance();

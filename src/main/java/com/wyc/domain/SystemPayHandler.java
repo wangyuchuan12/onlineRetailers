@@ -4,8 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity(name="pay_handler")
-public class PayHandler {
+@Entity(name="system_pay_handler")
+public class SystemPayHandler {
     @Id
     private String id;
     @Column(name="class_path")

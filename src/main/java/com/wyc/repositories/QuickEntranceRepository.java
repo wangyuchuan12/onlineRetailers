@@ -3,10 +3,10 @@ package com.wyc.repositories;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.wyc.domain.QuickEntrance;
+import com.wyc.domain.SystemQuickEntrance;
 
-public interface QuickEntranceRepository extends CrudRepository<QuickEntrance,String>{
+public interface QuickEntranceRepository extends CrudRepository<SystemQuickEntrance,String>{
     @Query("from com.wyc.domain.QuickEntrance order by rank")
-    Iterable<QuickEntrance> findOrderByRankAsc();
+    Iterable<SystemQuickEntrance> findOrderByRankAsc();
 
 }

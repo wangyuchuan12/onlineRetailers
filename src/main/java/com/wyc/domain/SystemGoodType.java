@@ -7,43 +7,42 @@ import javax.persistence.Id;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-@Entity(name="ad_good_head_img")
-public class AdGoodHeaderImg {
+@Entity(name = "system_good_type")
+public class SystemGoodType {
     @Id
     private String id;
     @Column
-    private String url;
-    
-    @Column(name="img_url")
-    private String imgUrl;
-    
-    @Column(name="good_type_id")
-    private String goodTypeId;
-    
+    private String name;
+    @Column(name="is_default")
+    private boolean isDefault;
+    @Column
+    private String title;
+    @Column
+    private String img;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    @JsonIgnore
     private DateTime createAt;
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    @JsonIgnore
     private DateTime updateAt;
     
-    
-    
-    public String getImgUrl() {
-        return imgUrl;
+    public String getTitle() {
+        return title;
     }
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setTitle(String title) {
+        this.title = title;
     }
-    public String getGoodTypeId() {
-        return goodTypeId;
+    public String getImg() {
+        return img;
     }
-    public void setGoodTypeId(String goodTypeId) {
-        this.goodTypeId = goodTypeId;
+    public void setImg(String img) {
+        this.img = img;
+    }
+    public boolean isDefault() {
+        return isDefault;
+    }
+    public void setDefault(boolean isDefault) {
+        this.isDefault = isDefault;
     }
     public String getId() {
         return id;
@@ -51,11 +50,11 @@ public class AdGoodHeaderImg {
     public void setId(String id) {
         this.id = id;
     }
-    public String getUrl() {
-        return url;
+    public String getName() {
+        return name;
     }
-    public void setUrl(String url) {
-        this.url = url;
+    public void setName(String name) {
+        this.name = name;
     }
     public DateTime getCreateAt() {
         return createAt;

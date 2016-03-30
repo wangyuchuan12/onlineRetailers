@@ -75,6 +75,11 @@ public class Good {
     private String notice;
     @Column(name="is_display_main")
     private boolean isDisplayMain=false;
+    @Column
+    private Long stock;
+    
+    @Column(name="sales_volume")
+    private Long salesVolume;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
@@ -82,6 +87,19 @@ public class Good {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
     
+    
+    public Long getStock() {
+        return stock;
+    }
+    public void setStock(Long stock) {
+        this.stock = stock;
+    }
+    public Long getSalesVolume() {
+        return salesVolume;
+    }
+    public void setSalesVolume(Long salesVolume) {
+        this.salesVolume = salesVolume;
+    }
     public boolean isDisplayMain() {
         return isDisplayMain;
     }

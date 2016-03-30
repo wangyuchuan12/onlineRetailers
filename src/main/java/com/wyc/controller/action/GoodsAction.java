@@ -27,15 +27,15 @@ import com.wyc.annotation.handler.AfterGoodTypeHandler;
 import com.wyc.annotation.handler.BeforeGoodTypeHandler;
 import com.wyc.annotation.handler.PayResultHandler;
 import com.wyc.annotation.handler.WxChooseWxPayHandler;
-import com.wyc.domain.AdGoodHeaderImg;
-import com.wyc.domain.City;
+import com.wyc.domain.SystemAdGoodHeaderImg;
+import com.wyc.domain.SystemCity;
 import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodImg;
-import com.wyc.domain.GoodType;
+import com.wyc.domain.SystemGoodType;
 import com.wyc.domain.MyResource;
-import com.wyc.domain.QuickEntrance;
+import com.wyc.domain.SystemQuickEntrance;
 import com.wyc.domain.TempGroupOrder;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.AdGoodHeaderImgService;
@@ -92,8 +92,8 @@ public class GoodsAction {
 	    if(goodTypeId==null||goodTypeId.trim().equals("")){
 	        goodTypeId = customer.getDefaultGoodType();
 	        if(goodTypeId==null||goodTypeId.trim().equals("")){
-	                Iterable<GoodType> goodTypeIterable = goodTypeService.findAll();
-	                for(GoodType goodTypeEntity:goodTypeIterable){
+	                Iterable<SystemGoodType> goodTypeIterable = goodTypeService.findAll();
+	                for(SystemGoodType goodTypeEntity:goodTypeIterable){
 	                    if(goodTypeEntity.isDefault()){
 	                        goodTypeId = goodTypeEntity.getId();
 	                        break;
@@ -108,10 +108,10 @@ public class GoodsAction {
 	        customerService.save(customer);
 	    }
 	    
-	    Iterable<AdGoodHeaderImg> adGoodHeaderImgs = adGoodHeaderImgService.findAllByGoodTypeId(goodTypeId);
+	    Iterable<SystemAdGoodHeaderImg> adGoodHeaderImgs = adGoodHeaderImgService.findAllOrderByRankAsc();
 	    
 	    Iterable<Good> databaseGoods = goodService.findAllByGoodTypeAndIsDisplayMainOrderByRank(goodTypeId,true);
-            Iterable<QuickEntrance> quickEntrances = quickEntranceService.findAllOrderByRankAsc();
+            Iterable<SystemQuickEntrance> quickEntrances = quickEntranceService.findAllOrderByRankAsc();
 	    List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
             for(Good good:databaseGoods){
 		 Map<String, Object> responseGood = new HashMap<String, Object>();
@@ -138,7 +138,7 @@ public class GoodsAction {
                httpRequest.setAttribute("quickEntrances", quickEntrances);
 	       httpRequest.setAttribute("goods", responseGoods);
 	       httpRequest.setAttribute("goodType", goodTypeId);
-	       GoodType goodType = goodTypeService.findOne(goodTypeId);
+	       SystemGoodType goodType = goodTypeService.findOne(goodTypeId);
 	       httpRequest.setAttribute("typeTitle", goodType.getTitle());
 	       httpRequest.setAttribute("typeName", goodType.getName());
 	       httpRequest.setAttribute("typeImg", goodType.getImg());
@@ -246,7 +246,7 @@ public class GoodsAction {
             Map<String, Object> responseGood = new HashMap<String, Object>();
             StringBuffer citySb = new StringBuffer();
             String cityId = customerAddress.getCity();
-            City city = null;
+            SystemCity city = null;
             while((city=cityService.findOne(cityId))!=null){
                 cityId = city.getParentId();
                 citySb.insert(0, city.getName()+"-");

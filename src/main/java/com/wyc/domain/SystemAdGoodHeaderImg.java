@@ -7,42 +7,41 @@ import javax.persistence.Id;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
-@Entity(name = "good_type")
-public class GoodType {
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity(name="system_ad_good_head_img")
+public class SystemAdGoodHeaderImg {
     @Id
     private String id;
     @Column
-    private String name;
-    @Column(name="is_default")
-    private boolean isDefault;
+    private String url;
+    
+    @Column(name="img_url")
+    private String imgUrl;
     @Column
-    private String title;
-    @Column
-    private String img;
+    private int rank;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @JsonIgnore
     private DateTime createAt;
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @JsonIgnore
     private DateTime updateAt;
     
-    public String getTitle() {
-        return title;
+    
+    
+    public int getRank() {
+        return rank;
     }
-    public void setTitle(String title) {
-        this.title = title;
+    public void setRank(int rank) {
+        this.rank = rank;
     }
-    public String getImg() {
-        return img;
+    public String getImgUrl() {
+        return imgUrl;
     }
-    public void setImg(String img) {
-        this.img = img;
-    }
-    public boolean isDefault() {
-        return isDefault;
-    }
-    public void setDefault(boolean isDefault) {
-        this.isDefault = isDefault;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
     public String getId() {
         return id;
@@ -50,11 +49,11 @@ public class GoodType {
     public void setId(String id) {
         this.id = id;
     }
-    public String getName() {
-        return name;
+    public String getUrl() {
+        return url;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setUrl(String url) {
+        this.url = url;
     }
     public DateTime getCreateAt() {
         return createAt;

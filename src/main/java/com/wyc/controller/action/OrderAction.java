@@ -21,7 +21,7 @@ import com.wyc.annotation.WxConfigAnnotation;
 import com.wyc.annotation.handler.AfterGoodTypeHandler;
 import com.wyc.annotation.handler.BeforeGoodTypeHandler;
 import com.wyc.defineBean.MySimpleDateFormat;
-import com.wyc.domain.City;
+import com.wyc.domain.SystemCity;
 import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
@@ -230,7 +230,7 @@ public class OrderAction {
             logger.debug("recipient:"+customerAddress.getName());
             orderResponse.put("phonenumber", customerAddress.getPhonenumber());
             logger.debug("phonenumber:"+customerAddress.getPhonenumber());
-            City city = cityService.findOne(customerAddress.getCity());
+            SystemCity city = cityService.findOne(customerAddress.getCity());
             orderResponse.put("area", city.getName());
             orderResponse.put("goodName", good.getName());
             orderResponse.put("goodPrice",goodOrder.getCost());
