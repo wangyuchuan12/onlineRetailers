@@ -27,7 +27,7 @@
 			<input hidden="true" id = "group_info_img" value="${groupInfo.headImg}">
 			<input hidden="true" id = "group_info_good_name" value="${groupInfo.goodName}">
 			<input hidden="true" id = "group_info_good_title" value="${groupInfo.title}">
-			<div class="group_goodinfo activityStyle" onclick="skipToGoodInfo('${groupInfo.goodId}','${token.id}')">
+			<div class="group_goodinfo activityStyle" onclick="skipToGoodInfo('${groupInfo.goodId}','${token.id}')" style="width:99%">
 			      
 					<div class="group_goodinfo_img">
 						<img src="${groupInfo.headImg}"></img>
