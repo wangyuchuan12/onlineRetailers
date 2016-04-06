@@ -196,6 +196,11 @@ public class PayResultHandler implements Handler{
                 if(partNum+1==groupNum){
                    goodGroup.setResult(2);
                    goodGroupService.save(goodGroup);
+                   Iterable<GroupPartake> groupPartakes = groupPartakeService.findAllByGroupIdOrderByRoleAsc(groupId);
+                   for(GroupPartake groupPartake2:groupPartakes){
+                       groupPartake2.setStatus(GroupPartake.BEGIN_STATUS);
+                       groupPartakeService.save(groupPartake2);
+                   }
                 }
                 groupPartake.setType(0);
                 groupPartake = groupPartakeService.add(groupPartake);
@@ -254,6 +259,7 @@ public class PayResultHandler implements Handler{
             groupPartake.setDateTime(new DateTime());
             groupPartake.setOrderId(goodOrder.getId());
             groupPartake.setType(1);
+            groupPartake.setStatus(GroupPartake.BEGIN_STATUS);
             groupPartakeService.add(groupPartake);
             
             
