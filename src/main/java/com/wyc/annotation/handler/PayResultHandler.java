@@ -131,8 +131,11 @@ public class PayResultHandler implements Handler{
             
             GroupPartakeDeliver groupPartakeDeliver = new GroupPartakeDeliver();
             groupPartakeDeliver.setGroupPartakeId(groupPartake.getId());
+            
             groupPartakeDeliverService.add(groupPartakeDeliver);
             GroupPartakePayment groupPartakePayment = new GroupPartakePayment();
+            groupPartakePayment.setCost(tempGroupOrder.getCost());
+            groupPartakePayment.setPayTime(new DateTime());
             groupPartakePayment.setGroupPartakeId(groupPartake.getId());
             groupPartakePayment.setStatus(1);
             groupPartakePaymentService.add(groupPartakePayment);
@@ -202,6 +205,8 @@ public class PayResultHandler implements Handler{
                 groupPartakeDeliver.setGroupPartakeId(groupPartake.getId());
                 groupPartakeDeliverService.add(groupPartakeDeliver);
                 GroupPartakePayment groupPartakePayment = new GroupPartakePayment();
+                groupPartakePayment.setCost(tempGroupOrder.getCost());
+                groupPartakePayment.setPayTime(new DateTime());
                 groupPartakePayment.setGroupPartakeId(groupPartake.getId());
                 groupPartakePayment.setStatus(1);
                 groupPartakePaymentService.add(groupPartakePayment);
@@ -256,11 +261,13 @@ public class PayResultHandler implements Handler{
             groupPartakeDeliver.setGroupPartakeId(groupPartake.getId());
             groupPartakeDeliverService.add(groupPartakeDeliver);
             GroupPartakePayment groupPartakePayment = new GroupPartakePayment();
+            groupPartakePayment.setCost(tempGroupOrder.getCost());
+            groupPartakePayment.setPayTime(new DateTime());
             groupPartakePayment.setGroupPartakeId(groupPartake.getId());
             groupPartakePayment.setStatus(1);
             groupPartakePaymentService.add(groupPartakePayment);
             
-            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(tempGroupOrder.getOpenid(), "lastOrder",1);
+            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(tempGroupOrder.getOpenid(), "lastOrder");
             if(temporaryData!=null){
                 temporaryData.setMykey(tempGroupOrder.getOpenid());
                 temporaryData.setName("lastOrder");
