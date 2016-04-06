@@ -54,9 +54,18 @@ public class TempGroupOrder {
     private String groupId;
     @Column(name="time_long")
     private int timeLong;
-    
+    @Column(name="admin_id")
+    private String adminId;
    
+    
 
+    public String getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(String adminId) {
+        this.adminId = adminId;
+    }
 
     public int getTimeLong() {
         return timeLong;

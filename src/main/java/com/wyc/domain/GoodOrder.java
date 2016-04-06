@@ -42,8 +42,18 @@ public class GoodOrder {
     //1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未处理6退款已处理
     @Column
     private int status;
+    @Column(name="admin_id")
+    private String adminId;
     
     
+    public String getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(String adminId) {
+        this.adminId = adminId;
+    }
+
     public int getStatus() {
         return status;
     }

@@ -77,7 +77,8 @@ public class Good {
     private boolean isDisplayMain=false;
     @Column
     private Long stock=0L;
-    
+    @Column(name="admin_id")
+    private String adminId;
     @Column(name="sales_volume")
     private Long salesVolume=0L;
     @Column(name = "create_at")
@@ -88,6 +89,12 @@ public class Good {
     private DateTime updateAt;
     
     
+    public String getAdminId() {
+        return adminId;
+    }
+    public void setAdminId(String adminId) {
+        this.adminId = adminId;
+    }
     public Long getStock() {
         return stock;
     }

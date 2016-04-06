@@ -106,6 +106,7 @@ public class PayResultHandler implements Handler{
             goodOrder.setStatus(2);
             goodOrder.setType(0);
             goodOrder.setCreateTime(new DateTime());
+            goodOrder.setAdminId(tempGroupOrder.getAdminId());
             goodOrder = goodOrderService.add(goodOrder);
             
             
@@ -188,6 +189,7 @@ public class PayResultHandler implements Handler{
                 groupPartake.setDateTime(new DateTime());
                 groupPartake.setGroupId(goodGroup.getId());
                 goodOrder = goodOrderService.findOne(orderDetail.getOrderId());
+                
                 if(partNum==1){
                     groupPartake.setRole(2);
                 }else{
@@ -239,10 +241,12 @@ public class PayResultHandler implements Handler{
             goodOrder.setCost(tempGroupOrder.getCost());
             goodOrder.setCreateTime(new DateTime());
             goodOrder.setFlowPrice(tempGroupOrder.getFlowPrice());
+            goodOrder.setAdminId(tempGroupOrder.getAdminId());
             goodOrder.setGoodId(tempGroupOrder.getGoodId());
             goodOrder.setGoodPrice(tempGroupOrder.getGoodPrice());
             goodOrder.setStatus(2);
             goodOrder.setType(tempGroupOrder.getGoodOrderType());
+            goodOrder.setAdminId(tempGroupOrder.getAdminId());
             goodOrder = goodOrderService.add(goodOrder);
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setCustomerId(customer.getId());
