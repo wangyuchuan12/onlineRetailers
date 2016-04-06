@@ -19,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wyc.annotation.AfterHandlerAnnotation;
-import com.wyc.annotation.BeforeHandlerAnnotation;
 import com.wyc.annotation.BeforeNativeHandlerAnnotation;
 import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.NowPageRecordAnnotation;
