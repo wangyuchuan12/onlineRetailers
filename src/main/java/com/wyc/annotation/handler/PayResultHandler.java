@@ -125,6 +125,9 @@ public class PayResultHandler implements Handler{
             goodOrder = goodOrderService.save(goodOrder);
             GroupPartake groupPartake = new GroupPartake();
             groupPartake.setCustomerAddress(tempGroupOrder.getAddress()+","+tempGroupOrder.getPersonName()+","+tempGroupOrder.getPhonenumber());
+            groupPartake.setAddressContent(tempGroupOrder.getAddress());
+            groupPartake.setPersonName(tempGroupOrder.getPersonName());
+            groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
             groupPartake.setCustomerid(customer.getId());
             groupPartake.setDateTime(new DateTime());
             groupPartake.setGroupId(goodGroup.getId());
@@ -191,6 +194,9 @@ public class PayResultHandler implements Handler{
                 groupPartake.setDateTime(new DateTime());
                 groupPartake.setGroupId(goodGroup.getId());
                 groupPartake.setCustomerAddress(tempGroupOrder.getAddress()+","+tempGroupOrder.getPersonName()+","+tempGroupOrder.getPhonenumber());
+                groupPartake.setAddressContent(tempGroupOrder.getAddress());
+                groupPartake.setPersonName(tempGroupOrder.getPersonName());
+                groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
                 goodOrder = goodOrderService.findOne(orderDetail.getOrderId());
                 
                 if(partNum==1){
@@ -267,6 +273,9 @@ public class PayResultHandler implements Handler{
             groupPartake.setType(1);
             groupPartake.setStatus(GroupPartake.BEGIN_STATUS);
             groupPartake.setCustomerAddress(tempGroupOrder.getAddress()+","+tempGroupOrder.getPersonName()+","+tempGroupOrder.getPhonenumber());
+            groupPartake.setAddressContent(tempGroupOrder.getAddress());
+            groupPartake.setPersonName(tempGroupOrder.getPersonName());
+            groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
             groupPartakeService.add(groupPartake);
             
             

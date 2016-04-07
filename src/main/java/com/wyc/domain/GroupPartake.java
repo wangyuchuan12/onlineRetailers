@@ -21,6 +21,12 @@ public class GroupPartake {
     private String groupId;
     @Column(name="customer_address")
     private String customerAddress;
+    @Column(name="address_content")
+    private String addressContent;
+    @Column(name="person_name")
+    private String personName;
+    @Column
+    private String phonenumber;
     @Column(name = "order_id")
     private String orderId;
     //付款方式 0表示组团购买，1表示单买，2表示开团劵购买
@@ -46,6 +52,24 @@ public class GroupPartake {
     
     
     
+    public String getAddressContent() {
+        return addressContent;
+    }
+    public void setAddressContent(String addressContent) {
+        this.addressContent = addressContent;
+    }
+    public String getPersonName() {
+        return personName;
+    }
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
     public int getStatus() {
         return status;
     }
