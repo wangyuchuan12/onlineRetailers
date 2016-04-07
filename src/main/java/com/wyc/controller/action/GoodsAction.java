@@ -298,6 +298,8 @@ public class GoodsAction {
             tempGroupOrder.setGoodOrderType(Integer.parseInt(payType));
             tempGroupOrder.setTimeLong(good.getTimeLong());
             tempGroupOrder.setAdminId(good.getAdminId());
+            tempGroupOrder.setPersonName(customerAddress.getName());
+            tempGroupOrder.setPhonenumber(customerAddress.getPhonenumber());
             if(payType.equals("3")){
                 tempGroupOrder.setGroupId(httpRequest.getParameter("group_id"));
             }
