@@ -284,6 +284,7 @@ public class PayResultHandler implements Handler{
             if(temporaryData!=null){
                 temporaryData.setMykey(tempGroupOrder.getOpenid());
                 temporaryData.setName("lastOrder");
+                temporaryData.setValue(goodOrder.getId());
                 temporaryData.setStatus(1);
                 temporaryDataService.save(temporaryData);
             }else{
