@@ -223,8 +223,8 @@ public class OrderAction {
             orderResponse.put("type", goodOrder.getType());
             orderResponse.put("id", goodOrder.getId());
             orderResponse.put("createTime", mySimpleDateFormat.format(goodOrder.getCreateTime().toDate()));
-            orderResponse.put("address", groupPartake.getCustomerAddress());
-            orderResponse.put("recipient", groupPartake.getAddressContent());
+            orderResponse.put("address", groupPartake.getAddressContent());
+            orderResponse.put("recipient", groupPartake.getPersonName());
             orderResponse.put("phonenumber", groupPartake.getPhonenumber());
 
             orderResponse.put("goodName", good.getName());
