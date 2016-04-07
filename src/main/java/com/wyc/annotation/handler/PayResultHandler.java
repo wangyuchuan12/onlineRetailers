@@ -107,6 +107,7 @@ public class PayResultHandler implements Handler{
             goodOrder.setType(0);
             goodOrder.setCreateTime(new DateTime());
             goodOrder.setAdminId(tempGroupOrder.getAdminId());
+           
             goodOrder = goodOrderService.add(goodOrder);
             
             
@@ -118,8 +119,10 @@ public class PayResultHandler implements Handler{
             goodGroup.setStartTime(new DateTime());
             goodGroup.setTimeLong(tempGroupOrder.getTimeLong());
             goodGroup.setTotalPrice(cost);
+            goodGroup.setAdminId(tempGroupOrder.getAddressId());
             goodGroup = goodGroupService.add(goodGroup);
-            
+            goodOrder.setGroupId(goodGroup.getId());
+            goodOrder = goodOrderService.save(goodOrder);
             GroupPartake groupPartake = new GroupPartake();
             groupPartake.setCustomerAddress(tempGroupOrder.getCustomerAddress());
             groupPartake.setCustomerid(customer.getId());
