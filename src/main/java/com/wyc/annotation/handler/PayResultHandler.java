@@ -206,6 +206,7 @@ public class PayResultHandler implements Handler{
                        groupPartake2.setStatus(GroupPartake.BEGIN_STATUS);
                        groupPartakeService.save(groupPartake2);
                    }
+                   groupPartake.setStatus(GroupPartake.BEGIN_STATUS);
                 }
                 groupPartake.setType(0);
                 groupPartake = groupPartakeService.add(groupPartake);
