@@ -12,7 +12,7 @@
 		<div class="swiper-container swiper-container-horizontal">
 	        <div class="swiper-wrapper" style="transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(0px, 0px, 0px);">
 	             <c:forEach items="${adGoodHeaderImgs}" var="adGoodHeaderImg">
-		             <div class="swiper-slide swiper-slide-active" style="width: 98%;">
+		             <div class="swiper-slide swiper-slide-active" style="width: 98%;margin-left: 0px;margin-right: 0px;">
 						<a href="javascript:skipToRedirectUrl('${adGoodHeaderImg.url}')"><img src="${adGoodHeaderImg.imgUrl}" style="height:250px;width:100%;"></a>
 		             </div>
 	             </c:forEach>
