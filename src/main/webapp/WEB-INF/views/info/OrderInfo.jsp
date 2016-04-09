@@ -50,7 +50,7 @@
        		</div>
        		<div class="order_info_detail_block">
        			<div class="order_info_detail_header">送至：</div>
-       			<div class="order_info_detail_content">${order.area}</div>
+       			<div class="order_info_detail_content">${order.address}</div>
        		</div>
        		<div class="order_info_detail_block">
        			<div class="order_info_detail_header">收货人：</div>

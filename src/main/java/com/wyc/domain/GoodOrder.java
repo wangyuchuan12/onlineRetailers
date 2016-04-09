@@ -30,6 +30,8 @@ public class GoodOrder {
   //付款方式 0表示组团购买，1表示单买，2表示开团劵购买
     @Column
     private int type;
+    @Column(name="group_id")
+    private String groupId;
     //订单生成时间
     @Column(name = "create_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -42,8 +44,28 @@ public class GoodOrder {
     //1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未处理6退款已处理
     @Column
     private int status;
+    @Column(name="admin_id")
     
     
+    private String adminId;
+    
+    
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(String adminId) {
+        this.adminId = adminId;
+    }
+
     public int getStatus() {
         return status;
     }

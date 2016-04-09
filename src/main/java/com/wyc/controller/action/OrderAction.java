@@ -223,15 +223,10 @@ public class OrderAction {
             orderResponse.put("type", goodOrder.getType());
             orderResponse.put("id", goodOrder.getId());
             orderResponse.put("createTime", mySimpleDateFormat.format(goodOrder.getCreateTime().toDate()));
-            
-            CustomerAddress customerAddress = customerAddressService.findOne(groupPartake.getCustomerAddress());
-            orderResponse.put("address", customerAddress.getContent());
-            orderResponse.put("recipient", customerAddress.getName());
-            logger.debug("recipient:"+customerAddress.getName());
-            orderResponse.put("phonenumber", customerAddress.getPhonenumber());
-            logger.debug("phonenumber:"+customerAddress.getPhonenumber());
-            SystemCity city = cityService.findOne(customerAddress.getCity());
-            orderResponse.put("area", city.getName());
+            orderResponse.put("address", groupPartake.getAddressContent());
+            orderResponse.put("recipient", groupPartake.getPersonName());
+            orderResponse.put("phonenumber", groupPartake.getPhonenumber());
+
             orderResponse.put("goodName", good.getName());
             orderResponse.put("goodPrice",goodOrder.getCost());
             orderResponse.put("code", goodOrder.getCode());

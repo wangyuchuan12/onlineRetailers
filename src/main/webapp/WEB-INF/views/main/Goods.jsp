@@ -13,7 +13,7 @@
 	        <div class="swiper-wrapper" style="transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(0px, 0px, 0px);">
 	             <c:forEach items="${adGoodHeaderImgs}" var="adGoodHeaderImg">
 		             <div class="swiper-slide swiper-slide-active" style="width: 98%;margin-left: 0px;margin-right: 0px;">
-						<a href="javascript:skipToRedirectUrl('${adGoodHeaderImg.url}')"><img src="${adGoodHeaderImg.imgUrl}" style="height:250px;width:100%;"></a>
+						<a href="javascript:skipToRedirectUrl('${adGoodHeaderImg.url}')"><img src="${adGoodHeaderImg.imgUrl}" style="height:250px;width:100%;margin: 0px auto;"></a>
 		             </div>
 	             </c:forEach>
 	            
@@ -29,7 +29,7 @@
     </div>
         <div class="goods">
         	<c:forEach items="${goods}" var="good">
-            <div class="good activityStyle" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
+            <div class="good" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
             
            	 <div class="good_list_groupinfo">
                 	<div class="good_list_groupinfo_discount"><fmt:formatNumber type="number" value="${good.group_discount*10}" maxFractionDigits="2"/>折</div>

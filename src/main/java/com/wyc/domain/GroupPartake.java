@@ -8,6 +8,11 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 @Entity(name = "group_partake")
 public class GroupPartake {
+    public static final int WAIT_STATUS=0;
+    public static final int BEGIN_STATUS=1;
+    public static final int PROGRAM_STATUS=2;
+    public static final int SUCCESS_STATUS=3;
+    public static final int DERELICT_STATUS=4;
     @Id
     private String id;
     @Column(name = "customerid")
@@ -16,6 +21,12 @@ public class GroupPartake {
     private String groupId;
     @Column(name="customer_address")
     private String customerAddress;
+    @Column(name="address_content")
+    private String addressContent;
+    @Column(name="person_name")
+    private String personName;
+    @Column
+    private String phonenumber;
     @Column(name = "order_id")
     private String orderId;
     //付款方式 0表示组团购买，1表示单买，2表示开团劵购买
@@ -23,7 +34,10 @@ public class GroupPartake {
     private int type;
     //1团长 ， 2，沙发 3普通人
     private int role;
-    
+    @Column
+    private  String remarks;
+    @Column
+    private int status=WAIT_STATUS;
     //参加时间
     @Column(name = "date_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -38,6 +52,36 @@ public class GroupPartake {
     
     
     
+    public String getAddressContent() {
+        return addressContent;
+    }
+    public void setAddressContent(String addressContent) {
+        this.addressContent = addressContent;
+    }
+    public String getPersonName() {
+        return personName;
+    }
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+    public int getStatus() {
+        return status;
+    }
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    public String getRemarks() {
+        return remarks;
+    }
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
     public String getCustomerAddress() {
         return customerAddress;
     }

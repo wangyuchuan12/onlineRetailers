@@ -106,6 +106,8 @@ public class PayResultHandler implements Handler{
             goodOrder.setStatus(2);
             goodOrder.setType(0);
             goodOrder.setCreateTime(new DateTime());
+            goodOrder.setAdminId(tempGroupOrder.getAdminId());
+           
             goodOrder = goodOrderService.add(goodOrder);
             
             
@@ -117,10 +119,15 @@ public class PayResultHandler implements Handler{
             goodGroup.setStartTime(new DateTime());
             goodGroup.setTimeLong(tempGroupOrder.getTimeLong());
             goodGroup.setTotalPrice(cost);
+            goodGroup.setAdminId(tempGroupOrder.getAdminId());
             goodGroup = goodGroupService.add(goodGroup);
-            
+            goodOrder.setGroupId(goodGroup.getId());
+            goodOrder = goodOrderService.save(goodOrder);
             GroupPartake groupPartake = new GroupPartake();
-            groupPartake.setCustomerAddress(tempGroupOrder.getCustomerAddress());
+            groupPartake.setCustomerAddress(tempGroupOrder.getAddress()+","+tempGroupOrder.getPersonName()+","+tempGroupOrder.getPhonenumber());
+            groupPartake.setAddressContent(tempGroupOrder.getAddress());
+            groupPartake.setPersonName(tempGroupOrder.getPersonName());
+            groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
             groupPartake.setCustomerid(customer.getId());
             groupPartake.setDateTime(new DateTime());
             groupPartake.setGroupId(goodGroup.getId());
@@ -131,8 +138,11 @@ public class PayResultHandler implements Handler{
             
             GroupPartakeDeliver groupPartakeDeliver = new GroupPartakeDeliver();
             groupPartakeDeliver.setGroupPartakeId(groupPartake.getId());
+            
             groupPartakeDeliverService.add(groupPartakeDeliver);
             GroupPartakePayment groupPartakePayment = new GroupPartakePayment();
+            groupPartakePayment.setCost(tempGroupOrder.getCost());
+            groupPartakePayment.setPayTime(new DateTime());
             groupPartakePayment.setGroupPartakeId(groupPartake.getId());
             groupPartakePayment.setStatus(1);
             groupPartakePaymentService.add(groupPartakePayment);
@@ -178,13 +188,17 @@ public class PayResultHandler implements Handler{
             int groupNum = goodGroup.getNum();
             if(goodGroup!=null){
                 GroupPartake groupPartake = new GroupPartake();
-                groupPartake.setCustomerAddress(tempGroupOrder.getCustomerAddress());
                 groupPartake.setCustomerid(customer.getId());
                 OrderDetail orderDetail = orderDetailService.findByGruopId(goodGroup.getId());
                 groupPartake.setOrderId(orderDetail.getOrderId());
                 groupPartake.setDateTime(new DateTime());
                 groupPartake.setGroupId(goodGroup.getId());
+                groupPartake.setCustomerAddress(tempGroupOrder.getAddress()+","+tempGroupOrder.getPersonName()+","+tempGroupOrder.getPhonenumber());
+                groupPartake.setAddressContent(tempGroupOrder.getAddress());
+                groupPartake.setPersonName(tempGroupOrder.getPersonName());
+                groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
                 goodOrder = goodOrderService.findOne(orderDetail.getOrderId());
+                
                 if(partNum==1){
                     groupPartake.setRole(2);
                 }else{
@@ -193,6 +207,12 @@ public class PayResultHandler implements Handler{
                 if(partNum+1==groupNum){
                    goodGroup.setResult(2);
                    goodGroupService.save(goodGroup);
+                   Iterable<GroupPartake> groupPartakes = groupPartakeService.findAllByGroupIdOrderByRoleAsc(groupId);
+                   for(GroupPartake groupPartake2:groupPartakes){
+                       groupPartake2.setStatus(GroupPartake.BEGIN_STATUS);
+                       groupPartakeService.save(groupPartake2);
+                   }
+                   groupPartake.setStatus(GroupPartake.BEGIN_STATUS);
                 }
                 groupPartake.setType(0);
                 groupPartake = groupPartakeService.add(groupPartake);
@@ -202,6 +222,8 @@ public class PayResultHandler implements Handler{
                 groupPartakeDeliver.setGroupPartakeId(groupPartake.getId());
                 groupPartakeDeliverService.add(groupPartakeDeliver);
                 GroupPartakePayment groupPartakePayment = new GroupPartakePayment();
+                groupPartakePayment.setCost(tempGroupOrder.getCost());
+                groupPartakePayment.setPayTime(new DateTime());
                 groupPartakePayment.setGroupPartakeId(groupPartake.getId());
                 groupPartakePayment.setStatus(1);
                 groupPartakePaymentService.add(groupPartakePayment);
@@ -229,6 +251,7 @@ public class PayResultHandler implements Handler{
             goodOrder.setCost(tempGroupOrder.getCost());
             goodOrder.setCreateTime(new DateTime());
             goodOrder.setFlowPrice(tempGroupOrder.getFlowPrice());
+            goodOrder.setAdminId(tempGroupOrder.getAdminId());
             goodOrder.setGoodId(tempGroupOrder.getGoodId());
             goodOrder.setGoodPrice(tempGroupOrder.getGoodPrice());
             goodOrder.setStatus(2);
@@ -244,11 +267,15 @@ public class PayResultHandler implements Handler{
             orderDetail = orderDetailService.add(orderDetail);
             
             GroupPartake groupPartake = new GroupPartake();
-            groupPartake.setCustomerAddress(tempGroupOrder.getCustomerAddress());
             groupPartake.setCustomerid(customer.getId());
             groupPartake.setDateTime(new DateTime());
             groupPartake.setOrderId(goodOrder.getId());
             groupPartake.setType(1);
+            groupPartake.setStatus(GroupPartake.BEGIN_STATUS);
+            groupPartake.setCustomerAddress(tempGroupOrder.getAddress()+","+tempGroupOrder.getPersonName()+","+tempGroupOrder.getPhonenumber());
+            groupPartake.setAddressContent(tempGroupOrder.getAddress());
+            groupPartake.setPersonName(tempGroupOrder.getPersonName());
+            groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
             groupPartakeService.add(groupPartake);
             
             
@@ -256,14 +283,17 @@ public class PayResultHandler implements Handler{
             groupPartakeDeliver.setGroupPartakeId(groupPartake.getId());
             groupPartakeDeliverService.add(groupPartakeDeliver);
             GroupPartakePayment groupPartakePayment = new GroupPartakePayment();
+            groupPartakePayment.setCost(tempGroupOrder.getCost());
+            groupPartakePayment.setPayTime(new DateTime());
             groupPartakePayment.setGroupPartakeId(groupPartake.getId());
             groupPartakePayment.setStatus(1);
             groupPartakePaymentService.add(groupPartakePayment);
             
-            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(tempGroupOrder.getOpenid(), "lastOrder",1);
+            TemporaryData temporaryData = temporaryDataService.findByMyKeyAndName(tempGroupOrder.getOpenid(), "lastOrder");
             if(temporaryData!=null){
                 temporaryData.setMykey(tempGroupOrder.getOpenid());
                 temporaryData.setName("lastOrder");
+                temporaryData.setValue(goodOrder.getId());
                 temporaryData.setStatus(1);
                 temporaryDataService.save(temporaryData);
             }else{

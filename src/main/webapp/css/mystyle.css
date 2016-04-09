@@ -258,12 +258,12 @@
 .group_goodinfo_footer{
 	font-size: 30px;
 	float: right;
-	color:red;
+	color:black;
 	font-weight: bold;
 	margin: 0 auto;
 	position: absolute;
 	right: 10px;
-	top:5px; 
+	top:7px; 
 	
 }
 
