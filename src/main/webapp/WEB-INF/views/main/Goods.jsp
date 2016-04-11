@@ -12,7 +12,7 @@
 		<div class="swiper-container swiper-container-horizontal">
 	        <div class="swiper-wrapper" style="transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(0px, 0px, 0px);">
 	             <c:forEach items="${adGoodHeaderImgs}" var="adGoodHeaderImg">
-		             <div class="swiper-slide swiper-slide-active" style="width: 99%;">
+		             <div class="swiper-slide swiper-slide-active" style="width: 98%;margin-left: 0px;margin-right: 0px;">
 						<a href="javascript:skipToRedirectUrl('${adGoodHeaderImg.url}')"><img src="${adGoodHeaderImg.imgUrl}" style="height:250px;width:100%;margin: 0px auto;"></a>
 		             </div>
 	             </c:forEach>
@@ -119,7 +119,7 @@
 				var swiper = new Swiper('.swiper-container', {
 	        pagination: '.swiper-pagination',
 	        paginationClickable: true,
-	        spaceBetween: 30,
+	        spaceBetween:1,
 	        centeredSlides: true,
 	        autoplay: 2500,
 	        autoplayDisableOnInteraction: false
