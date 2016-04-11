@@ -60,8 +60,8 @@
                     <div class="tuan_g_btn"  onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
                         	去开团
                     </div>
-                    <div class="good_chat" onclick="javascript:skipToChat('${good.adminId}','0','${good.id}','','${token.id}')">
-                		<img src="/img/chat2.png"/>
+                    <div class="good_chat" onclick="javascript:skipToChat('${good.adminId}','1','${good.id}','','${token.id}')">
+                		<img src="/img/chat3.png"/>
                	</div>
                 </div>
                 <div style="position: relative;padding-left:10px;top:-50px;">
@@ -125,10 +125,6 @@
 	        autoplay: 2500,
 	        autoplayDisableOnInteraction: false
 	    });
-				
-		$(".good_chat").on("click",function(){
-			skipToChat();
-		});
 	}
     </script>
 </tiles:putAttribute>
