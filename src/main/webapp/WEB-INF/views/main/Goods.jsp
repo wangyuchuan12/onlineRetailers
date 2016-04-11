@@ -50,24 +50,25 @@
                    
                 </div>
                 
-                <div class="tuan_g_core" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
+                <div class="tuan_g_core">
                     <div class="tuan_g_price">
                     	${good.group_num}人团
                         <b>
                         		￥<fmt:formatNumber type="number" value="${good.group_original_cost*good.group_discount}" maxFractionDigits="3"/>
                         </b>
                     </div>
-                    <div class="tuan_g_btn">
+                    <div class="tuan_g_btn"  onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
                         	去开团
                     </div>
+                    <div class="good_chat" onclick="javascript:skipToChat('${good.adminId}','0','${good.id}','','${token.id}')">
+                		<img src="/img/chat2.png"/>
+               	</div>
                 </div>
                 <div style="position: relative;padding-left:10px;top:-50px;">
 	                <div class="good_name">${good.name}</div>
 	                <div class="good_market_price">市场价：￥${good.market_price}</div>
                 </div>
-                <div class="good_chat" onclick="javascript:skipToChat('${good.adminId}','0','${good.id}','','${token.id}')">
-                	<img src="/img/chat.png"/>
-                </div>
+                
             </div>
             </c:forEach>
         </div>
