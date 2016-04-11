@@ -309,6 +309,16 @@ function skipToUrl(url,token,params){
 	
 }
 
+function skipToChat(adminId,type,goodId,orderId,token){
+	var params = new Object();
+	params.admin_id = adminId;
+	params.type = type;
+	params.goodId = goodId;
+	params.orderId = orderId;
+	
+	skipToUrl("/info/chat_view",token,params)
+}
+
 function request(url,token,callback){
 	if(!token&&window.sessionStorage.getItem("userToken")){
 		token = window.sessionStorage.getItem("userToken");

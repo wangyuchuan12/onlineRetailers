@@ -1484,3 +1484,13 @@
 	color:red;
 	height:50px;
 }
+
+.good_chat{
+	width:30px;
+	height:30px;
+	position:relative;
+	left:10px;
+	top:-20px;
+	float:right;
+	left:-20px;
+}

@@ -29,20 +29,20 @@
     </div>
         <div class="goods">
         	<c:forEach items="${goods}" var="good">
-            <div class="good" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
+            <div class="good" >
             
-           	 <div class="good_list_groupinfo">
+           	 <div class="good_list_groupinfo" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
                 	<div class="good_list_groupinfo_discount"><fmt:formatNumber type="number" value="${good.group_discount*10}" maxFractionDigits="2"/>折</div>
                 	<div class="good_list_groupinfo_groupnum">${good.group_num}人团</div>
                 </div>
-                <div class="good-img">
+                <div class="good-img" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
 
                         <img src="${good.head_img}" />
                         
       
                 </div>
                 
-                <div class="good-title">
+                <div class="good-title" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
                           ${good.title}
                     <c:if test="${good.notice!=null}">
                     	<br/><b style="color:black;">${good.notice}</b>
@@ -50,7 +50,7 @@
                    
                 </div>
                 
-                <div class="tuan_g_core">
+                <div class="tuan_g_core" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
                     <div class="tuan_g_price">
                     	${good.group_num}人团
                         <b>
@@ -64,6 +64,9 @@
                 <div style="position: relative;padding-left:10px;top:-50px;">
 	                <div class="good_name">${good.name}</div>
 	                <div class="good_market_price">市场价：￥${good.market_price}</div>
+                </div>
+                <div class="good_chat" onclick="javascript:skipToChat('${good.adminId}','0','${good.id}','','${token.id}')">
+                	<img src="/img/chat.png"/>
                 </div>
             </div>
             </c:forEach>
@@ -121,6 +124,10 @@
 	        autoplay: 2500,
 	        autoplayDisableOnInteraction: false
 	    });
+				
+		$(".good_chat").on("click",function(){
+			skipToChat();
+		});
 	}
     </script>
 </tiles:putAttribute>

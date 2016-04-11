@@ -29,6 +29,8 @@
 										<c:if test="${group.result==0}">组团失败</c:if>
 										<c:if test="${group.result==1}">正在组团</c:if>
 										<c:if test="${group.result==2}">组团成功</c:if>
+										<c:if test="${group.result==3}">组团超时</c:if>
+										<c:if test="${group.result==4}">组团失败</c:if>
 									</span>
 									
 									<div class="group_details activityStyle" onclick="javascript:skipToGroupInfo('${group.group_id}');">查看团详情</div>

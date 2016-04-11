@@ -20,6 +20,14 @@ public class SystemPayActivity {
     @Column(name="pay_type")
     @Index(name="pay_type")
     private int payType;
+    @Column(name="admin_id")
+    private String adminId;
+    public String getAdminId() {
+        return adminId;
+    }
+    public void setAdminId(String adminId) {
+        this.adminId = adminId;
+    }
     public String getId() {
         return id;
     }

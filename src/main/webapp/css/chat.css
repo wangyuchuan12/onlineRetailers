@@ -1,0 +1,159 @@
+.chat_footer{
+	width:100%;
+	max-width:640px;
+	height:50px;
+	position:fixed;
+	bottom:10px;
+	display:block;
+	color:red;
+	border:1px;
+	left:50%;
+	-webkit-transform:translate3d(-50%,0,0);
+	transform:translate3d(-50%,0,0);
+	overflow:hidden;
+	border-top:#eceded;-webkit-box-shadow:0 0 4px rgba(0,0,0,.2);box-shadow:0 0 4px rgba(0,0,0,.2);z-index:9999;
+}
+
+.chat_content{
+	height:500px;
+	overflow:auto;
+	margin-bottom: 50px;
+	display: block;
+}
+
+.chat_input{
+	display: inline-block;
+	width:100%;
+	text-align: center;
+	
+}
+
+.chat_input_text{
+	display: block;
+	float:left;
+	width:70%;
+	
+	height:90%;
+	font-size: 20px;
+	position:relative;
+	margin:0 auto;
+	left:10px;
+}
+
+.chat_input_btn{
+	display: block;
+	float:left;
+	padding-left:10px;
+	height:90%;
+	width:27%;
+	text-align:center;
+	font-size:17px;
+	font-weight: bold;
+	padding-top:10px;
+	background-color:red;
+	color:white;
+	border-radius:5px;
+	margin:0 auto;
+}
+
+.chat_businessHead{
+	text-align:center;
+	background-color:white;
+	height:30px;
+	font-size: large;
+	font-weight: bold;
+}
+
+
+
+.chat_content_time{
+	background-color:RGBA(0,0,0,.1);
+	width:100px;
+	text-align:center;
+	display:block;
+	margin:0 auto;
+}
+
+.chat_content_request_dialog {
+	min-height:130px;
+	display:block;
+	position:relative;
+	top:10px;
+	max-height:600px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	
+}
+.chat_content_response_dialog {
+	min-height:130px;
+	display:block;
+	position:relative;
+	top:10px;
+	max-height:600px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.chat_content_session{
+	position:relative;
+	top:20px;
+}
+.chat_content_request_dialog .chat_content_session .chat_content_text{
+	background-color:RGB(160,231,90);
+	min-height:50px;
+	min-width:70px;
+	max-width:500px;
+	text-align:center;
+	padding-top:15px;
+	color:black;
+	font-size:15px;
+	float:right;
+	position: absolute;
+	word-wrap:break-word;
+	right:70px;
+	font-weight:bold;
+	border-radius:7px;
+	
+}
+
+.chat_content_request_dialog .chat_content_session img{
+	width:50px;
+	height:50px;
+	float:right;
+	position: absolute;
+	right:10px;
+}
+
+
+.chat_content_response_dialog{
+	text-align: center;
+	min-height:100px;
+	padding-top:15px;
+}
+
+
+.chat_content_response_dialog .chat_content_session .chat_content_text{
+	background-color:white;
+	min-height:50px;
+	word-wrap:break-word;
+	min-width:70px;
+	max-width:500px;
+	text-align:center;
+	color:black;
+	padding-top:15px;
+	font-size:15px;
+	float:left;
+	position: absolute;
+	left:80px;
+	font-weight:bold;
+	border-radius:7px;
+	
+}
+
+.chat_content_response_dialog .chat_content_session img{
+	width:50px;
+	height:50px;
+	float:left;
+	position: absolute;
+	left:20px;
+}
