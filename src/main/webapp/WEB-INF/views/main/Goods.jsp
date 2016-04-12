@@ -61,7 +61,7 @@
                         	去开团
                     </div>
                     <div class="good_chat" onclick="javascript:skipToChat('${good.adminId}','1','${good.id}','','${token.id}')">
-                		<img src="/img/chat3.png"/>
+                		<img src="/img/chat.png"/>
                	</div>
                 </div>
                 <div style="position: relative;padding-left:10px;top:-50px;">
