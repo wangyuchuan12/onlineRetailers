@@ -1,5 +1,8 @@
 package com.wyc.controller.api;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.joda.time.DateTime;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wyc.annotation.UserInfoFromWebAnnotation;
+import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.Customer;
 import com.wyc.domain.DialogSession;
 import com.wyc.domain.DialogSessionItem;
@@ -26,6 +30,8 @@ public class ChatApi {
     private DialogSessionItemService dialogSessionItemService;
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private MySimpleDateFormat mySimpleDateFormat;
     @RequestMapping("/api/chat/send_message")
     @UserInfoFromWebAnnotation
     public Object sendMessage(HttpServletRequest httpServletRequest){
@@ -56,6 +62,11 @@ public class ChatApi {
         dialogSessionItem.setRole(DialogSessionItem.CUSTOMER_ROLE);
         dialogSessionItem.setType(type);
         dialogSessionItem = dialogSessionItemService.add(dialogSessionItem);
-        return dialogSessionItem;
+        Map<String, String> responseObj = new HashMap<String, String>();
+        responseObj.put("content", content);
+        responseObj.put("headImg", headImg);
+        
+        responseObj.put("dateTime", mySimpleDateFormat.format(dialogSessionItem.getDateTime().toDate()));
+        return responseObj;
     }
 }
