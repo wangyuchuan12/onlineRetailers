@@ -67,6 +67,7 @@ public class ChatApi {
         responseObj.put("headImg", headImg);
         
         responseObj.put("dateTime", mySimpleDateFormat.format(dialogSessionItem.getDateTime().toDate()));
+        responseObj.put("role", dialogSessionItem.getRole()+"");
         return responseObj;
     }
 }
