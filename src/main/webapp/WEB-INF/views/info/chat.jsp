@@ -26,6 +26,7 @@
 	    <div class="container" >
 	    		<div class="chat_businessHead">商家名称</div>
 	    		<div class="chat_content">
+	    			
 	    			<c:forEach items="${dialogSessionItems}" var="dialogSessionItem">
 	    				<c:if test="${dialogSessionItem.role==0}">
 	    					<div class="chat_content_request_dialog">
