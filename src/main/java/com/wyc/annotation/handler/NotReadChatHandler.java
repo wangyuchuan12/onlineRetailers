@@ -40,7 +40,7 @@ public class NotReadChatHandler implements Handler{
         Map<Object, Object> responseData = new HashMap<Object, Object>();
         List<Object> notReadItems = new ArrayList<Object>();
         for(DialogSession dialogSession:dialogSessions){
-            Iterable<DialogSessionItem> dialogSessionItems = dialogSessionItemService.findAllByDialogSessionIdOrderByDateTimeAsc(dialogSession.getId());
+            Iterable<DialogSessionItem> dialogSessionItems = dialogSessionItemService.findAllByDialogSessionIdAndRoleOrderByDateTimeAsc(dialogSession.getId(),DialogSessionItem.CUSTOMER_ROLE);
             
             for(DialogSessionItem dialogSessionItem:dialogSessionItems){
                 DialogSessionItemRead dialogSessionItemRead = dialogSessionItemReadService.findByCustomerIdAndRoleAndItemId(customer.getId(), DialogSessionItem.CUSTOMER_ROLE, dialogSessionItem.getId());
