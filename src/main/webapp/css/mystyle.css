@@ -1520,9 +1520,13 @@
 	font-weight:blod;
 	background-color:red;
 	border-radius:10px;
-	top:-10px;
+	top:-30px;
 	position:relative;
-	left:-15px;
+	left:17px;
+	width:15px;
+	height:15px;
+	display:block;
+	text-align:center;
 	
 }
 
