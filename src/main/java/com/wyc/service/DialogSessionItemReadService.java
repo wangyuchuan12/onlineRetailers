@@ -1,5 +1,7 @@
 package com.wyc.service;
 
+import java.util.UUID;
+
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,7 @@ public class DialogSessionItemReadService {
     }
 
     public DialogSessionItemRead add(DialogSessionItemRead dialogSessionItemRead) {
+        dialogSessionItemRead.setId(UUID.randomUUID().toString());
         dialogSessionItemRead.setUpdateAt(new DateTime());
         dialogSessionItemRead.setCreateAt(new DateTime());
         return dialogSessionItemReadRepository.save(dialogSessionItemRead);
