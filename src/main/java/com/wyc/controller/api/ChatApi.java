@@ -86,7 +86,7 @@ public class ChatApi {
         dialogSessionItem.setGoodId(goodId);
         dialogSessionItem.setHeadImg(headImg);
         dialogSessionItem.setOrderId(orderId);
-        dialogSessionItem.setRole(DialogSessionItem.CUSTOMER_ROLE);
+        dialogSessionItem.setRole(DialogSessionItem.ADMIN_ROLE);
         dialogSessionItem.setType(type);
         dialogSessionItem = dialogSessionItemService.add(dialogSessionItem);
         DialogSessionItemRead dialogSessionItemRead = new DialogSessionItemRead();
@@ -94,7 +94,7 @@ public class ChatApi {
         dialogSessionItemRead.setCustomerId(customer.getId());
         dialogSessionItemRead.setDateTime(new DateTime());
         dialogSessionItemRead.setItemId(dialogSessionItem.getId());
-        dialogSessionItemRead.setRole(DialogSessionItem.CUSTOMER_ROLE);
+        dialogSessionItemRead.setRole(DialogSessionItem.ADMIN_ROLE);
         dialogSessionItemReadService.add(dialogSessionItemRead);
         Map<String, String> responseObj = new HashMap<String, String>();
         responseObj.put("content", content);
