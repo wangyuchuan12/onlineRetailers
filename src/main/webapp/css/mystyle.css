@@ -1547,6 +1547,7 @@
 	width:100px;
 	display:inline-block;
 	position:relative;
+	left:10px;
 }
 
 .chat_img img{
@@ -1566,17 +1567,19 @@
 	font-size:20px;
 	position:relative;
 	color:black;
+	left:10px;
 }
 
 .chat_list_limit_content{
 	position:relative;
+	left:10px;
 }
 
 .chat_num{
 	display:inline-block;
 	position:relative;
 	top:-85px;
-	left:-20px;
+	left:-10px;
 	background-color:red;
 	width:15px;
 	height:15px;

@@ -13,7 +13,7 @@
 			<div class="chat_list">
 				<ul>
 					<c:forEach items="${notReadDatas}" var="notReadData">
-						<li>
+						<li onclick="javascript:skipToChat('${notReadData.business.adminId}','0','','','${token.id}')">
 							<div class="chat_img"> <img src="${notReadData.business.imgUrl}"></div>
 							<c:if test="${notReadData.notReadCount>0}">
 								<div class="chat_num">${notReadData.notReadCount}</div>

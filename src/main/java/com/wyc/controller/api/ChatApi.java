@@ -1,5 +1,6 @@
 package com.wyc.controller.api;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wyc.annotation.UserInfoFromWebAnnotation;
-import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.Customer;
 import com.wyc.domain.DialogSession;
 import com.wyc.domain.DialogSessionItem;
@@ -34,7 +34,7 @@ public class ChatApi {
     @Autowired
     private CustomerService customerService;
     @Autowired
-    private MySimpleDateFormat mySimpleDateFormat;
+    private SimpleDateFormat mySimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     @Autowired
     private DialogSessionItemReadService dialogSessionItemReadService;
     

@@ -76,13 +76,24 @@
 
 
 
-.chat_content_time{
+.chat_content_request_dialog .chat_content_time{
 	background-color:RGBA(0,0,0,.1);
 	width:100px;
 	text-align:center;
 	display:block;
 	margin:0 auto;
 }
+
+.chat_content_response_dialog .chat_content_time{
+	background-color:RGBA(0,0,0,.1);
+	width:100px;
+	top:-15px;
+	position:relative;
+	text-align:center;
+	display:block;
+	margin:0 auto;
+}
+
 
 .chat_content_request_dialog {
 	min-height:130px;
@@ -102,12 +113,21 @@
 	max-height:600px;
 	margin-top: 15px;
 	margin-bottom: 15px;
+
 }
 
-.chat_content_session{
+.chat_content_request_dialog .chat_content_session{
 	position:relative;
 	top:20px;
+	height:100px;
 }
+
+.chat_content_response_dialog .chat_content_session{
+	position:relative;
+	top:10px;
+	height:100px;
+}
+
 .chat_content_request_dialog .chat_content_session .chat_content_text{
 	background-color:RGB(160,231,90);
 	min-height:50px;
