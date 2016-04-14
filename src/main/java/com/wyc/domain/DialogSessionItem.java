@@ -23,6 +23,7 @@ public class DialogSessionItem {
     private String id;
     @Column(name = "date_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @JsonIgnore
     private DateTime dateTime;
     @Column(name="role")
     private int role;
