@@ -1538,10 +1538,16 @@
 }
 
 .chat_img{
-	height:100%;
+	height:90%;
+	top:5px;
 	width:100px;
 	display:inline-block;
 	position:relative;
+}
+
+.chat_img img{
+	width:100%;
+	height:100%;
 }
 
 .chat_list_limit{
@@ -1565,7 +1571,7 @@
 .chat_num{
 	display:inline-block;
 	position:relative;
-	top:-90px;
+	top:-85px;
 	left:-20px;
 	background-color:red;
 	width:15px;

@@ -14,13 +14,13 @@
 				<ul>
 					<c:forEach items="${notReadDatas}" var="notReadData">
 						<li>
-							<div class="chat_img"> <img src="http://wx.qlogo.cn/mmopen/xPXrGtX7mxzz6NLDbwDETgAp79xQLWnHV10FBSeqefOyjqjXJHXWxYQ5vtMO6J6qqdOTXW1ZAJiad79rtXLf6s1LxoEfA6N6b/0"></div>
+							<div class="chat_img"> <img src="${notReadData.business.imgUrl}"></div>
 							<c:if test="${notReadData.notReadCount>0}">
 								<div class="chat_num">${notReadData.notReadCount}</div>
 							</c:if>
 							<div class="chat_list_limit">
 								<ul>
-									<li class="chat_list_limit_name"><b>美丽家纺</b>
+									<li class="chat_list_limit_name"><b>${notReadData.business.name}</b>
 									<li class="chat_list_limit_content">${notReadData.lastItem.content}
 									
 							    </ul>
