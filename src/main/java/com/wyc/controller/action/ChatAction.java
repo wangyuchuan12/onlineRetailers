@@ -61,7 +61,8 @@ public class ChatAction {
                     dialogSessionItemRead.setCustomerId(customer.getId());
                     dialogSessionItemRead.setRole(DialogSessionItem.CUSTOMER_ROLE);
                     dialogSessionItemRead.setCount(1);
-                    dialogSessionItemRead.setItemId(dialogSessionItemRead.getId());
+                    
+                    dialogSessionItemRead.setItemId(dialogSessionItem.getId());
                     dialogSessionItemReadService.add(dialogSessionItemRead);
                 }
             }
