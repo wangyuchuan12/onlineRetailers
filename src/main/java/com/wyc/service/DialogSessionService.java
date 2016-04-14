@@ -25,5 +25,9 @@ public class DialogSessionService {
     public Iterable<DialogSession> findAllByCustomerId(String customerId) {
         return dialogSessionRepository.findAllByCustomerId(customerId);
     }
+    public Iterable<DialogSession> findAllByCustomerIdOrderByUpdateAtDesc(
+            String customerId) {
+        return dialogSessionRepository.findAllByCustomerIdOrderByUpdateAtDesc(customerId);
+    }
 
 }

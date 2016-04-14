@@ -12,29 +12,21 @@
 			
 			<div class="chat_list">
 				<ul>
-				
-					<li>
-						<div class="chat_img"> <img src="http://wx.qlogo.cn/mmopen/xPXrGtX7mxzz6NLDbwDETgAp79xQLWnHV10FBSeqefOyjqjXJHXWxYQ5vtMO6J6qqdOTXW1ZAJiad79rtXLf6s1LxoEfA6N6b/0"></div>
-						<div class="chat_num">1</div>
-						<div class="chat_list_limit">
-							<ul>
-								<li class="chat_list_limit_name"><b>美丽家纺</b>
-								<li class="chat_list_limit_content">这是一家相对来说比较成熟的企业，我们有300多员工
-								
-						    </ul>
-						</div>
-					</li>
-					<li>
-						<div class="chat_img"> <img src="http://wx.qlogo.cn/mmopen/xPXrGtX7mxzz6NLDbwDETgAp79xQLWnHV10FBSeqefOyjqjXJHXWxYQ5vtMO6J6qqdOTXW1ZAJiad79rtXLf6s1LxoEfA6N6b/0"></div>
-						<div class="chat_num">1</div>
-						<div class="chat_list_limit">
-							<ul>
-								<li class="chat_list_limit_name"><b>美丽家纺</b>
-								<li class="chat_list_limit_content">这是一家相对来说比较成熟的企业，我们有300多员工
-								
-						    </ul>
-						</div>
-					</li>
+					<c:forEach items="${notReadDatas}" var="notReadData">
+						<li>
+							<div class="chat_img"> <img src="http://wx.qlogo.cn/mmopen/xPXrGtX7mxzz6NLDbwDETgAp79xQLWnHV10FBSeqefOyjqjXJHXWxYQ5vtMO6J6qqdOTXW1ZAJiad79rtXLf6s1LxoEfA6N6b/0"></div>
+							<c:if test="${notReadData.notReadCount>0}">
+								<div class="chat_num">${notReadData.notReadCount}</div>
+							</c:if>
+							<div class="chat_list_limit">
+								<ul>
+									<li class="chat_list_limit_name"><b>美丽家纺</b>
+									<li class="chat_list_limit_content">${notReadData.lastItem.content}
+									
+							    </ul>
+							</div>
+						</li>
+					</c:forEach>
 					
 				</ul>
 			</div>

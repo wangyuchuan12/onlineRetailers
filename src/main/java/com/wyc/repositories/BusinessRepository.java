@@ -6,4 +6,6 @@ import com.wyc.domain.Business;
 
 public interface BusinessRepository extends CrudRepository<Business, String>{
 
+    Business findByAdminId(String adminId);
+
 }

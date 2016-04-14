@@ -2,6 +2,8 @@ package com.wyc.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.Type;
@@ -38,6 +40,9 @@ public class DialogSessionItem {
     private String dialogSessionId;
     @Column(name="head_img")
     private String headImg;
+    @Column(name="record_index")
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int recordIndex;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -48,6 +53,13 @@ public class DialogSessionItem {
     private DateTime updateAt;
     
     
+    
+    public int getRecordIndex() {
+        return recordIndex;
+    }
+    public void setRecordIndex(int recordIndex) {
+        this.recordIndex = recordIndex;
+    }
     public String getHeadImg() {
         return headImg;
     }

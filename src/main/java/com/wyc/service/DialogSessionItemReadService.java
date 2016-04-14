@@ -32,4 +32,10 @@ public class DialogSessionItemReadService {
         return dialogSessionItemReadRepository.save(dialogSessionItemRead);
         
     }
+
+    public int countByCustomerIdAndAdminIdAndRoleAndCountGreaterThan(String customerId,
+            String adminId, int role, int count) {
+        return dialogSessionItemReadRepository.countByCustomerIdAndAdminIdAndRoleAndCountGreaterThan(customerId,
+                adminId, role, count);
+    }
 }
