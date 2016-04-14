@@ -38,15 +38,7 @@
         			</li>
         			
         			
-        			<li>
-        				<div class="personal_center_item activityStyle"  onclick="skipToHelp();">
-        					<div class="personal_center_item_icon" style="background-color:green;padding-top:3px;padding-left:5px;">
-        						<i class="fa fa-question-circle"></i>
-        					</div>
-        					<div class="personal_center_item_content">帮助</div>
-        					<div class="personal_center_item_footer">&gt</div>
-        				</div>
-        			</li>
+        			
         			
         			
         			<li>
@@ -62,10 +54,20 @@
         			
         			<li>
         				<div class="personal_center_item activityStyle"  onclick="skipToChatList();">
-        					<div class="personal_center_item_icon" style="background-color:orange;padding-top:3px;padding-left:5px;">
+        					<div class="personal_center_item_icon" style="background-color:black;padding-top:3px;padding-left:5px;">
         						<i class="fa fa-comments-o"></i>
         					</div>
         					<div class="personal_center_item_content">我的消息</div>
+        					<div class="personal_center_item_footer">&gt</div>
+        				</div>
+        			</li>
+        			
+        			<li>
+        				<div class="personal_center_item activityStyle"  onclick="skipToHelp();">
+        					<div class="personal_center_item_icon" style="background-color:green;padding-top:3px;padding-left:5px;">
+        						<i class="fa fa-question-circle"></i>
+        					</div>
+        					<div class="personal_center_item_content">帮助</div>
         					<div class="personal_center_item_footer">&gt</div>
         				</div>
         			</li>
