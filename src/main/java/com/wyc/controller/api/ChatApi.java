@@ -51,6 +51,14 @@ public class ChatApi {
         for(DialogSessionItem dialogSessionItem:dialogSessionItems){
             DialogSessionItemRead dialogSessionItemRead = dialogSessionItemReadService.findByCustomerIdAndRoleAndItemId(customer.getId(), DialogSessionItem.CUSTOMER_ROLE, dialogSessionItem.getId());
             if(dialogSessionItemRead==null||dialogSessionItemRead.getCount()==0){
+            	dialogSessionItemRead = new DialogSessionItemRead();
+            	dialogSessionItemRead.setAdminId(adminId);
+            	dialogSessionItemRead.setCount(1);
+            	dialogSessionItemRead.setDateTime(new DateTime());
+            	dialogSessionItemRead.setCustomerId(customer.getId());
+            	dialogSessionItemRead.setItemId(dialogSessionItem.getId());
+            	dialogSessionItemRead.setRole(DialogSessionItem.CUSTOMER_ROLE);
+            	dialogSessionItemReadService.add(dialogSessionItemRead);
             	notReads.add(dialogSessionItem);
             }
         }
