@@ -33,7 +33,6 @@ public class ChatApi {
     private DialogSessionItemService dialogSessionItemService;
     @Autowired
     private CustomerService customerService;
-    @Autowired
     private SimpleDateFormat mySimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     @Autowired
     private DialogSessionItemReadService dialogSessionItemReadService;
