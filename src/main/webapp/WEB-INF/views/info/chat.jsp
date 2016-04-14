@@ -28,7 +28,7 @@
 	    		<div class="chat_content">
 	    			
 	    			<c:forEach items="${dialogSessionItems}" var="dialogSessionItem">
-	    				<c:if test="${dialogSessionItem.role==0}">
+	    				<c:if test="${dialogSessionItem.role==1}">
 	    					<div class="chat_content_request_dialog">
 			    				<div class="chat_content_time"><joda:format value="${dialogSessionItem.dateTime}" pattern="yyyy-MM-dd HH:mm"/></div>
 			    				<div class="chat_content_session">
@@ -41,7 +41,7 @@
 	    				</c:if>
 	    				
 	    				
-	    				<c:if test="${dialogSessionItem.role==1}">
+	    				<c:if test="${dialogSessionItem.role==0}">
 	    					<div class="chat_content_response_dialog">
 	    						<div class="chat_content_time"><joda:format value="${dialogSessionItem.dateTime}" pattern="yyyy-MM-dd HH:mm"/></div>
 			    				<div class="chat_content_session">
@@ -83,7 +83,7 @@
 			htmlobj=$.ajax({url:"/api/chat/send_message?token=${token.id}&good_id="+goodId+"&type="+type+"&order_id="+orderId+"&content="+content+"&admin_id="+adminId+"&role=0",async:false});
 			htmlobj = eval("("+htmlobj.responseText+")");
 			var dialogDiv = $("<div></div>");
-			if(htmlobj.role==0){
+			if(htmlobj.role==1){
 				dialogDiv.addClass("chat_content_request_dialog");
 			}else{
 				dialogDiv.addClass("chat_content_response_dialog");
