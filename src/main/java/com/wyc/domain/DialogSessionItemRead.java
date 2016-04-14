@@ -20,6 +20,7 @@ public class DialogSessionItemRead {
     @Column
     private int role;
     @Column(name="date_time")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime dateTime;
     @Column(name="customer_id")
     private String customerId;
