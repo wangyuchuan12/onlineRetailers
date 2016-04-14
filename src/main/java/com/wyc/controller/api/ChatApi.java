@@ -1,6 +1,8 @@
 package com.wyc.controller.api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +17,12 @@ import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.Customer;
 import com.wyc.domain.DialogSession;
 import com.wyc.domain.DialogSessionItem;
+import com.wyc.domain.DialogSessionItemRead;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.CustomerService;
+import com.wyc.service.DialogSessionItemReadService;
 import com.wyc.service.DialogSessionItemService;
 import com.wyc.service.DialogSessionService;
-import com.wyc.service.MyResourceService;
 import com.wyc.wx.domain.UserInfo;
 
 @RestController
@@ -32,6 +35,31 @@ public class ChatApi {
     private CustomerService customerService;
     @Autowired
     private MySimpleDateFormat mySimpleDateFormat;
+    @Autowired
+    private DialogSessionItemReadService dialogSessionItemReadService;
+    
+    @RequestMapping("/api/chat/select_not_read")
+    @UserInfoFromWebAnnotation
+    public Object selectNotRead(HttpServletRequest httpServletRequest){
+        MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
+        UserInfo userInfo = myHttpServletRequest.getUserInfo();
+        String adminId = httpServletRequest.getParameter("admin_id");
+        Customer customer = customerService.findByOpenId(userInfo.getOpenid());
+        DialogSession dialogSession = dialogSessionService.findByCustomerIdAndAdminId(customer.getId(), adminId);
+        Iterable<DialogSessionItem> dialogSessionItems = dialogSessionItemService.findAllByDialogSessionIdOrderByDateTimeAsc(dialogSession.getId());
+        Map<Object, Object> responseData = new HashMap<Object, Object>();
+        List<Object> notReadIds = new ArrayList<Object>();
+        for(DialogSessionItem dialogSessionItem:dialogSessionItems){
+            DialogSessionItemRead dialogSessionItemRead = dialogSessionItemReadService.findByCustomerIdAndRoleAndItemId(customer.getId(), DialogSessionItem.CUSTOMER_ROLE, dialogSessionItem.getId());
+            if(dialogSessionItemRead==null||dialogSessionItemRead.getCount()==0){
+                notReadIds.add(dialogSessionItem.getId());
+            }
+        }
+        responseData.put("notReadItemIds", notReadIds);
+        responseData.put("notReadCount", notReadIds.size());
+        return responseData;
+    }
+    
     @RequestMapping("/api/chat/send_message")
     @UserInfoFromWebAnnotation
     public Object sendMessage(HttpServletRequest httpServletRequest){
@@ -62,6 +90,13 @@ public class ChatApi {
         dialogSessionItem.setRole(DialogSessionItem.CUSTOMER_ROLE);
         dialogSessionItem.setType(type);
         dialogSessionItem = dialogSessionItemService.add(dialogSessionItem);
+        DialogSessionItemRead dialogSessionItemRead = new DialogSessionItemRead();
+        dialogSessionItemRead.setCount(1);
+        dialogSessionItemRead.setCustomerId(customer.getId());
+        dialogSessionItemRead.setDateTime(new DateTime());
+        dialogSessionItemRead.setItemId(dialogSessionItem.getId());
+        dialogSessionItemRead.setRole(DialogSessionItem.CUSTOMER_ROLE);
+        dialogSessionItemReadService.add(dialogSessionItemRead);
         Map<String, String> responseObj = new HashMap<String, String>();
         responseObj.put("content", content);
         responseObj.put("headImg", headImg);

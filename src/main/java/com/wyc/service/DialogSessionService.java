@@ -22,5 +22,8 @@ public class DialogSessionService {
         dialogSession.setId(UUID.randomUUID().toString());
         return dialogSessionRepository.save(dialogSession);
     }
+    public Iterable<DialogSession> findAllByCustomerId(String customerId) {
+        return dialogSessionRepository.findAllByCustomerId(customerId);
+    }
 
 }

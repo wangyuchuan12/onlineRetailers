@@ -15,6 +15,10 @@
 </head>
 <body>
 <div id="wrapper">
+   <div class="common_chat" onclick="skipToChatList();">
+   		<i class="fa fa-comments-o" aria-hidden="true"></i>
+   		<font>${chat.notReadCount}</font>
+   </div>
    <tiles:insertAttribute name="header" />
    <tiles:insertAttribute name="body" />
    <div style="height:20px;"></div>

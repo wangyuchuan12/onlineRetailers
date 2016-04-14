@@ -2,7 +2,7 @@
 .good{font-size:18px;background-color:white;margin:10px;display:inline-block;border-color: red;width:95%;}
 .good-img{width:100%;position:relative;overflow:hidden;border:0;top:-50px;height:250px;}
 .good-img img{width:100%;height: 90%;}
-.good-title{width:100%;z-index:100;position:relative;font:normal lighter 10pt ºÚÌå;top:-80px;left:0;padding-top: 10px;padding-left: 10px;padding-right: 10px;}
+.good-title{width:100%;z-index:100;position:relative;font:normal lighter 10pt ï¿½ï¿½ï¿½ï¿½;top:-80px;left:0;padding-top: 10px;padding-left: 10px;padding-right: 10px;}
 .good-title b{
 	color:red;
 	display: block;
@@ -20,7 +20,7 @@
 	
 }
 .good_name{
-	font:normal bold 10pt ºÚÌå;
+	font:normal bold 10pt ï¿½ï¿½ï¿½ï¿½;
 	display:block;
 	position:relative;
 	color:black;
@@ -1492,4 +1492,85 @@
 	left:130px;
 	float:left;
 	top:15px;
+}
+
+.chat_container{
+	width:100%;
+	height:100%;
+}
+
+.common_chat{
+	position: fixed;
+	
+	z-index: 1000;
+	font-size: 15px;
+	right:10px;
+	top:10px;
+	display:block;
+	color:green;
+}
+
+.common_chat i{
+	font-size:30px;
+}
+
+.common_chat font{
+	color:white;
+	font-size:5px;
+	font-weight:blod;
+	background-color:red;
+	border-radius:10px;
+	top:-10px;
+	position:relative;
+	left:-15px;
+	
+}
+
+.chat_list{
+
+}
+
+.chat_list>ul>li{
+
+	height:110px;
+	margin-bottom:10px;
+	border-bottom:1px solid RGBA(119,119,119,.3);
+}
+
+.chat_img{
+	height:100%;
+	width:100px;
+	display:inline-block;
+	position:relative;
+}
+
+.chat_list_limit{
+	display:inline-block;
+	position:relative;
+	width:65%;
+	left:-10px;
+	top:-30px;
+}
+
+.chat_list_limit_name{
+	font-size:20px;
+	position:relative;
+	color:black;
+}
+
+.chat_list_limit_content{
+	position:relative;
+}
+
+.chat_num{
+	display:inline-block;
+	position:relative;
+	top:-90px;
+	left:-20px;
+	background-color:red;
+	width:15px;
+	height:15px;
+	text-align:center;
+	border-radius:10px;
+	color:black;
 }

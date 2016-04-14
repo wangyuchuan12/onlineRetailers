@@ -25,6 +25,7 @@ import com.wyc.annotation.WxChooseWxPay;
 import com.wyc.annotation.WxConfigAnnotation;
 import com.wyc.annotation.handler.AfterGoodTypeHandler;
 import com.wyc.annotation.handler.BeforeGoodTypeHandler;
+import com.wyc.annotation.handler.NotReadChatHandler;
 import com.wyc.annotation.handler.PayResultHandler;
 import com.wyc.annotation.handler.WxChooseWxPayHandler;
 import com.wyc.domain.SystemAdGoodHeaderImg;
@@ -84,6 +85,7 @@ public class GoodsAction {
 	@JsApiTicketAnnotation
 	@WxConfigAnnotation
 	@NowPageRecordAnnotation(page=0)
+	@AfterHandlerAnnotation(hanlerClasses={NotReadChatHandler.class})
 	public String goodList(HttpServletRequest httpRequest)throws Exception{  
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();

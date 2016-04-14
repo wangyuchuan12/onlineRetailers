@@ -8,4 +8,6 @@ public interface DialogSessionRepository extends CrudRepository<DialogSession, S
 
     DialogSession findByCustomerIdAndAdminId(String customerId, String adminId);
 
+    Iterable<DialogSession> findAllByCustomerId(String customerId);
+
 }

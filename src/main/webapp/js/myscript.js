@@ -210,6 +210,11 @@ function toTakepartGroup(id,role){
 	doTakepartGroup(id,role);
 }
 
+function skipToChatList(){
+	var url = "/info/chat_list";
+	skipToUrl(url);
+}
+
 function doTakepartGroup(id,role){
 	var url = "/info/takepart_group?id="+id+"&role="+role;
 	skipToUrl(url);
