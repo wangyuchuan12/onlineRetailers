@@ -155,7 +155,7 @@ public class GoodsAction {
 	@RequestMapping("/info/good_info")
 	@NowPageRecordAnnotation(page=1)
 	@WxConfigAnnotation
-	@BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
+	@BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class,NotReadChatHandler.class})
 	@AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
 	public String goodInfo(HttpServletRequest httpRequest)throws Exception{
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
@@ -222,7 +222,7 @@ public class GoodsAction {
 	@RequestMapping("/info/good_info_pay")
 	@NowPageRecordAnnotation(page=2)
 	@BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
-        @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
+        @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class,NotReadChatHandler.class})
 	public String goodInfoPay(HttpServletRequest httpRequest){
 	    MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();

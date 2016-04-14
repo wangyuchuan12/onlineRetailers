@@ -26,6 +26,7 @@ import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.annotation.WxConfigAnnotation;
 import com.wyc.annotation.handler.AfterGoodTypeHandler;
 import com.wyc.annotation.handler.BeforeGoodTypeHandler;
+import com.wyc.annotation.handler.NotReadChatHandler;
 import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
@@ -76,7 +77,7 @@ public class GroupsAction {
 	@WxConfigAnnotation
 	@NowPageRecordAnnotation(page=3)
     @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
-    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
+    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class,NotReadChatHandler.class})
     public String groupList(HttpServletRequest servletRequest) throws Exception {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) servletRequest;
         String openId = null;
@@ -203,7 +204,7 @@ public class GroupsAction {
 	@WxConfigAnnotation
 	@NowPageRecordAnnotation(page=4)
     @BeforeNativeHandlerAnnotation(hanlerClasses={BeforeGoodTypeHandler.class})
-    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class})
+    @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class,NotReadChatHandler.class})
     public String groupInfo(HttpServletRequest httpServletRequest)
             throws Exception {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) httpServletRequest;

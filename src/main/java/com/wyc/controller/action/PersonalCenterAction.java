@@ -19,6 +19,7 @@ import com.wyc.annotation.UserInfoFromWebAnnotation;
 import com.wyc.annotation.WxConfigAnnotation;
 import com.wyc.annotation.handler.AfterGoodTypeHandler;
 import com.wyc.annotation.handler.BeforeGoodTypeHandler;
+import com.wyc.annotation.handler.NotReadChatHandler;
 import com.wyc.defineBean.ApplicationProperties;
 import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.SystemCity;
