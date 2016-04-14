@@ -45,17 +45,18 @@ public class ChatApi {
         String adminId = httpServletRequest.getParameter("admin_id");
         Customer customer = customerService.findByOpenId(userInfo.getOpenid());
         DialogSession dialogSession = dialogSessionService.findByCustomerIdAndAdminId(customer.getId(), adminId);
-        Iterable<DialogSessionItem> dialogSessionItems = dialogSessionItemService.findAllByDialogSessionIdOrderByDateTimeAsc(dialogSession.getId());
-        Map<Object, Object> responseData = new HashMap<Object, Object>();
-        List<Object> notReadIds = new ArrayList<Object>();
+        Iterable<DialogSessionItem> dialogSessionItems = dialogSessionItemService.findAllByDialogSessionIdOrderByRecordIndexAsc(dialogSession.getId());
+        List<Object> notReads = new ArrayList<Object>();
+        Map<String, Object> responseData = new HashMap<>();
         for(DialogSessionItem dialogSessionItem:dialogSessionItems){
             DialogSessionItemRead dialogSessionItemRead = dialogSessionItemReadService.findByCustomerIdAndRoleAndItemId(customer.getId(), DialogSessionItem.CUSTOMER_ROLE, dialogSessionItem.getId());
             if(dialogSessionItemRead==null||dialogSessionItemRead.getCount()==0){
-                notReadIds.add(dialogSessionItem.getId());
+            	notReads.add(dialogSessionItem);
             }
         }
-        responseData.put("notReadItemIds", notReadIds);
-        responseData.put("notReadCount", notReadIds.size());
+        
+        responseData.put("notReadItems", notReads);
+        responseData.put("notReadCount", notReads.size());
         return responseData;
     }
     

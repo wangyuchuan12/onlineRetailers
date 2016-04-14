@@ -10,7 +10,7 @@ public interface DialogSessionItemRepository extends CrudRepository<DialogSessio
 
     Iterable<DialogSessionItem> findAllByDialogSessionId(String dialogSessionId);
 
-    Iterable<DialogSessionItem> findAllByDialogSessionIdOrderByDateTimeAsc(
+    Iterable<DialogSessionItem> findAllByDialogSessionIdOrderByRecordIndexAsc(
             String dialogSessionId);
 
     Iterable<DialogSessionItem> findAllByDialogSessionIdAndRoleOrderByDateTimeAsc(

@@ -79,7 +79,7 @@ public class ChatAction {
         String adminId = myHttpServletRequest.getParameter("admin_id");
         DialogSession dialogSession = dialogSessionService.findByCustomerIdAndAdminId(customer.getId(),adminId);
         if(dialogSession!=null){
-            Iterable<DialogSessionItem> dialogSessionItems = dialogSessionItemService.findAllByDialogSessionIdOrderByDateTimeAsc(dialogSession.getId());
+            Iterable<DialogSessionItem> dialogSessionItems = dialogSessionItemService.findAllByDialogSessionIdOrderByRecordIndexAsc(dialogSession.getId());
             myHttpServletRequest.setAttribute("dialogSession", dialogSession);
             myHttpServletRequest.setAttribute("dialogSessionItems", dialogSessionItems);
             for(DialogSessionItem dialogSessionItem:dialogSessionItems){

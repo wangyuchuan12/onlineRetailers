@@ -28,9 +28,9 @@ public class DialogSessionItemService {
         return dialogSessionItemRepository.save(dialogSessionItem);
         
     }
-    public Iterable<DialogSessionItem> findAllByDialogSessionIdOrderByDateTimeAsc(
+    public Iterable<DialogSessionItem> findAllByDialogSessionIdOrderByRecordIndexAsc(
             String dialogSessionId) {
-        return dialogSessionItemRepository.findAllByDialogSessionIdOrderByDateTimeAsc(dialogSessionId);
+        return dialogSessionItemRepository.findAllByDialogSessionIdOrderByRecordIndexAsc(dialogSessionId);
     }
     public Iterable<DialogSessionItem> findAllByDialogSessionIdAndRoleOrderByDateTimeAsc(
             String dialogSessionId, int role) {
