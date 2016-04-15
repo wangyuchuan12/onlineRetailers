@@ -106,26 +106,31 @@
 	 function renderFromServer(){
 		 var adminId = $("#adminId").val();
 		 var responseObj =$.ajax({url:"/api/chat/select_not_read?token=${token.id}&admin_id="+adminId,async:false});
-		 var htmlObj = eval("("+responseObj.responseText+")");
-		 for(var i =0 ;i<htmlObj.notReadCount;i++){
-			 var notReadItem = htmlObj.notReadItems[i];
-			 var dialogDiv = $("<div></div>");
-			 if(notReadItem.role==1){
-					dialogDiv.addClass("chat_content_request_dialog");
-			 }else{
-					dialogDiv.addClass("chat_content_response_dialog");
+		 if(responseObj){
+			 var htmlObj = eval("("+responseObj.responseText+")");
+			 if(htmlObj){
+				 for(var i =0 ;i<htmlObj.notReadCount;i++){
+					 var notReadItem = htmlObj.notReadItems[i];
+					 var dialogDiv = $("<div></div>");
+					 if(notReadItem.role==1){
+							dialogDiv.addClass("chat_content_request_dialog");
+					 }else{
+							dialogDiv.addClass("chat_content_response_dialog");
+					 }
+						
+					 var timeDiv = $("<div class='chat_content_time'>"+notReadItem.dateTime+"</div>");
+						
+					 var chatContentSessionDiv = $("<div class='chat_content_session'><div class='chat_content_text'>"+notReadItem.content+"</div><img src='"+notReadItem.headImg+"'></div>");
+					 
+					 dialogDiv.append(timeDiv);
+					 dialogDiv.append(chatContentSessionDiv);
+					 $(".chat_content").append(dialogDiv);
+					 $(".chat_content").animate({scrollTop: 100000}, 300);
+					 $(".chat_input_text").val("");
+				 }
 			 }
-				
-			 var timeDiv = $("<div class='chat_content_time'>"+notReadItem.dateTime+"</div>");
-				
-			 var chatContentSessionDiv = $("<div class='chat_content_session'><div class='chat_content_text'>"+notReadItem.content+"</div><img src='"+notReadItem.headImg+"'></div>");
-			 
-			 dialogDiv.append(timeDiv);
-			 dialogDiv.append(chatContentSessionDiv);
-			 $(".chat_content").append(dialogDiv);
-			 $(".chat_content").animate({scrollTop: 100000}, 300);
-			 $(".chat_input_text").val("");
 		 }
+		 
 	 }
 	</script>
 </html>

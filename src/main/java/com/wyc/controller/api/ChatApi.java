@@ -46,6 +46,9 @@ public class ChatApi {
         Customer customer = customerService.findByOpenId(userInfo.getOpenid());
         DialogSession dialogSession = dialogSessionService.findByCustomerIdAndAdminId(customer.getId(), adminId);
         Iterable<DialogSessionItem> dialogSessionItems = dialogSessionItemService.findAllByDialogSessionIdOrderByRecordIndexAsc(dialogSession.getId());
+        if(dialogSessionItems==null){
+            return null;
+        }
         List<Object> notReads = new ArrayList<Object>();
         Map<String, Object> responseData = new HashMap<>();
         for(DialogSessionItem dialogSessionItem:dialogSessionItems){
