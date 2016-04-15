@@ -45,39 +45,42 @@ public class ChatApi {
         String adminId = httpServletRequest.getParameter("admin_id");
         Customer customer = customerService.findByOpenId(userInfo.getOpenid());
         DialogSession dialogSession = dialogSessionService.findByCustomerIdAndAdminId(customer.getId(), adminId);
-        Iterable<DialogSessionItem> dialogSessionItems = dialogSessionItemService.findAllByDialogSessionIdOrderByRecordIndexAsc(dialogSession.getId());
-       
-        List<Object> notReads = new ArrayList<Object>();
-        Map<String, Object> responseData = new HashMap<>();
-        for(DialogSessionItem dialogSessionItem:dialogSessionItems){
-            DialogSessionItemRead dialogSessionItemRead = dialogSessionItemReadService.findByCustomerIdAndRoleAndItemId(customer.getId(), DialogSessionItem.CUSTOMER_ROLE, dialogSessionItem.getId());
-            if(dialogSessionItemRead==null||dialogSessionItemRead.getCount()==0){
-                
-            	dialogSessionItemRead = new DialogSessionItemRead();
-            	dialogSessionItemRead.setAdminId(adminId);
-            	dialogSessionItemRead.setCount(1);
-            	dialogSessionItemRead.setDateTime(new DateTime());
-            	dialogSessionItemRead.setCustomerId(customer.getId());
-            	dialogSessionItemRead.setItemId(dialogSessionItem.getId());
-            	dialogSessionItemRead.setRole(DialogSessionItem.CUSTOMER_ROLE);
-            	dialogSessionItemReadService.add(dialogSessionItemRead);
-            	Map<String, Object> dialogSessionItemResponse = new HashMap<String, Object>();
-            	dialogSessionItemResponse.put("content", dialogSessionItem.getContent());
-            	dialogSessionItemResponse.put("headImg", dialogSessionItem.getHeadImg());
-            	dialogSessionItemResponse.put("recordIndex", dialogSessionItem.getRecordIndex());
-            	dialogSessionItemResponse.put("role", dialogSessionItem.getRole());
-            	dialogSessionItemResponse.put("type", dialogSessionItem.getType());
-            	dialogSessionItemResponse.put("dateTime",mySimpleDateFormat.format(dialogSessionItem.getDateTime().toDate()));
-            	notReads.add(dialogSessionItemResponse);
+        if(dialogSession!=null){
+            Iterable<DialogSessionItem> dialogSessionItems = dialogSessionItemService.findAllByDialogSessionIdOrderByRecordIndexAsc(dialogSession.getId());
+           
+            List<Object> notReads = new ArrayList<Object>();
+            Map<String, Object> responseData = new HashMap<>();
+            for(DialogSessionItem dialogSessionItem:dialogSessionItems){
+                DialogSessionItemRead dialogSessionItemRead = dialogSessionItemReadService.findByCustomerIdAndRoleAndItemId(customer.getId(), DialogSessionItem.CUSTOMER_ROLE, dialogSessionItem.getId());
+                if(dialogSessionItemRead==null||dialogSessionItemRead.getCount()==0){
+                    
+                	dialogSessionItemRead = new DialogSessionItemRead();
+                	dialogSessionItemRead.setAdminId(adminId);
+                	dialogSessionItemRead.setCount(1);
+                	dialogSessionItemRead.setDateTime(new DateTime());
+                	dialogSessionItemRead.setCustomerId(customer.getId());
+                	dialogSessionItemRead.setItemId(dialogSessionItem.getId());
+                	dialogSessionItemRead.setRole(DialogSessionItem.CUSTOMER_ROLE);
+                	dialogSessionItemReadService.add(dialogSessionItemRead);
+                	Map<String, Object> dialogSessionItemResponse = new HashMap<String, Object>();
+                	dialogSessionItemResponse.put("content", dialogSessionItem.getContent());
+                	dialogSessionItemResponse.put("headImg", dialogSessionItem.getHeadImg());
+                	dialogSessionItemResponse.put("recordIndex", dialogSessionItem.getRecordIndex());
+                	dialogSessionItemResponse.put("role", dialogSessionItem.getRole());
+                	dialogSessionItemResponse.put("type", dialogSessionItem.getType());
+                	dialogSessionItemResponse.put("dateTime",mySimpleDateFormat.format(dialogSessionItem.getDateTime().toDate()));
+                	notReads.add(dialogSessionItemResponse);
+                }
             }
+            if(notReads.size()==0){
+                return null;
+            }
+            
+            responseData.put("notReadItems", notReads);
+            responseData.put("notReadCount", notReads.size());
+            return responseData;
         }
-        if(notReads.size()==0){
-            return null;
-        }
-        
-        responseData.put("notReadItems", notReads);
-        responseData.put("notReadCount", notReads.size());
-        return responseData;
+        return null;
     }
     
     @RequestMapping("/api/chat/send_message")
