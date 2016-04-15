@@ -51,6 +51,7 @@ public class ChatApi {
         for(DialogSessionItem dialogSessionItem:dialogSessionItems){
             DialogSessionItemRead dialogSessionItemRead = dialogSessionItemReadService.findByCustomerIdAndRoleAndItemId(customer.getId(), DialogSessionItem.CUSTOMER_ROLE, dialogSessionItem.getId());
             if(dialogSessionItemRead==null||dialogSessionItemRead.getCount()==0){
+                
             	dialogSessionItemRead = new DialogSessionItemRead();
             	dialogSessionItemRead.setAdminId(adminId);
             	dialogSessionItemRead.setCount(1);
@@ -59,7 +60,14 @@ public class ChatApi {
             	dialogSessionItemRead.setItemId(dialogSessionItem.getId());
             	dialogSessionItemRead.setRole(DialogSessionItem.CUSTOMER_ROLE);
             	dialogSessionItemReadService.add(dialogSessionItemRead);
-            	notReads.add(dialogSessionItem);
+            	Map<String, Object> dialogSessionItemResponse = new HashMap<String, Object>();
+            	dialogSessionItemResponse.put("content", dialogSessionItem.getContent());
+            	dialogSessionItemResponse.put("headImg", dialogSessionItem.getHeadImg());
+            	dialogSessionItemResponse.put("recordIndex", dialogSessionItem.getRecordIndex());
+            	dialogSessionItemResponse.put("role", dialogSessionItem.getRole());
+            	dialogSessionItemResponse.put("type", dialogSessionItem.getType());
+            	dialogSessionItemResponse.put("dateTime",mySimpleDateFormat.format(dialogSessionItem.getDateTime().toDate()));
+            	notReads.add(dialogSessionItemResponse);
             }
         }
         
