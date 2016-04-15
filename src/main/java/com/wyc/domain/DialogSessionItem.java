@@ -44,6 +44,8 @@ public class DialogSessionItem {
     @Column(name="record_index")
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int recordIndex;
+    @Column(name="admin_id")
+    private String adminId;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -55,6 +57,12 @@ public class DialogSessionItem {
     
     
     
+    public String getAdminId() {
+        return adminId;
+    }
+    public void setAdminId(String adminId) {
+        this.adminId = adminId;
+    }
     public int getRecordIndex() {
         return recordIndex;
     }

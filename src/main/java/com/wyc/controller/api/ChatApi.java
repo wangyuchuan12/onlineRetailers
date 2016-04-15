@@ -105,6 +105,7 @@ public class ChatApi {
         dialogSessionItem.setDateTime(new DateTime());
         dialogSessionItem.setDialogSessionId(dialogSession.getId());
         dialogSessionItem.setGoodId(goodId);
+        dialogSessionItem.setAdminId(adminId);
         dialogSessionItem.setHeadImg(headImg);
         dialogSessionItem.setOrderId(orderId);
         dialogSessionItem.setRole(DialogSessionItem.ADMIN_ROLE);
