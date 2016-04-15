@@ -103,7 +103,7 @@ public class ChatApi {
         dialogSessionItemRead.setCustomerId(customer.getId());
         dialogSessionItemRead.setDateTime(new DateTime());
         dialogSessionItemRead.setItemId(dialogSessionItem.getId());
-        dialogSessionItemRead.setRole(DialogSessionItem.ADMIN_ROLE);
+        dialogSessionItemRead.setRole(DialogSessionItem.CUSTOMER_ROLE);
         dialogSessionItemReadService.add(dialogSessionItemRead);
         Map<String, String> responseObj = new HashMap<String, String>();
         responseObj.put("content", content);
