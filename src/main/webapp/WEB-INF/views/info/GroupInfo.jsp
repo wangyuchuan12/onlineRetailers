@@ -72,6 +72,7 @@
 							</div>
 						</li>
 					</c:forEach>
+					<c:if test="${groupInfo.groupNum-fn:length(groupInfo.groupPartake)>0}">
 					<c:forEach begin="1" end="${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}">
 						<li>
 							<div class="member">
@@ -79,6 +80,7 @@
 							</div>
 						</li>
 					</c:forEach>
+					</c:if>
 	
 				</ul>
 			</div>
