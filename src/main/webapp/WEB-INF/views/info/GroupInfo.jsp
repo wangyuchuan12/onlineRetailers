@@ -27,19 +27,17 @@
 			<input hidden="true" id = "group_info_img" value="${groupInfo.headImg}">
 			<input hidden="true" id = "group_info_good_name" value="${groupInfo.goodName}">
 			<input hidden="true" id = "group_info_good_title" value="${groupInfo.title}">
-			<div class="group_goodinfo activityStyle"  style="width:99%">
+			<div class="group_goodinfo activityStyle" onclick="skipToGoodInfo('${groupInfo.goodId}','${token.id}')" style="width:99%">
 			      
-					<div class="group_goodinfo_img" onclick="skipToGoodInfo('${groupInfo.goodId}','${token.id}')">
+					<div class="group_goodinfo_img">
 						<img src="${groupInfo.headImg}"></img>
 					</div>
 					<div class="group_goodinfo_detail">
-						<div class="group_goodinfo_detail_title" onclick="skipToGoodInfo('${groupInfo.goodId}','${token.id}')">${groupInfo.goodName}</div>
-						<div class="group_goodinfo_footer" onclick="skipToGoodInfo('${groupInfo.goodId}','${token.id}')">&gt</div>
-						<div class="group_goodinfo_detail_price" onclick="skipToGoodInfo('${groupInfo.goodId}','${token.id}')">${groupInfo.groupNum}人团：<span class="group_goodinfo_detail_price2">￥${groupInfo.totalPrice}/件</span></div>
-						<div class="group_goodinfo_detail_notice" onclick="skipToGoodInfo('${groupInfo.goodId}','${token.id}')" style="color: black;">${groupInfo.notice} </div>
-						<div class="group_info_good_chat" onclick="javascript:skipToChat('${groupInfo.adminId}','3','','','${groupInfo.id}','${token.id}')">
-                				<img src="http://script.suning.cn/project/pdsWeb/images/online.gif"/>
-               	 		</div>
+						<div class="group_goodinfo_detail_title">${groupInfo.goodName}</div>
+						<div class="group_goodinfo_footer">&gt</div>
+						<div class="group_goodinfo_detail_price">${groupInfo.groupNum}人团：<span class="group_goodinfo_detail_price2">￥${groupInfo.totalPrice}/件</span></div>
+						<div class="group_goodinfo_detail_notice" style="color: black;">${groupInfo.notice} </div>
+						
 					</div>
 					<c:if test="${groupInfo.result==2}">
 						<div class="group_head_success" id="group_head">组团成功</div>
@@ -55,6 +53,10 @@
 					
 			
 			</div>
+			
+			<div class="group_info_good_chat" onclick="javascript:skipToChat('${groupInfo.adminId}','3','','','${groupInfo.id}','${token.id}')">
+                				<img src="http://script.suning.cn/project/pdsWeb/images/online.gif"/>
+               </div>
 			<div class="members">
 				<ul>
 					<c:forEach items="${groupInfo.groupPartake}" var="member">
