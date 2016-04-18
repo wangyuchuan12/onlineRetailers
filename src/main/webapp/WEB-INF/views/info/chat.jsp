@@ -24,7 +24,7 @@
 	</head>
 	<body>
 	    <div class="container" >
-	    		<div class="chat_businessHead">商家名称</div>
+	    		<div class="chat_businessHead">$business.name}</div>
 	    		<div class="chat_content">
 	    			
 	    			<c:forEach items="${dialogSessionItems}" var="dialogSessionItem">
