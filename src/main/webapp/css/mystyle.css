@@ -512,6 +512,7 @@
 	top:-30px;
 	right:10px;
 	position:relative;
+	z-index: 200;
 }
 
 .group_goodinfo_detail_good_info{
