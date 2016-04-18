@@ -22,7 +22,7 @@
 										<div class="group_good_info_price">
 											成团价：<b>${group.total_price}元</b>
 										</div>
-										<div class="group_good_chat" onclick="javascript:skipToChat('${good.adminId}','3','','','${group.group_id}','${token.id}')">
+										<div class="group_good_chat" onclick="javascript:skipToChat('${group.adminId}','3','','','${group.group_id}','${token.id}')">
                 								<img src="http://script.suning.cn/project/pdsWeb/images/online.gif"/>
                	 						</div>
 									</div>

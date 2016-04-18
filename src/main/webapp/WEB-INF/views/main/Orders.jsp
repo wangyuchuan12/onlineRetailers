@@ -24,16 +24,16 @@
 	        			<ul>
 	        			<c:forEach items="${orders}" var="order">
 	        				<li>
-	        					<div class="order_good activityStyle" onclick="javascript:skipToOrderInfo('${order.id}');">
-	        						<div class="order_good_time">${order.createTime}</div>
-	        						<div class="order_good_p1">
+	        					<div class="order_good activityStyle">
+	        						<div class="order_good_time"  onclick="javascript:skipToOrderInfo('${order.id}');">${order.createTime}</div>
+	        						<div class="order_good_p1"  onclick="javascript:skipToOrderInfo('${order.id}');">
 	        							<div class="order_good_detail">
 	        								<img src="${order.goodImg}"/>
 	        								<div class="order_good_name">${order.goodName}</div>
 	        							</div>
 	        							<!--  <div class="order_good_price">￥9.9/件</div> -->
 	        						</div>
-	        						<div class="order_good_p2">
+	        						<div class="order_good_p2"  onclick="javascript:skipToOrderInfo('${order.id}');">
 	        							<div class="order_good_logistics">共${order.num}件商品，免运费</div>
 	        							
 	        							<div class="order_good_payment">实付：<b>￥${order.cost}</b></div>
