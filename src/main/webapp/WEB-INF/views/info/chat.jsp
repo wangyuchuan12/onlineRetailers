@@ -70,14 +70,14 @@
 	 $(document).ready(function(){
 		setInterval("renderFromServer()",1000);
 		$(".chat_content").animate({scrollTop: 100000}, 300);
-		var goodId = $("#goodId").val();
-		var type = $("#type").val();
-		var adminId = $("#adminId").val();
-		var orderId = $("#orderId").val();
+		
 		
 		$(".chat_input_btn").on("click",function(){
 			var content = $(".chat_input_text").val();
-			
+			var goodId = $("#goodId").val();
+			var type = $("#type").val();
+			var adminId = $("#adminId").val();
+			var orderId = $("#orderId").val();
 			
 			var obj = new Object();
 			obj.goodId = goodId;
