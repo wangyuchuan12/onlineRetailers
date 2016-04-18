@@ -26,7 +26,7 @@
                     <div class="good_info_introduce_info">
                         <div class="good_info_introduce_price">市场价：<b id="market_price">${good.market_price}</b> 
                         <span>已售：<i id="sold_quantity">${good.salesVolume}</i>件</span>
-                        <div class="good_info_good_chat" onclick="javascript:skipToChat('${good.adminId}','1','${good.id}','','${token.id}')">
+                        <div class="good_info_good_chat" onclick="javascript:skipToChat('${good.adminId}','1','${good.id}','','','${token.id}')">
                 		<img src="http://script.suning.cn/project/pdsWeb/images/online.gif"/>
                	     </div>
                         

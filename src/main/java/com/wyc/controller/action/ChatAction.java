@@ -104,6 +104,8 @@ public class ChatAction {
         String type = httpRequest.getParameter("type");
         String goodId = httpRequest.getParameter("goodId");
         String orderId = httpRequest.getParameter("orderId");
+        String groupId = httpRequest.getParameter("groupId");
+        httpRequest.setAttribute("groupId", groupId);
         httpRequest.setAttribute("adminId", adminId);
         httpRequest.setAttribute("type", type);
         httpRequest.setAttribute("goodId", goodId);

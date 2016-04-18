@@ -65,7 +65,7 @@
                 <div style="position: relative;padding-left:10px;top:-50px;">
 	                <div class="good_name">${good.name}</div>
 	                <div class="good_market_price">市场价：￥${good.market_price}</div>
-	                <div class="good_chat" onclick="javascript:skipToChat('${good.adminId}','1','${good.id}','','${token.id}')">
+	                <div class="good_chat" onclick="javascript:skipToChat('${good.adminId}','1','${good.id}','','','${token.id}')">
                 		<img src="http://script.suning.cn/project/pdsWeb/images/online.gif"/>
                	 </div>
                 </div>

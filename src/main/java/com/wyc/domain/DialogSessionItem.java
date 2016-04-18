@@ -19,6 +19,7 @@ public class DialogSessionItem {
     public static final int BUSINESS_TYPE = 0;
     public static final int GOOD_TYPE = 1;
     public static final int ORDER_TYPE = 2;
+    public static final int GROUP_TYPE=3;
     @Id
     private String id;
     @Column(name = "date_time")
@@ -35,6 +36,8 @@ public class DialogSessionItem {
     private String customerId;
     @Column(name="order_id")
     private String orderId;
+    @Column(name="group_id")
+    private String groupId;
     @Column(name="good_id")
     private String goodId;
     @Column(name="dialog_session_id")
@@ -57,6 +60,12 @@ public class DialogSessionItem {
     
     
     
+    public String getGroupId() {
+        return groupId;
+    }
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
     public String getAdminId() {
         return adminId;
     }

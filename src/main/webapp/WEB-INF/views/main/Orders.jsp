@@ -55,7 +55,7 @@
 			        								<a href="#">取消订单</a>
 			        							</div>
 		        							</c:if>
-		        							<div class="order_good_chat" onclick="javascript:skipToChat('${order.adminId}','2','${order.id}','','${token.id}')">
+		        							<div class="order_good_chat" onclick="javascript:skipToChat('${order.adminId}','2','','${order.id}','','${token.id}')">
                 								<img src="http://script.suning.cn/project/pdsWeb/images/online.gif"/>
                	 						</div>
 	        							</div>

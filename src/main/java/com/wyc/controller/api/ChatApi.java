@@ -92,6 +92,7 @@ public class ChatApi {
         String content = httpServletRequest.getParameter("content");
         String goodId = httpServletRequest.getParameter("good_id");
         String orderId = httpServletRequest.getParameter("order_id");
+        String groupId = httpServletRequest.getParameter("group_id");
         String type = httpServletRequest.getParameter("type");
         Customer customer = customerService.findByOpenId(userInfo.getOpenid());
         DialogSession dialogSession = dialogSessionService.findByCustomerIdAndAdminId(customer.getId(), adminId);
@@ -111,6 +112,7 @@ public class ChatApi {
         dialogSessionItem.setAdminId(adminId);
         dialogSessionItem.setHeadImg(headImg);
         dialogSessionItem.setOrderId(orderId);
+        dialogSessionItem.setGroupId(groupId);
         dialogSessionItem.setRole(DialogSessionItem.ADMIN_ROLE);
         dialogSessionItem.setType(type);
         dialogSessionItem = dialogSessionItemService.add(dialogSessionItem);

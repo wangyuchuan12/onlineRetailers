@@ -314,13 +314,13 @@ function skipToUrl(url,token,params){
 	
 }
 
-function skipToChat(adminId,type,goodId,orderId,token){
+function skipToChat(adminId,type,goodId,orderId,groupId,token){
 	var params = new Object();
 	params.admin_id = adminId;
 	params.type = type;
 	params.goodId = goodId;
 	params.orderId = orderId;
-	
+	params.groupId = groupId;
 	skipToUrl("/info/chat_view",token,params)
 }
 

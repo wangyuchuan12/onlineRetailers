@@ -63,6 +63,7 @@
 	    		<input id="type"  type = "hidden" name="type" value="${type}"/>
 	    		<input id="goodId" type = "hidden" name="goodId" value="${goodId}"/>
 	    		<input id="orderId" type = "hidden" name="orderId" value="${orderId}"/>
+	    		<input id="groupId" type = "hidden" name="groupId" value="${groupId}"/>
 	    		<input id="adminId" type = "hidden" name="adminId" value="${adminId}"/>
 	    </div>
 	</body>
@@ -78,12 +79,13 @@
 			var type = $("#type").val();
 			var adminId = $("#adminId").val();
 			var orderId = $("#orderId").val();
+			var groupId = $("#groupId").val();
 			
 			var obj = new Object();
 			obj.goodId = goodId;
 			obj.type = type;
 			obj.orderId = orderId;
-			htmlobj=$.ajax({url:"/api/chat/send_message?token=${token.id}&good_id="+goodId+"&type="+type+"&order_id="+orderId+"&content="+content+"&admin_id="+adminId+"&role=0",async:false});
+			htmlobj=$.ajax({url:"/api/chat/send_message?token=${token.id}&good_id="+goodId+"&type="+type+"&order_id="+orderId+"&content="+content+"&admin_id="+adminId+"&group_id="+groupId+"&role=0",async:false});
 			htmlobj = eval("("+htmlobj.responseText+")");
 			var dialogDiv = $("<div></div>");
 			if(htmlobj.role==1){
