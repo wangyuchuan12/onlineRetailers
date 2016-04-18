@@ -19,6 +19,7 @@
 	overflow:auto;
 	margin-bottom: 50px;
 	display: block;
+	padding-top:10px;
 }
 
 .chat_input{
