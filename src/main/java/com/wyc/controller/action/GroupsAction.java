@@ -117,6 +117,7 @@ public class GroupsAction {
                 responseGroup.put("total_price", goodGroup.getTotalPrice() + "");
                 responseGroup.put("group_id", goodGroup.getId());
                 responseGroup.put("order_id", orderDetail.getOrderId());
+                responseGroup.put("adminId", good.getAdminId());
                 responseGroups.add(responseGroup);
             }
             servletRequest.setAttribute("groups", responseGroups);
@@ -260,7 +261,7 @@ public class GroupsAction {
         groupInfoMap.put("timeLong", goodGroup.getTimeLong());
         groupInfoMap.put("role", role);
         groupInfoMap.put("notice",good.getNotice());
-        
+        groupInfoMap.put("adminId", good.getAdminId());
         groupInfoMap.put("stock", good.getStock());
         groupInfoMap.put("salesVolume", good.getSalesVolume());
         httpServletRequest.setAttribute("groupInfo", groupInfoMap);

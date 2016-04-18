@@ -37,7 +37,9 @@
 						<div class="group_goodinfo_footer">&gt</div>
 						<div class="group_goodinfo_detail_price">${groupInfo.groupNum}人团：<span class="group_goodinfo_detail_price2">￥${groupInfo.totalPrice}/件</span></div>
 						<div class="group_goodinfo_detail_notice" style="color: black;">${groupInfo.notice} </div>
-						
+						<div class="group_info_good_chat" onclick="javascript:skipToChat('${order.adminId}','3','','','${groupInfo.id}','${token.id}')">
+                				<img src="http://script.suning.cn/project/pdsWeb/images/online.gif"/>
+               	 		</div>
 					</div>
 					<c:if test="${groupInfo.result==2}">
 						<div class="group_head_success" id="group_head">组团成功</div>

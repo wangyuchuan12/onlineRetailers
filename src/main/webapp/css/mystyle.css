@@ -266,12 +266,10 @@
 .group_goodinfo_footer{
 	font-size: 30px;
 	float: right;
-	color:black;
-	font-weight: bold;
 	margin: 0 auto;
 	position: absolute;
 	right: 10px;
-	top:7px; 
+	top:10px; 
 	
 }
 
@@ -506,6 +504,14 @@
 	height:30%;
 	top:-20px;
 	
+}
+
+.group_info_good_chat{
+	float: right;
+	display:inline-block;
+	top:-30px;
+	right:10px;
+	position:relative;
 }
 
 .group_goodinfo_detail_good_info{
