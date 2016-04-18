@@ -81,7 +81,7 @@
        		<div class="order_info_good_info_price">￥${order.goodPrice}/件</div>
        		
        	</div>
-       	<div class="order_info_good_chat" onclick="javascript:skipToChat('${order.adminId}','2','${order.id}','','${token.id}')">
+       	<div class="order_info_good_chat" onclick="javascript:skipToChat('${order.adminId}','2','','${order.id}','','${token.id}')">
                 	<img src="http://script.suning.cn/project/pdsWeb/images/online.gif"/>
           </div>
        	<c:if test="${order.type==0 || order.type==2}">
