@@ -187,7 +187,7 @@ public class GoodsAction {
             responseGood.put("group_cost", good.getGroupDiscount()*good.getGroupOriginalCost());
             responseGood.put("alone_cost", good.getAloneDiscount()*good.getAloneOriginalCost());
             responseGood.put("goodInfoHeadImg", good.getGoodInfoHeadImg());
-            
+            responseGood.put("adminId", good.getAdminId());
             responseGood.put("stock", good.getStock());
             responseGood.put("salesVolume", good.getSalesVolume());
             MyResource myResource = resourceService.findOne(good.getHeadImg());

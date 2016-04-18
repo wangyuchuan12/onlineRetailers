@@ -74,7 +74,13 @@
 .good_info_introduce_cx{color:#A1A1A1;line-height:15px}
 .good_info_introduce_info{line-height:21px;padding-right:6px;position:relative;}
 .good_info_introduce_price{color:#A1A1A1}
-.good_info_introduce_price span{float:right}
+.good_info_introduce_price span{display:inline-block;left:20px;position:relative;}
+
+.good_info_good_chat{
+	display: inline-block;
+	float:right;
+	
+}
 .good_info_introduce_num{color:#EF373D;display: block;}
 .good_info_introduce_num span{font-size: 15px;font-weight: bold;}
 
@@ -1039,6 +1045,13 @@
 	width:100%;
 }
 
+.order_good_chat{
+	display:inline-block;
+	float:right;
+	display:relative;
+	padding-top:10px;
+	padding-right:10px;
+}
 .order_good_logistics_status{
 	color:red;
 	position:relative;
@@ -1209,10 +1222,12 @@
 }
 
 .order_info_good_info_num{
-	display:inline-block;
+	display:block;
+	width:50px;
 	position:relative;
-	left:-11px;
-	top:5px;
+	text-align:center;
+	top:-15px;
+	left:65px;
 }
 
 .order_info_good_info_price{
@@ -1222,6 +1237,13 @@
 	color:red;
 	font-weight: bold;
 	top:30px;
+}
+
+.order_info_good_chat{
+	display:inline-block;
+	float:right;
+	top:-25px;
+	position:relative;
 }
 
 .order_info_good_info_btns{
@@ -1486,12 +1508,17 @@
 }
 
 .good_chat{
-	width:70px;
+	width:120px;
 	height:70px;
 	position:absolute;
 	left:130px;
 	float:left;
-	top:15px;
+	top:27px;
+}
+
+.good_chat img{
+	width:120px;
+	height:25px;
 }
 
 .chat_container{

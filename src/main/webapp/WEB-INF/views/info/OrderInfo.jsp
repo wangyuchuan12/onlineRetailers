@@ -79,7 +79,11 @@
        		<div class="order_info_good_info_name">${order.goodName}</div>
        		<div class="order_info_good_info_num">数量：1</div>
        		<div class="order_info_good_info_price">￥${order.goodPrice}/件</div>
+       		
        	</div>
+       	<div class="order_info_good_chat" onclick="javascript:skipToChat('${order.adminId}','2','${order.id}','','${token.id}')">
+                	<img src="http://script.suning.cn/project/pdsWeb/images/online.gif"/>
+          </div>
        	<c:if test="${order.type==0 || order.type==2}">
 	       	<div class="order_info_good_info_btns" onclick="javascript:skipToGroupInfo('${order.groupId}');">
 	       		<div class="order_info_good_info_btn_group_detail">
