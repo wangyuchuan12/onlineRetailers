@@ -69,7 +69,7 @@
 	</body>
 	<script type="text/javascript">
 	 $(document).ready(function(){
-		setInterval("renderFromServer()",1000);
+		setInterval("renderFromServer()",2000);
 		$(".chat_content").animate({scrollTop: 100000}, 300);
 		
 		
