@@ -25,7 +25,7 @@ public interface DialogSessionItemRepository extends CrudRepository<DialogSessio
     Iterable<DialogSessionItem> findAllByCustomerIdAndDialogSessionIdAndRole(
             String customerId, String dialogSessionId, int role);
     
-    @Query("select g from com.wyc.domain.DialogSessionItem g where g.recordIndex = (select max(recordIndex) from com.wyc.domain.DialogSessionItem) and g.dialogSessionId=:dialogSessionId")
+    @Query("select g from com.wyc.domain.DialogSessionItem g where g.recordIndex = (select max(recordIndex) from com.wyc.domain.DialogSessionItem c where c.dialogSessionId=:dialogSessionId) and g.dialogSessionId=:dialogSessionId")
     DialogSessionItem selectLastItemByDialogSessionId(@Param("dialogSessionId")String dialogSessionId);
     
     @Query("select max(g.recordIndex) from com.wyc.domain.DialogSessionItem g")
