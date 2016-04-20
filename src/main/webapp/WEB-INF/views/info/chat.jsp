@@ -75,10 +75,11 @@
 		
 		$(".chat_input_btn").on("click",function(){
 			var content = $(".chat_input_text").val();
-			if(content.lenght>50){
+			if(content.length>50){
 				alert("发送字符的大小不能大于50个字节");
 				return;
 			}
+			
 			if(!content||content.lenght==0){
 				alert("发送内容不能为空");
 				return;
