@@ -50,14 +50,14 @@
                    
                 </div>
                 
-                <div class="tuan_g_core">
+                <div class="tuan_g_core"  onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
                     <div class="tuan_g_price">
                     	${good.group_num}人团
                         <b>
                         		￥<fmt:formatNumber type="number" value="${good.group_original_cost*good.group_discount}" maxFractionDigits="3"/>
                         </b>
                     </div>
-                    <div class="tuan_g_btn"  onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
+                    <div class="tuan_g_btn">
                         	去开团
                     </div>
                     
