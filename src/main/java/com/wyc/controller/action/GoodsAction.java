@@ -143,10 +143,12 @@ public class GoodsAction {
                httpRequest.setAttribute("quickEntrances", quickEntrances);
 	       httpRequest.setAttribute("goods", responseGoods);
 	       httpRequest.setAttribute("goodType", goodTypeId);
-	       SystemGoodType goodType = goodTypeService.findOne(goodTypeId);
-	       httpRequest.setAttribute("typeTitle", goodType.getTitle());
-	       httpRequest.setAttribute("typeName", goodType.getName());
-	       httpRequest.setAttribute("typeImg", goodType.getImg());
+	       if(goodTypeId!=null){
+        	       SystemGoodType goodType = goodTypeService.findOne(goodTypeId);
+        	       httpRequest.setAttribute("typeTitle", goodType.getTitle());
+        	       httpRequest.setAttribute("typeName", goodType.getName());
+        	       httpRequest.setAttribute("typeImg", goodType.getImg());
+	       }
 	       return "main/Goods";
 	}
 	
