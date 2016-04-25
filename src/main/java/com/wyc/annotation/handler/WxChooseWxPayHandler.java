@@ -70,7 +70,7 @@ public class WxChooseWxPayHandler implements Handler{
 	        String body = "JSAPI";
 	        String mchId = wxContext.getMchId();
 	        String nonceStr = "1add1a30ac87aa2db72f57a2375d8fec";
-	        String notifyUrl = "http://www.chengxihome.com/api/wx/pay_success";
+	        String notifyUrl = "http://"+wxContext.getDomainName()+"/api/wx/pay_success";
 	        
 	        String spbillCreateIp = httpServletRequest.getRemoteAddr();
 	        String datetime = String.valueOf(System.currentTimeMillis() / 1000);
