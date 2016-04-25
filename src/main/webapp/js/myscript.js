@@ -1,4 +1,4 @@
-var webPath = "http://www.chengxihome.com";
+var webPath = "";
 var cityObject = new Object();
 var currentCity;
 var currentAddress;

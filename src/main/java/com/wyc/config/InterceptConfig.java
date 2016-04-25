@@ -208,6 +208,7 @@ public class InterceptConfig {
         Object[] args  = proceedingJoinPoint.getArgs();
         String str = null;
         HttpServletRequest httpServletRequest = (HttpServletRequest)args[0];
+        httpServletRequest.setAttribute("domainName", wxContext.getDomainName());
         logger.debug("the session id is {}",httpServletRequest.getSession().getId());
         logger.debug("the good_type param is {}",httpServletRequest.getParameter("good_type"));
         for(Object arg:args){
