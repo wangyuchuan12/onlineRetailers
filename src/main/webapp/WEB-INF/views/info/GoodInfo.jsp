@@ -39,7 +39,7 @@
 						<li>
 							<div class="good_info_btn activityStyle"
 								onclick="skipToGoodPay('${good.id}',0)">
-								<div class="good_info_btn_price_group">￥${good.group_cost}/件</div>
+								<div class="good_info_btn_price_group">￥${good.group_original_cost*good.group_discount}/件</div>
 								<div class="good_info_btn_type">${good.group_num}人团</div>
 							</div>
 						</li>
@@ -47,7 +47,7 @@
 						<li>
 							<div class="good_info_btn activityStyle"
 								onclick="skipToGoodPay('${good.id}',1)">
-								<div class="good_info_btn_price_alone">￥${good.alone_cost}/件</div>
+								<div class="good_info_btn_price_alone">￥${good.alone_discount*good.alone_original_cost}/件</div>
 								<div class="good_info_btn_type">单独买</div>
 							</div>
 						</li>
@@ -55,8 +55,8 @@
 						<li>
 							<div class="good_info_btn activityStyle"
 								<c:if test="${couponCount>0}">
-    					onclick="skipToGoodPay('${good.id}',2)"
-    				</c:if>>
+				    					onclick="skipToGoodPay('${good.id}',2)"
+				    				</c:if>>
 								<c:if test="${couponCount>0}">
 									<div class="good_info_btn_price_integral">${good.coupon_cost}张/件</div>
 									<div class="good_info_btn_type">开团劵开团(${couponCount})</div>
