@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
+<%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <tiles:insertDefinition name="adminLayout">
 <tiles:putAttribute name="body">
@@ -39,7 +40,9 @@
 						<li>
 							<div class="good_info_btn activityStyle"
 								onclick="skipToGoodPay('${good.id}',0)">
-								<div class="good_info_btn_price_group">￥${good.group_original_cost*good.group_discount}/件</div>
+								<div class="good_info_btn_price_group">
+									￥<fmt:formatNumber type="number" value="${good.group_original_cost*good.group_discount}" maxFractionDigits="3"/>/件
+								</div>
 								<div class="good_info_btn_type">${good.group_num}人团</div>
 							</div>
 						</li>
@@ -47,7 +50,7 @@
 						<li>
 							<div class="good_info_btn activityStyle"
 								onclick="skipToGoodPay('${good.id}',1)">
-								<div class="good_info_btn_price_alone">￥${good.alone_discount*good.alone_original_cost}/件</div>
+								<div class="good_info_btn_price_alone">￥<fmt:formatNumber type="number" value="${good.alone_discount*good.alone_original_cost}" maxFractionDigits="3"/>/件</div>
 								<div class="good_info_btn_type">单独买</div>
 							</div>
 						</li>
