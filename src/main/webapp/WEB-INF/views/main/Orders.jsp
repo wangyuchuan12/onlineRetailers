@@ -39,7 +39,7 @@
 	        							<div class="order_good_payment">实付：<b>￥${order.cost}</b></div>
 	        						</div>
 	        						<div class="order_good_p3">
-	        						<!--1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未处理6退款已处理 -->
+	        						<!--1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未处理6退款已处理  7订单已取消-->
 	        							<div class="order_status_all">
 		        							<div class="order_good_logistics_status">
 		        								<c:if test="${order.status==1}">未付款</c:if>

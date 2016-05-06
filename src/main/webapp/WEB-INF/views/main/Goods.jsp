@@ -78,6 +78,17 @@
     		$(document).ready(function(){
     			
     			$(function(){
+    				window.onload=function(){		
+    				var swiper = new Swiper('.swiper-container', {
+		    		        pagination: '.swiper-pagination',
+		    		        paginationClickable: true,
+		    		        spaceBetween:1,
+		    		        centeredSlides: true,
+		    		        autoplay: 2500,
+		    		        autoplayDisableOnInteraction: false
+		    		    });
+    				
+    				
     			      $('.flexslider').flexslider({
     			        animation: "slide",
     			        start: function(slider){
@@ -117,15 +128,7 @@
     			});
     		});
     		
-    		window.onload=function(){		
-				var swiper = new Swiper('.swiper-container', {
-	        pagination: '.swiper-pagination',
-	        paginationClickable: true,
-	        spaceBetween:1,
-	        centeredSlides: true,
-	        autoplay: 2500,
-	        autoplayDisableOnInteraction: false
-	    });
+    		
 	}
     </script>
 </tiles:putAttribute>
