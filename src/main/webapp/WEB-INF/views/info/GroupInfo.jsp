@@ -23,7 +23,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<img class="linkGuid" <c:if test="${groupInfo.result!=1}">style="display:none"</c:if> id="linkGuid" src="/img/arrow2.jpg" onclick="javascript:hideLinkGuid();"></img>
+			<img class="linkGuid" style="display:none" id="linkGuid" src="/img/arrow2.jpg" onclick="javascript:hideLinkGuid();"></img>
 			<input hidden="true" id = "group_info_img" value="${groupInfo.headImg}">
 			<input hidden="true" id = "group_info_good_name" value="${groupInfo.goodName}">
 			<input hidden="true" id = "group_info_good_title" value="${groupInfo.title}">

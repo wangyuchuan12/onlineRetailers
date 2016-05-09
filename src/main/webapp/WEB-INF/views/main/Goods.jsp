@@ -129,7 +129,7 @@
     		});
     		
     		
-	}
+	});
     </script>
 </tiles:putAttribute>
 </tiles:insertDefinition>
