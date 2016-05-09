@@ -811,6 +811,7 @@
 	font-weight: bold;
 	font-size: 13px;
 	position:relative;
+	white-space: nowrap;
 }
 
 .good_info_pay_goodinfo_detail_num{
