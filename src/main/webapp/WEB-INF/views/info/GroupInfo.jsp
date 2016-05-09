@@ -184,7 +184,7 @@
     				var groupInfoGoodName = $("#group_info_good_name").val();
     				var groupInfoGoodTitle = $("#group_info_good_title").val();
     				wx.ready(function(){
-        				wxOnMenuShareAppMessage(groupInfoGoodName,groupInfoGoodTitle,"www.chengxihome.com/info/group_info2?id=${groupInfo.id}&good_type=${goodType}",groupInfoImg,"link",null);
+        				wxOnMenuShareAppMessage(groupInfoGoodName,groupInfoGoodTitle,"http://${domainName}"+"/info/group_info2?id=${groupInfo.id}&good_type=${goodType}",groupInfoImg,"link",null);
         				wx.hideMenuItems({
         				    menuList: ["menuItem:copyUrl","menuItem:exposeArticle","menuItem:setFont","menuItem:readMode","menuItem:originPage","menuItem:share:email","menuItem:openWithQQBrowser","menuItem:openWithSafari"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
         				});
