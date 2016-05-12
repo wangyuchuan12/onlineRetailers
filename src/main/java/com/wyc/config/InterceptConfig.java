@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -98,6 +101,9 @@ public class InterceptConfig {
     private ExceptionRecordService exceptionRecordService;
     @Autowired
     private GoodTypeService goodTypeService;
+    
+    @Autowired
+    private EntityManagerFactory   entityManagerFactory;
     final static Logger logger = LoggerFactory.getLogger(InterceptConfig.class);
     
  //   @Around(value="execution (* com.wyc.wx.service.*.*(..))")
@@ -160,8 +166,15 @@ public class InterceptConfig {
     
     @Around(value="execution (* com.wyc.controller.action.*.*(..))")
     public Object aroundAction(ProceedingJoinPoint proceedingJoinPoint)throws Throwable{
+        EntityManager em = entityManagerFactory.createEntityManager();
         try {
-            return aroundHandler(proceedingJoinPoint);
+            
+            EntityTransaction transaction = em.getTransaction();
+            transaction.begin();
+            Object obj = aroundHandler(proceedingJoinPoint);
+            transaction.commit();
+            return obj;
+            
         } catch (Exception e) {
             e.printStackTrace();
             ExceptionRecord exceptionRecord = new ExceptionRecord();
@@ -195,9 +208,9 @@ public class InterceptConfig {
             }
             exceptionRecord.setParams(sb.toString());
             exceptionRecordService.add(exceptionRecord); 
-            return "redirect:/main/good_list";
-            
-            
+            return "redirect:/main/good_list";  
+        }finally{
+            em.close();
         }
         
     }
