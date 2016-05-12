@@ -12,7 +12,6 @@ import com.wyc.annotation.ResultBean;
 import com.wyc.annotation.handler.PayResultHandler;
 import com.wyc.annotation.handler.ReadXmlRequestToObjectHandler;
 import com.wyc.defineBean.StopToAfter;
-import com.wyc.domain.TemporaryData;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.OrderDetailService;
 import com.wyc.service.TemporaryDataService;
