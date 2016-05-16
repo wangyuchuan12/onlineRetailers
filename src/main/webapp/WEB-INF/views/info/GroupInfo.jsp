@@ -25,8 +25,23 @@
 		<div class="container">
 			<c:if test="${groupInfo.result==1}">
 				<div class="group_info_head">
-		            	<div class="group_info_head_status_progress"><i class="fa fa-check-circle"></i>开团成功</div>
+		            	<div class="group_info_head_status_progress"><i class="fa fa-check-circle"></i>正在组团</div>
 		            	<div class="group_info_head_info_progress">快去邀请好友加入吧</div>
+	            	</div>
+            	</c:if>
+            	
+            	
+            	<c:if test="${groupInfo.result==2}">
+				<div class="group_info_head">
+		            	<div class="group_info_head_status_success"><i class="fa  fa-thumbs-up"></i>组团成功</div>
+		            	<div class="group_info_head_info_success">恭喜你，组团成功拉</div>
+	            	</div>
+            	</c:if>
+            	
+            	<c:if test="${groupInfo.result==0}">
+				<div class="group_info_head">
+		            	<div class="group_info_head_status_failure"><i class="fa fa-meh-o"></i></div>
+		            	<div class="group_info_head_info_failure">团购失败</div>
 	            	</div>
             	</c:if>
 			<img class="linkGuid" style="display:none" id="linkGuid" src="/img/arrow2.jpg" onclick="javascript:hideLinkGuid();"></img>
@@ -45,21 +60,22 @@
 						<div class="group_goodinfo_detail_notice" style="color: black;">${groupInfo.notice} </div>
 						
 					</div>
-					<c:if test="${groupInfo.result==2}">
-						<div class="group_head_success" id="group_head">组团成功</div>
-					</c:if>
-					
 					<!--
+						<c:if test="${groupInfo.result==2}">
+							<div class="group_head_success" id="group_head">组团成功</div>
+						</c:if>
+						
+						
 						<c:if test="${groupInfo.result==1}">
 							<div class="group_head_in"  id="group_head">正在组团</div>
 						</c:if>
+						
+						
+						<c:if test="${groupInfo.result==0}">
+							<div class="group_head_failure"  id="group_head">组团失败</div>
+						</c:if>
+						
 					-->
-					
-					<c:if test="${groupInfo.result==0}">
-						<div class="group_head_failure"  id="group_head">组团失败</div>
-					</c:if>
-					
-			
 			</div>
 			
 			<div class="group_info_good_chat" onclick="javascript:skipToChat('${groupInfo.adminId}','3','','','${groupInfo.id}','${token.id}')">

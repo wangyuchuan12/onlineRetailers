@@ -386,10 +386,38 @@
 	color:green;
 }
 
+.group_info_head_status_failure{
+	padding-top:15px;
+	font-size:25px;
+	color:red;
+}
+
+.group_info_head_status_success{
+	padding-top:15px;
+	font-size:25px;
+	color:red;
+}
+
 .group_info_head_info_progress{
 	padding-top:10px;
 	padding-bottom:10px;
 	color:black;
+}
+
+.group_info_head_info_success{
+	padding-top:5px;
+	padding-bottom:10px;
+	color:black;
+	font-size:10px;
+	font-weight: bold;
+}
+
+.group_info_head_info_failure{
+	padding-top:5px;
+	padding-bottom:10px;
+	color:red;
+	font-size:10px;
+	font-weight: bold;
 }
 
 .group{
@@ -1042,7 +1070,8 @@
 	position:relative;
 	left:85px;
 	top:-30px;
-	display:inline-block;;
+	display:block;;
+	width:80%;
 	font-weight: bold;
 }
 
