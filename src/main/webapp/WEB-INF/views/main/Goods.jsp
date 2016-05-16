@@ -13,7 +13,7 @@
 	        <div class="swiper-wrapper" style="transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(0px, 0px, 0px);">
 	             <c:forEach items="${adGoodHeaderImgs}" var="adGoodHeaderImg">
 		             <div class="swiper-slide swiper-slide-active" style="width: 98%;margin-left: 0px;margin-right: 0px;">
-						<a href="javascript:skipToRedirectUrl('${adGoodHeaderImg.url}')"><img src="${adGoodHeaderImg.imgUrl}" style="height:250px;width:100%;margin: 0px auto;"></a>
+						<a href="javascript:skipToRedirectUrl('${adGoodHeaderImg.url}')"><img data-original="${adGoodHeaderImg.imgUrl}" src="/img/loading.gif" style="height:250px;width:100%;margin: 0px auto;" class="lazy"></a>
 		             </div>
 	             </c:forEach>
 	            
@@ -37,7 +37,7 @@
                 </div>
                 <div class="good-img" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
 
-                        <img src="${good.head_img}" />
+                        <img data-original="${good.head_img}" src="/img/loading.gif" class="lazy"/>
                         
       
                 </div>
@@ -76,6 +76,14 @@
     </div>
     <script type="text/javascript">
     		$(document).ready(function(){
+    			$("img.lazy").lazyload({
+                    effect: "fadeIn",
+                    threshold : 200
+            	});
+            	$("img.lazy:eq(0)").attr('src',$("img.lazy:eq(0)").attr('data-original'));
+    			
+    			
+    			
     			
     			$(function(){
     				window.onload=function(){		
