@@ -23,6 +23,12 @@
 	</head>
 	<body>
 		<div class="container">
+			<c:if test="${groupInfo.result==1}">
+				<div class="group_info_head">
+		            	<div class="group_info_head_status_progress"><i class="fa fa-check-circle"></i>开团成功</div>
+		            	<div class="group_info_head_info_progress">快去邀请好友加入吧</div>
+	            	</div>
+            	</c:if>
 			<img class="linkGuid" style="display:none" id="linkGuid" src="/img/arrow2.jpg" onclick="javascript:hideLinkGuid();"></img>
 			<input hidden="true" id = "group_info_img" value="${groupInfo.headImg}">
 			<input hidden="true" id = "group_info_good_name" value="${groupInfo.goodName}">
@@ -43,9 +49,11 @@
 						<div class="group_head_success" id="group_head">组团成功</div>
 					</c:if>
 					
-					<c:if test="${groupInfo.result==1}">
-						<div class="group_head_in"  id="group_head">正在组团</div>
-					</c:if>
+					<!--
+						<c:if test="${groupInfo.result==1}">
+							<div class="group_head_in"  id="group_head">正在组团</div>
+						</c:if>
+					-->
 					
 					<c:if test="${groupInfo.result==0}">
 						<div class="group_head_failure"  id="group_head">组团失败</div>
