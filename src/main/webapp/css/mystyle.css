@@ -1588,18 +1588,13 @@
 }
 
 .good_chat{
-	width:120px;
-	height:70px;
+	width:100px;
 	position:absolute;
-	left:130px;
+
 	float:left;
-	top:27px;
+	padding-top:15px;
 }
 
-.good_chat img{
-	width:120px;
-	height:25px;
-}
 
 .chat_container{
 	width:100%;
