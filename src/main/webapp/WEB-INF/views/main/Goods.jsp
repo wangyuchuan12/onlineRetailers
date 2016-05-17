@@ -4,10 +4,202 @@
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
+
+
+
+
+
+
+
+
+
 <tiles:insertDefinition name="adminLayout">
 <tiles:putAttribute name="title">商品列表</tiles:putAttribute>
 <tiles:putAttribute name="body">
-	<div class="container">
+	
+	<div id="loading" style="position:fixed;z-index:10000;width:100%;height:100%;">
+
+
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"> 
+    <meta http-equiv="Pragma" content="no-cache"> 
+    <meta http-equiv="Expires" content="0">
+
+    <title> </title>
+    <style type="text/css">
+    body{
+        overflow:hidden;
+    }
+    .spinner {
+        width: 34px;
+        height: 34px;
+        position: relative;
+        margin: 0 auto;
+        top: 150px;
+    }
+    
+    .container1 > div,
+    .container2 > div,
+    .container3 > div {
+        width: 10px;
+        height: 10px;
+        background-color: #DF2127;
+        border-radius: 100%;
+        position: absolute;
+        -webkit-animation: bouncedelay 1.2s infinite ease-in-out;
+        animation: bouncedelay 1.2s infinite ease-in-out;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+    
+    .spinner .spinner-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .container2 {
+        -webkit-transform: rotateZ(45deg);
+        transform: rotateZ(45deg);
+    }
+    
+    .container3 {
+        -webkit-transform: rotateZ(90deg);
+        transform: rotateZ(90deg);
+    }
+    
+    .circle1 {
+        top: 0;
+        left: 0;
+    }
+    
+    .circle2 {
+        top: 0;
+        right: 0;
+    }
+    
+    .circle3 {
+        right: 0;
+        bottom: 0;
+    }
+    
+    .circle4 {
+        left: 0;
+        bottom: 0;
+    }
+    
+    .container2 .circle1 {
+        -webkit-animation-delay: -1.1s;
+        animation-delay: -1.1s;
+    }
+    
+    .container3 .circle1 {
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+    }
+    
+    .container1 .circle2 {
+        -webkit-animation-delay: -0.9s;
+        animation-delay: -0.9s;
+    }
+    
+    .container2 .circle2 {
+        -webkit-animation-delay: -0.8s;
+        animation-delay: -0.8s;
+    }
+    
+    .container3 .circle2 {
+        -webkit-animation-delay: -0.7s;
+        animation-delay: -0.7s;
+    }
+    
+    .container1 .circle3 {
+        -webkit-animation-delay: -0.6s;
+        animation-delay: -0.6s;
+    }
+    
+    .container2 .circle3 {
+        -webkit-animation-delay: -0.5s;
+        animation-delay: -0.5s;
+    }
+    
+    .container3 .circle3 {
+        -webkit-animation-delay: -0.4s;
+        animation-delay: -0.4s;
+    }
+    
+    .container1 .circle4 {
+        -webkit-animation-delay: -0.3s;
+        animation-delay: -0.3s;
+    }
+    
+    .container2 .circle4 {
+        -webkit-animation-delay: -0.2s;
+        animation-delay: -0.2s;
+    }
+    
+    .container3 .circle4 {
+        -webkit-animation-delay: -0.1s;
+        animation-delay: -0.1s;
+    }
+    
+    @-webkit-keyframes bouncedelay {
+        0%, 80%, 100% {
+            -webkit-transform: scale(0.0)
+        }
+        40% {
+            -webkit-transform: scale(1.0)
+        }
+    }
+    
+    @keyframes bouncedelay {
+        0%, 80%, 100% {
+            transform: scale(0.0);
+            -webkit-transform: scale(0.0);
+        }
+        40% {
+            transform: scale(1.0);
+            -webkit-transform: scale(1.0);
+        }
+    }
+    </style>
+
+    
+        <div class="spinner">
+            <div class="spinner-container container1">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+            <div class="spinner-container container2">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+            <div class="spinner-container container3">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+        </div>
+    
+
+</div>
+
+	
+	
+	
+	
+	<div id="container" class="container" style="display: none;">
+		
+			
+		
+		
 		
 		<div class="swiper-container swiper-container-horizontal">
 	        <div class="swiper-wrapper" style="transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(0px, 0px, 0px);">
@@ -86,7 +278,9 @@
     			
     			
     			$(function(){
-    				window.onload=function(){		
+    				window.onload=function(){
+    				document.getElementById('loading').style.display='none';
+    				document.getElementById('container').style.display='';
     				var swiper = new Swiper('.swiper-container', {
 		    		        pagination: '.swiper-pagination',
 		    		        paginationClickable: true,
@@ -100,6 +294,7 @@
     			      $('.flexslider').flexslider({
     			        animation: "slide",
     			        start: function(slider){
+    			        	
     			          $('body').removeClass('loading');
     			        }
     			      });
