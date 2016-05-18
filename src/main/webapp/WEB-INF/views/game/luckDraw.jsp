@@ -24,36 +24,41 @@
 	</head>
 	<body>
 		<div class="container">
+			<div class="games_head">
+				<img  src="${good0.imgUrl}"> 
+			</div>
 			<div id="lottery"> 
 	<table border="0" cellpadding="0" cellspacing="0" style=""> 
 		
 		<tr>
-			<td class="lottery-unit lottery-unit-0"><img src="/images/1.png"  style="background-color: RGBA(134,112,255 ,.1)"></td>
+			<td class="lottery-unit lottery-unit-0"><img src="${good0.imgUrl}"  style="background-color: RGBA(134,112,255 ,.1)"></td>
 			
-			<td class="lottery-unit lottery-unit-1" ><img src="/images/2.png" style="background-color: RGBA(223,136,207 ,.1)"></td>
-			<td class="lottery-unit lottery-unit-2"><img src="/images/4.png"  style="background-color: RGBA(142,217,249 ,.1)"></td>
-            <td class="lottery-unit lottery-unit-3" ><img src="/images/3.png" style="background-color: RGBA(254,249,185,.1)"></td>
+			<td class="lottery-unit lottery-unit-1" ><img src="${good1.imgUrl}" style="background-color: RGBA(223,136,207 ,.1)"></td>
+			<td class="lottery-unit lottery-unit-2"><img src="${good2.imgUrl}"  style="background-color: RGBA(142,217,249 ,.1)"></td>
+            <td class="lottery-unit lottery-unit-3" ><img src="${good3.imgUrl}" style="background-color: RGBA(254,249,185,.1)"></td>
 		</tr>
 		<tr>
-			<td class="lottery-unit lottery-unit-11"><img src="/images/7.png" style="background-color: RGBA(253,222,46 , .1)"></td>
+			<td class="lottery-unit lottery-unit-11"><img src="${good11.imgUrl}" style="background-color: RGBA(253,222,46 , .1)"></td>
 			<td colspan="2" rowspan="2"><div class="start"><div>开始<br/>抽奖</div></div></td>
-			<td class="lottery-unit lottery-unit-4"><img src="/images/5.png" style="background-color: RGBA(33,217,207 , .1)"></td>
+			<td class="lottery-unit lottery-unit-4"><img src="${good4.imgUrl}" style="background-color: RGBA(33,217,207 , .1)"></td>
 		</tr>
 		<tr>
-			<td class="lottery-unit lottery-unit-10"><img src="/images/1.png" style="background-color: RGBA(253,250,207 , .1)"></td>
-			<td class="lottery-unit lottery-unit-5"><img src="/images/6.png" style="background-color: RGBA(255,247,154 , .1)"></td>
+			<td class="lottery-unit lottery-unit-10"><img src="${good10.imgUrl}" style="background-color: RGBA(253,250,207 , .1)"></td>
+			<td class="lottery-unit lottery-unit-5"><img src="${good5.imgUrl}" style="background-color: RGBA(255,247,154 , .1)"></td>
 		</tr>
         <tr>
-			<td class="lottery-unit lottery-unit-9"><img src="/images/3.png"  style="background-color: RGBA(255,177,25,.1)"></td>
-			<td class="lottery-unit lottery-unit-8"><img src="/images/6.png" style="background-color: RGBA(255,214,232,.2)"></td>
-			<td class="lottery-unit lottery-unit-7"><img src="/images/8.png" style="background-color: RGBA(159,249,247 ,.2)"></td>
-            	<td class="lottery-unit lottery-unit-6" ><img src="/images/7.png" style="background-color: RGBA(159,249,247,.1)"></td>
+			<td class="lottery-unit lottery-unit-9"><img src="${good9.imgUrl}"  style="background-color: RGBA(255,177,25,.1)"></td>
+			<td class="lottery-unit lottery-unit-8"><img src="${good8.imgUrl}" style="background-color: RGBA(255,214,232,.2)"></td>
+			<td class="lottery-unit lottery-unit-7"><img src="${good7.imgUrl}" style="background-color: RGBA(159,249,247 ,.2)"></td>
+            	<td class="lottery-unit lottery-unit-6" ><img src="${good6.imgUrl}" style="background-color: RGBA(159,249,247,.1)"></td>
 		</tr>
 	</table>
 </div>
 
 <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
 <script type="text/javascript">
+var goods = eval('(${goods})');
+var selectGood;
 var lottery={
 	index:-1,	//当前转动到哪个位置，起点位置
 	count:0,	//总共有多少个位置
@@ -82,6 +87,8 @@ var lottery={
 		};
 		$(lottery).find(".lottery-unit-"+index).addClass("active");
 		this.index=index;
+		
+		
 		return false;
 	},
 	stop:function(index){
@@ -98,11 +105,28 @@ function roll(){
 		lottery.prize=-1;
 		lottery.times=0;
 		click=false;
+		lottery.stop(lottery.index);
 	}else{
 		if (lottery.times<lottery.cycle) {
 			lottery.speed -= 10;
+			
 		}else if(lottery.times==lottery.cycle) {
 			var index = Math.random()*(lottery.count)|0;
+			var flag = true;
+			while(flag){
+				for(var i = 0;i<goods.length;i++){
+					if(goods[i].recordIndex==index){
+						if(goods[i].allow){
+							flag = false;
+							selectGood = goods[i];
+							break;
+						}
+					}
+				}
+				if(flag){
+					index = Math.random()*(lottery.count)|0;
+				}
+			}
 			lottery.prize = index;		
 		}else{
 			if (lottery.times > lottery.cycle+10 && ((lottery.prize==0 && lottery.index==7) || lottery.prize==lottery.index+1)) {
@@ -136,12 +160,11 @@ window.onload=function(){
 	});
 };
 </script>
-			
-			
-			
-			
      	</div>
-
+		<div class="draw_footer">
+			<div>恭喜你，抽中一个ipad开团劵，点击立即领取吧</div>
+			<div style="color:black">规则：<br/>1.每天允许抽奖一次<br/>2.抽中开团劵，可以用此开团劵免费开团<br/>3.抽中红包，系统自动将红包发到你的微信零钱中<br/>4.抽到感谢参与，那么请明天继续吧</div>
+		</div>
      	<script type="text/javascript">
      		$(document).ready(function(){
     				
