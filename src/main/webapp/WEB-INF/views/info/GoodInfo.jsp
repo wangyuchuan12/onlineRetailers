@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
+<%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <tiles:insertDefinition name="adminLayout">
 <tiles:putAttribute name="body">
@@ -39,7 +40,9 @@
 						<li>
 							<div class="good_info_btn activityStyle"
 								onclick="skipToGoodPay('${good.id}',0)">
-								<div class="good_info_btn_price_group">￥${good.group_cost}/件</div>
+								<div class="good_info_btn_price_group">
+									￥<fmt:formatNumber type="number" value="${good.group_original_cost*good.group_discount}" maxFractionDigits="3"/>/件
+								</div>
 								<div class="good_info_btn_type">${good.group_num}人团</div>
 							</div>
 						</li>
@@ -47,7 +50,7 @@
 						<li>
 							<div class="good_info_btn activityStyle"
 								onclick="skipToGoodPay('${good.id}',1)">
-								<div class="good_info_btn_price_alone">￥${good.alone_cost}/件</div>
+								<div class="good_info_btn_price_alone">￥<fmt:formatNumber type="number" value="${good.alone_discount*good.alone_original_cost}" maxFractionDigits="3"/>/件</div>
 								<div class="good_info_btn_type">单独买</div>
 							</div>
 						</li>
@@ -55,8 +58,8 @@
 						<li>
 							<div class="good_info_btn activityStyle"
 								<c:if test="${couponCount>0}">
-    					onclick="skipToGoodPay('${good.id}',2)"
-    				</c:if>>
+				    					onclick="skipToGoodPay('${good.id}',2)"
+				    				</c:if>>
 								<c:if test="${couponCount>0}">
 									<div class="good_info_btn_price_integral">${good.coupon_cost}张/件</div>
 									<div class="good_info_btn_type">开团劵开团(${couponCount})</div>
@@ -121,7 +124,7 @@
     			setUserToken("${token.id}");
     			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
     			wx.ready(function(){
-    				wxOnMenuShareAppMessage("${good.name}","${good.title}","www.chengxihome.com/info/good_info?id=${good.id}&good_type=${goodType}","${good.head_img}","link");
+    				wxOnMenuShareAppMessage("${good.name}","${good.title}","${domainName}/info/good_info?id=${good.id}&good_type=${goodType}","${good.head_img}","link");
     				wx.hideMenuItems({
     				    menuList: ["menuItem:copyUrl","menuItem:exposeArticle","menuItem:setFont","menuItem:readMode","menuItem:originPage","menuItem:share:email","menuItem:openWithQQBrowser","menuItem:openWithSafari"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
     				});
@@ -132,6 +135,9 @@
     		            ]
     		        	});
     			});
+    			
+    			
+    			
     		});
     </script>
 </tiles:putAttribute>

@@ -1,4 +1,4 @@
-var webPath = "http://www.chengxihome.com";
+var webPath = "";
 var cityObject = new Object();
 var currentCity;
 var currentAddress;
@@ -377,6 +377,10 @@ function skipToGroupInfo(id , token){
 
 function skipToGoodInfo(id , token){
 	skipToUrl("/info/good_info?id="+id,token);
+}
+
+function skipToLuckDraw(luckDrawRecordId,token){
+	skipToUrl("/game/receive_good?luckDrawRecordId="+luckDrawRecordId,token);
 }
 
 function skipToGoodList(goodType,token){

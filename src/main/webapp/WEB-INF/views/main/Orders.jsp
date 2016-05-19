@@ -39,7 +39,7 @@
 	        							<div class="order_good_payment">实付：<b>￥${order.cost}</b></div>
 	        						</div>
 	        						<div class="order_good_p3">
-	        						<!--1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未处理6退款已处理 -->
+	        						<!--1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未处理6退款已处理  7订单已取消-->
 	        							<div class="order_status_all">
 		        							<div class="order_good_logistics_status">
 		        								<c:if test="${order.status==1}">未付款</c:if>
@@ -76,7 +76,7 @@
     			onOrderClick();
     			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
     			wx.ready(function(){
-    				wxOnMenuShareAppMessage("${typeName}","${typeTitle}",webPath+"/main/good_list?good_type=${goodType}","${typeImg}","link");
+    				wxOnMenuShareAppMessage("${typeName}","${typeTitle}","${domainName}/main/good_list?good_type=${goodType}","${typeImg}","link");
     				wx.hideMenuItems({
     				    menuList: ["menuItem:copyUrl","menuItem:exposeArticle","menuItem:setFont","menuItem:readMode","menuItem:originPage","menuItem:share:email","menuItem:openWithQQBrowser","menuItem:openWithSafari"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
     				});

@@ -33,7 +33,8 @@ public class GroupPartakePayment {
     //0表示未付款 1已付款 2申请退款 3退款完成
     @Column
     private int status;
-    
+    @Column(name="out_trade_no")
+    private String outTradeNo;
     @Column(name="group_partake_id")
     private String groupPartakeId;
 
@@ -46,6 +47,16 @@ public class GroupPartakePayment {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
     private DateTime updateAt;
+    
+    
+    public String getOutTradeNo() {
+        return outTradeNo;
+    }
+
+    public void setOutTradeNo(String outTradeNo) {
+        this.outTradeNo = outTradeNo;
+    }
+
     public DateTime getCreateAt() {
         return createAt;
     }

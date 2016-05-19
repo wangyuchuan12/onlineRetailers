@@ -26,6 +26,9 @@
    <tiles:insertAttribute name="body" />
    <div style="height:20px;"></div>
    <tiles:insertAttribute name="footer" />
+   <script type="text/javascript">
+   		webPath = "http://${domainName}";
+   </script>
 </div>
 </body>
 </html>

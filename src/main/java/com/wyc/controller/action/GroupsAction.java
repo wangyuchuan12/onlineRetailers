@@ -193,8 +193,22 @@ public class GroupsAction {
     public String skipToLatestGroupInfo(HttpServletRequest httpServletRequest){
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
-        
-        TemporaryData lastGroupId = temporaryDataService.findByMyKeyAndNameAndStatus(userInfo.getOpenid(),"lastGroupId" , 1);
+        TemporaryData lastGroupId = null;
+        for(int i = 0 ;i<500;i++){
+            lastGroupId = temporaryDataService.findByMyKeyAndNameAndStatus(userInfo.getOpenid(),"lastGroupId" , 1);
+            if(lastGroupId!=null){
+                lastGroupId.setStatus(0);
+                temporaryDataService.save(lastGroupId);
+                break;
+            }
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                logger.error("has an error of thread sleep :{}",e);
+            }
+        }
         GoodGroup goodGroup = goodGroupService.findOne(lastGroupId.getValue());
         return "redirect:/info/group_info2?id="+goodGroup.getId()+"&token="+myHttpServletRequest.getToken().getId();
     }

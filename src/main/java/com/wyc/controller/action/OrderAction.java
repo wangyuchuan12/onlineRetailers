@@ -22,9 +22,7 @@ import com.wyc.annotation.handler.AfterGoodTypeHandler;
 import com.wyc.annotation.handler.BeforeGoodTypeHandler;
 import com.wyc.annotation.handler.NotReadChatHandler;
 import com.wyc.defineBean.MySimpleDateFormat;
-import com.wyc.domain.SystemCity;
 import com.wyc.domain.Customer;
-import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;
@@ -90,7 +88,7 @@ public class OrderAction {
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
         Customer customer = customerService.findByOpenId(userInfo.getOpenid());
         
-        Iterable<GroupPartake> groupPatakes = groupPartakeService.findByCustomerid(customer.getId());
+        Iterable<GroupPartake> groupPatakes = groupPartakeService.findAllByCustomeridOrderByDateTimeDesc(customer.getId());
         List<String> orderIds = new ArrayList<String>();
         for(GroupPartake groupPartake:groupPatakes){
             orderIds.add(groupPartake.getOrderId());

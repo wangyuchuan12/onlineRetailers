@@ -15,3 +15,4 @@
 
 <link href="/css/swiper.min.css" rel="stylesheet">
 <script type="text/javascript" src="/js/swiper.min.js"></script>
+<script type="text/javascript" src="/js/jquery.lazy.js"></script>

@@ -16,8 +16,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wyc.domain.Good;
 import com.wyc.domain.TemporaryData;
 import com.wyc.intercept.domain.MyHttpServletRequest;
+import com.wyc.service.GoodService;
 import com.wyc.service.TemporaryDataService;
 import com.wyc.service.WxUserInfoService;
 import com.wyc.util.MD5Util;
@@ -37,6 +39,8 @@ public class WxChooseWxPayHandler implements Handler{
     private TemporaryDataService temporaryDataService;
     @Autowired
     private WxUserInfoService wxUserInfoService;
+    @Autowired
+    private GoodService goodService;
     @Override
     public Object handle(HttpServletRequest httpServletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
@@ -49,6 +53,10 @@ public class WxChooseWxPayHandler implements Handler{
             httpServletRequest.setAttribute("cost", cost);
         }
         String goodId = httpServletRequest.getParameter("good_id");
+        Good good = null;
+        if(goodId!=null){
+            good = goodService.findOne(goodId);
+        }
         String payType=httpServletRequest.getParameter("pay_type");
         Calendar now = Calendar.getInstance();
         String outTradeNo = now.get(Calendar.YEAR)
@@ -67,11 +75,15 @@ public class WxChooseWxPayHandler implements Handler{
 	        Request request = requestFactory.payUnifiedorder();
 	        String appid = wxContext.getAppid();
 	        String attach = "paytest";
-	        String body = "JSAPI";
+	        String body = "晨曦商城";
 	        String mchId = wxContext.getMchId();
-	        String nonceStr = "1add1a30ac87aa2db72f57a2375d8fec";
-	        String notifyUrl = "http://www.chengxihome.com/api/wx/pay_success";
-	        
+	        String nonceStr = "1add1a30ac87aa2db72f57a2375d8f22";
+	        String notifyUrl = "http://"+wxContext.getDomainName()+"/api/wx/pay_success";
+	        String detail = "";
+	        if(good!=null){
+	            detail = good.getName();
+	            body = good.getName();
+	        }
 	        String spbillCreateIp = httpServletRequest.getRemoteAddr();
 	        String datetime = String.valueOf(System.currentTimeMillis() / 1000);
 	        Long totalFee = (long)(cost*100);
@@ -88,6 +100,7 @@ public class WxChooseWxPayHandler implements Handler{
 	        map.put("spbill_create_ip", spbillCreateIp);
 	        map.put("nonce_str", nonceStr);
 	        map.put("attach", attach);
+	        map.put("detail", detail);
 	        String sign = MD5Util.createMd5Sign(map,wxContext.getKey()).toUpperCase();
 	        StringBuffer sb2 = new StringBuffer();
 	        sb2.append("<xml>");
@@ -101,7 +114,7 @@ public class WxChooseWxPayHandler implements Handler{
 	        sb2.append("<out_trade_no>"+outTradeNo+"</out_trade_no>");
 	        sb2.append("<spbill_create_ip>"+spbillCreateIp+"</spbill_create_ip>");
 	        sb2.append("<total_fee>"+totalFee+"</total_fee>");
-	        
+	        sb2.append("<detail>"+detail+"</detail>");
 	        sb2.append("<trade_type>"+tradeType+"</trade_type>");
 	        sb2.append("<sign>"+sign+"</sign>");
 	        sb2.append("</xml>");

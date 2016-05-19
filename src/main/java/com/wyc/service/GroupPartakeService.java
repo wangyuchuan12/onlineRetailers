@@ -49,4 +49,8 @@ public class GroupPartakeService {
     public Iterable<GroupPartake> findAllByGroupIdOrderByDateTime(String id) {
         return groupPartakeRepository.findAllByGroupIdOrderByDateTimeAsc(id);
     }
+
+    public Iterable<GroupPartake> findAllByCustomeridOrderByDateTimeDesc(String customerId) {
+        return groupPartakeRepository.findAllByCustomeridOrderByDateTimeDesc(customerId);
+    }
 }
