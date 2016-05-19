@@ -60,4 +60,8 @@ public class OpenGroupCouponService {
             String customerId) {
         return openGroupCouponRepository.findAllByCustomerIdOrderByStatusAsc(customerId);
     }
+
+    public OpenGroupCoupon findOne(String targetId) {
+        return openGroupCouponRepository.findOne(targetId);
+    }
 }

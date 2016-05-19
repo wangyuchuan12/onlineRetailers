@@ -13,5 +13,11 @@ public class LuckDrawGoodService {
     public Iterable<LuckDrawGood> findAll() {
         return luckDrawGoodRepository.findAll();
     }
+    public  LuckDrawGood findByRecordIndex(int recordIndex) {
+        return luckDrawGoodRepository.findByRecordIndex(recordIndex);
+    }
+    public LuckDrawGood findOne(String id) {
+        return luckDrawGoodRepository.findOne(id);
+    }
 
 }

@@ -16,6 +16,7 @@ public class LuckDrawUserInfo {
     @Column(unique=true)
     private String openid;
     @Column(name="last_handle")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime lastHandle;
     @Column
     private int count;

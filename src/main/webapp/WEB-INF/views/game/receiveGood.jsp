@@ -28,10 +28,10 @@
 				<img src="/images/1.png">
 				<div class="game_info">
 					<div class="game_info_type">开团劵</div>
-					<div class="game_info_name">名称：手机</div>
-					<div class="game_info_validity">有效期：2015-07-15</div>
+					<div class="game_info_name">名称：${goodName}</div>
+					<div class="game_info_validity">有效期：<joda:format value="${endDate}" pattern="yyyy-MM-dd HH:mm"/></div>
 				</div>
-				<div class="game_receive_btn">立即使用</div>
+				<div class="game_receive_btn" onclick="skipToGoodInfo('${goodId}')">立即使用</div>
 			</div>
      	</div>
 

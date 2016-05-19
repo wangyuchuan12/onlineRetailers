@@ -20,6 +20,8 @@ public class LuckDrawRecord {
     private String luckDrawGoodId;
     @Column(name="luck_draw_user_info_id")
     private String luckDrawUserInfoId;
+    @Column(name="target_id")
+    private String targetId;
     //0未立即使用 1立即使用
     @Column
     private int status;
@@ -38,6 +40,12 @@ public class LuckDrawRecord {
     private DateTime updateAt;
     
     
+    public String getTargetId() {
+        return targetId;
+    }
+    public void setTargetId(String targetId) {
+        this.targetId = targetId;
+    }
     public DateTime getInvalidDate() {
         return invalidDate;
     }

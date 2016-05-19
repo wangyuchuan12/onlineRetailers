@@ -379,6 +379,10 @@ function skipToGoodInfo(id , token){
 	skipToUrl("/info/good_info?id="+id,token);
 }
 
+function skipToLuckDraw(luckDrawRecordId,token){
+	skipToUrl("/game/receive_good?luckDrawRecordId="+luckDrawRecordId,token);
+}
+
 function skipToGoodList(goodType,token){
 	if(goodType){
 		skipToUrl("/main/good_list?good_type="+goodType,token);

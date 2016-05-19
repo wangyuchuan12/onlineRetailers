@@ -39,7 +39,7 @@
 		</tr>
 		<tr>
 			<td class="lottery-unit lottery-unit-11"><img src="${good11.imgUrl}" style="background-color: RGBA(253,222,46 , .1)"></td>
-			<td colspan="2" rowspan="2"><div class="start"><div>开始<br/>抽奖</div></div></td>
+			<td colspan="2" rowspan="2"><div class="start activityStyle"><div id = "start">开始<br/>抽奖</div></div></td>
 			<td class="lottery-unit lottery-unit-4"><img src="${good4.imgUrl}" style="background-color: RGBA(33,217,207 , .1)"></td>
 		</tr>
 		<tr>
@@ -93,6 +93,16 @@ var lottery={
 	},
 	stop:function(index){
 		this.prize=index;
+		
+		 $('#start').unbind();
+		 var luckNo = "${luckNo}";
+		 var htmlobj=$.ajax({url:"/game/draw_handler?luckNo="+luckNo+"&index="+index+"&token=${token.id}",async:false});
+		 htmlobj = eval("("+htmlobj.responseText+")");
+		 $("#start").html("立即<br/>领取");
+		 $("#draw_footer_content").html(htmlobj.prompt);
+		$("#start").click(function(){
+			skipToLuckDraw(htmlobj.luckDrawRecordId,"${token.id}");
+		});
 		return false;
 	}
 };
@@ -147,22 +157,35 @@ function roll(){
 var click=false;
 
 window.onload=function(){
+	var isAllow = "${isAllow}";
 	lottery.init('lottery');
-	$("#lottery").click(function(){
-		if (click) {
-			return false;
-		}else{
-			lottery.speed=100;
-			roll();
-			click=true;
-			return false;
-		}
-	});
+	if(isAllow=="true"){
+		$("#start").click(function(){
+			if (click) {
+				return false;
+			}else{
+				lottery.speed=100;
+				roll();
+				click=true;
+				return false;
+			}
+		});
+	}
+	
+	
 };
 </script>
      	</div>
 		<div class="draw_footer">
-			<div>恭喜你，抽中一个ipad开团劵，点击立即领取吧</div>
+			<div id="draw_footer_content">
+				<c:if test="${isAllow==true}">
+					点击开始抽奖吧
+				</c:if>
+				
+				<c:if test="${!isAllow}">
+					对不起，你今天的机会已经用完
+				</c:if>
+			</div>
 			<div style="color:black">规则：<br/>1.每天允许抽奖一次<br/>2.抽中开团劵，可以用此开团劵免费开团<br/>3.抽中红包，系统自动将红包发到你的微信零钱中<br/>4.抽到感谢参与，那么请明天继续吧</div>
 		</div>
      	<script type="text/javascript">
