@@ -167,6 +167,7 @@ public class OrderAction {
         responseOrder.put("flowPrice", goodOrder.getFlowPrice());
         responseOrder.put("id", goodOrder.getId());
         responseOrder.put("adminId", good.getAdminId());
+        responseOrder.put("num", 1);
         return responseOrder;
     }
     

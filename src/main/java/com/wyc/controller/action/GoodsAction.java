@@ -28,6 +28,7 @@ import com.wyc.annotation.handler.BeforeGoodTypeHandler;
 import com.wyc.annotation.handler.NotReadChatHandler;
 import com.wyc.annotation.handler.PayResultHandler;
 import com.wyc.annotation.handler.WxChooseWxPayHandler;
+import com.wyc.domain.GoodStyle;
 import com.wyc.domain.SystemAdGoodHeaderImg;
 import com.wyc.domain.SystemCity;
 import com.wyc.domain.Customer;
@@ -45,6 +46,7 @@ import com.wyc.service.CustomerAddressService;
 import com.wyc.service.CustomerService;
 import com.wyc.service.GoodImgService;
 import com.wyc.service.GoodService;
+import com.wyc.service.GoodStyleService;
 import com.wyc.service.GoodTypeService;
 import com.wyc.service.MyResourceService;
 import com.wyc.service.OpenGroupCouponService;
@@ -78,6 +80,8 @@ public class GoodsAction {
         private AdGoodHeaderImgService adGoodHeaderImgService;
         @Autowired
         private QuickEntranceService quickEntranceService;
+        @Autowired
+        private GoodStyleService goodStyleService;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
@@ -308,7 +312,11 @@ public class GoodsAction {
             if(payType.equals("3")){
                 tempGroupOrder.setGroupId(httpRequest.getParameter("group_id"));
             }
-            tempGroupOrderService.add(tempGroupOrder);
+            tempGroupOrder = tempGroupOrderService.add(tempGroupOrder);
+            
+            Iterable<GoodStyle> goodStyles = goodStyleService.findAllByGoodId(good.getId());
+            httpRequest.setAttribute("goodStyles", goodStyles);
+            httpRequest.setAttribute("tempGroupOrderId", tempGroupOrder.getId());
 	    return "info/GoodInfoPay";
 	}
 	

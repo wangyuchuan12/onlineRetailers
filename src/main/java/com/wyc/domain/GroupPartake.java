@@ -38,6 +38,9 @@ public class GroupPartake {
     private  String remarks;
     @Column
     private int status=WAIT_STATUS;
+    
+    @Column(name="good_style_id")
+    private String goodStyleId;
     //参加时间
     @Column(name = "date_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -52,6 +55,12 @@ public class GroupPartake {
     
     
     
+    public String getGoodStyleId() {
+        return goodStyleId;
+    }
+    public void setGoodStyleId(String goodStyleId) {
+        this.goodStyleId = goodStyleId;
+    }
     public String getAddressContent() {
         return addressContent;
     }
