@@ -60,6 +60,17 @@ public class TempGroupOrder {
     private String personName;
     @Column(name="phonenumber")
     private String phonenumber;
+    @Column(name="good_style_id")
+    private String goodStyleId;
+    
+    
+    public String getGoodStyleId() {
+        return goodStyleId;
+    }
+
+    public void setGoodStyleId(String goodStyleId) {
+        this.goodStyleId = goodStyleId;
+    }
 
     public String getPersonName() {
         return personName;

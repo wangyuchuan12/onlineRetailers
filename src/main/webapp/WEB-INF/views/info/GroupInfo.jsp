@@ -23,6 +23,9 @@
 	</head>
 	<body>
 		<div class="container">
+			<div class="linkGuid" style="display:none" id="linkGuid"  onclick="javascript:hideLinkGuid();">
+				<img src="/img/arrow2.jpg"></img>
+			</div>
 			<c:if test="${groupInfo.result==1}">
 				<div class="group_info_head">
 		            	<div class="group_info_head_status_progress"><i class="fa fa-check-circle"></i>正在组团</div>
@@ -44,7 +47,6 @@
 		            	<div class="group_info_head_info_failure">团购失败</div>
 	            	</div>
             	</c:if>
-			<img class="linkGuid" style="display:none" id="linkGuid" src="/img/arrow2.jpg" onclick="javascript:hideLinkGuid();"></img>
 			<input hidden="true" id = "group_info_img" value="${groupInfo.headImg}">
 			<input hidden="true" id = "group_info_good_name" value="${groupInfo.goodName}">
 			<input hidden="true" id = "group_info_good_title" value="${groupInfo.title}">

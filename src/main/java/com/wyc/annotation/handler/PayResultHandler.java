@@ -134,7 +134,7 @@ public class PayResultHandler implements Handler{
             groupPartake.setOrderId(goodOrder.getId());
             groupPartake.setRole(1);
             groupPartake.setType(0);
-            
+            groupPartake.setGoodStyleId(tempGroupOrder.getGoodStyleId());
             groupPartake = groupPartakeService.add(groupPartake);
             
             GroupPartakeDeliver groupPartakeDeliver = new GroupPartakeDeliver();
@@ -199,6 +199,7 @@ public class PayResultHandler implements Handler{
                 groupPartake.setAddressContent(tempGroupOrder.getAddress());
                 groupPartake.setPersonName(tempGroupOrder.getPersonName());
                 groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
+                groupPartake.setGoodStyleId(tempGroupOrder.getGoodStyleId());
                 goodOrder = goodOrderService.findOne(orderDetail.getOrderId());
                 
                 if(partNum==1){
@@ -279,6 +280,7 @@ public class PayResultHandler implements Handler{
             groupPartake.setAddressContent(tempGroupOrder.getAddress());
             groupPartake.setPersonName(tempGroupOrder.getPersonName());
             groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
+            groupPartake.setGoodStyleId(tempGroupOrder.getGoodStyleId());
             groupPartakeService.add(groupPartake);
             
             

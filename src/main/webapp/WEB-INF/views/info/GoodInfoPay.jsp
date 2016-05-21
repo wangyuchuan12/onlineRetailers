@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <!doctype html>
 <html>
 <head>
@@ -65,7 +66,22 @@
         			<c:if test="${payGoodInfo.pay_type==2}">使用开团劵 &nbsp; &nbsp; </c:if>
         			 快递：￥${payGoodInfo.flow_price} &nbsp;总价：<b>￥${payGoodInfo.cost}</b></div>
         	</div>
-        	
+        	<c:if test="${fn:length(goodStyles)>0}">
+	        	<div class="good_info_pay_good_style">
+	        		<ul>
+	        			<c:forEach items="${goodStyles}" var="goodStyle">
+	        				
+	        					<li>
+	        						<div class="good_info_pay_good_style_item" onclick="javascript:selectStyle('${goodStyle.id}')">
+	        							<img src="${goodStyle.imgUrl}"  id="select_${goodStyle.id}">
+	        							<div class="good_info_pay_good_style_item_name">红色</div>
+	        						</div>
+	        						
+	        					</li>
+	        			</c:forEach>
+	        		</ul>
+	        	</div>
+        	</c:if>
         	<div class="good_info_pay_type">
         		<div class="good_info_pay_type_head">请选择支付方式</div>
         		<div class="good_info_pay_type_list">
@@ -119,6 +135,15 @@
     </div>
 </body>
 <script type="text/javascript">
+		function selectStyle(styleId){
+			var htmlobj=$.ajax({url:"/api/set_good_style?temp_group_order_id=${tempGroupOrderId}&good_style_id="+styleId+"&token=${token.id}",async:false});
+			htmlobj = eval("("+htmlobj.responseText+")");
+			if(htmlobj.result){
+				$(".good_info_pay_good_style_select").removeClass("good_info_pay_good_style_select");
+				$("#select_"+styleId).addClass("good_info_pay_good_style_select");
+				
+			}
+		}
     		$(document).ready(function(){
     			setUserToken("${token.id}");
     			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");

@@ -8,7 +8,7 @@
 	display: block;
 	padding-top: 10px; 
 }
-.good_market_price{
+.good_market_price{v
 	text-align: left;
 	font-size: 15px;
 	display:block;
@@ -734,8 +734,8 @@
 }
 
 .linkGuid{
-	width: 100%;
-	height: 100%;
+	width:100%;
+	height:100%;
 	position: fixed;
 	background-color: RGBA(0,0,0,0.5);
 	background-repeat: no-repeat;
@@ -743,6 +743,12 @@
 	opacity:0.8;
 	filter:alpha(opacity=80);
 	
+}
+
+
+.linkGuid img{
+	width:100%;
+	height:100%;
 }
 
 .footer3 a{
@@ -756,6 +762,7 @@
 	position: relative;
 	border-radius: 5px;
 }
+
 
 .footer3 i{
 	width: 15%;
@@ -788,6 +795,36 @@
 .good_info_pay{
 	width:100%;
 	position:relative;
+}
+
+.good_info_pay_good_style_select{
+	border:1px solid red;
+}
+
+.good_info_pay_good_style{
+	width:100%;
+	height:95px;
+	margin-top:10px;
+}	
+
+.good_info_pay_good_style_item{
+	width:72px;
+	height:72px;;
+	float:left;
+	text-align: center;
+}
+
+.good_info_pay_good_style_item img{
+	height:73px;
+	width:70px;
+}
+
+.good_info_pay_good_style_item_name{
+	background-color: RGBA(0,0,0,.1);
+	border: 1px solid white;
+	top:-5px;
+	position: relative;
+		
 }
 
 .good_info_pay_recipients{

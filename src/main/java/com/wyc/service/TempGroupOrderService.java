@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.wyc.domain.TempGroupOrder;
 import com.wyc.repositories.TempGroupOrderRepository;
 
@@ -26,5 +27,9 @@ public class TempGroupOrderService {
     
     public TempGroupOrder findByOutTradeNo(String outTradeNo){
         return tempGroupOrderRepository.findByOutTradeNo(outTradeNo);
+    }
+
+    public TempGroupOrder findOne(String tempGroupOrderId) {
+        return tempGroupOrderRepository.findOne(tempGroupOrderId);
     }
 }
