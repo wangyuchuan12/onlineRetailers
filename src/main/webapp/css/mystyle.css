@@ -103,6 +103,11 @@
 	
 }
 
+.good_info_btn_disalbe{
+	filter:gray;
+	overflow-y:scroll;filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);-webkit-filter: grayscale(100%);
+}
+
 .good_info_btn_price_group{
 	background-color:RGBA(255,  0,  0 ,.8);
 	height:55%;

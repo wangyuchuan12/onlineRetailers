@@ -32,14 +32,28 @@
                	     </div>
                         
                         </div>
-                        <div class="good_info_introduce_num">支付开团并邀请<span id="tuan_more_need_number">${good.group_num}</span>人参团，人数不足自动退款，详见下方拼团玩法</div>
+                        <div class="good_info_introduce_num">
+                        <c:if test="${good.status==1}">
+                           支付开团并邀请<span id="tuan_more_need_number">${good.group_num}</span>人参团，人数不足自动退款，详见下方拼团玩法
+                        </c:if>
+                        <c:if test="${good.status==0}">
+                        	对不起，该商品已经下架
+						</c:if>
+						
+						<c:if test="${good.status==2}">
+							对不起，该商品已售完
+						</c:if>
+                        </div>
                     </div>
                     
 				<div class="good_info_btns">
 					<ul>
 						<li>
-							<div class="good_info_btn activityStyle"
-								onclick="skipToGoodPay('${good.id}',0)">
+							<div class="good_info_btn activityStyle <c:if test='${good.status==0||good.status==2}'> good_info_btn_disalbe</c:if>"
+								<c:if test='${good.status==1}'>
+								onclick="skipToGoodPay('${good.id}',0)"
+								</c:if>
+								>
 								<div class="good_info_btn_price_group">
 									￥<fmt:formatNumber type="number" value="${good.group_original_cost*good.group_discount}" maxFractionDigits="3"/>/件
 								</div>
@@ -48,28 +62,26 @@
 						</li>
 
 						<li>
-							<div class="good_info_btn activityStyle"
-								onclick="skipToGoodPay('${good.id}',1)">
+							<div class="good_info_btn activityStyle <c:if test='${good.status==0||good.status==2}'> good_info_btn_disalbe</c:if>" 
+								<c:if test='${good.status==1}'>
+								onclick="skipToGoodPay('${good.id}',1)"
+								</c:if>
+								>
 								<div class="good_info_btn_price_alone">￥<fmt:formatNumber type="number" value="${good.alone_discount*good.alone_original_cost}" maxFractionDigits="3"/>/件</div>
 								<div class="good_info_btn_type">单独买</div>
 							</div>
 						</li>
-
+					<c:if test="${couponCount>0}">
 						<li>
-							<div class="good_info_btn activityStyle"
-								<c:if test="${couponCount>0}">
+							<div class="good_info_btn activityStyle <c:if test='${good.status==0||good.status==2||couponCount<1}'> good_info_btn_disalbe</c:if>"
+								<c:if test="${couponCount>0&&good.status==1}">
 				    					onclick="skipToGoodPay('${good.id}',2)"
 				    				</c:if>>
-								<c:if test="${couponCount>0}">
-									<div class="good_info_btn_price_integral">${good.coupon_cost}张/件</div>
-									<div class="good_info_btn_type">开团劵开团(${couponCount})</div>
-								</c:if>
-								<c:if test="${couponCount==0}">
-									<div class="good_info_btn_price_disable">${good.coupon_cost}张/件</div>
-									<div class="good_info_btn_type_disable">开团劵开团(${couponCount})</div>
-								</c:if>
+								<div class="good_info_btn_price_integral">${good.coupon_cost}张/件</div>
+								<div class="good_info_btn_type">开团劵开团(${couponCount})</div>
 							</div>
 						</li>
+					</c:if>
 					</ul>
 				</div>
 				</div>

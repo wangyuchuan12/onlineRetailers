@@ -196,6 +196,7 @@ public class GoodsAction {
             responseGood.put("adminId", good.getAdminId());
             responseGood.put("stock", good.getStock());
             responseGood.put("salesVolume", good.getSalesVolume());
+            responseGood.put("status", good.getStatus());
             MyResource myResource = resourceService.findOne(good.getHeadImg());
             MyResource goodInfoHeadImgResource = resourceService.findOne(good.getGoodInfoHeadImg());
             if(myResource!=null){
