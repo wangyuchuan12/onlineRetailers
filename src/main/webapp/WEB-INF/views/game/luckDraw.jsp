@@ -88,6 +88,12 @@ var lottery={
 		$(lottery).find(".lottery-unit-"+index).addClass("active");
 		this.index=index;
 		
+		for(var i = 0;i<goods.length;i++){
+			if(goods[i].recordIndex==index){
+				$(".games_head img").attr("src",goods[i].imgUrl);
+			}
+		}
+		
 		
 		return false;
 	},
