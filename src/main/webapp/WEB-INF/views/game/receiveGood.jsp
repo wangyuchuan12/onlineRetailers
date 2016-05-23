@@ -25,7 +25,7 @@
 	<body>
 		<div class="container">
 			<div class="game_receive_good">
-				<img src="/images/1.png">
+				<img src="${imgUrl}">
 				<div class="game_info">
 					<div class="game_info_type">开团劵</div>
 					<div class="game_info_name">名称：${goodName}</div>

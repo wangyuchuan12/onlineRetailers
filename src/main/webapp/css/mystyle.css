@@ -86,7 +86,6 @@
 .good_info_introduce_num span{font-size: 15px;font-weight: bold;}
 
 .good_info_btns{
-	background-color:RGBA(214,214,214,.4);
 	padding-left:5px;
 	display: block;
 	
@@ -101,6 +100,11 @@
 .good_info_btn{
 	
 	
+}
+
+.good_info_btn_disalbe{
+	filter:gray;
+	overflow-y:scroll;filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);-webkit-filter: grayscale(100%);
 }
 
 .good_info_btn_price_group{
@@ -590,15 +594,16 @@
 	 z-index:100;
 	 position:relative;
 	 text-align:center;
-	 width:60px;
+	 width:40px;
 	 display:block;
+	 margin-top:2px;
 }
 
 .member img{
 	position:relative;
 	border-radius:25px;
-	width:50px;
-	height:50px;
+	width:35px;
+	height:35px;
 	z-index:0;
 	left:0px;
 	position:relative;
@@ -611,6 +616,11 @@
 	top:0px;
 	display:block;
 	margin-bottom: 20px;
+	text-align: center;
+	width:100%;
+	padding-left:67px;
+	padding-right:67px;
+	margin-top: 20px;
 }
 
 .member_obvious{
@@ -621,12 +631,11 @@
 	border:3 solid white;
 	color:white;
 	text-indent: 0px;
-	width:20px;
-	height:20px;
+	width:17px;
+	height:17px;
 	float:left;
-	left:38px;
-	top:-50px;
-	line-height:20px;
+	left:27px;
+	top:-40px;
 
 }
 
@@ -638,11 +647,11 @@
 	border:3 solid white;
 	color:white;
 	text-indent: 0px;
-	width:20px;
-	height:20px;
+	width:17px;
+	height:17px;
 	float:left;
-	left:38px;
-	top:-50px;
+	left:27px;
+	top:-40px;
 	line-height:20px;
 }
 
@@ -652,17 +661,16 @@
 	border-radius:25px;
 	color:white;
 	text-indent: 5px;
-	width:20px;
-	height:20px;
+	width:17px;
+	height:17px;
 	float:left;
 	top:-53px;
-	left:15px;
+	left:7px;
 	line-height:70px;
 }
 
 .members ul{
 	list-style-type:none;
-	top:20px;
 	position:relative;
 	text-align: center;
 }
