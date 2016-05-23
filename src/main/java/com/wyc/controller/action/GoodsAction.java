@@ -114,6 +114,20 @@ public class GoodsAction {
 	        customerService.save(customer);
 	    }
 	    
+	    SystemGoodType goodType = goodTypeService.findOne(goodTypeId);
+	    if(goodType==null){
+	        Iterable<SystemGoodType> goodTypeIterable = goodTypeService.findAll();
+                for(SystemGoodType goodTypeEntity:goodTypeIterable){
+                    if(goodTypeEntity.isDefault()){
+                        goodTypeId = goodTypeEntity.getId();
+                        goodType = goodTypeEntity;
+                        break;
+                    }
+                    goodTypeId = goodTypeEntity.getId();
+                    goodType = goodTypeEntity;
+                }
+	    }
+	    
 	    Iterable<SystemAdGoodHeaderImg> adGoodHeaderImgs = adGoodHeaderImgService.findAllOrderByRankAsc();
 	    
 	    Iterable<Good> databaseGoods = goodService.findAllByGoodTypeAndIsDisplayMainOrderByRank(goodTypeId,true);
@@ -148,7 +162,7 @@ public class GoodsAction {
 	       httpRequest.setAttribute("goods", responseGoods);
 	       httpRequest.setAttribute("goodType", goodTypeId);
 	       if(goodTypeId!=null){
-        	       SystemGoodType goodType = goodTypeService.findOne(goodTypeId);
+        	       
         	       httpRequest.setAttribute("typeTitle", goodType.getTitle());
         	       httpRequest.setAttribute("typeName", goodType.getName());
         	       httpRequest.setAttribute("typeImg", goodType.getImg());
