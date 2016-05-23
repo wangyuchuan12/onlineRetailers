@@ -13,6 +13,10 @@ public class GroupPartake {
     public static final int PROGRAM_STATUS=2;
     public static final int SUCCESS_STATUS=3;
     public static final int DERELICT_STATUS=4;
+    public static final int FAILURE_STATUS=5;
+    
+    public static final int APPLY_STATUS=6;
+   
     @Id
     private String id;
     @Column(name = "customerid")
@@ -38,7 +42,8 @@ public class GroupPartake {
     private  String remarks;
     @Column
     private int status=WAIT_STATUS;
-    
+    @Column(name="is_del")
+    private int isDel = 1;
     @Column(name="good_style_id")
     private String goodStyleId;
     //参加时间
@@ -54,12 +59,17 @@ public class GroupPartake {
     private DateTime updateAt;
     
     
-    
     public String getGoodStyleId() {
         return goodStyleId;
     }
     public void setGoodStyleId(String goodStyleId) {
         this.goodStyleId = goodStyleId;
+    }
+    public int getIsDel() {
+        return isDel;
+    }
+    public void setIsDel(int isDel) {
+        this.isDel = isDel;
     }
     public String getAddressContent() {
         return addressContent;
