@@ -3,12 +3,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wyc.annotation.JsApiTicketAnnotation;
 import com.wyc.annotation.UserInfoFromWebAnnotation;
+import com.wyc.annotation.WxConfigAnnotation;
 import com.wyc.domain.Good;
 import com.wyc.domain.LuckDrawGood;
 import com.wyc.domain.LuckDrawRecord;
@@ -38,6 +43,8 @@ public class GameAction {
     @Autowired
     private OpenGroupCouponService openGroupCouponService;
     @RequestMapping("/game/luck_draw")
+    @JsApiTicketAnnotation
+    @WxConfigAnnotation
     @UserInfoFromWebAnnotation
     public String luckDraw(HttpServletRequest httpServletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;

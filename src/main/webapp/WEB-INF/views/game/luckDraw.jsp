@@ -220,7 +220,20 @@ window.onload=function(){
 		</div>
      	<script type="text/javascript">
      		$(document).ready(function(){
-    				
+     			setUserToken("${token.id}");
+    			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
+    			wx.ready(function(){
+    				wxOnMenuShareAppMessage("每日抽奖","抽中领大奖！现金红包，免单团劵，好礼分享给大家","${domainName}/game/luck_draw","http://7xugu1.com1.z0.glb.clouddn.com/%E6%8A%BD%E5%A5%96.jpg","link");
+    				wx.hideMenuItems({
+    				    menuList: ["menuItem:copyUrl","menuItem:exposeArticle","menuItem:setFont","menuItem:readMode","menuItem:originPage","menuItem:share:email","menuItem:openWithQQBrowser","menuItem:openWithSafari"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+    				});
+    				wx.showMenuItems({
+    		            menuList: [
+    		                "menuItem:profile",// 添加查看公众号
+    		                "menuItem:addContact"
+    		            ]
+    		        	});
+    			});
      		});
     			
    		 </script>

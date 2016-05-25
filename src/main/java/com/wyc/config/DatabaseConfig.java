@@ -50,7 +50,7 @@ public class DatabaseConfig {
 
         ds.setInitialSize(20);
         ds.setMinIdle(20);
-        ds.setMaxActive(55);
+        ds.setMaxActive(54);
         ds.setMaxWait(60000);
         ds.setTimeBetweenEvictionRunsMillis(60000);
         ds.setMinEvictableIdleTimeMillis(300000);
