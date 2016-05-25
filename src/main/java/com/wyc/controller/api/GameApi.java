@@ -93,6 +93,7 @@ public class GameApi {
             map.put("prompt", luckDrawGood.getPrompt());
             map.put("luckDrawUserInfoId", luckDrawUserInfo.getId());
             map.put("luckDrawRecordId", luckDrawRecord.getId());
+            map.put("type", luckDrawGood.getType());
             return map;
         }  
     }

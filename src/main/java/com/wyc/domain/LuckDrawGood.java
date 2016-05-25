@@ -14,6 +14,7 @@ public class LuckDrawGood {
     
     public static final int GROUP_COUPON_TYPE = 1;
     public static final int CASH_TYPE=2;
+    public static final int THANKS_TYPE=0;
     @Id
     private String id;
     @Column(name="record_index")

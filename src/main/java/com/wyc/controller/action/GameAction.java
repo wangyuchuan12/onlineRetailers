@@ -124,6 +124,7 @@ public class GameAction {
         LuckDrawGood luckDrawGood = luckDrawGoodService.findOne(luckDrawRecord.getLuckDrawGoodId());
         Good good = goodService.findOne(luckDrawGood.getTargetId());
         httpServletRequest.setAttribute("goodName",good.getName());
+        httpServletRequest.setAttribute("name", luckDrawGood.getName());
         httpServletRequest.setAttribute("imgUrl",luckDrawGood.getImgUrl());
         httpServletRequest.setAttribute("endDate", openGroupCoupon.getEndTime());
         httpServletRequest.setAttribute("couponId", openGroupCoupon.getId());

@@ -59,6 +59,7 @@
 <script type="text/javascript">
 var goods = eval('(${goods})');
 var selectGood;
+var htmlobj;
 var lottery={
 	index:-1,	//当前转动到哪个位置，起点位置
 	count:0,	//总共有多少个位置
@@ -99,16 +100,25 @@ var lottery={
 	},
 	stop:function(index){
 		this.prize=index;
+		if(htmlobj){
+			if(htmlobj.type!=0){
+				$("#start").html("立即<br/>领取");
+				$(".start").css("background-color","RGBA(255,0,0,1)"); 
+				$("#start").click(function(){
+					skipToLuckDraw(htmlobj.luckDrawRecordId,"${token.id}");
+				});
+			}else{
+				$(".start").css("background-color","RGBA(222,18,122,.1)");
+			}
+			$("#draw_footer_content").html(htmlobj.prompt);
+		}else{
+			$("#draw_footer_content").html("对不起，网络连接失败");
+			$(".start").css("background-color","RGBA(222,18,122,.1)");
+		}
+		 
+		 
 		
-		 $('#start').unbind();
-		 var luckNo = "${luckNo}";
-		 var htmlobj=$.ajax({url:"/game/draw_handler?luckNo="+luckNo+"&index="+index+"&token=${token.id}",async:false});
-		 htmlobj = eval("("+htmlobj.responseText+")");
-		 $("#start").html("立即<br/>领取");
-		 $("#draw_footer_content").html(htmlobj.prompt);
-		$("#start").click(function(){
-			skipToLuckDraw(htmlobj.luckDrawRecordId,"${token.id}");
-		});
+		 
 		return false;
 	}
 };
@@ -143,6 +153,18 @@ function roll(){
 					index = Math.random()*(lottery.count)|0;
 				}
 			}
+			
+			$('#start').unbind();
+			var luckNo = "${luckNo}";
+			$.ajax({
+				url:"/game/draw_handler?luckNo="+luckNo+"&index="+index+"&token=${token.id}",
+				success:function(resp){
+					htmlobj = resp;
+					 
+					
+				}
+			});
+			
 			lottery.prize = index;		
 		}else{
 			if (lottery.times > lottery.cycle+10 && ((lottery.prize==0 && lottery.index==7) || lottery.prize==lottery.index+1)) {
@@ -176,6 +198,8 @@ window.onload=function(){
 				return false;
 			}
 		});
+	}else{
+		$(".start").css("background-color","RGBA(222,18,122,.1)");
 	}
 	
 	
