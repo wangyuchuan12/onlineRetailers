@@ -65,6 +65,7 @@ public class WxChooseWxPayHandler implements Handler{
                 +"-"+now.get(Calendar.HOUR_OF_DAY)
                 +"-"+now.get(Calendar.MINUTE)
                 +"-"+now.get(Calendar.SECOND)
+                +"-"+now.get(Calendar.MILLISECOND)
                 +"-"+new Random().nextInt(1000)+"";
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
         String openid = userInfo.getOpenid();
