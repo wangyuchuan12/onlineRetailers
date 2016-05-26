@@ -218,6 +218,7 @@ window.onload=function(){
 			</div>
 			<div style="color:black">规则：<br/>1.每天允许抽奖一次<br/>2.抽中开团劵，可以用此开团劵免费开团<br/>3.抽中红包，系统自动将红包发到你的微信零钱中<br/>4.抽到感谢参与，那么请明天继续吧</div>
 		</div>
+		<a href="http://${domainName}/main/good_list?token=${token.id}" style="color:red;padding-left:10px;font-size:20px;">返回商城</a>
      	<script type="text/javascript">
      		$(document).ready(function(){
      			setUserToken("${token.id}");
