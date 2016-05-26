@@ -205,7 +205,7 @@
 	        <div class="swiper-wrapper" style="transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(0px, 0px, 0px);">
 	             <c:forEach items="${adGoodHeaderImgs}" var="adGoodHeaderImg">
 		             <div class="swiper-slide swiper-slide-active" style="width: 98%;margin-left: 0px;margin-right: 0px;">
-						<a href="javascript:skipToRedirectUrl('${adGoodHeaderImg.url}')"><img data-original="${adGoodHeaderImg.imgUrl}" src="/img/loading.gif" style="height:250px;width:100%;margin: 0px auto;" class="lazy"></a>
+						<a href="javascript:skipToRedirectUrl('${adGoodHeaderImg.url}','${token.id}')"><img data-original="${adGoodHeaderImg.imgUrl}" src="/img/loading.gif" style="height:250px;width:100%;margin: 0px auto;" class="lazy"></a>
 		             </div>
 	             </c:forEach>
 	            
@@ -215,7 +215,7 @@
     <div class="quick_entrance">
         <ul>
         	  <c:forEach items="${quickEntrances}" var="quickEntrance">
-            	<li><a href="${quickEntrance.url}"><img src="${quickEntrance.imgUrl}"><em></em><span>${quickEntrance.name}</span></a></li>                       
+            	<li><a href="javascript:skipToRedirectUrl('${quickEntrance.url}','${token.id}')"><img src="${quickEntrance.imgUrl}"><em></em><span>${quickEntrance.name}</span></a></li>                       
         	  </c:forEach>
         </ul>
     </div>

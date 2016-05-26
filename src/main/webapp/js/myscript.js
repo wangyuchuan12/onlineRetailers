@@ -284,13 +284,17 @@ function setGoodType(goodType){
 	}
 }
 
-function skipToRedirectUrl(url){
-	 window.location.href=url;
+function skipToRedirectUrl(url,token){
+	skipToUrl(url,token,null,true)
 }
 
-function skipToUrl(url,token,params){
-	var temp = document.createElement("form");        
-    temp.action = webPath+url;        
+function skipToUrl(url,token,params,flag){
+	var temp = document.createElement("form");
+	if(!flag){
+		temp.action = webPath+url;
+	}else{
+		temp.action = url;
+	}
     temp.method = "post";        
     temp.style.display = "none";        
     var opt = document.createElement("textarea");        
@@ -301,12 +305,13 @@ function skipToUrl(url,token,params){
 	opt.value = token;
     temp.appendChild(opt);              
     
-    
-    for(var name in params){
-    	var node = document.createElement("textarea");
-    	node.value=params[name];
-    	node.name=name;
-    	temp.appendChild(node);
+    if(params){
+	    for(var name in params){
+	    	var node = document.createElement("textarea");
+	    	node.value=params[name];
+	    	node.name=name;
+	    	temp.appendChild(node);
+	    }
     }
     
     document.body.appendChild(temp);
@@ -323,6 +328,7 @@ function skipToChat(adminId,type,goodId,orderId,groupId,token){
 	params.groupId = groupId;
 	skipToUrl("/info/chat_view",token,params)
 }
+
 
 function request(url,token,callback){
 	if(!token&&window.sessionStorage.getItem("userToken")){
