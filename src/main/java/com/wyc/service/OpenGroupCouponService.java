@@ -56,9 +56,9 @@ public class OpenGroupCouponService {
        return openGroupCouponRepository.save(openGroupCoupon);
     }
 
-    public Iterable<OpenGroupCoupon> findAllByCustomerIdOrderByStatusAsc(
+    public Iterable<OpenGroupCoupon> findAllByCustomerIdOrderByBeginTimeDesc(
             String customerId) {
-        return openGroupCouponRepository.findAllByCustomerIdOrderByStatusAsc(customerId);
+        return openGroupCouponRepository.findAllByCustomerIdOrderByBeginTimeDesc(customerId);
     }
 
     public OpenGroupCoupon findOne(String targetId) {

@@ -1600,6 +1600,14 @@
 	text-align: center line-height: 300%;
 }
 
+.coupon_list_limit li{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	word-break:break-all;
+	word-wrap:break-word;
+}
+
 .good_type_name{
 	width:50%;
 	font-size:35px;
