@@ -107,13 +107,47 @@ public class ServiceTest {
         	button1.put("type", "view");
         	button1.put("url", "http://www.chengxihome.com/main/good_list");
         	button1.put("key", "V01_S01");
+        	
+        	Map<String, Object> button3 = new HashMap<>();
+        	button3.put("name", "抽奖");
+                button3.put("type", "view");
+                button3.put("url", "http://www.chengxihome.com/game/luck_draw");
+                button3.put("key", "V01_S01");
+        	
         	Map<String, Object> button2 = new HashMap<>();
         	button2.put("name", "类别");
-        	button2.put("type", "view");
-        	button2.put("url", "http://www.chengxihome.com/main/good_list");
-        	button2.put("key", "V02_S01");
+//        	button2.put("type", "view");
+//        	button2.put("url", "http://www.chengxihome.com/main/good_list");
+//        	button2.put("key", "V02_S01");
+        	
+        	List<Map<String, Object>> typeSubButtons = new ArrayList<Map<String,Object>>();
+        	Map<String, Object> typeSubButton1 = new HashMap<String, Object>();
+        	Map<String, Object> typeSubButton2 = new HashMap<String, Object>();
+        	Map<String, Object> typeSubButton3 = new HashMap<String, Object>();
+        	typeSubButton1.put("name", "袜子");
+        	typeSubButton1.put("type", "view");
+        	typeSubButton1.put("url", "http://www.chengxihome.com/main/good_list?good_type=7999ea9e-f8ba-4225-ba1f-a4625bbaabd0");
+        	typeSubButton1.put("key", "V02_S01");
+        	
+        	typeSubButton2.put("name", "日用百货");
+                typeSubButton2.put("type", "view");
+                typeSubButton2.put("url", "http://www.chengxihome.com/main/good_list?good_type=7be223ce-dd4e-4e73-ba9f-8be0a4799cb3");
+                typeSubButton2.put("key", "V02_S01");
+                
+                typeSubButton3.put("name", "首饰");
+                typeSubButton3.put("type", "view");
+                typeSubButton3.put("url", "http://www.chengxihome.com/main/good_list?good_type=6bbc5d5f-2fb9-4a8b-8ec5-156155a95b71");
+                typeSubButton3.put("key", "V02_S01");
+        	
+        	typeSubButtons.add(typeSubButton1);
+        	typeSubButtons.add(typeSubButton2);
+        	typeSubButtons.add(typeSubButton3);
+        	button2.put("sub_button", typeSubButtons);
+                
+                
         	buttons.add(button1);
         	buttons.add(button2);
+        	buttons.add(button3);
         	map.put("button", buttons);
         	ObjectMapper objectMapper = new ObjectMapper();
         	String responseJsonStr = objectMapper.writeValueAsString(map);

@@ -135,7 +135,7 @@ public class GoodsAction {
 	    List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
             for(Good good:databaseGoods){
 		 Map<String, Object> responseGood = new HashMap<String, Object>();
-		  responseGood.put("id", good.getId());
+		    responseGood.put("id", good.getId());
 		    responseGood.put("instruction", good.getInstruction());
 		    responseGood.put("name", good.getName());
 		    responseGood.put("alone_discount", good.getAloneDiscount());
