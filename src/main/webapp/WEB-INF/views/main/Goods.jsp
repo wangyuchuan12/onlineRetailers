@@ -34,7 +34,7 @@
     }
     .spinner {
         width: 34px;
-        height: 34px;
+        height: 27px;
         position: relative;
         margin: 0 auto;
         top: 150px;
@@ -205,7 +205,7 @@
 	        <div class="swiper-wrapper" style="transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(0px, 0px, 0px);">
 	             <c:forEach items="${adGoodHeaderImgs}" var="adGoodHeaderImg">
 		             <div class="swiper-slide swiper-slide-active" style="width: 98%;margin-left: 0px;margin-right: 0px;">
-						<a href="javascript:skipToRedirectUrl('${adGoodHeaderImg.url}','${token.id}')"><img data-original="${adGoodHeaderImg.imgUrl}" src="/img/loading.gif" style="height:250px;width:100%;margin: 0px auto;" class="lazy"></a>
+						<a href="javascript:skipToRedirectUrl('${adGoodHeaderImg.url}','${token.id}')"><img data-original="${adGoodHeaderImg.imgUrl}" src="/img/loading.gif" style="height:220px;width:100%;margin: 0px auto;" class="lazy"></a>
 		             </div>
 	             </c:forEach>
 	            

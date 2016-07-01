@@ -522,7 +522,7 @@
 .group_goodinfo_img{
 	height:93px;
 	float:left;
-	padding-top:20px;
+	padding-top:10px;
 	width:93px;
 	left:10px;
 	position:relative;
@@ -559,8 +559,8 @@
 	position:relative;
 	display:block;
 	height:30%;
-	top:-20px;
-	
+	top:-10px;
+	padding-bottom: 10px;
 }
 
 .group_info_good_chat{
