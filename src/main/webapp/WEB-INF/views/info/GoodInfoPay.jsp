@@ -74,7 +74,7 @@
 	        					<li>
 	        						<div class="good_info_pay_good_style_item" onclick="javascript:selectStyle('${goodStyle.id}')">
 	        							<img src="${goodStyle.imgUrl}"  id="select_${goodStyle.id}">
-	        							<div class="good_info_pay_good_style_item_name">红色</div>
+	        							<div class="good_info_pay_good_style_item_name">${goodStyle.name}</div>
 	        						</div>
 	        						
 	        					</li>

@@ -46,6 +46,8 @@ public class GroupPartake {
     private int isDel = 1;
     @Column(name="good_style_id")
     private String goodStyleId;
+    @Column(name="good_style_name")
+    private String goodStyleName;
     //参加时间
     @Column(name = "date_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -59,6 +61,12 @@ public class GroupPartake {
     private DateTime updateAt;
     
     
+    public String getGoodStyleName() {
+        return goodStyleName;
+    }
+    public void setGoodStyleName(String goodStyleName) {
+        this.goodStyleName = goodStyleName;
+    }
     public String getGoodStyleId() {
         return goodStyleId;
     }
