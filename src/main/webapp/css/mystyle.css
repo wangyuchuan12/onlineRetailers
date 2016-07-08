@@ -25,19 +25,20 @@
 	position:relative;
 	color:black;
 	padding-right:20px;
+	top:5px;
 }
-.tuan_g_core{color:white;display:block;line-height:34px;top:-70px;position:relative;width:250px;}
+.tuan_g_core{color:white;display:block;line-height:34px;top:-70px;position:relative;}
 .tuan_g_pin{
 	float:left;
 	position:absolute;
-	width:50px;
-	height:50px;
-	top:-7px;
+	width:53px;
+	height:53px;
 	left:-5px;
+	top:-7px;
 }
-.tuan_g_price{background-color:RGB(93,47,24);float:left;height:34px;overflow:hidden;padding-left:45px;width:130px;margin-left:15px;}
+.tuan_g_price{background-color:RGB(93,47,24);float:left;height:34px;overflow:hidden;padding-left:45px;width:130px;width:170px;margin-left:10px;}
 .tuan_g_price b{font-size:18px;font-weight:400;margin-left:5px;margin-right:2px}
-.tuan_g_btn{background-color:RGB(254,217,67);border-bottom-right-radius:17px;border-top-right-radius:17px;color:RGB(93,47,24);text-align: center;width:240px;}
+.tuan_g_btn{background-color:RGB(254,217,67);border-bottom-right-radius:17px;border-top-right-radius:17px;color:RGB(93,47,24);text-align: center;width:290px;margin-left:10px;}
 
 .footer{width:100%;max-width:640px;height:56px;position:fixed;bottom:0;left:50%;-webkit-transform:translate3d(-50%,0,0);transform:translate3d(-50%,0,0);overflow:hidden;background-color:#fff;border-top:#eceded;-webkit-box-shadow:0 0 4px rgba(0,0,0,.2);box-shadow:0 0 4px rgba(0,0,0,.2);z-index:9999;}
 
