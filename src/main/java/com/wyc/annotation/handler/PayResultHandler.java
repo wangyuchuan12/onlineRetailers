@@ -18,6 +18,7 @@ import com.wyc.domain.Customer;
 import com.wyc.domain.Good;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodOrder;
+import com.wyc.domain.GoodStyle;
 import com.wyc.domain.GroupPartake;
 import com.wyc.domain.GroupPartakeDeliver;
 import com.wyc.domain.GroupPartakePayment;
@@ -30,6 +31,7 @@ import com.wyc.service.CustomerService;
 import com.wyc.service.GoodGroupService;
 import com.wyc.service.GoodOrderService;
 import com.wyc.service.GoodService;
+import com.wyc.service.GoodStyleService;
 import com.wyc.service.GroupPartakeDeliverService;
 import com.wyc.service.GroupPartakePaymentService;
 import com.wyc.service.GroupPartakeService;
@@ -68,6 +70,8 @@ public class PayResultHandler implements Handler{
     private AutowireCapableBeanFactory factory;
     @Autowired
     private PayHandlerService payHandlerService;
+    @Autowired
+    private GoodStyleService goodStyleService;
     final static Logger logger = LoggerFactory.getLogger(PayResultHandler.class);
     @Override
     @Transactional
@@ -135,6 +139,12 @@ public class PayResultHandler implements Handler{
             groupPartake.setRole(1);
             groupPartake.setType(0);
             groupPartake.setGoodStyleId(tempGroupOrder.getGoodStyleId());
+            if(tempGroupOrder.getGoodStyleId()!=null){
+                GoodStyle goodStyle = goodStyleService.findOne(tempGroupOrder.getGoodStyleId());
+                if(goodStyle!=null){
+                    groupPartake.setGoodStyleName(goodStyle.getName());
+                }
+            }
             groupPartake.setIsDel(0);
             groupPartake = groupPartakeService.add(groupPartake);
             
@@ -201,6 +211,12 @@ public class PayResultHandler implements Handler{
                 groupPartake.setPersonName(tempGroupOrder.getPersonName());
                 groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
                 groupPartake.setGoodStyleId(tempGroupOrder.getGoodStyleId());
+                if(tempGroupOrder.getGoodStyleId()!=null){
+                    GoodStyle goodStyle = goodStyleService.findOne(tempGroupOrder.getGoodStyleId());
+                    if(goodStyle!=null){
+                        groupPartake.setGoodStyleName(goodStyle.getName());
+                    }
+                }
                 groupPartake.setIsDel(0);
                 goodOrder = goodOrderService.findOne(orderDetail.getOrderId());
                 
@@ -283,6 +299,12 @@ public class PayResultHandler implements Handler{
             groupPartake.setPersonName(tempGroupOrder.getPersonName());
             groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
             groupPartake.setGoodStyleId(tempGroupOrder.getGoodStyleId());
+            if(tempGroupOrder.getGoodStyleId()!=null){
+                GoodStyle goodStyle = goodStyleService.findOne(tempGroupOrder.getGoodStyleId());
+                if(goodStyle!=null){
+                    groupPartake.setGoodStyleName(goodStyle.getName());
+                }
+            }
             groupPartake.setIsDel(0);
             groupPartakeService.add(groupPartake);
             

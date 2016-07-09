@@ -34,7 +34,7 @@
     }
     .spinner {
         width: 34px;
-        height: 34px;
+        height: 27px;
         position: relative;
         margin: 0 auto;
         top: 150px;
@@ -205,7 +205,7 @@
 	        <div class="swiper-wrapper" style="transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(0px, 0px, 0px);">
 	             <c:forEach items="${adGoodHeaderImgs}" var="adGoodHeaderImg">
 		             <div class="swiper-slide swiper-slide-active" style="width: 98%;margin-left: 0px;margin-right: 0px;">
-						<a href="javascript:skipToRedirectUrl('${adGoodHeaderImg.url}','${token.id}')"><img data-original="${adGoodHeaderImg.imgUrl}" src="/img/loading.gif" style="height:250px;width:100%;margin: 0px auto;" class="lazy"></a>
+						<a href="javascript:skipToRedirectUrl('${adGoodHeaderImg.url}','${token.id}')"><img data-original="${adGoodHeaderImg.imgUrl}" src="/img/loading.gif" style="height:170px;width:100%;margin: 0px auto;" class="lazy"></a>
 		             </div>
 	             </c:forEach>
 	            
@@ -243,6 +243,7 @@
                 </div>
                 
                 <div class="tuan_g_core"  onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
+                	<img class="tuan_g_pin" src="/img/pin.png"></img>
                     <div class="tuan_g_price">
                     	${good.group_num}人团
                         <b>
@@ -250,11 +251,11 @@
                         </b>
                     </div>
                     <div class="tuan_g_btn">
-                        	去开团
+                        	去开团  >
                     </div>
                     
                 </div>
-                <div style="position: relative;padding-left:10px;top:-50px;">
+                <div style="position: relative;padding-left:10px;top:-60px;" >
 	                <div class="good_name">${good.name}</div>
 	                <!--  <div class="good_market_price">市场价：￥${good.market_price}</div> -->
 	                <div class="good_chat" onclick="javascript:skipToChat('${good.adminId}','1','${good.id}','','','${token.id}')">
@@ -284,9 +285,10 @@
     				var swiper = new Swiper('.swiper-container', {
 		    		        pagination: '.swiper-pagination',
 		    		        paginationClickable: true,
+		    		        speed:1000,
 		    		        spaceBetween:1,
 		    		        centeredSlides: true,
-		    		        autoplay: 2500,
+		    		        autoplay: 5000,
 		    		        autoplayDisableOnInteraction: false
 		    		    });
     				

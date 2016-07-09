@@ -14,4 +14,8 @@ public class GoodStyleService {
     public Iterable<GoodStyle> findAllByGoodId(String goodId) {
         return goodStyleRepository.findAllByGoodId(goodId);
     }
+
+    public GoodStyle findOne(String id) {
+        return goodStyleRepository.findOne(id);
+    }
 }

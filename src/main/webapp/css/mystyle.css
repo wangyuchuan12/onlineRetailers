@@ -25,11 +25,20 @@
 	position:relative;
 	color:black;
 	padding-right:20px;
+	top:5px;
 }
-.tuan_g_core{color:white;display:block;line-height:34px;top:-70px;position:relative;width:250px;}
-.tuan_g_price{background-color:#3E3E3E;float:left;height:34px;margin-left:0px;overflow:hidden;padding-left:10px;width:145px;left:-20px;}
+.tuan_g_core{color:white;display:block;line-height:34px;top:-70px;position:relative;}
+.tuan_g_pin{
+	float:left;
+	position:absolute;
+	width:53px;
+	height:53px;
+	left:-5px;
+	top:-7px;
+}
+.tuan_g_price{background-color:RGB(93,47,24);float:left;height:34px;overflow:hidden;padding-left:45px;width:130px;width:170px;margin-left:10px;}
 .tuan_g_price b{font-size:18px;font-weight:400;margin-left:5px;margin-right:2px}
-.tuan_g_btn{background-color:#DF2127;border-bottom-right-radius:17px;border-top-right-radius:17px;}
+.tuan_g_btn{background-color:RGB(254,217,67);border-bottom-right-radius:17px;border-top-right-radius:17px;color:RGB(93,47,24);text-align: center;width:290px;margin-left:10px;}
 
 .footer{width:100%;max-width:640px;height:56px;position:fixed;bottom:0;left:50%;-webkit-transform:translate3d(-50%,0,0);transform:translate3d(-50%,0,0);overflow:hidden;background-color:#fff;border-top:#eceded;-webkit-box-shadow:0 0 4px rgba(0,0,0,.2);box-shadow:0 0 4px rgba(0,0,0,.2);z-index:9999;}
 
@@ -509,6 +518,7 @@
 	background:white;
 	position:relative;
 	top:0px;
+	max-height:200px;
 }
 .group_goodinfo a {
 	max-height:100%;
@@ -516,25 +526,27 @@
 	min-height:100%;
 	min-width:100%;
 	color:black;
+	height: auto;
 }
 .group_goodinfo_img{
-	display:inline-block;
-	padding-top: 10px;
-	
-}
-.group_goodinfo_img img{
 	height:93px;
+	float:left;
+	padding-top:10px;
 	width:93px;
 	left:10px;
 	position:relative;
+	
+}
+.group_goodinfo_img img{
+
 }
 .group_goodinfo_detail{
 	display:inline-block;
-	position:absolute;
-	left:110px;
-	top:5px;
+	left:20px;
 	width:70%;
-	height:150px;
+	position:relative;
+	padding-bottom: 10px;
+	top:10px;
 	
 }
 .group_goodinfo_detail_title{
@@ -547,6 +559,7 @@
 .group_goodinfo_detail_price{
 	position:relative;
 	height:30%;
+	padding-bottom:10px;
 }
 
 .group_goodinfo_detail_notice{
@@ -555,8 +568,8 @@
 	position:relative;
 	display:block;
 	height:30%;
-	top:-20px;
-	
+	top:-10px;
+	padding-bottom: 10px;
 }
 
 .group_info_good_chat{
@@ -1598,6 +1611,14 @@
 	float: left;
 	left:10px;
 	text-align: center line-height: 300%;
+}
+
+.coupon_list_limit li{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	word-break:break-all;
+	word-wrap:break-word;
 }
 
 .good_type_name{

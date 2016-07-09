@@ -31,16 +31,19 @@ public class AfterGoodTypeHandler implements Handler{
         TemporaryData goodTypeTemporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(httpSession.getId(), "goodType" , 1);
         Customer customer = customerService.findByOpenId(userInfo.getOpenid());
         String goodTypeId = null;
+        SystemGoodType systemGoodType = null;
         if(goodTypeTemporaryData!=null){
             goodTypeId = goodTypeTemporaryData.getValue();
             goodTypeTemporaryData.setStatus(0);
             temporaryDataService.save(goodTypeTemporaryData);
-            customer.setDefaultGoodType(goodTypeId);
-            customerService.save(customer);
+            systemGoodType = goodTypeService.findOne(goodTypeId);
+            
         }
-        if(goodTypeId==null||goodTypeId.equals("")){
+         
+        if(systemGoodType == null){
             goodTypeId = customer.getDefaultGoodType();
-            if(goodTypeId==null||goodTypeId.trim().equals("")){
+            systemGoodType = goodTypeService.findOne(goodTypeId);
+            if(systemGoodType == null){
                 Iterable<SystemGoodType> goodTypeIterable = goodTypeService.findAll();
                 for(SystemGoodType goodTypeEntity:goodTypeIterable){
                     if(goodTypeEntity.isDefault()){
@@ -52,12 +55,17 @@ public class AfterGoodTypeHandler implements Handler{
                 
             }
         }
+        customer.setDefaultGoodType(goodTypeId);
+        customerService.save(customer);
+        System.out.println("goodTypeId1:"+goodTypeId);
         SystemGoodType goodType = null;
         if(httpServletRequest.getAttribute("goodType")==null){
             goodType = goodTypeService.findOne(goodTypeId);
+            System.out.println("goodType2:"+goodType);
         }else{
             goodType = goodTypeService.findOne(httpServletRequest.getAttribute("goodType").toString());
             goodTypeId = goodType.getId();
+            System.out.println("goodType3:"+goodType);
         }
         
         

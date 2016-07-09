@@ -15,7 +15,7 @@
 }
 
 .chat_content{
-	height:500px;
+	height:70%;
 	overflow:auto;
 	margin-bottom: 50px;
 	display: block;
