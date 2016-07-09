@@ -37,7 +37,8 @@ public class AfterGoodTypeHandler implements Handler{
             temporaryDataService.save(goodTypeTemporaryData);
             customer.setDefaultGoodType(goodTypeId);
             customerService.save(customer);
-        }else{
+        }
+        if(goodTypeId==null||goodTypeId.equals("")){
             goodTypeId = customer.getDefaultGoodType();
             if(goodTypeId==null||goodTypeId.trim().equals("")){
                 Iterable<SystemGoodType> goodTypeIterable = goodTypeService.findAll();
