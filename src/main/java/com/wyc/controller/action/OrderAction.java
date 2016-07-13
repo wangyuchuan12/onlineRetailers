@@ -94,7 +94,7 @@ public class OrderAction {
             orderIds.add(groupPartake.getOrderId());
             logger.debug("the orderId is {}",groupPartake.getOrderId());
         }
-        Iterable<GoodOrder> orders = goodOrderService.findAll(orderIds);
+        Iterable<GoodOrder> orders = goodOrderService.findAllOrderByCreateTimeDesc(orderIds);
         List<Map<String, Object>> responseOrders = new ArrayList<Map<String,Object>>();
         for(GoodOrder goodOrder:orders){
             //1表示未付款 2表示已付款 未发货 3表示已发货但未签收 4已签收 5退款未处理6退款已处理

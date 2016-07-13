@@ -15,8 +15,8 @@ public class GoodOrderService {
     @Autowired
    private GoodOrderRepository goodOrderRepository;
    
-   public Iterable<GoodOrder> findAll(Iterable<String> ids){
-       return goodOrderRepository.findAll(ids);
+   public Iterable<GoodOrder> findAllOrderByCreateTimeDesc(Iterable<String> ids){
+       return goodOrderRepository.findAllByIdInOrderByCreateTimeDesc(ids);
    }
    
    public GoodOrder add(GoodOrder goodOrder){

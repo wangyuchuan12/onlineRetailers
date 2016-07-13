@@ -58,7 +58,7 @@
 					<div class="group_goodinfo_detail">
 						<div class="group_goodinfo_detail_title">${groupInfo.goodName}</div>
 						<div class="group_goodinfo_footer">&gt</div>
-						<div class="group_goodinfo_detail_price">${groupInfo.groupNum}人团：<span class="group_goodinfo_detail_price2">￥${groupInfo.totalPrice}/件</span></div>
+						<div class="group_goodinfo_detail_price">${groupInfo.groupNum}人团：<span class="group_goodinfo_detail_price2">￥${groupInfo.totalPrice}</span></div>
 						<div class="group_goodinfo_detail_notice" style="color: black;">${groupInfo.notice} </div>
 						
 					</div>
