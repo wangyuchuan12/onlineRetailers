@@ -177,6 +177,7 @@ public class InterceptConfig {
             
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error("has error:{}",e);
             ExceptionRecord exceptionRecord = new ExceptionRecord();
             HttpServletRequest httpServletRequest = (HttpServletRequest)proceedingJoinPoint.getArgs()[0];
             try {
