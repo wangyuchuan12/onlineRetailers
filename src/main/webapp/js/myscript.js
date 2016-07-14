@@ -157,9 +157,9 @@ function addressItemOnClick(id,prepareRedirect,token){
 	});
 }
 
-function goodInfoPayAddressOnClick(payType,state,goodId){
+function goodInfoPayAddressOnClick(payType,state,goodId,groupId){
 	var obj = new Object();
-	obj.prepare_redirect = "/info/good_info_pay?pay_type="+payType+"&state="+state+"&good_id="+goodId;
+	obj.prepare_redirect = "/info/good_info_pay?pay_type="+payType+"&state="+state+"&good_id="+goodId+"&group_id="+groupId;
 	skipToUrl("/info/address", null,obj);
 }
 

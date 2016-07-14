@@ -52,6 +52,17 @@ public class UserInfo {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
     private DateTime updateAt;
+    @Column
+    private Long count;
+    
+    
+    
+    public Long getCount() {
+        return count;
+    }
+    public void setCount(Long count) {
+        this.count = count;
+    }
     public DateTime getCreateAt() {
         return createAt;
     }

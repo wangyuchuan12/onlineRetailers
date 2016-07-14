@@ -17,6 +17,7 @@ public class WxUserInfoService {
         userInfo.setUpdateAt(new DateTime());
         userInfo.setCreateAt(new DateTime());
         userInfo.setId(UUID.randomUUID().toString());
+        userInfo.setCount(1l);
         return userInfoRepository.save(userInfo);
     }
     

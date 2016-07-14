@@ -95,7 +95,12 @@ public class UserSmartService implements SmartService<UserInfo>{
             t.setToken(token.getId());
             userInfo = wxUserInfoService.findByOpenid(t.getOpenid());
             if(userInfo!=null){
+                if(userInfo.getCount()==null){
+                    userInfo.setCount(0l);
+                }
+                t.setCount(userInfo.getCount()+1);
                 t.setId(userInfo.getId());
+                t.setCreateAt(userInfo.getCreateAt());
                 wxUserInfoService.save(t);
             }else{
                 wxUserInfoService.add(t);
@@ -117,6 +122,10 @@ public class UserSmartService implements SmartService<UserInfo>{
             userInfo.setSubscribe_time(t.getSubscribe_time());
             userInfo.setUnionid(t.getUnionid());
             userInfo.setToken(token.getId());
+            if(userInfo.getCount()==null){
+                userInfo.setCount(0l);
+            }
+            userInfo.setCount(userInfo.getCount()+1);
             wxUserInfoService.save(userInfo);
         }
         

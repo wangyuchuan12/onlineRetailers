@@ -3,6 +3,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
+<%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html>
 <head>
@@ -25,7 +26,7 @@
     <div class="container">
         <div class="good_info_pay">
 
-        	<div class="good_info_pay_recipients" onclick="javascript:goodInfoPayAddressOnClick('${payGoodInfo.pay_type}','${payGoodInfo.pay_type}','${payGoodInfo.good_id}');">
+        	<div class="good_info_pay_recipients" onclick="javascript:goodInfoPayAddressOnClick('${payGoodInfo.pay_type}','${payGoodInfo.pay_type}','${payGoodInfo.good_id}','${payGoodInfo.groupId}');">
         		
         		<div class="good_info_pay_recipients_prefix">送至</div>
         		<div class="good_info_pay_recipients_address">${payGoodInfo.address}</div>
@@ -42,11 +43,11 @@
         		</div>
         		<div class="good_info_pay_goodinfo_price">	
         			<c:if test="${payGoodInfo.pay_type==0}">
-        				￥${payGoodInfo.group_cost}
+        				￥<fmt:formatNumber type="number" value="${payGoodInfo.group_cost}" maxFractionDigits="3"/>
         			</c:if>
         			
         			<c:if test="${payGoodInfo.pay_type==1}">
-        				￥${payGoodInfo.alone_cost}
+        				￥<fmt:formatNumber type="number" value="${payGoodInfo.alone_cost}" maxFractionDigits="3"/>
         			</c:if>
         			
         			<c:if test="${payGoodInfo.pay_type==2}">
@@ -54,7 +55,7 @@
         			</c:if>
         			
         			<c:if test="${payGoodInfo.pay_type==3}">
-        				￥${payGoodInfo.group_cost}
+        				￥<fmt:formatNumber type="number" value="${payGoodInfo.group_cost}" maxFractionDigits="3"/>
         			</c:if>
         			/件
         		</div>
@@ -64,7 +65,7 @@
         			<c:if test="${payGoodInfo.pay_type=='0'}">${payGoodInfo.group_num}人团  &nbsp; &nbsp; </c:if>
         			<c:if test="${payGoodInfo.pay_type==1}">单买 &nbsp; &nbsp; </c:if>
         			<c:if test="${payGoodInfo.pay_type==2}">使用开团劵 &nbsp; &nbsp; </c:if>
-        			 快递：￥${payGoodInfo.flow_price} &nbsp;总价：<b>￥${payGoodInfo.cost}</b></div>
+        			 快递：￥${payGoodInfo.flow_price} &nbsp;总价：<b>￥<fmt:formatNumber type="number" value="${payGoodInfo.cost}" maxFractionDigits="3"/></b></div>
         	</div>
         	<c:if test="${fn:length(goodStyles)>0}">
 	        	<div class="good_info_pay_good_style">

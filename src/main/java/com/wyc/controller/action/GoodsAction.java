@@ -305,6 +305,9 @@ public class GoodsAction {
             
             responseGood.put("stock", good.getStock());
             responseGood.put("salesVolume", good.getSalesVolume());
+            if(payType.equals("3")){
+                responseGood.put("groupId",httpRequest.getParameter("group_id"));
+            }
             httpRequest.setAttribute("payGoodInfo", responseGood);
             
             TempGroupOrder tempGroupOrder = new TempGroupOrder();
@@ -325,6 +328,8 @@ public class GoodsAction {
             tempGroupOrder.setPersonName(customerAddress.getName());
             tempGroupOrder.setPhonenumber(customerAddress.getPhonenumber());
             if(payType.equals("3")){
+                tempGroupOrder.setGroupId(httpRequest.getParameter("group_id"));
+            }else if (httpRequest.getParameter("group_id")!=null) {
                 tempGroupOrder.setGroupId(httpRequest.getParameter("group_id"));
             }
             tempGroupOrder = tempGroupOrderService.add(tempGroupOrder);
