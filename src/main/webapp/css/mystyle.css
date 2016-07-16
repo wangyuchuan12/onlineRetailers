@@ -1346,17 +1346,19 @@
 	width:50px;
 	height:50px;
 	border:1px solid RGBA(  0,  0,  0, .2);
-	display:inline-block;
+	float:left;
 	position:relative;
 	top:10px;
 	left:10px;
 }
 
 .order_info_good_info_name{
-	display:inline-block;
+	float:left;
 	position:relative;
 	left:15px;
-	top:-20px;
+	width:70%;
+	height:20px;
+	top:10px;
 	font-weight: bold;
 }
 
@@ -1365,7 +1367,6 @@
 	width:50px;
 	position:relative;
 	text-align:center;
-	top:-15px;
 	left:65px;
 }
 
