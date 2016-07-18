@@ -200,25 +200,28 @@
 			
 		
 		
-		
-		<div class="swiper-container swiper-container-horizontal">
-	        <div class="swiper-wrapper" style="transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(0px, 0px, 0px);">
-	             <c:forEach items="${adGoodHeaderImgs}" var="adGoodHeaderImg">
-		             <div class="swiper-slide swiper-slide-active" style="width: 98%;margin-left: 0px;margin-right: 0px;">
-						<a href="javascript:skipToRedirectUrl('${adGoodHeaderImg.url}','${token.id}')"><img data-original="${adGoodHeaderImg.imgUrl}" src="/img/loading.gif" style="height:170px;width:100%;margin: 0px auto;" class="lazy"></a>
-		             </div>
-	             </c:forEach>
-	            
-	        </div>
-	        <div class="swiper-pagination swiper-pagination-clickable"><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span></div>
-		</div>
-    <div class="quick_entrance">
-        <ul>
-        	  <c:forEach items="${quickEntrances}" var="quickEntrance">
-            	<li><a href="javascript:skipToRedirectUrl('${quickEntrance.url}','${token.id}')"><img src="${quickEntrance.imgUrl}"><em></em><span>${quickEntrance.name}</span></a></li>                       
-        	  </c:forEach>
-        </ul>
-    </div>
+		<c:if test="${fn:length(adGoodHeaderImgs)>0}">
+			<div class="swiper-container swiper-container-horizontal">
+		        <div class="swiper-wrapper" style="transition: 0ms; -webkit-transition: 0ms; -webkit-transform: translate3d(0px, 0px, 0px);">
+		             <c:forEach items="${adGoodHeaderImgs}" var="adGoodHeaderImg">
+			             <div class="swiper-slide swiper-slide-active" style="width: 98%;margin-left: 0px;margin-right: 0px;">
+							<a href="javascript:skipToRedirectUrl('${adGoodHeaderImg.url}','${token.id}')"><img data-original="${adGoodHeaderImg.imgUrl}" src="/img/loading.gif" style="height:170px;width:100%;margin: 0px auto;" class="lazy"></a>
+			             </div>
+		             </c:forEach>
+		            
+		        </div>
+		        <div class="swiper-pagination swiper-pagination-clickable"><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span></div>
+			</div>
+		</c:if>
+		<c:if test="${fn:length(quickEntrances)>0}">
+		    <div class="quick_entrance">
+		        <ul>
+		        	  <c:forEach items="${quickEntrances}" var="quickEntrance">
+		            	<li><a href="javascript:skipToRedirectUrl('${quickEntrance.url}','${token.id}')"><img src="${quickEntrance.imgUrl}"><em></em><span>${quickEntrance.name}</span></a></li>                       
+		        	  </c:forEach>
+		        </ul>
+		    </div>
+  		</c:if>
         <div class="goods">
         	<c:forEach items="${goods}" var="good">
             <div class="good" >

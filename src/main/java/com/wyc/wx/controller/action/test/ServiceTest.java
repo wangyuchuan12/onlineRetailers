@@ -146,8 +146,8 @@ public class ServiceTest {
                 
                 
         	buttons.add(button1);
-        	buttons.add(button2);
-        	buttons.add(button3);
+        	//buttons.add(button2);
+        	//buttons.add(button3);
         	map.put("button", buttons);
         	ObjectMapper objectMapper = new ObjectMapper();
         	String responseJsonStr = objectMapper.writeValueAsString(map);
