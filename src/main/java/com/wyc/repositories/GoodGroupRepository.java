@@ -18,4 +18,7 @@ public interface GoodGroupRepository extends CrudRepository<GoodGroup, String>{
 
     public Iterable<GoodGroup> findAllByIdInOrderByCreateAtDesc(
             List<String> groupIds);
+
+    @Query("select g from com.wyc.domain.GoodGroup g where g.createAt in (select min(g2.createAt) from com.wyc.domain.GoodGroup g2 where g2.goodId=:goodId and g2.result=:result)")
+	public List<GoodGroup> findEarliestGroupByGoodAndResult(@Param("goodId") String goodId,@Param("result") int result);
 }

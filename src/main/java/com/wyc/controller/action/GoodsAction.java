@@ -28,12 +28,14 @@ import com.wyc.annotation.handler.BeforeGoodTypeHandler;
 import com.wyc.annotation.handler.NotReadChatHandler;
 import com.wyc.annotation.handler.PayResultHandler;
 import com.wyc.annotation.handler.WxChooseWxPayHandler;
+import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.GoodStyle;
 import com.wyc.domain.SystemAdGoodHeaderImg;
 import com.wyc.domain.SystemCity;
 import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
+import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodImg;
 import com.wyc.domain.SystemGoodType;
 import com.wyc.domain.MyResource;
@@ -44,14 +46,17 @@ import com.wyc.service.AdGoodHeaderImgService;
 import com.wyc.service.CityService;
 import com.wyc.service.CustomerAddressService;
 import com.wyc.service.CustomerService;
+import com.wyc.service.GoodGroupService;
 import com.wyc.service.GoodImgService;
 import com.wyc.service.GoodService;
 import com.wyc.service.GoodStyleService;
 import com.wyc.service.GoodTypeService;
+import com.wyc.service.GroupPartakeService;
 import com.wyc.service.MyResourceService;
 import com.wyc.service.OpenGroupCouponService;
 import com.wyc.service.QuickEntranceService;
 import com.wyc.service.TempGroupOrderService;
+import com.wyc.service.WxUserInfoService;
 import com.wyc.wx.domain.UserInfo;
 import com.wyc.wx.domain.WxContext;
 @Controller
@@ -82,6 +87,14 @@ public class GoodsAction {
         private QuickEntranceService quickEntranceService;
         @Autowired
         private GoodStyleService goodStyleService;
+        @Autowired
+        private GoodGroupService goodGroupService;
+        @Autowired
+        private MySimpleDateFormat mySimpleDateFormat;
+        @Autowired
+        private WxUserInfoService wxUserInfoService;
+        @Autowired
+        private GroupPartakeService groupPartakeService;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
@@ -232,6 +245,30 @@ public class GoodsAction {
             int couponCount = openGroupCouponService.countByCustomerIdAndGoodIdAndEndTimeBeforeAndStatus(customer.getId(), goodId, new DateTime(),1);
             httpRequest.setAttribute("couponCount", couponCount);
             logger.debug("the token is :{}",myHttpServletRequest.getToken());
+            List<GoodGroup> goodGroups = goodGroupService.findEarliestGroupByGoodAndResult(good.getId(),1);
+            if(goodGroups!=null&&goodGroups.size()>0){
+            	for(GoodGroup goodGroup:goodGroups){
+	            	int partakeNum = groupPartakeService.countByGroupId(goodGroup.getId());
+	            	if(goodGroup.getNum()==partakeNum){
+	            		continue;
+	            	}
+	            	Map<String, Object> groupInfo = new HashMap<>();
+	            	
+	            	groupInfo.put("id", goodGroup.getId());
+	            	groupInfo.put("startTime",
+	                        mySimpleDateFormat.format(goodGroup.getStartTime().toDate()));
+	            	groupInfo.put("timeLong", goodGroup.getTimeLong());
+	            	Customer groupCustomer = customerService.findOne(goodGroup.getGroupHead());
+	            	UserInfo customerUserInfo = wxUserInfoService.findByOpenid(groupCustomer.getOpenId());
+	            	groupInfo.put("nickname", customerUserInfo.getNickname());
+	            	groupInfo.put("headImg", customerUserInfo.getHeadimgurl());
+	            	groupInfo.put("city", customerUserInfo.getCity());
+	            	groupInfo.put("num", goodGroup.getNum()-partakeNum);
+	            	httpRequest.setAttribute("groupInfo", groupInfo);
+	            	break;
+            	}
+                
+            }
             return "info/GoodInfo";
 	}
 	

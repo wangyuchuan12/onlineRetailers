@@ -85,7 +85,32 @@
 					</ul>
 				</div>
 				</div>
-				
+				<c:if test="${groupInfo!=null}">
+					<div class="good_info_groups" onclick="javascript:skipToGroupInfo('${groupInfo.id}' , '${token.id}')">
+						<div class="good_info_groups_head">以下小伙伴正在发起团购，您可以直接参与</div>
+						<div class="good_info_group">
+							<div class="good_info_group_head"><img src="${groupInfo.headImg}"/></div>
+							<div class="good_info_group_info">
+								<div class="good_info_group_info1">
+									<span class="good_info_group_info_nickname">${groupInfo.nickname}</span>
+									<span class="good_info_group_info_num">还差${groupInfo.num}个</span>
+								</div>
+								<div class="good_info_group_info2">
+									<span class="good_info_group_info_city">${groupInfo.city}</span>
+									<span class="good_info_group_info_time">剩余
+										<b id = "group_info_hour">00</b>
+										<b id = "group_info_min">00</b>
+										<b id = "group_info_second">00</b>结束
+									</span>
+									<script type="text/javascript">
+										good_info_group_info_time("${groupInfo.startTime}","${groupInfo.timeLong}");
+			     					</script>
+								</div>
+							</div>
+						</div>
+						<div class="good_info_group_footer">去参团</div>
+					</div>
+				</c:if>
 				
             </div>
             <div class="trade_flow">

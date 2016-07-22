@@ -22,8 +22,11 @@ import com.wyc.domain.GoodStyle;
 import com.wyc.domain.GroupPartake;
 import com.wyc.domain.GroupPartakeDeliver;
 import com.wyc.domain.GroupPartakePayment;
+import com.wyc.domain.MyResource;
+import com.wyc.domain.NewsArticleItem;
 import com.wyc.domain.OpenGroupCoupon;
 import com.wyc.domain.OrderDetail;
+import com.wyc.domain.PushArticle;
 import com.wyc.domain.SystemPayActivity;
 import com.wyc.domain.TempGroupOrder;
 import com.wyc.domain.TemporaryData;
@@ -35,10 +38,13 @@ import com.wyc.service.GoodStyleService;
 import com.wyc.service.GroupPartakeDeliverService;
 import com.wyc.service.GroupPartakePaymentService;
 import com.wyc.service.GroupPartakeService;
+import com.wyc.service.MyResourceService;
+import com.wyc.service.NewsArticleItemService;
 import com.wyc.service.OpenGroupCouponService;
 import com.wyc.service.OrderDetailService;
 import com.wyc.service.PayActivityService;
 import com.wyc.service.PayHandlerService;
+import com.wyc.service.PushArticleService;
 import com.wyc.service.TempGroupOrderService;
 import com.wyc.service.TemporaryDataService;
 public class PayResultHandler implements Handler{
@@ -72,6 +78,12 @@ public class PayResultHandler implements Handler{
     private PayHandlerService payHandlerService;
     @Autowired
     private GoodStyleService goodStyleService;
+    @Autowired
+    private PushArticleService pushArticleService;
+    @Autowired
+    private NewsArticleItemService newsArticleItemService;
+    @Autowired
+    private MyResourceService myResourceService;
     final static Logger logger = LoggerFactory.getLogger(PayResultHandler.class);
     @Override
     @Transactional
@@ -229,9 +241,33 @@ public class PayResultHandler implements Handler{
                    goodGroup.setResult(2);
                    goodGroupService.save(goodGroup);
                    Iterable<GroupPartake> groupPartakes = groupPartakeService.findAllByGroupIdOrderByRoleAsc(groupId);
+                   Good good = goodService.findOne(goodGroup.getGoodId());
+                   MyResource myResource = myResourceService.findOne(good.getGoodInfoHeadImg());
                    for(GroupPartake groupPartake2:groupPartakes){
                        groupPartake2.setStatus(GroupPartake.BEGIN_STATUS);
                        groupPartakeService.save(groupPartake2);
+                       
+                       	try {
+                       	 Customer entryCustomer = customerService.findOne(groupPartake2.getCustomerid());
+                       	 PushArticle pushArticle = new PushArticle();
+                         pushArticle.setFromUser("System:group success");
+                         pushArticle.setMsgtype(PushArticle.NEWS_TYPE);
+                         pushArticle.setPushTime(new DateTime());
+                         pushArticle.setStatus(PushArticle.NOT_SENT_STATUS);
+                         pushArticle.setTouser(entryCustomer.getOpenId());
+                         
+                         pushArticle = pushArticleService.add(pushArticle);
+                         
+                         NewsArticleItem newsArticleItem = new NewsArticleItem();
+                         newsArticleItem.setArticleId(pushArticle.getId());
+                         newsArticleItem.setDescription("恭喜你，你参加的团组团成功啦");
+                         newsArticleItem.setPicurl(myResource.getUrl());
+                         newsArticleItem.setUrl("http://www.chengxihome.com/info/group_info2?id="+goodGroup.getId());
+                         newsArticleItem.setTitle("您收到一条消息");
+                         newsArticleItem = newsArticleItemService.add(newsArticleItem);
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
                    }
                    groupPartake.setStatus(GroupPartake.BEGIN_STATUS);
                 }

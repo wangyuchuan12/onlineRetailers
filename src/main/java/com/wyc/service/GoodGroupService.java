@@ -41,4 +41,8 @@ public class GoodGroupService {
     public Iterable<GoodGroup> findAllByIdInOrderByCreateAtDesc(List<String> groupIds) {
         return goodGroupRepository.findAllByIdInOrderByCreateAtDesc(groupIds);
     }
+
+	public List<GoodGroup> findEarliestGroupByGoodAndResult(String goodId, int result) {
+		return goodGroupRepository.findEarliestGroupByGoodAndResult(goodId,result);
+	}
 }
