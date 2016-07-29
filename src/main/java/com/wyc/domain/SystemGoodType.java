@@ -19,14 +19,33 @@ public class SystemGoodType {
     private String title;
     @Column
     private String img;
+    @Column(name="is_display")
+    private int isDisplay;
+    @Column
+    private String instruction;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    
+    
+    
     private DateTime updateAt;
     
-    public String getTitle() {
+    public int getIsDisplay() {
+		return isDisplay;
+	}
+	public void setIsDisplay(int isDisplay) {
+		this.isDisplay = isDisplay;
+	}
+	public String getInstruction() {
+		return instruction;
+	}
+	public void setInstruction(String instruction) {
+		this.instruction = instruction;
+	}
+	public String getTitle() {
         return title;
     }
     public void setTitle(String title) {

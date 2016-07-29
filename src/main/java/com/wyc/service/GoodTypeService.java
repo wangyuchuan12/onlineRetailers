@@ -24,4 +24,8 @@ public class GoodTypeService {
     public List<SystemGoodType> findAllByIsDefault(boolean isDefault) {
         return goodTypeRepository.findAllByIsDefault(isDefault);
     }
+
+	public List<SystemGoodType> findAllByIsDisplay(int isDisplay) {
+		return goodTypeRepository.findAllByIsDisplay(isDisplay);
+	}
 }

@@ -178,9 +178,15 @@ public class GoodsAction {
         	       
         	       httpRequest.setAttribute("typeTitle", goodType.getTitle());
         	       httpRequest.setAttribute("typeName", goodType.getName());
+        	       httpRequest.setAttribute("typeInstruction", goodType.getInstruction());
         	       httpRequest.setAttribute("typeImg", goodType.getImg());
 	       }
 	       return "main/Goods";
+	}
+	
+	@RequestMapping("/info/good_info2")
+	public String goodInfo2(HttpServletRequest httpServletRequest)throws Exception{
+		return "info/GoodInfo2";
 	}
 	
 	@UserInfoFromWebAnnotation

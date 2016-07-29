@@ -10,4 +10,6 @@ public interface GoodTypeRepository extends CrudRepository<SystemGoodType, Strin
 
     List<SystemGoodType> findAllByIsDefault(boolean isDefault);
 
+	List<SystemGoodType> findAllByIsDisplay(int isDisplay);
+
 }

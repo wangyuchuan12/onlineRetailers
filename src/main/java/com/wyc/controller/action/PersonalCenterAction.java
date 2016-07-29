@@ -301,7 +301,7 @@ public class PersonalCenterAction {
         UserInfo userInfo = myHttpServletRequest.getUserInfo();
         Customer customer = customerService.findByOpenId(userInfo.getOpenid());
         String defaultGoodType = customer.getDefaultGoodType();
-        Iterable<SystemGoodType> goodTypes = goodTypeService.findAll();
+        Iterable<SystemGoodType> goodTypes = goodTypeService.findAllByIsDisplay(1);
         List<Map<String, String>> responseTypes = new ArrayList<Map<String,String>>();
         for(SystemGoodType goodType:goodTypes){
             Map<String, String> responseType = new HashMap<String, String>();
