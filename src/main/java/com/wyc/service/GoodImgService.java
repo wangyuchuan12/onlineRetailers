@@ -1,4 +1,5 @@
 package com.wyc.service;
+import java.util.List;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
@@ -23,7 +24,7 @@ public class GoodImgService {
         goodImgRepository.save(goodImg);
     }
     
-    public Iterable<GoodImg> findAllByGoodIdOrderByLevel(String goodId){
+    public List<GoodImg> findAllByGoodIdOrderByLevel(String goodId){
         return goodImgRepository.findAllByGoodIdOrderByLevelDesc(goodId);
     }
     

@@ -240,7 +240,7 @@ public class GoodsAction {
                 responseGood.put("goodInfoHeadImg", goodInfoHeadImgResource.getUrl());
             }
             List<String> resourceIds = new ArrayList<>();
-            Iterable<GoodImg> iterable = goodImgService.findAllByGoodIdOrderByLevel(goodId);
+            List<GoodImg> iterable = goodImgService.findAllByGoodIdOrderByLevel(goodId);
             for(GoodImg goodImg:iterable){
                 resourceIds.add(goodImg.getImgId());
             }
