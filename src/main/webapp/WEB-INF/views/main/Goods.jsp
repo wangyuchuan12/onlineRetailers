@@ -236,14 +236,15 @@
                         
       
                 </div>
-                
-                <div class="good-title" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
-                          ${good.title}
-                    <c:if test="${good.notice!=null}">
-                    	<br/><b style="color:black;">${good.notice}</b>
-                    </c:if>
-                   
-                </div>
+                <c:if test="${good.title!=null&&!empty good.title&&good.notice!=null&&!empty good.notice}">
+	                <div class="good-title" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
+	                          ${good.title}
+	                    <c:if test="${good.notice!=null}">
+	                    	<br/><b style="color:black;">${good.notice}</b>
+	                    </c:if>
+	                   
+	                </div>
+                </c:if>
                 
                 <div class="tuan_g_core"  onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
                 	<img class="tuan_g_pin" src="/img/pin.png"></img>
