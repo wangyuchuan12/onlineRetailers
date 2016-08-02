@@ -23,17 +23,24 @@ public class SystemGoodType {
     private int isDisplay;
     @Column
     private String instruction;
+    @Column(name="type_class")
+    private String typeClass;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    
-    
-    
     private DateTime updateAt;
     
-    public int getIsDisplay() {
+    
+    
+    public String getTypeClass() {
+		return typeClass;
+	}
+	public void setTypeClass(String typeClass) {
+		this.typeClass = typeClass;
+	}
+	public int getIsDisplay() {
 		return isDisplay;
 	}
 	public void setIsDisplay(int isDisplay) {

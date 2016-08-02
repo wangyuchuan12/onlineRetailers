@@ -14,4 +14,8 @@ public class QuickEntranceService {
     public Iterable<SystemQuickEntrance> findAllOrderByRankAsc() {
         return quickEntranceRepository.findOrderByRankAsc();
     }
+
+	public Iterable<SystemQuickEntrance> findAllByIdInOrderByRankAsc(String[] ids) {
+		return quickEntranceRepository.findAllByIdInOrderByRankAsc(ids);
+	}
 }

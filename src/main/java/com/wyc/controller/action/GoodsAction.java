@@ -40,6 +40,7 @@ import com.wyc.domain.GoodImg;
 import com.wyc.domain.SystemGoodType;
 import com.wyc.domain.MyResource;
 import com.wyc.domain.SystemQuickEntrance;
+import com.wyc.domain.SystemTypeClass;
 import com.wyc.domain.TempGroupOrder;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.AdGoodHeaderImgService;
@@ -55,6 +56,7 @@ import com.wyc.service.GroupPartakeService;
 import com.wyc.service.MyResourceService;
 import com.wyc.service.OpenGroupCouponService;
 import com.wyc.service.QuickEntranceService;
+import com.wyc.service.SystemTypeClassService;
 import com.wyc.service.TempGroupOrderService;
 import com.wyc.service.WxUserInfoService;
 import com.wyc.wx.domain.UserInfo;
@@ -95,6 +97,8 @@ public class GoodsAction {
         private WxUserInfoService wxUserInfoService;
         @Autowired
         private GroupPartakeService groupPartakeService;
+        @Autowired
+        private SystemTypeClassService systemTypeClassService;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
@@ -141,10 +145,23 @@ public class GoodsAction {
                 }
 	    }
 	    
-	    Iterable<SystemAdGoodHeaderImg> adGoodHeaderImgs = adGoodHeaderImgService.findAllOrderByRankAsc();
+	    if(goodType!=null&&goodType.getTypeClass()!=null){
+		    SystemTypeClass systemTypeClass = systemTypeClassService.findOne(goodType.getTypeClass());
+		    if(systemTypeClass!=null&&systemTypeClass.getADs()!=null){
+		    	String[] typeClasses = systemTypeClass.getADs().split(",");
+		    	Iterable<SystemAdGoodHeaderImg> adGoodHeaderImgs = adGoodHeaderImgService.findAllByIdInOrderByRankAsc(typeClasses);
+		    	httpRequest.setAttribute("adGoodHeaderImgs", adGoodHeaderImgs);
+		    	
+		    }
+		    if(systemTypeClass!=null&&systemTypeClass.getQuickEntrances()!=null){
+		    	String[] quicks = systemTypeClass.getQuickEntrances().split(",");
+		    	Iterable<SystemQuickEntrance> quickEntrances = quickEntranceService.findAllByIdInOrderByRankAsc(quicks);
+		    	httpRequest.setAttribute("quickEntrances", quickEntrances);
+		    }
+	    }
 	    
 	    Iterable<Good> databaseGoods = goodService.findAllByGoodTypeAndIsDisplayMainOrderByRank(goodTypeId,true);
-            Iterable<SystemQuickEntrance> quickEntrances = quickEntranceService.findAllOrderByRankAsc();
+            
 	    List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
             for(Good good:databaseGoods){
 		 Map<String, Object> responseGood = new HashMap<String, Object>();
@@ -170,8 +187,8 @@ public class GoodsAction {
 		    }
 		    responseGoods.add(responseGood);
 		}
-               httpRequest.setAttribute("adGoodHeaderImgs", adGoodHeaderImgs);
-               httpRequest.setAttribute("quickEntrances", quickEntrances);
+               
+               
 	       httpRequest.setAttribute("goods", responseGoods);
 	       httpRequest.setAttribute("goodType", goodTypeId);
 	       if(goodTypeId!=null){

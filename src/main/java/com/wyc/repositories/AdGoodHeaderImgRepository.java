@@ -9,4 +9,6 @@ public interface AdGoodHeaderImgRepository extends CrudRepository<SystemAdGoodHe
     @Query("from com.wyc.domain.SystemAdGoodHeaderImg order by rank")
     Iterable<SystemAdGoodHeaderImg> findAllOrderByRankAsc();
 
+	Iterable<SystemAdGoodHeaderImg> findAllByIdInOrderByRankAsc(String[] ids);
+
 }

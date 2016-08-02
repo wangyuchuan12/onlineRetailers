@@ -14,4 +14,8 @@ public class AdGoodHeaderImgService {
     public Iterable<SystemAdGoodHeaderImg> findAllOrderByRankAsc() {
         return adGoodHeaderImgRepository.findAllOrderByRankAsc();
     }
+
+	public Iterable<SystemAdGoodHeaderImg> findAllByIdInOrderByRankAsc(String[] ids) {
+		return adGoodHeaderImgRepository.findAllByIdInOrderByRankAsc(ids);
+	}
 }

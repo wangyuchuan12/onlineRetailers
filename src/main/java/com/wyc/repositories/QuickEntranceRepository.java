@@ -9,4 +9,6 @@ public interface QuickEntranceRepository extends CrudRepository<SystemQuickEntra
     @Query("from com.wyc.domain.SystemQuickEntrance order by rank")
     Iterable<SystemQuickEntrance> findOrderByRankAsc();
 
+    Iterable<SystemQuickEntrance> findAllByIdInOrderByRankAsc(String[] ids);
+
 }
