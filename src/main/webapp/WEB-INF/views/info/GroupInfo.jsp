@@ -28,7 +28,17 @@
 							<img src="/img/arrow.png"></img>
 							<div class="linkGuid_img_content">分享至朋友圈<br/>咻的一下就成团了</div>
 						</div>
-						<div class="linkGuid_content">团长大人都是厉害的人物！<br/>还差${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}人就能组团成功啦~<br/>快去呼唤小伙伴吧</div>
+						<div class="linkGuid_content">
+							<c:if test="${groupInfo.role==1}">
+								团长大人都是厉害的人物！<br/>
+								还差${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}人就能组团成功啦~<br/>快去呼唤小伙伴吧
+							</c:if>
+							
+							<c:if test="${groupInfo.role!=1}">
+								小可爱，欢迎你成为本团光荣的一员<br/>
+								还差${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}人就能组团成功啦~<br/>快去呼唤小伙伴吧
+							</c:if>
+						</div>
 					</div>
 			<c:if test="${groupInfo.result==1}">
 				<div class="group_info_head">
