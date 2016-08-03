@@ -210,7 +210,7 @@ public class GroupsAction {
             }
         }
         GoodGroup goodGroup = goodGroupService.findOne(lastGroupId.getValue());
-        return "redirect:/info/group_info2?id="+goodGroup.getId()+"&token="+myHttpServletRequest.getToken().getId();
+        return "redirect:/info/group_info2?prompt=true&id="+goodGroup.getId()+"&token="+myHttpServletRequest.getToken().getId();
     }
     
     @RequestMapping("/info/group_info2")
@@ -223,6 +223,10 @@ public class GroupsAction {
     public String groupInfo(HttpServletRequest httpServletRequest)
             throws Exception {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) httpServletRequest;
+        String prompt = httpServletRequest.getParameter("prompt");
+        if(prompt!=null){
+        	httpServletRequest.setAttribute("prompt", true);
+        }
         UserInfo requestUser = myHttpServletRequest.getUserInfo();
         
         String id = httpServletRequest.getParameter("id");

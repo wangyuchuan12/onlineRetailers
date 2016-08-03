@@ -408,13 +408,16 @@
      				     	</c:if>
      			     	  </c:if>
      			     	</div>
+     			     	
      			     	<script type="text/javascript">
      			     		$(document).ready(function(){
      			    				setUserToken("${token.id}");
      			    				wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
+     			    				
      			    				var groupInfoImg = $("#group_info_img").val();
      			    				var groupInfoGoodName = $("#group_info_good_name").val();
      			    				var groupInfoGoodTitle = $("#group_info_good_title").val();
+     			    				
      			    				wx.ready(function(){
      			        				wxOnMenuShareAppMessage(groupInfoGoodName,groupInfoGoodTitle,"${domainName}/info/group_info2?id=${groupInfo.id}&good_type=${goodType}",groupInfoImg,"link",null);
      			        				wx.hideMenuItems({

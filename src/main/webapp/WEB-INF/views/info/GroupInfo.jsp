@@ -24,8 +24,12 @@
 	<body>
 		<div class="container">
 			<div class="linkGuid" style="display:none" id="linkGuid"  onclick="javascript:hideLinkGuid();">
-				<img src="/img/arrow2.jpg"></img>
-			</div>
+						<div class="linkGuid_img">
+							<img src="/img/arrow.png"></img>
+							<div class="linkGuid_img_content">分享至朋友圈<br/>咻的一下就成团了</div>
+						</div>
+						<div class="linkGuid_content">团长大人都是厉害的人物！<br/>还差${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}人就能组团成功啦~<br/>快去呼唤小伙伴吧</div>
+					</div>
 			<c:if test="${groupInfo.result==1}">
 				<div class="group_info_head">
 		            	<div class="group_info_head_status_progress"><i class="fa fa-check-circle"></i>正在组团</div>
@@ -51,7 +55,7 @@
 			<input hidden="true" id = "group_info_good_name" value="${groupInfo.goodName}">
 			<input hidden="true" id = "group_info_good_title" value="${groupInfo.title}">
 			<div class="group_goodinfo activityStyle" onclick="skipToGoodInfo('${groupInfo.goodId}','${token.id}')" style="width:99.9%">
-			      
+			      	
 					<div class="group_goodinfo_img">
 						<img src="${groupInfo.headImg}"></img>
 					</div>
@@ -202,6 +206,8 @@
 	     	</c:if>
      	  </c:if>
      	</div>
+     	
+     	<input type = "hidden" value="${prompt}" name="prompt"></input>
      	<script type="text/javascript">
      		$(document).ready(function(){
     				setUserToken("${token.id}");
@@ -209,6 +215,11 @@
     				var groupInfoImg = $("#group_info_img").val();
     				var groupInfoGoodName = $("#group_info_good_name").val();
     				var groupInfoGoodTitle = $("#group_info_good_title").val();
+    				
+    				var prompt = $("input[name=prompt]").val();
+    				if(prompt){
+	    					displayLinkGuid();
+	    				}
     				wx.ready(function(){
         				wxOnMenuShareAppMessage(groupInfoGoodName,groupInfoGoodTitle,"${domainName}/info/group_info2?id=${groupInfo.id}&good_type=${goodType}",groupInfoImg,"link",null);
         				wx.hideMenuItems({
