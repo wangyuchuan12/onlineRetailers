@@ -21,4 +21,7 @@ public interface GoodGroupRepository extends CrudRepository<GoodGroup, String>{
 
     @Query("select g from com.wyc.domain.GoodGroup g where g.createAt in (select min(g2.createAt) from com.wyc.domain.GoodGroup g2 where g2.goodId=:goodId and g2.result=:result)")
 	public List<GoodGroup> findEarliestGroupByGoodAndResult(@Param("goodId") String goodId,@Param("result") int result);
+    
+    @Query("select a from com.wyc.domain.GoodGroup a , com.wyc.domain.HotGroup b where b.groupId = a.id and b.status=0 and a.result = 1")
+	public List<GoodGroup> findAllHotGroups();
 }

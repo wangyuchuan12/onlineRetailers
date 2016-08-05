@@ -3,6 +3,12 @@
 <link rel="stylesheet"
 	href="/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/address.css">
+
+<link rel="stylesheet" type="text/css" href="/css/baby/base.min.css">
+<link rel="stylesheet" type="text/css" href="/css/baby/layout.min.css">
+
+<link rel="stylesheet" type="text/css" href="/css/baby/gmu.min.css">
+
 <script type="text/javascript" src="/js/jquery-1.8.2.min.js"></script>
 
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>

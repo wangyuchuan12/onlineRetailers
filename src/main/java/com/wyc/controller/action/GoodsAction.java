@@ -256,12 +256,12 @@ public class GoodsAction {
             if(goodInfoHeadImgResource!=null){
                 responseGood.put("goodInfoHeadImg", goodInfoHeadImgResource.getUrl());
             }
-            List<String> resourceIds = new ArrayList<>();
-            List<GoodImg> iterable = goodImgService.findAllByGoodIdOrderByLevel(goodId);
-            for(GoodImg goodImg:iterable){
-                resourceIds.add(goodImg.getImgId());
-            }
-            Iterable<MyResource> myResources = resourceService.findAll(resourceIds);
+//            List<String> resourceIds = new ArrayList<>();
+//            List<GoodImg> iterable = goodImgService.findAllByGoodIdOrderByLevel(goodId);
+//            for(GoodImg goodImg:iterable){
+//                resourceIds.add(goodImg.getImgId());
+//            }
+            Iterable<MyResource> myResources = resourceService.findAllByGoodId(goodId);
             httpRequest.setAttribute("good", responseGood);
             httpRequest.setAttribute("imgs", myResources);
             httpRequest.setAttribute("token", myHttpServletRequest.getToken());

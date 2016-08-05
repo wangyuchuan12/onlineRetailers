@@ -45,4 +45,8 @@ public class GoodGroupService {
 	public List<GoodGroup> findEarliestGroupByGoodAndResult(String goodId, int result) {
 		return goodGroupRepository.findEarliestGroupByGoodAndResult(goodId,result);
 	}
+	
+	public List<GoodGroup> findAllHotGroups(){
+		return goodGroupRepository.findAllHotGroups();
+	}
 }

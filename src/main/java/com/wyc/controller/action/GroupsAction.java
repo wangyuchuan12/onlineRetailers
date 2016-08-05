@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.wyc.annotation.AfterHandlerAnnotation;
 import com.wyc.annotation.BeforeNativeHandlerAnnotation;
 import com.wyc.annotation.JsApiTicketAnnotation;
@@ -33,6 +32,7 @@ import com.wyc.domain.Good;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;
+import com.wyc.domain.HotGroup;
 import com.wyc.domain.OrderDetail;
 import com.wyc.domain.TemporaryData;
 import com.wyc.intercept.domain.MyHttpServletRequest;
@@ -41,6 +41,7 @@ import com.wyc.service.GoodGroupService;
 import com.wyc.service.GoodOrderService;
 import com.wyc.service.GoodService;
 import com.wyc.service.GroupPartakeService;
+import com.wyc.service.HotGroupService;
 import com.wyc.service.MyResourceService;
 import com.wyc.service.OrderDetailService;
 import com.wyc.service.TemporaryDataService;
@@ -69,6 +70,8 @@ public class GroupsAction {
     private TemporaryDataService temporaryDataService;
     @Autowired
     private GoodOrderService goodOrderService;
+    @Autowired
+    private HotGroupService hotGroupService;
     final static Logger logger = LoggerFactory.getLogger(GroupsAction.class);
 
     @RequestMapping("/main/group_list")
@@ -224,9 +227,7 @@ public class GroupsAction {
             throws Exception {
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest) httpServletRequest;
         String prompt = httpServletRequest.getParameter("prompt");
-        if(prompt!=null){
-        	httpServletRequest.setAttribute("prompt", true);
-        }
+        
         UserInfo requestUser = myHttpServletRequest.getUserInfo();
         
         String id = httpServletRequest.getParameter("id");
@@ -234,6 +235,10 @@ public class GroupsAction {
         goodGroup = checkTimeout(goodGroup);
         logger.debug("the group id is {}", id);
         int result = goodGroup.getResult();
+        
+        if(prompt!=null&&result==1){
+        	httpServletRequest.setAttribute("prompt", true);
+        }
         Iterable<GroupPartake> groupPartakes = groupPartakeService
                 .findAllByGroupIdOrderByDateTime(id);
         String goodId = goodGroup.getGoodId();
@@ -304,5 +309,68 @@ public class GroupsAction {
             throws Exception {
 
         return "info/TradeFlowInfo";
+    }
+    @WxConfigAnnotation
+    @JsApiTicketAnnotation
+    @RequestMapping("/info/hot_group")
+    public String hotGroups(HttpServletRequest httpServletRequest){
+    	
+    	List<GoodGroup> goodGroups = goodGroupService.findAllHotGroups();
+    	
+    	List<Map<String, Object>> responseGroups = new ArrayList<>();
+    	
+    	
+    	httpServletRequest.setAttribute("title", "晨曦拼货商城");
+    	httpServletRequest.setAttribute("instruction", "风靡全国的拼货商城，优质商品新鲜直供，快来一起拼团吧");
+    	httpServletRequest.setAttribute("img", "http://www.chengxihome.com/img/logo.jpg");
+    	for(GoodGroup goodGroup:goodGroups){
+    		Map<String, Object> responseGroup = new HashMap<>();
+    		Good good = goodService.findOne(goodGroup.getGoodId());
+    		responseGroup.put("group_id",goodGroup.getId());
+    		responseGroup.put("result", goodGroup.getResult() + "");
+            responseGroup.put("name", good.getName());
+            responseGroup.put("head_img",
+                    myResourceService.findOne(good.getHeadImg()).getUrl());
+            responseGroup.put("total_price", goodGroup.getTotalPrice() + "");
+            responseGroup.put("group_id", goodGroup.getId());
+            responseGroup.put("adminId", good.getAdminId());
+            responseGroup.put("group_num",goodGroup.getNum()+"");
+            responseGroup.put("partake_num", groupPartakeService.countByGroupId(goodGroup.getId())+"");
+            
+            responseGroup.put("startTime",
+                    mySimpleDateFormat.format(goodGroup.getStartTime().toDate()));
+            responseGroup.put("timeLong", goodGroup.getTimeLong()+"");
+            
+            
+            Iterable<GroupPartake> groupPartakes = groupPartakeService
+                    .findAllByGroupIdOrderByDateTime(goodGroup.getId());
+            
+            
+            List<Map<String, String>> groupMembers = new ArrayList<Map<String, String>>();
+            int i = 0 ;
+            for (GroupPartake groupPartake : groupPartakes) {
+                Map<String, String> groupMember = new HashMap<String, String>();
+                String customerId = groupPartake.getCustomerid();
+                Customer customer = customerService.findOne(customerId);
+                String openid = customer.getOpenId();
+                UserInfo userInfo = wxUserInfoService.findByOpenid(openid);
+                groupMember.put("name", userInfo.getNickname());
+                groupMember.put("headImg", userInfo.getHeadimgurl());
+                groupMember.put("role", groupPartake.getRole() + "");
+                groupMember.put("datetime", mySimpleDateFormat.format(groupPartake
+                        .getDateTime().toDate()));
+                groupMembers.add(groupMember);
+                i++;
+                if(i==7){
+                	break;
+                }
+               
+            }
+            responseGroup.put("members", groupMembers);
+            responseGroups.add(responseGroup);
+
+    	}
+    	httpServletRequest.setAttribute("groups", responseGroups);
+    	return "info/hotGroup";
     }
 }

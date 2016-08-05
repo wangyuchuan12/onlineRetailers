@@ -77,4 +77,8 @@ public class MyResourceService {
         return resourceRepository.save(myResource);
         
     }
+
+	public Iterable<MyResource> findAllByGoodId(String goodId) {
+		return resourceRepository.findAllByGoodId(goodId);
+	}
 }
