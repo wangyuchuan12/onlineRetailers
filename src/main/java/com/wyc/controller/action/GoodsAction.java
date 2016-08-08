@@ -109,6 +109,8 @@ public class GoodsAction {
 	@AfterHandlerAnnotation(hanlerClasses={NotReadChatHandler.class})
 	public String goodList(HttpServletRequest httpRequest)throws Exception{  
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
+	    String quickId = httpRequest.getParameter("quick_id");
+	    System.out.println(quickId);
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
 	    String goodTypeId = myHttpServletRequest.getParameter("good_type");
 	    Customer customer = customerService.findByOpenId(userInfo.getOpenid());
@@ -157,6 +159,7 @@ public class GoodsAction {
 		    	String[] quicks = systemTypeClass.getQuickEntrances().split(",");
 		    	Iterable<SystemQuickEntrance> quickEntrances = quickEntranceService.findAllByIdInOrderByRankAsc(quicks);
 		    	httpRequest.setAttribute("quickEntrances", quickEntrances);
+		    	httpRequest.setAttribute("current_quick", quickId);
 		    }
 	    }
 	    

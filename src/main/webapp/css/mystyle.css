@@ -1586,6 +1586,10 @@
 	font-size: 15px;
 }
 
+.quick_border{
+	border: 2px solid red ;
+}
+
 .good_list_groupinfo{
 	width:45px;
 	height:45px;

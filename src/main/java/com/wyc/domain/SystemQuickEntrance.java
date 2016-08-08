@@ -21,6 +21,8 @@ public class SystemQuickEntrance {
     private String url;
     @Column
     private int rank;
+    @Column(name="good_type")
+    private String goodType;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @JsonIgnore
@@ -31,7 +33,15 @@ public class SystemQuickEntrance {
     private DateTime updateAt;
     
     
-    public int getRank() {
+    
+    
+    public String getGoodType() {
+		return goodType;
+	}
+	public void setGoodType(String goodType) {
+		this.goodType = goodType;
+	}
+	public int getRank() {
         return rank;
     }
     public void setRank(int rank) {

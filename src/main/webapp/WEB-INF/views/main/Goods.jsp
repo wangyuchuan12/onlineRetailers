@@ -217,7 +217,7 @@
 		    <div class="quick_entrance">
 		        <ul>
 		        	  <c:forEach items="${quickEntrances}" var="quickEntrance">
-		            	<li><a href="javascript:skipToRedirectUrl('${quickEntrance.url}','${token.id}')"><img src="${quickEntrance.imgUrl}"><em></em><span>${quickEntrance.name}</span></a></li>                       
+		            	<li><a href="javascript:skipToRedirectUrl('${quickEntrance.url}','${token.id}','${quickEntrance.id}')"><img src="${quickEntrance.imgUrl}"><em></em><span <c:if test="${quickEntrance.goodType == goodType}">style="background:red;"</c:if>>${quickEntrance.name}</span></a></li>                       
 		        	  </c:forEach>
 		        </ul>
 		    </div>

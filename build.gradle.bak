@@ -306,8 +306,6 @@ dependencies {
     compile fileTree(dir:'lib',include:'*.jar')
     
     compile 'com.qiniu:qiniu-java-sdk:7.0.+'
-
-    compile 'nz.ac.waikato.cms.weka:WekaExcel:1.0.5'
     
     testCompile("junit:junit")
 }

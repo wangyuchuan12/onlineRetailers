@@ -323,7 +323,18 @@ function setGoodType(goodType){
 	}
 }
 
-function skipToRedirectUrl(url,token){
+function skipToRedirectUrl(url,token,quickId){
+	if(url.indexOf("?")>0){
+		url=url+"&quick_id="+quickId;
+	}else{
+		url=url+"?quick_id"+quickId;
+	}
+	
+	if(token!=null&&url.indexOf("?")>0){
+		url=url+"&token="+token;
+	}else if (token!=null&&url.indexOf("?")<0) {
+		url=url+"?token"+token;
+	}
 	skipToUrl(url,token,null,true)
 }
 
