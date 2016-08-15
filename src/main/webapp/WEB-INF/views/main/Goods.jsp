@@ -214,7 +214,7 @@
 			</div>
 		</c:if>
 		<c:if test="${fn:length(quickEntrances)>0}">
-		    <div class="quick_entrance">
+		    <div class="<c:if test='${fn:length(quickEntrances)>5}'>quick_entrance2</c:if><c:if test='${fn:length(quickEntrances)<=5}'>quick_entrance</c:if>">
 		        <ul>
 		        	  <c:forEach items="${quickEntrances}" var="quickEntrance">
 		            	<li><a href="javascript:skipToRedirectUrl('${quickEntrance.url}','${token.id}','${quickEntrance.id}')"><img src="${quickEntrance.imgUrl}"><em></em><span <c:if test="${quickEntrance.goodType == goodType}">style="background:red;"</c:if>>${quickEntrance.name}</span></a></li>                       
@@ -264,7 +264,11 @@
 	                <!--  <div class="good_market_price">市场价：￥${good.market_price}</div> -->
 	                <div class="good_chat" onclick="javascript:skipToChat('${good.adminId}','1','${good.id}','','','${token.id}')">
                 		<img src="http://script.suning.cn/project/pdsWeb/images/online.gif"/>
-               	 </div>
+               	 	</div>
+               	 	<div class="goods_click_good" onclick="javascript:goodClick('${good.id}',${good.isGoodClick});">
+               	 		<i class="fa fa-thumbs-up <c:if test='${good.isGoodClick}'>goods_isclick</c:if>" id="click_${good.id}"></i>
+               	 		<span id="num_${good.id}">${good.goodClickCount}</span>
+               	 	</div>
                 </div>
                 
             </div>
@@ -272,6 +276,24 @@
         </div>
     </div>
     <script type="text/javascript">
+    
+    		function goodClick(goodId,isGoodClick){
+    			if(isGoodClick){
+    				return;
+    			}
+    			$.ajax({
+    				url:"/api/click_good?token=${token.id}&good_id="+goodId,
+    				success:function(resp){
+    					if(resp.success){
+    						$("#click_"+goodId).addClass("goods_isclick");
+    						var num = parseInt($("#num_"+goodId).html()+"");
+    						num++;
+    						$("#num_"+goodId).html(num);
+    					}
+    				}
+    			});
+    		}
+    		
     		$(document).ready(function(){
     			$("img.lazy").lazyload({
                     effect: "fadeIn",
@@ -324,7 +346,7 @@
     			setGoodType("${goodType}");
     			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
     			wx.ready(function(){
-    				wxOnMenuShareAppMessage("${typeTitle}","${typeInstruction}","${domainName}/main/good_list?good_type=${goodType}","${typeImg}","link");
+    				wxOnMenuShareAppMessage("${typeTitle}","${typeInstruction}","${domainName}/main/good_list?good_type=${goodType}","http://www.chengxihome.com/img/logo.jpg","link");
     				wx.hideMenuItems({
     				    menuList: ["menuItem:copyUrl","menuItem:exposeArticle","menuItem:setFont","menuItem:readMode","menuItem:originPage","menuItem:share:email","menuItem:openWithQQBrowser","menuItem:openWithSafari"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
     				});

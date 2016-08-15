@@ -35,6 +35,7 @@ import com.wyc.domain.SystemCity;
 import com.wyc.domain.Customer;
 import com.wyc.domain.CustomerAddress;
 import com.wyc.domain.Good;
+import com.wyc.domain.GoodClickGood;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodImg;
 import com.wyc.domain.SystemGoodType;
@@ -47,6 +48,7 @@ import com.wyc.service.AdGoodHeaderImgService;
 import com.wyc.service.CityService;
 import com.wyc.service.CustomerAddressService;
 import com.wyc.service.CustomerService;
+import com.wyc.service.GoodClickGoodService;
 import com.wyc.service.GoodGroupService;
 import com.wyc.service.GoodImgService;
 import com.wyc.service.GoodService;
@@ -99,6 +101,8 @@ public class GoodsAction {
         private GroupPartakeService groupPartakeService;
         @Autowired
         private SystemTypeClassService systemTypeClassService;
+        @Autowired
+        private GoodClickGoodService goodClickGoodService;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
@@ -163,7 +167,14 @@ public class GoodsAction {
 		    }
 	    }
 	    
-	    Iterable<Good> databaseGoods = goodService.findAllByGoodTypeAndIsDisplayMainOrderByRank(goodTypeId,true);
+	    if(goodType==null){
+	    	goodType = goodTypeService.findOne(goodTypeId);
+	    }
+	    String goods = "";
+	    if(goodType.getGoods()!=null){
+	    	goods = goodType.getGoods();
+	    }
+	    Iterable<Good> databaseGoods = goodService.findAllByGoodTypeAndUnionIdsAndIsDisplayMainOrderByRank(goodTypeId,goods.split(","),true);
             
 	    List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
             for(Good good:databaseGoods){
@@ -184,6 +195,14 @@ public class GoodsAction {
 		    responseGood.put("stock", good.getStock());
 		    responseGood.put("salesVolume", good.getSalesVolume());
 		    responseGood.put("adminId", good.getAdminId());
+		    int goodClickCount = goodClickGoodService.countByGoodId(good.getId());
+		    responseGood.put("goodClickCount", goodClickCount);
+		    GoodClickGood goodClickGood = goodClickGoodService.findByOpenidAndGoodId(userInfo.getOpenid(),good.getId());
+		    if(goodClickGood==null){
+		    	responseGood.put("isGoodClick", false);
+		    }else{
+		    	responseGood.put("isGoodClick", true);
+		    }
 		    MyResource myResource = resourceService.findOne(good.getHeadImg());
 		    if(myResource!=null){
 		        responseGood.put("head_img", myResource.getUrl());

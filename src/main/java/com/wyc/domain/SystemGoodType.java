@@ -23,6 +23,8 @@ public class SystemGoodType {
     private int isDisplay;
     @Column
     private String instruction;
+    @Column(name="goods",length=50000)
+    private String goods;
     @Column(name="type_class")
     private String typeClass;
     @Column(name = "create_at")
@@ -34,7 +36,13 @@ public class SystemGoodType {
     
     
     
-    public String getTypeClass() {
+    public String getGoods() {
+		return goods;
+	}
+	public void setGoods(String goods) {
+		this.goods = goods;
+	}
+	public String getTypeClass() {
 		return typeClass;
 	}
 	public void setTypeClass(String typeClass) {

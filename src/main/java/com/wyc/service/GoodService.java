@@ -1,5 +1,6 @@
 package com.wyc.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.joda.time.DateTime;
@@ -57,5 +58,10 @@ public class GoodService {
             String goodTypeId, boolean b) {
         return goodRepository.findAllByGoodTypeAndIsDisplayMainOrderByRankAsc(goodTypeId,b);
     }
+
+	public Iterable<Good> findAllByGoodTypeAndUnionIdsAndIsDisplayMainOrderByRank(String goodTypeId, String[] goods,
+			boolean b) {
+		return goodRepository.findAllByGoodTypeAndUnionIdsAndIsDisplayMainOrderByRank(goodTypeId,goods,b);
+	}
     
 }

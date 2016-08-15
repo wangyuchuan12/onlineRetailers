@@ -27,6 +27,27 @@
 	padding-right:20px;
 	top:5px;
 }
+
+
+.goods_click_good{
+	position: absolute;
+	float: right;
+	left:80%;
+	padding-top:10px;
+}
+
+.goods_isclick{
+	color:red;
+}
+.goods_click_good i{
+	
+}
+
+.goods_click_good span{
+	position: relative;
+	font-size: 13px;
+}
+
 .tuan_g_core{color:white;display:block;line-height:34px;top:-70px;position:relative;}
 .tuan_g_pin{
 	float:left;
