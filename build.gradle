@@ -12,7 +12,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'war'
-apply plugin: 'org.akhikhl.gretty'
+apply plugin:"jetty"
 
 compileJava.options.encoding = 'UTF-8'
 
@@ -219,13 +219,12 @@ def getAllChildList(List files , File parentFile){
 }
 
 
-gretty {
-    servletContainer = 'jetty9'
-    managedClassReload = true
-    contextPath = "/"
-    fileLogEnabled = false
-    loggingLevel = "ALL"
-    httpPort = 80
+jettyRun {
+    webAppSourceDirectory file("$projectDir/src/main/webapp")  
+    httpPort 80  
+    contextPath ""
+    scanIntervalSeconds 0  
+    reload "automatic"  
 }
 
 allprojects {
@@ -310,4 +309,7 @@ dependencies {
     compile 'nz.ac.waikato.cms.weka:WekaExcel:1.0.5'
     
     testCompile("junit:junit")
+    
+    
+   
 }

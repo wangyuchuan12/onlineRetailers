@@ -23,7 +23,7 @@ public class SystemGoodType {
     private int isDisplay;
     @Column
     private String instruction;
-    @Column(name="goods",length=50000)
+    @Column(name="goods",length=5000)
     private String goods;
     @Column(name="type_class")
     private String typeClass;
