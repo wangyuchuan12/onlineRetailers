@@ -35,7 +35,8 @@ public class GoodView {
 	 @Column
 	 private int seq;
 
-	 
+	 @Column(name="is_del")
+	 private int isDel;
 	 
 	 @Column(name = "create_at")
      @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -47,6 +48,14 @@ public class GoodView {
      
      
 	 
+	public int getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(int isDel) {
+		this.isDel = isDel;
+	}
+
 	public DateTime getCreateAt() {
 		return createAt;
 	}

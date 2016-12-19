@@ -224,54 +224,96 @@
   		</c:if>
         <div class="goods">
         	<c:forEach items="${goods}" var="good">
-            <div class="good" >
+        	
+	        	<c:if test="${good.type==1}">
+	        	
+	        		
+	        			<div class="hot-group-item" data-href="/ipbb/goods/group?groupId=10805" onclick="javascript:skipToGroupInfo('${good.group_id}');">
+							<div class="hot-group-top">
+								<span class="fn-left hot-group-img" style="background: none;"> 
+									<img class="imglazyload" src="${good.head_img}">
+								</span>
+	
+								<div class="hot-group-content">
+									<h3>${good.name}</h3>
+									<p class="text-color font14 margin-btm12">${good.group_num}人团 ¥${good.total_price}</p>
+									<p class="font12">
+										<span class="fn-right text-color1">剩余时间 <em class="ct-time conduct" data-end="4956000"><b id="group_info_hour_${good.group_id}">01</b> : <b id = "group_info_min_${good.group_id}">22</b> : <b id = "group_info_second_${good.group_id}">17</b></em></span> <span>已拼 <i class="text-color">${good.partake_num}</i>人
+										</span>
+									</p>
+								</div>
+								<script type="text/javascript">
+		     						initGroupInvalidDate("${good.startTime}","${good.timeLong}","${good.group_id}");
+		     					</script>
+							</div>
+							
+							<div class="hot-group-btm">
+									<a  class="fn-right hot-group-btn">参与</a>
+									<div class="fn-clear">
+									<c:forEach items="${good.members}" var = "member">
+										<span class="fn-left hot-group-user" style="background-image: url(${member.headImg});"></span>
+									</c:forEach>
+									</div>
+								</div>
+							</div>
+	        	
+	        	
+	        	
+	        	
+	        	
+	        	
+	        	</c:if>
+        		<c:if test="${good.type==0}">
+        					<div class="good" >
             
-           	 <div class="good_list_groupinfo" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
-                	<div class="good_list_groupinfo_discount"><fmt:formatNumber type="number" value="${good.group_discount*10}" maxFractionDigits="2"/>折</div>
-                	<div class="good_list_groupinfo_groupnum">${good.group_num}人团</div>
-                </div>
-                <div class="good-img" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
-
-                        <img data-original="${good.head_img}" src="/img/loading.gif" class="lazy"/>
-                        
-      
-                </div>
-                <c:if test="${good.title!=null&&!empty good.title&&good.notice!=null&&!empty good.notice}">
-	                <div class="good-title" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
-	                          ${good.title}
-	                    <c:if test="${good.notice!=null}">
-	                    	<br/><b style="color:black;">${good.notice}</b>
-	                    </c:if>
-	                   
-	                </div>
-                </c:if>
-                
-                <div class="tuan_g_core"  onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
-                	<img class="tuan_g_pin" src="/img/pin.png"></img>
-                    <div class="tuan_g_price">
-                    	${good.group_num}人团
-                        <b>
-                        		￥<fmt:formatNumber type="number" value="${good.group_original_cost*good.group_discount}" maxFractionDigits="3"/>
-                        </b>
-                    </div>
-                    <div class="tuan_g_btn">
-                        	去开团  >
-                    </div>
-                    
-                </div>
-                <div style="position: relative;padding-left:10px;top:-60px;" >
-	                <div class="good_name">${good.name}</div>
-	                <!--  <div class="good_market_price">市场价：￥${good.market_price}</div> -->
-	                <div class="good_chat" onclick="javascript:skipToChat('${good.adminId}','1','${good.id}','','','${token.id}')">
-                		<img src="http://script.suning.cn/project/pdsWeb/images/online.gif"/>
-               	 	</div>
-               	 	<div class="goods_click_good" onclick="javascript:goodClick('${good.id}',${good.isGoodClick});">
-               	 		<i class="fa fa-thumbs-up <c:if test='${good.isGoodClick}'>goods_isclick</c:if>" id="click_${good.id}"></i>
-               	 		<span id="num_${good.id}">${good.goodClickCount}</span>
-               	 	</div>
-                </div>
-                
-            </div>
+					           	 <div class="good_list_groupinfo" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
+					                	<div class="good_list_groupinfo_discount"><fmt:formatNumber type="number" value="${good.group_discount*10}" maxFractionDigits="2"/>折</div>
+					                	<div class="good_list_groupinfo_groupnum">${good.group_num}人团</div>
+					                </div>
+					                <div class="good-img" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
+					
+					                        <img data-original="${good.head_img}" src="/img/loading.gif" class="lazy"/>
+					                        
+					      
+					                </div>
+					                <c:if test="${good.title!=null&&!empty good.title&&good.notice!=null&&!empty good.notice}">
+						                <div class="good-title" onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
+						                          ${good.title}
+						                    <c:if test="${good.notice!=null}">
+						                    	<br/><b style="color:black;">${good.notice}</b>
+						                    </c:if>
+						                   
+						                </div>
+					                </c:if>
+					                
+					                <div class="tuan_g_core"  onclick="skipToGoodInfo('${good.id}')"<c:if test="${token!=null}">,'${token}'</c:if>)">
+					                	<img class="tuan_g_pin" src="/img/pin.png"></img>
+					                    <div class="tuan_g_price">
+					                    	${good.group_num}人团
+					                        <b>
+					                        		￥<fmt:formatNumber type="number" value="${good.group_original_cost*good.group_discount}" maxFractionDigits="3"/>
+					                        </b>
+					                    </div>
+					                    <div class="tuan_g_btn">
+					                        	去开团  >
+					                    </div>
+					                    
+					                </div>
+					                <div style="position: relative;padding-left:10px;top:-60px;" >
+						                <div class="good_name">${good.name}</div>
+						                <!--  <div class="good_market_price">市场价：￥${good.market_price}</div> -->
+						                <div class="good_chat" onclick="javascript:skipToChat('${good.adminId}','1','${good.id}','','','${token.id}')">
+					                		<img src="http://script.suning.cn/project/pdsWeb/images/online.gif"/>
+					               	 	</div>
+					               	 	<div class="goods_click_good" onclick="javascript:goodClick('${good.id}',${good.isGoodClick});">
+					               	 		<i class="fa fa-thumbs-up <c:if test='${good.isGoodClick}'>goods_isclick</c:if>" id="click_${good.id}"></i>
+					               	 		<span id="num_${good.id}">${good.goodClickCount}</span>
+					               	 	</div>
+					                </div>
+					                
+					            </div>
+        		</c:if>
+            
             </c:forEach>
         </div>
     </div>

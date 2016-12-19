@@ -446,9 +446,9 @@ function skipToLuckDraw(luckDrawRecordId,token){
 
 function skipToGoodList(goodType,token){
 	if(goodType){
-		skipToUrl("/main/good_list?good_type="+goodType,token);
+		skipToUrl("/main/good_list?type=1&good_type="+goodType,token);
 	}else{
-		skipToUrl("/main/good_list",token);
+		skipToUrl("/main/good_list?type=1",token);
 	}
 	
 }

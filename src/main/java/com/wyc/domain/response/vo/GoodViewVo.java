@@ -1,8 +1,12 @@
 package com.wyc.domain.response.vo;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.persistence.Column;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 public class GoodViewVo implements Comparable<GoodViewVo>{
 
@@ -28,9 +32,99 @@ public class GoodViewVo implements Comparable<GoodViewVo>{
     private Object isGoodClick;
     
     private Object head_img;
-
+    
+    //0是商品 1是热团
+    private Object type;
     
 	private int seq;
+	
+	
+	
+	
+	private Object group_id;
+	private Object result;
+    private Object total_price;
+    private Object partake_num;
+    
+    private Object startTime;
+    private Object timeLong;
+	
+	
+	
+	
+	private List<Map<String, String>> members;
+	
+	
+	
+	
+	
+	
+	public Object getGroup_id() {
+		return group_id;
+	}
+
+	public void setGroup_id(Object group_id) {
+		this.group_id = group_id;
+	}
+
+	public Object getResult() {
+		return result;
+	}
+
+	public void setResult(Object result) {
+		this.result = result;
+	}
+
+	public Object getTotal_price() {
+		return total_price;
+	}
+
+	public void setTotal_price(Object total_price) {
+		this.total_price = total_price;
+	}
+
+	public Object getPartake_num() {
+		return partake_num;
+	}
+
+	public void setPartake_num(Object partake_num) {
+		this.partake_num = partake_num;
+	}
+
+	public Object getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Object startTime) {
+		this.startTime = startTime;
+	}
+
+	public Object getTimeLong() {
+		return timeLong;
+	}
+
+	public void setTimeLong(Object timeLong) {
+		this.timeLong = timeLong;
+	}
+
+	
+
+	public List<Map<String, String>> getMembers() {
+		return members;
+	}
+
+	public void setMembers(List<Map<String, String>> members) {
+		this.members = members;
+	}
+
+	public Object getType() {
+		return type;
+	}
+
+	public void setType(Object type) {
+		this.type = type;
+	}
+
 	public Object getId() {
 		return id;
 	}

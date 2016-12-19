@@ -9,6 +9,6 @@ import com.wyc.domain.GoodView;
 public interface GoodViewRepository extends CrudRepository<GoodView, String>{
 
 	
-	List<GoodView> findAllByGoodTypeId(String goodTypeId);
+	List<GoodView> findAllByGoodTypeIdAndIsDel(String goodTypeId,int isDel);
 
 }

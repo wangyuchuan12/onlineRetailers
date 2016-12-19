@@ -1,9 +1,9 @@
 package com.wyc.service;
+import java.util.Set;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.wyc.domain.HotGroup;
 import com.wyc.repositories.HotGroupRepository;
 
@@ -25,5 +25,9 @@ public class HotGroupService {
 		
 		hotGroupRepository.save(hotGroup);
 		
+	}
+
+	public Iterable<HotGroup> findAll(Set<String> ids) {
+		return hotGroupRepository.findAll(ids);
 	}
 }

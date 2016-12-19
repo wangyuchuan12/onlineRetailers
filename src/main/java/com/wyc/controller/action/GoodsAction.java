@@ -183,6 +183,8 @@ public class GoodsAction {
 	    
 	    if(type!=null&&type.equals("1")){
 	    	List<GoodViewVo> goodViewVos = goodViewService.findAllGoodViewsByGoodTypeId(goodTypeId, userInfo);
+	    	
+	    	System.out.println("goodSize:"+goodViewVos.size());
 	    	httpRequest.setAttribute("goods", goodViewVos);
 	    }else{
 	    	Iterable<Good> databaseGoods = goodService.findAllByGoodTypeAndUnionIdsAndIsDisplayMainOrderByRank(goodTypeId,goods.split(","),true);
@@ -206,6 +208,7 @@ public class GoodsAction {
 			    responseGood.put("stock", good.getStock());
 			    responseGood.put("salesVolume", good.getSalesVolume());
 			    responseGood.put("adminId", good.getAdminId());
+			    responseGood.put("type", 0);
 			    int goodClickCount = goodClickGoodService.countByGoodId(good.getId());
 			    responseGood.put("goodClickCount", goodClickCount);
 			    GoodClickGood goodClickGood = goodClickGoodService.findByOpenidAndGoodId(userInfo.getOpenid(),good.getId());
