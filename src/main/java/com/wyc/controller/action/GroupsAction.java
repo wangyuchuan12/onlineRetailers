@@ -324,50 +324,58 @@ public class GroupsAction {
     	httpServletRequest.setAttribute("instruction", "风靡全国的拼货商城，优质商品新鲜直供，快来一起拼团吧");
     	httpServletRequest.setAttribute("img", "http://www.chengxihome.com/img/logo.jpg");
     	for(GoodGroup goodGroup:goodGroups){
-    		Map<String, Object> responseGroup = new HashMap<>();
-    		Good good = goodService.findOne(goodGroup.getGoodId());
-    		responseGroup.put("group_id",goodGroup.getId());
-    		responseGroup.put("result", goodGroup.getResult() + "");
-            responseGroup.put("name", good.getName());
-            responseGroup.put("head_img",
-                    myResourceService.findOne(good.getHeadImg()).getUrl());
-            responseGroup.put("total_price", goodGroup.getTotalPrice() + "");
-            responseGroup.put("group_id", goodGroup.getId());
-            responseGroup.put("adminId", good.getAdminId());
-            responseGroup.put("group_num",goodGroup.getNum()+"");
-            responseGroup.put("partake_num", groupPartakeService.countByGroupId(goodGroup.getId())+"");
-            
-            responseGroup.put("startTime",
-                    mySimpleDateFormat.format(goodGroup.getStartTime().toDate()));
-            responseGroup.put("timeLong", goodGroup.getTimeLong()+"");
-            
-            
-            Iterable<GroupPartake> groupPartakes = groupPartakeService
-                    .findAllByGroupIdOrderByDateTime(goodGroup.getId());
-            
-            
-            List<Map<String, String>> groupMembers = new ArrayList<Map<String, String>>();
-            int i = 0 ;
-            for (GroupPartake groupPartake : groupPartakes) {
-                Map<String, String> groupMember = new HashMap<String, String>();
-                String customerId = groupPartake.getCustomerid();
-                Customer customer = customerService.findOne(customerId);
-                String openid = customer.getOpenId();
-                UserInfo userInfo = wxUserInfoService.findByOpenid(openid);
-                groupMember.put("name", userInfo.getNickname());
-                groupMember.put("headImg", userInfo.getHeadimgurl());
-                groupMember.put("role", groupPartake.getRole() + "");
-                groupMember.put("datetime", mySimpleDateFormat.format(groupPartake
-                        .getDateTime().toDate()));
-                groupMembers.add(groupMember);
-                i++;
-                if(i==7){
-                	break;
-                }
-               
-            }
-            responseGroup.put("members", groupMembers);
-            responseGroups.add(responseGroup);
+    		checkTimeout(goodGroup);
+    		
+    		if(goodGroup.getResult()==1){
+	    		Map<String, Object> responseGroup = new HashMap<>();
+	    		Good good = goodService.findOne(goodGroup.getGoodId());
+	    		responseGroup.put("group_id",goodGroup.getId());
+	    		responseGroup.put("result", goodGroup.getResult() + "");
+	            responseGroup.put("name", good.getName());
+	            responseGroup.put("head_img",
+	                    myResourceService.findOne(good.getHeadImg()).getUrl());
+	            responseGroup.put("total_price", goodGroup.getTotalPrice() + "");
+	            responseGroup.put("group_id", goodGroup.getId());
+	            responseGroup.put("adminId", good.getAdminId());
+	            responseGroup.put("group_num",goodGroup.getNum()+"");
+	            responseGroup.put("partake_num", groupPartakeService.countByGroupId(goodGroup.getId())+"");
+	            
+	            responseGroup.put("startTime",
+	                    mySimpleDateFormat.format(goodGroup.getStartTime().toDate()));
+	            responseGroup.put("timeLong", goodGroup.getTimeLong()+"");
+	            
+	            
+	            Iterable<GroupPartake> groupPartakes = groupPartakeService
+	                    .findAllByGroupIdOrderByDateTime(goodGroup.getId());
+	            
+	            
+	            List<Map<String, String>> groupMembers = new ArrayList<Map<String, String>>();
+	            int i = 0 ;
+	            for (GroupPartake groupPartake : groupPartakes) {
+	                Map<String, String> groupMember = new HashMap<String, String>();
+	                String customerId = groupPartake.getCustomerid();
+	                Customer customer = customerService.findOne(customerId);
+	                String openid = customer.getOpenId();
+	                UserInfo userInfo = wxUserInfoService.findByOpenid(openid);
+	                groupMember.put("name", userInfo.getNickname());
+	                groupMember.put("headImg", userInfo.getHeadimgurl());
+	                groupMember.put("role", groupPartake.getRole() + "");
+	                groupMember.put("datetime", mySimpleDateFormat.format(groupPartake
+	                        .getDateTime().toDate()));
+	                groupMembers.add(groupMember);
+	                i++;
+	                if(i==7){
+	                	break;
+	                }
+	               
+	            }
+	            responseGroup.put("members", groupMembers);
+	            responseGroups.add(responseGroup);
+    		}else{
+    			HotGroup hotGroup = hotGroupService.findOneByGroupId(goodGroup.getId());
+    			hotGroup.setStatus(1);
+    			hotGroupService.update(hotGroup);
+    		}
 
     	}
     	httpServletRequest.setAttribute("groups", responseGroups);

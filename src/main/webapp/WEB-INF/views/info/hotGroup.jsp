@@ -30,12 +30,12 @@
 									<h3>${group.name}</h3>
 									<p class="text-color font14 margin-btm12">${group.group_num}人团 ¥${group.total_price}</p>
 									<p class="font12">
-										<span class="fn-right text-color1">剩余时间 <em class="ct-time conduct" data-end="4956000"><b id="group_info_hour">01</b> : <b id = "group_info_min">22</b> : <b id = "group_info_second">17</b></em></span> <span>已拼 <i class="text-color">${group.partake_num}</i>人
+										<span class="fn-right text-color1">剩余时间 <em class="ct-time conduct" data-end="4956000"><b id="group_info_hour_${group.group_id}">01</b> : <b id = "group_info_min_${group.group_id}">22</b> : <b id = "group_info_second_${group.group_id}">17</b></em></span> <span>已拼 <i class="text-color">${group.partake_num}</i>人
 										</span>
 									</p>
 								</div>
 								<script type="text/javascript">
-		     						initGroupInvalidDate("${group.startTime}","${group.timeLong}");
+		     						initGroupInvalidDate("${group.startTime}","${group.timeLong}","${group.group_id}");
 		     					</script>
 							</div>
 							

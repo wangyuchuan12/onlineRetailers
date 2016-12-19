@@ -8,4 +8,6 @@ public interface HotGroupRepository extends CrudRepository<HotGroup, String>{
 
 	Iterable<HotGroup> findAllByStatus(int status);
 
+	HotGroup findOneByGroupId(String groupId);
+
 }

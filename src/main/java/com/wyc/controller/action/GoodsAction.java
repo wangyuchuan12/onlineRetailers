@@ -43,6 +43,7 @@ import com.wyc.domain.MyResource;
 import com.wyc.domain.SystemQuickEntrance;
 import com.wyc.domain.SystemTypeClass;
 import com.wyc.domain.TempGroupOrder;
+import com.wyc.domain.response.vo.GoodViewVo;
 import com.wyc.intercept.domain.MyHttpServletRequest;
 import com.wyc.service.AdGoodHeaderImgService;
 import com.wyc.service.CityService;
@@ -54,6 +55,7 @@ import com.wyc.service.GoodImgService;
 import com.wyc.service.GoodService;
 import com.wyc.service.GoodStyleService;
 import com.wyc.service.GoodTypeService;
+import com.wyc.service.GoodViewService;
 import com.wyc.service.GroupPartakeService;
 import com.wyc.service.MyResourceService;
 import com.wyc.service.OpenGroupCouponService;
@@ -103,6 +105,9 @@ public class GoodsAction {
         private SystemTypeClassService systemTypeClassService;
         @Autowired
         private GoodClickGoodService goodClickGoodService;
+        
+        @Autowired
+        private GoodViewService goodViewService;
         final static Logger logger = LoggerFactory.getLogger(GoodsAction.class);
 	@RequestMapping("/main/good_list")
 	@AccessTokenAnnotation
@@ -114,6 +119,7 @@ public class GoodsAction {
 	public String goodList(HttpServletRequest httpRequest)throws Exception{  
 	    MyHttpServletRequest  myHttpServletRequest = (MyHttpServletRequest)httpRequest;
 	    String quickId = httpRequest.getParameter("quick_id");
+	    String type = httpRequest.getParameter("type");
 	    System.out.println(quickId);
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
 	    String goodTypeId = myHttpServletRequest.getParameter("good_type");
@@ -174,52 +180,60 @@ public class GoodsAction {
 	    if(goodType.getGoods()!=null){
 	    	goods = goodType.getGoods();
 	    }
-	    Iterable<Good> databaseGoods = goodService.findAllByGoodTypeAndUnionIdsAndIsDisplayMainOrderByRank(goodTypeId,goods.split(","),true);
+	    
+	    if(type!=null&&type.equals("1")){
+	    	List<GoodViewVo> goodViewVos = goodViewService.findAllGoodViewsByGoodTypeId(goodTypeId, userInfo);
+	    	httpRequest.setAttribute("goods", goodViewVos);
+	    }else{
+	    	Iterable<Good> databaseGoods = goodService.findAllByGoodTypeAndUnionIdsAndIsDisplayMainOrderByRank(goodTypeId,goods.split(","),true);
             
-	    List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
-            for(Good good:databaseGoods){
-		 Map<String, Object> responseGood = new HashMap<String, Object>();
-		    responseGood.put("id", good.getId());
-		    responseGood.put("instruction", good.getInstruction());
-		    responseGood.put("name", good.getName());
-		    responseGood.put("alone_discount", good.getAloneDiscount());
-		    responseGood.put("alone_original_cost", good.getAloneOriginalCost());
-		    responseGood.put("flow_price", good.getFlowPrice());
-		    responseGood.put("group_discount", good.getGroupDiscount());
-		    responseGood.put("group_num", good.getGroupNum());
-		    responseGood.put("group_original_cost", good.getGroupOriginalCost());
-		    responseGood.put("market_price", good.getMarketPrice());
-		    responseGood.put("coupon_cost", good.getCouponCost());
-		    responseGood.put("title", good.getTitle());
-		    responseGood.put("notice", good.getNotice());
-		    responseGood.put("stock", good.getStock());
-		    responseGood.put("salesVolume", good.getSalesVolume());
-		    responseGood.put("adminId", good.getAdminId());
-		    int goodClickCount = goodClickGoodService.countByGoodId(good.getId());
-		    responseGood.put("goodClickCount", goodClickCount);
-		    GoodClickGood goodClickGood = goodClickGoodService.findByOpenidAndGoodId(userInfo.getOpenid(),good.getId());
-		    if(goodClickGood==null){
-		    	responseGood.put("isGoodClick", false);
-		    }else{
-		    	responseGood.put("isGoodClick", true);
-		    }
-		    MyResource myResource = resourceService.findOne(good.getHeadImg());
-		    if(myResource!=null){
-		        responseGood.put("head_img", myResource.getUrl());
-		    }
-		    responseGoods.add(responseGood);
-		}
-               
-               
-	       httpRequest.setAttribute("goods", responseGoods);
-	       httpRequest.setAttribute("goodType", goodTypeId);
+		    List<Map<String, Object>> responseGoods = new ArrayList<Map<String, Object>>(); 
+	            for(Good good:databaseGoods){
+			 Map<String, Object> responseGood = new HashMap<String, Object>();
+			    responseGood.put("id", good.getId());
+			    responseGood.put("instruction", good.getInstruction());
+			    responseGood.put("name", good.getName());
+			    responseGood.put("alone_discount", good.getAloneDiscount());
+			    responseGood.put("alone_original_cost", good.getAloneOriginalCost());
+			    responseGood.put("flow_price", good.getFlowPrice());
+			    responseGood.put("group_discount", good.getGroupDiscount());
+			    responseGood.put("group_num", good.getGroupNum());
+			    responseGood.put("group_original_cost", good.getGroupOriginalCost());
+			    responseGood.put("market_price", good.getMarketPrice());
+			    responseGood.put("coupon_cost", good.getCouponCost());
+			    responseGood.put("title", good.getTitle());
+			    responseGood.put("notice", good.getNotice());
+			    responseGood.put("stock", good.getStock());
+			    responseGood.put("salesVolume", good.getSalesVolume());
+			    responseGood.put("adminId", good.getAdminId());
+			    int goodClickCount = goodClickGoodService.countByGoodId(good.getId());
+			    responseGood.put("goodClickCount", goodClickCount);
+			    GoodClickGood goodClickGood = goodClickGoodService.findByOpenidAndGoodId(userInfo.getOpenid(),good.getId());
+			    if(goodClickGood==null){
+			    	responseGood.put("isGoodClick", false);
+			    }else{
+			    	responseGood.put("isGoodClick", true);
+			    }
+			    MyResource myResource = resourceService.findOne(good.getHeadImg());
+			    if(myResource!=null){
+			        responseGood.put("head_img", myResource.getUrl());
+			    }
+			    responseGoods.add(responseGood);
+			}
+	               
+	               
+		       httpRequest.setAttribute("goods", responseGoods);
+		       
+	    }
+	    httpRequest.setAttribute("goodType", goodTypeId);
 	       if(goodTypeId!=null){
-        	       
-        	       httpRequest.setAttribute("typeTitle", goodType.getTitle());
-        	       httpRequest.setAttribute("typeName", goodType.getName());
-        	       httpRequest.setAttribute("typeInstruction", goodType.getInstruction());
-        	       httpRequest.setAttribute("typeImg", goodType.getImg());
+     	       
+     	       httpRequest.setAttribute("typeTitle", goodType.getTitle());
+     	       httpRequest.setAttribute("typeName", goodType.getName());
+     	       httpRequest.setAttribute("typeInstruction", goodType.getInstruction());
+     	       httpRequest.setAttribute("typeImg", goodType.getImg());
 	       }
+	    
 	       return "main/Goods";
 	}
 	

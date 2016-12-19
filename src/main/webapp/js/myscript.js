@@ -163,7 +163,12 @@ function goodInfoPayAddressOnClick(payType,state,goodId,groupId){
 	skipToUrl("/info/address", null,obj);
 }
 
-function initGroupInvalidDate(startTime2,timeLong){
+function initGroupInvalidDate(startTime2,timeLong,id){
+	if(!id){
+		id="";
+	}else{
+		id="_"+id;
+	}
 	window.setInterval(function(){
 		var startTime = startTime2.replace(/-/g,"/");
 		startTime = new Date(startTime);
@@ -177,30 +182,30 @@ function initGroupInvalidDate(startTime2,timeLong){
 			var date = new Date(timestamp-nowTimestamp).getDate()-1;
 			var hour = new Date(timestamp-nowTimestamp).getHours()-8+date*24;
 			if(hour>=10){
-				$("#group_info_hour").html(hour+"");
+				$("#group_info_hour"+id).html(hour+"");
 			}else{
-				$("#group_info_hour").html("0"+hour+"");
+				$("#group_info_hour"+id).html("0"+hour+"");
 			}
 			
 			if(min>=10){
-				$("#group_info_min").html(min+"");
+				$("#group_info_min"+id).html(min+"");
 			}else{
-				$("#group_info_min").html("0"+min+"");
+				$("#group_info_min"+id).html("0"+min+"");
 			}
 			
 			if(second>=10){
-				$("#group_info_second").html(second+"");
+				$("#group_info_second"+id).html(second+"");
 			}else{
-				$("#group_info_second").html("0"+second+"");
+				$("#group_info_second"+id).html("0"+second+"");
 			}
 		}else{
-			$("#groupinfo_situation_title").html("该团已结束，请再开团").css("color","red");
-			$("#group_info_hour").html("00");
-			$("#group_info_min").html("00");
-			$("#group_info_second").html("00");
+			$("#group_info_hour"+id).html("00");
+			$("#group_info_min"+id).html("00");
+			$("#group_info_second"+id).html("00");
 			$(".footer3").attr("onclick","javascript:skipToGoodList();");
 			$(".footer3 a").html("再开一个团");
 			$("#group_head").attr("class","group_head_failure").html("组团超时");
+			$("#groupinfo_situation_title").html("该团已结束，请再开团").css("color","red");
 		}
 		
 	}, 1000); 
