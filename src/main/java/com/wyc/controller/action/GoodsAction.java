@@ -1,4 +1,5 @@
 package com.wyc.controller.action;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -406,7 +407,7 @@ public class GoodsAction {
             responseGood.put("pay_type", payType);
             responseGood.put("head_img", myResource.getUrl());
             responseGood.put("cost", httpRequest.getAttribute("cost"));
-            
+            responseGood.put("reliefValue", httpRequest.getAttribute("reliefValue"));
             responseGood.put("stock", good.getStock());
             responseGood.put("salesVolume", good.getSalesVolume());
             if(payType.equals("3")){
@@ -431,7 +432,11 @@ public class GoodsAction {
             tempGroupOrder.setAdminId(good.getAdminId());
             tempGroupOrder.setPersonName(customerAddress.getName());
             tempGroupOrder.setPhonenumber(customerAddress.getPhonenumber());
-            tempGroupOrder.setReliefType(Integer.parseInt(reliefType));
+            tempGroupOrder.setReliefValue((BigDecimal)httpRequest.getAttribute("reliefValue"));
+            //0表示不允许代收，1允许代收，2统一收货
+            if(reliefType!=null&&(reliefType.equals("0")||reliefType.equals("1")||reliefType.equals("2"))){
+            	tempGroupOrder.setReliefType(Integer.parseInt(reliefType));
+            }
             if(payType.equals("3")){
                 tempGroupOrder.setGroupId(httpRequest.getParameter("group_id"));
             }else if (httpRequest.getParameter("group_id")!=null) {
