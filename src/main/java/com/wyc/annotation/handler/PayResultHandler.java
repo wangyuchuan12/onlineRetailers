@@ -137,6 +137,7 @@ public class PayResultHandler implements Handler{
             goodGroup.setTotalPrice(cost);
             goodGroup.setReliefType(tempGroupOrder.getReliefType());
             goodGroup.setAdminId(tempGroupOrder.getAdminId());
+            goodGroup.setReliefValue(tempGroupOrder.getReliefValue());
             goodGroup = goodGroupService.add(goodGroup);
             goodOrder.setGroupId(goodGroup.getId());
             goodOrder = goodOrderService.save(goodOrder);
@@ -151,6 +152,7 @@ public class PayResultHandler implements Handler{
             groupPartake.setOrderId(goodOrder.getId());
             groupPartake.setRole(1);
             groupPartake.setType(0);
+           
             groupPartake.setGoodStyleId(tempGroupOrder.getGoodStyleId());
             if(tempGroupOrder.getGoodStyleId()!=null){
                 GoodStyle goodStyle = goodStyleService.findOne(tempGroupOrder.getGoodStyleId());

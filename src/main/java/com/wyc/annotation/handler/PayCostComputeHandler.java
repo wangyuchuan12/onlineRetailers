@@ -28,7 +28,7 @@ public class PayCostComputeHandler implements Handler{
         	String reliefType = httpServletRequest.getParameter("reliefType");
         	if(reliefType.equals("1")){
         		reliefValue = good.getAllowInsteadOfRelief();
-        	}else if(payType.equals("2")){
+        	}else if(reliefType.equals("2")){
         		reliefValue = good.getForceInsteadOfRelief();
         	}else{
         		reliefValue = new BigDecimal(0);

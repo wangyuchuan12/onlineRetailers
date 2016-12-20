@@ -1,5 +1,7 @@
 package com.wyc.domain;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -52,9 +54,18 @@ public class GoodGroup {
     @Column(name="relief_type")
     private Integer reliefType;
     
+    @Column(name="relief_value")
+    private BigDecimal reliefValue;
     
     
-    public Integer getReliefType() {
+    
+    public BigDecimal getReliefValue() {
+		return reliefValue;
+	}
+	public void setReliefValue(BigDecimal reliefValue) {
+		this.reliefValue = reliefValue;
+	}
+	public Integer getReliefType() {
 		return reliefType;
 	}
 	public void setReliefType(Integer reliefType) {
