@@ -91,15 +91,15 @@ public class WxChooseWxPayHandler implements Handler{
 	        String datetime = String.valueOf(System.currentTimeMillis() / 1000);
 	        float totalFee = cost*100;
 	        BigDecimal bigDecimal = new BigDecimal(totalFee);
-	        String totalFeeStr = bigDecimal.setScale(0, BigDecimal.ROUND_HALF_UP).longValue()+"";
+	        Long totalFeeLong = bigDecimal.setScale(0, BigDecimal.ROUND_HALF_UP).longValue();
 	        
-	        System.out.println("totalFeeStr...........:"+totalFeeStr);
+	        System.out.println("totalFeeStr...........:"+totalFeeLong);
 	        String tradeType = "JSAPI";
 	        TreeMap<String, String> map = new TreeMap<String, String>();
 	        map.put("openid", openid);
 	        map.put("body", body);
 	        map.put("out_trade_no", outTradeNo);
-	        map.put("total_fee", totalFeeStr);
+	        map.put("total_fee", totalFeeLong+"");
 	        map.put("notify_url", notifyUrl);
 	        map.put("trade_type", tradeType);
 	        map.put("appid", appid);
