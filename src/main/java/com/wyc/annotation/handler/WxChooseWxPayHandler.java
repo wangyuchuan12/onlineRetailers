@@ -2,6 +2,7 @@ package com.wyc.annotation.handler;
 
 import java.io.StringReader;
 import java.lang.annotation.Annotation;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.SortedMap;
@@ -87,7 +88,7 @@ public class WxChooseWxPayHandler implements Handler{
 	        }
 	        String spbillCreateIp = httpServletRequest.getRemoteAddr();
 	        String datetime = String.valueOf(System.currentTimeMillis() / 1000);
-	        Long totalFee = (long)(cost*100);
+	        float totalFee = cost*100;
 	        String tradeType = "JSAPI";
 	        TreeMap<String, String> map = new TreeMap<String, String>();
 	        map.put("openid", openid);

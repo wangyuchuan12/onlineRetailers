@@ -107,7 +107,7 @@ public class PayResultHandler implements Handler{
                 }
             }
             Good good = goodService.findOne(tempGroupOrder.getGoodId());
-            float cost = good.getFlowPrice()+good.getGroupDiscount()*good.getGroupOriginalCost();
+            float cost = tempGroupOrder.getCost();
             String openid = tempGroupOrder.getOpenid();
             goodOrder = new GoodOrder();
             goodOrder.setAddress(tempGroupOrder.getAddress());
