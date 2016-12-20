@@ -286,6 +286,8 @@ public class GoodsAction {
             responseGood.put("stock", good.getStock());
             responseGood.put("salesVolume", good.getSalesVolume());
             responseGood.put("status", good.getStatus());
+            responseGood.put("allowInsteadOfRelief", good.getAllowInsteadOfRelief());
+            responseGood.put("forceInsteadOfRelief", good.getForceInsteadOfRelief());
             MyResource myResource = resourceService.findOne(good.getHeadImg());
             MyResource goodInfoHeadImgResource = resourceService.findOne(good.getGoodInfoHeadImg());
             if(myResource!=null){
@@ -368,6 +370,9 @@ public class GoodsAction {
 	    if(payType==null){
 	        payType = httpRequest.getParameter("state");
 	    }
+	    
+	    String reliefType = httpRequest.getParameter("reliefType");
+
 	    String goodId = httpRequest.getParameter("good_id");
 	    Good good = goodService.findOne(goodId);
 	    MyResource myResource = resourceService.findOne(good.getHeadImg());
@@ -426,6 +431,7 @@ public class GoodsAction {
             tempGroupOrder.setAdminId(good.getAdminId());
             tempGroupOrder.setPersonName(customerAddress.getName());
             tempGroupOrder.setPhonenumber(customerAddress.getPhonenumber());
+            tempGroupOrder.setReliefType(Integer.parseInt(reliefType));
             if(payType.equals("3")){
                 tempGroupOrder.setGroupId(httpRequest.getParameter("group_id"));
             }else if (httpRequest.getParameter("group_id")!=null) {

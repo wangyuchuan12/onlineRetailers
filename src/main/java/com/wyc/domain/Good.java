@@ -1,5 +1,7 @@
 package com.wyc.domain;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -81,6 +83,14 @@ public class Good {
     private String adminId;
     @Column(name="sales_volume")
     private Long salesVolume=0L;
+    
+    //允许代收货减免
+    @Column(name="allow_instead_relief")
+    private BigDecimal allowInsteadOfRelief;
+    
+    //强制代收货减免
+    @Column(name="force_instead_relief")
+    private BigDecimal forceInsteadOfRelief;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
@@ -89,7 +99,23 @@ public class Good {
     private DateTime updateAt;
     
     
-    public String getAdminId() {
+    
+    
+    public BigDecimal getAllowInsteadOfRelief() {
+		return allowInsteadOfRelief;
+	}
+	public void setAllowInsteadOfRelief(BigDecimal allowInsteadOfRelief) {
+		this.allowInsteadOfRelief = allowInsteadOfRelief;
+	}
+
+
+	public BigDecimal getForceInsteadOfRelief() {
+		return forceInsteadOfRelief;
+	}
+	public void setForceInsteadOfRelief(BigDecimal forceInsteadOfRelief) {
+		this.forceInsteadOfRelief = forceInsteadOfRelief;
+	}
+	public String getAdminId() {
         return adminId;
     }
     public void setAdminId(String adminId) {

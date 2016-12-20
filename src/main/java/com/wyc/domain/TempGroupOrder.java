@@ -63,8 +63,21 @@ public class TempGroupOrder {
     @Column(name="good_style_id")
     private String goodStyleId;
     
+    //减价类型 0不允许代收 1允许代收 2所有人强制统一收货
+    @Column(name="relief_type")
+    private Integer reliefType;
     
-    public String getGoodStyleId() {
+    
+    
+    public Integer getReliefType() {
+		return reliefType;
+	}
+
+	public void setReliefType(Integer reliefType) {
+		this.reliefType = reliefType;
+	}
+
+	public String getGoodStyleId() {
         return goodStyleId;
     }
 

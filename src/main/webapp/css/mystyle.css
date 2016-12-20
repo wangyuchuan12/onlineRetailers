@@ -78,6 +78,143 @@
 .good_info{background-color:#FFF;border-bottom:1px solid #D0D0D0;margin-bottom:10px;padding:10px;position:relative;max-height: 500px;min-height: 150px;margin:0 auto;margin-bottom: 10px;
 }
 
+
+.good_info_check_detail{
+	position: fixed;
+	background-color: white;
+	height:500px;
+	bottom:0px;
+	width:100%;
+	margin:0px auto;
+	vertical-align:bottom;
+	
+
+}
+
+.good_info_check_detail_head{
+	width:100%;
+	height:120px;
+	border-bottom: 1px solid RGBA(225,225,225,0.9);
+	
+}
+
+.good_info_check_detail_head_img{
+	position: relative;
+	width:20%;
+	float:left;
+	height:100px;
+	max-height: 100px;
+	
+}
+
+.good_info_check_detail_head_img img{
+	width:100%;
+	height:100%;	
+}
+
+.good_info_check_detail_head_content{
+	position: relative;
+	width:80%;
+	float: left;
+	display: block;
+	top:10px;
+	height:100%;
+	bottom:0px;
+	box-sizing: border-box; -moz-box-sizing: border-box;
+	padding-left: 10px;
+}
+
+.good_info_check_detail_head_content_tile{
+	font-size: 20px;
+	color: #000;
+	height: 50%;
+	padding-top: 10px;
+	
+}
+
+.good_info_check_detail_head_content_price{
+	bottom:0px;
+	color:red;
+	height: 20%;
+}
+
+.good_info_check_detail{
+	height:100%;
+	background-color:white;
+	bottom: -100%;
+}
+.good_info_check_detail_items{
+	box-sizing: border-box;
+	padding-top: 10px;
+	padding-left:10px;
+	overflow: scroll;
+	height: 80%;
+	padding-bottom:170px;
+}
+
+.good_info_check_detail_items_i{
+	
+	position: relative;
+}
+
+.good_info_check_detail_items_head{
+	padding-top: 10px;
+	padding-left:10px;
+}
+
+.good_info_check_detail_item{
+	padding-top: 10px;
+	padding-left:10px;
+	width:90%;
+	display: block;
+	border-bottom: 1px solid RGBA(225,225,225,0.9);
+	padding-bottom: 20px;
+	
+}
+
+.good_info_check_detail_item_img{
+	width:50px;
+	height:50px;
+	display: inline-block;
+	margin-left: 10px;
+	margin-top:5px;
+	border: 1px solid RGBA(225,225,225,0.9);
+}
+
+.good_info_check_detail_item_img img{
+	border-radius:40px;
+	width:50px;
+	height:50px;
+	background-color:green;
+	display: block;
+}
+.good_info_check_detail_item_apan{
+	border: 1px solid RGBA(225,225,225,0.9);
+	display: inline-block;
+	padding-left: 20px;
+	padding-right: 20px;
+	font-size: 20px;
+	margin-left: 10px;
+	margin-top:5px;
+}
+
+.good_info_check_detail_button{
+	background: red;
+	width:150px;
+	height:50px;
+	display: block;
+	position: relative;
+	margin: 0 auto;
+	text-align: center;
+	color:white;
+	border-radius:5px;
+	padding-top:7px;
+	display:block;
+	font-size:20px;
+	bottom: 120px;
+	
+}
+
 .good_info_head_img{
 	margin:0 auto 0 auto;
 	position: relative;

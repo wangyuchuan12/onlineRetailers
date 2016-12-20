@@ -135,6 +135,7 @@ public class PayResultHandler implements Handler{
             goodGroup.setStartTime(new DateTime());
             goodGroup.setTimeLong(tempGroupOrder.getTimeLong());
             goodGroup.setTotalPrice(cost);
+            goodGroup.setReliefType(tempGroupOrder.getReliefType());
             goodGroup.setAdminId(tempGroupOrder.getAdminId());
             goodGroup = goodGroupService.add(goodGroup);
             goodOrder.setGroupId(goodGroup.getId());

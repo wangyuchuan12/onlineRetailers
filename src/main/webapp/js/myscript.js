@@ -465,9 +465,10 @@ function skipToPersonCenter(token){
 	skipToUrl("/main/personal_center",token);
 }
 
-function skipToGoodPay(id,pay_type,token,groupId,cost){
+function skipToGoodPay(id,pay_type,token,groupId,cost,params){
 	var url = "/info/good_info_pay?good_id="+id+"&pay_type="+pay_type+"&group_id="+groupId+"&cost="+cost;
-	skipToUrl(url,token);
+	
+	skipToUrl(url,token,params);
 }
 
 function skipToPersonCenter(){
@@ -687,6 +688,39 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 			}
 			
 		}
-	
+}
 
+
+
+function handleSpanItems(item,callback){
+	var children = item.children(".good_info_check_detail_item_apan");
+	children.each(
+		function(){
+			$(this).click(function(){
+				var value = $(this).attr("value");
+				callback.call($(this),value);
+				selectSpan(children,$(this));
+			});
+		}		
+	);;
+}
+
+function selectSpan(children,span){
+	children.each(function(){
+		$(this).css("background-color","white");
+		$(this).attr("isSelected",false);
+	});
+	span.css("background-color","red");
+	span.attr("isSelected",true);
+}
+
+function getItemValue(item){
+	var children = item.children(".good_info_check_detail_item_apan");
+	var value = null;
+	children.each(function(){
+		if($(this).attr("isSelected")&&$(this).attr("isSelected")=="true"){
+			value = $(this).attr("value");
+		}
+	});
+	return value;
 }

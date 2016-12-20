@@ -51,11 +51,11 @@
 						<li>
 							<div class="good_info_btn activityStyle <c:if test='${good.status==0||good.status==2}'> good_info_btn_disalbe</c:if>"
 								<c:if test='${good.status==1}'>
-								onclick="skipToGoodPay('${good.id}',0)"
+								onclick="showCheckDetail('${good.group_original_cost*good.group_discount}');"
 								</c:if>
 								>
 								<div class="good_info_btn_price_group">
-									￥<fmt:formatNumber type="number" value="${good.group_original_cost*good.group_discount}" maxFractionDigits="3"/>/件
+									￥<fmt:formatNumber type="number" value="${good.group_original_cost*good.group_discount-good.forceInsteadOfRelief}" maxFractionDigits="3"/>/件
 								</div>
 								<div class="good_info_btn_type">${good.group_num}人团</div>
 							</div>
@@ -154,10 +154,119 @@
 			</div>
 		</div>
         </section>
+        
+            <button id="test_button">你在哪里</button>
     </div>
+
     
+    <div class="good_info_check_detail">
+    	<div class="good_info_check_detail_head">
+    		<div class="good_info_check_detail_head_img">
+    			<img alt="" src="http://7xlw44.com1.z0.glb.clouddn.com/6d5341fc-1bc2-48d7-a8c4-b7c61056ba51">
+    		</div>
+    		
+    		<div class="good_info_check_detail_head_content">
+    			<div class="good_info_check_detail_head_content_tile">${good.name}</div>
+    			<div class="good_info_check_detail_head_content_price">￥45.9</div>
+    		</div>
+    		
+    	</div>
+    	
+    	<div class="good_info_check_detail_items">
+    		<div class="good_info_check_detail_items_i" name="name">
+	    		<div class="good_info_check_detail_items_head">是否允许代他人收货（他人可以暂时将货寄放在我这里）</div>
+	    		<div class="good_info_check_detail_item" id="good_info_check_detail_item_relief">
+	    			<div class="good_info_check_detail_item_apan" value="1" relief="${good.allowInsteadOfRelief}" id="allow">允许
+	    			<c:if test="${good.allowInsteadOfRelief!=null}">
+	    				（减免${good.allowInsteadOfRelief}元）
+	    			</c:if>
+	    			
+	    			
+	    			</div>
+	    			
+	    			<div class="good_info_check_detail_item_apan" value="0" relief="0" id="unallow">不允许</div>
+	    			
+	    			<div class="good_info_check_detail_item_apan" value="2" relief="${good.forceInsteadOfRelief}" id="force">强制统一收货
+	    			<c:if test="${good.forceInsteadOfRelief!=null}">
+	    				（所有人减免${good.forceInsteadOfRelief}元）
+	    			</c:if>
+	    			
+	    			</div>
+	    
+	    		</div>
+	    	</div>
+	    
+	    	
+	    	<!--  <div class="good_info_check_detail_items_i">
+	    		<div class="good_info_check_detail_items_head">颜色</div>
+	    		<div class="good_info_check_detail_item">
+	    			<div class="good_info_check_detail_item_img">
+	    				<img src="http://7xlw44.com1.z0.glb.clouddn.com/6d5341fc-1bc2-48d7-a8c4-b7c61056ba51">
+	    			</div>
+	    			<div class="good_info_check_detail_item_img">
+	    				<img src="http://7xlw44.com1.z0.glb.clouddn.com/6d5341fc-1bc2-48d7-a8c4-b7c61056ba51">
+	    			</div>
+	    			<div class="good_info_check_detail_item_img">
+	    				<img src="http://7xlw44.com1.z0.glb.clouddn.com/6d5341fc-1bc2-48d7-a8c4-b7c61056ba51">
+	    			</div>
+	    			<div class="good_info_check_detail_item_img">
+	    				<img src="http://7xlw44.com1.z0.glb.clouddn.com/6d5341fc-1bc2-48d7-a8c4-b7c61056ba51">
+	    			</div>
+	    		</div>
+	    	
+	    	</div>
+	    -->
+    	</div>
+    	
+    	<div class="good_info_check_detail_button">确定</div>
+    </div>
     <script type="text/javascript">
+    
+    		function showCheckDetail(price){
+    			
+    			$(".good_info_check_detail").animate({
+					bottom:0
+				},300);
+    			var reliefItem = $("#good_info_check_detail_item_relief");
+    			countPrice(price,2);
+    		//	alert(reliefItem.children(".good_info_check_detail_item_apan").length);
+    			selectSpan(reliefItem.children(".good_info_check_detail_item_apan"),$("#force"));
+    			handleSpanItems(reliefItem,function(spanValue){
+    				
+    				countPrice(price,spanValue)
+    			});
+    		}
+    		
+    		
+    		function countPrice(price,spanValue){
+    			price = parseFloat(price);
+    			price = price.toFixed(2);
+    			var reliefValue = 0;
+    			var reliefItem = $("#good_info_check_detail_item_relief");
+    			
+    			if(spanValue=="1"){
+    				reliefValue = $("#allow").attr("relief");
+    			}else if(spanValue=="0"){
+    				reliefValue = $("#unallow").attr("relief");
+    			}else if(spanValue=="2"){
+    				reliefValue = $("#force").attr("relief");
+    			}
+    			reliefValue = parseFloat(reliefValue);
+    			reliefValue = reliefValue.toFixed(2);
+    			var result = price-reliefValue;
+    			result = result.toFixed(2);
+    			$(".good_info_check_detail_head_content_price").text("￥"+result);
+    		}
     		$(document).ready(function(){
+    			var reliefItem = $("#good_info_check_detail_item_relief");
+    			var button = $(".good_info_check_detail_button")
+    			button.click(function(){
+    				var reliefItemValue = getItemValue($("#good_info_check_detail_item_relief"));
+    				
+    				var params = new Object();
+    				params.reliefType = reliefItemValue;
+        			skipToGoodPay('${good.id}',0,'${token.id}',null,null,params);
+    			});
     			setUserToken("${token.id}");
     			wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
     			wx.ready(function(){
@@ -172,9 +281,6 @@
     		            ]
     		        	});
     			});
-    			
-    			
-    			
     		});
     </script>
 </tiles:putAttribute>

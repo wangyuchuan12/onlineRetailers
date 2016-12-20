@@ -49,9 +49,18 @@ public class GoodGroup {
     @Column(name="is_disused")
     private int isDisused = 0;
     
+    @Column(name="relief_type")
+    private Integer reliefType;
     
     
-    public int getIsDisused() {
+    
+    public Integer getReliefType() {
+		return reliefType;
+	}
+	public void setReliefType(Integer reliefType) {
+		this.reliefType = reliefType;
+	}
+	public int getIsDisused() {
         return isDisused;
     }
     public void setIsDisused(int isDisused) {
