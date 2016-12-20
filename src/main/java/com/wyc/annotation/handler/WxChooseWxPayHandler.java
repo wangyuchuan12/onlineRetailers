@@ -91,7 +91,7 @@ public class WxChooseWxPayHandler implements Handler{
 	        String datetime = String.valueOf(System.currentTimeMillis() / 1000);
 	        float totalFee = cost*100;
 	        BigDecimal bigDecimal = new BigDecimal(totalFee);
-	        String totalFeeStr = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()+"";
+	        String totalFeeStr = bigDecimal.setScale(0, BigDecimal.ROUND_HALF_UP).doubleValue()+"";
 	        
 	        System.out.println("totalFeeStr...........:"+totalFeeStr);
 	        String tradeType = "JSAPI";
