@@ -89,12 +89,14 @@ public class WxChooseWxPayHandler implements Handler{
 	        String spbillCreateIp = httpServletRequest.getRemoteAddr();
 	        String datetime = String.valueOf(System.currentTimeMillis() / 1000);
 	        float totalFee = cost*100;
+	        BigDecimal bigDecimal = new BigDecimal(totalFee);
+	        System.out.println("cost..............."+bigDecimal.floatValue());
 	        String tradeType = "JSAPI";
 	        TreeMap<String, String> map = new TreeMap<String, String>();
 	        map.put("openid", openid);
 	        map.put("body", body);
 	        map.put("out_trade_no", outTradeNo);
-	        map.put("total_fee", totalFee+"");
+	        map.put("total_fee", bigDecimal.floatValue()+"");
 	        map.put("notify_url", notifyUrl);
 	        map.put("trade_type", tradeType);
 	        map.put("appid", appid);
