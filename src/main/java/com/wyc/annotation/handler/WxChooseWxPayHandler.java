@@ -53,6 +53,7 @@ public class WxChooseWxPayHandler implements Handler{
             cost = Float.parseFloat(httpServletRequest.getParameter("cost"));
             httpServletRequest.setAttribute("cost", cost);
         }
+        System.out.println("cost&&&&&&&&:"+cost);
         String goodId = httpServletRequest.getParameter("good_id");
         Good good = null;
         if(goodId!=null){
@@ -96,7 +97,7 @@ public class WxChooseWxPayHandler implements Handler{
 	        map.put("openid", openid);
 	        map.put("body", body);
 	        map.put("out_trade_no", outTradeNo);
-	        map.put("total_fee", bigDecimal.floatValue()+"");
+	        map.put("total_fee", bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()+"");
 	        map.put("notify_url", notifyUrl);
 	        map.put("trade_type", tradeType);
 	        map.put("appid", appid);
