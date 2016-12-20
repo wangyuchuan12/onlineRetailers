@@ -120,7 +120,7 @@ public class WxChooseWxPayHandler implements Handler{
 	        sb2.append("<openid>"+openid+"</openid>");
 	        sb2.append("<out_trade_no>"+outTradeNo+"</out_trade_no>");
 	        sb2.append("<spbill_create_ip>"+spbillCreateIp+"</spbill_create_ip>");
-	        sb2.append("<total_fee>"+totalFee+"</total_fee>");
+	        sb2.append("<total_fee>"+totalFeeLong+"</total_fee>");
 	        sb2.append("<detail>"+detail+"</detail>");
 	        sb2.append("<trade_type>"+tradeType+"</trade_type>");
 	        sb2.append("<sign>"+sign+"</sign>");
