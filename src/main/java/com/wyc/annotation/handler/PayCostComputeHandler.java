@@ -36,17 +36,25 @@ public class PayCostComputeHandler implements Handler{
         }else{
         	reliefValue = new BigDecimal(0);
         }
-        Float cost = null;
+        BigDecimal cost = new BigDecimal(0);
         //0表示团购 1表示单独买 2表示开团劵购买
         if(payType.equals("0")||payType.equals("3")){
-            cost = good.getFlowPrice()+good.getGroupDiscount()*good.getGroupOriginalCost()-reliefValue.floatValue();
+        	cost = good.getGroupDiscount().multiply(good.getGroupOriginalCost());
+        
+        	cost = cost.add(good.getFlowPrice());
+        	cost.subtract(reliefValue);
+            
         }else if (payType.equals("1")) {
-            cost = good.getFlowPrice()+good.getAloneDiscount()*good.getAloneOriginalCost()-reliefValue.floatValue();
+        	
+        	cost = good.getAloneDiscount().multiply(good.getAloneOriginalCost());
+            
+        	cost = cost.add(good.getFlowPrice());
+        	cost.subtract(reliefValue);
         }else if (payType.equals("2")) {
-            cost = good.getFlowPrice()-reliefValue.floatValue();
+            cost = good.getFlowPrice();
         }
-        if(cost<0){
-        	cost = 0f;
+        if(cost.intValue()<0){
+        	cost = new BigDecimal(0);
         }
         
         logger.debug("the cost is:{}",cost);

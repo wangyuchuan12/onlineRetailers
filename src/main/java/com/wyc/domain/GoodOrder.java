@@ -1,5 +1,7 @@
 package com.wyc.domain;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,12 +14,12 @@ public class GoodOrder {
     private String id;
     //物流费用
     @Column(name = "flow_price")
-    private float flowPrice;
+    private BigDecimal flowPrice;
     @Column
     private String code;
     //总共付款
     @Column(name = "cost")
-    private float cost;
+    private BigDecimal cost;
     @Column
     private String goodId;
     @Column
@@ -26,7 +28,7 @@ public class GoodOrder {
     private String addressId;
     //商品价格
     @Column(name = "good_price")
-    private float goodPrice;
+    private BigDecimal goodPrice;
   //付款方式 0表示组团购买，1表示单买，2表示开团劵购买
     @Column
     private int type;
@@ -155,27 +157,29 @@ public class GoodOrder {
         this.updateAt = updateAt;
     }
 
-    public float getFlowPrice() {
-        return flowPrice;
-    }
+    
 
-    public void setFlowPrice(float flowPrice) {
-        this.flowPrice = flowPrice;
-    }
+    public BigDecimal getFlowPrice() {
+		return flowPrice;
+	}
 
-    public float getCost() {
-        return cost;
-    }
+	public void setFlowPrice(BigDecimal flowPrice) {
+		this.flowPrice = flowPrice;
+	}
 
-    public void setCost(float cost) {
-        this.cost = cost;
-    }
+	public BigDecimal getCost() {
+		return cost;
+	}
 
-    public float getGoodPrice() {
+	public void setCost(BigDecimal cost) {
+		this.cost = cost;
+	}
+
+	public BigDecimal getGoodPrice() {
         return goodPrice;
     }
 
-    public void setGoodPrice(float goodPrice) {
+    public void setGoodPrice(BigDecimal goodPrice) {
         this.goodPrice = goodPrice;
     }
 

@@ -19,7 +19,7 @@ public class GoodGroup {
     @Column(name = "group_head")
     private String groupHead;
     @Column(name="total_price")
-    private float totalPrice;
+    private BigDecimal totalPrice;
     //沙发
     @Column(name = "group_sofa")
     private String groupSofa;
@@ -89,13 +89,14 @@ public class GoodGroup {
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public float getTotalPrice() {
-        return totalPrice;
-    }
-    public void setTotalPrice(float totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-    public String getGoodId() {
+	
+    public BigDecimal getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(BigDecimal totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	public String getGoodId() {
         return goodId;
     }
     public void setGoodId(String goodId) {

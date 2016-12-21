@@ -280,8 +280,8 @@ public class GoodsAction {
             responseGood.put("group_original_cost", good.getGroupOriginalCost());
             responseGood.put("market_price", good.getMarketPrice());
             responseGood.put("coupon_cost", good.getCouponCost());
-            responseGood.put("group_cost", good.getGroupDiscount()*good.getGroupOriginalCost());
-            responseGood.put("alone_cost", good.getAloneDiscount()*good.getAloneOriginalCost());
+            responseGood.put("group_cost", good.getGroupDiscount().multiply(good.getGroupOriginalCost()));
+            responseGood.put("alone_cost", good.getAloneDiscount().multiply(good.getAloneOriginalCost()));
             responseGood.put("goodInfoHeadImg", good.getGoodInfoHeadImg());
             responseGood.put("adminId", good.getAdminId());
             responseGood.put("stock", good.getStock());
@@ -402,8 +402,8 @@ public class GoodsAction {
             responseGood.put("phonenumber", customerAddress.getPhonenumber());
             responseGood.put("address", citySb.toString());
             responseGood.put("address_id", customerAddress.getId());
-            responseGood.put("group_cost", good.getGroupDiscount()*good.getGroupOriginalCost());
-            responseGood.put("alone_cost", good.getAloneDiscount()*good.getAloneOriginalCost());
+            responseGood.put("group_cost", good.getGroupDiscount().multiply(good.getGroupOriginalCost()));
+            responseGood.put("alone_cost", good.getAloneDiscount().multiply(good.getAloneOriginalCost()));
             responseGood.put("pay_type", payType);
             responseGood.put("head_img", myResource.getUrl());
             responseGood.put("cost", httpRequest.getAttribute("cost"));
@@ -420,11 +420,16 @@ public class GoodsAction {
             tempGroupOrder.setAddress(citySb.toString());
             tempGroupOrder.setAddressId(customerAddress.getId());
             tempGroupOrder.setCode(httpRequest.getAttribute("outTradeNo").toString());
-            tempGroupOrder.setCost(Float.parseFloat(httpRequest.getAttribute("cost").toString()));
+            tempGroupOrder.setCost(new BigDecimal(httpRequest.getAttribute("cost").toString()));
             tempGroupOrder.setCustomerAddress(customerAddress.getId());
             tempGroupOrder.setFlowPrice(good.getFlowPrice());
             tempGroupOrder.setGoodId(goodId);
-            tempGroupOrder.setGoodPrice(Float.parseFloat(httpRequest.getAttribute("cost").toString()));
+            if(tempGroupOrder.getGoodOrderType()==1){
+            	tempGroupOrder.setGoodPrice(good.getAloneDiscount().multiply(good.getAloneOriginalCost()));
+            }else{
+            	tempGroupOrder.setGoodPrice(good.getGroupDiscount().multiply(good.getGroupOriginalCost()));
+            }
+            
             tempGroupOrder.setNum(good.getGroupNum());
             tempGroupOrder.setOpenid(userInfo.getOpenid());
             tempGroupOrder.setGoodOrderType(Integer.parseInt(payType));
@@ -436,6 +441,11 @@ public class GoodsAction {
             //0表示不允许代收，1允许代收，2统一收货
             if(reliefType!=null&&(reliefType.equals("0")||reliefType.equals("1")||reliefType.equals("2"))){
             	tempGroupOrder.setReliefType(Integer.parseInt(reliefType));
+            	if(reliefType.equals("1")){
+            		tempGroupOrder.setIsInsteadOfReceiving(1);
+            	}else{
+            		tempGroupOrder.setIsInsteadOfReceiving(0);
+            	}
             }
             if(payType.equals("3")){
                 tempGroupOrder.setGroupId(httpRequest.getParameter("group_id"));

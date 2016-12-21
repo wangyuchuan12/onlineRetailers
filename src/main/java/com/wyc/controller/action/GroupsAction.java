@@ -1,5 +1,6 @@
 package com.wyc.controller.action;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -247,7 +248,7 @@ public class GroupsAction {
         String goodName = good.getName();
         String headImg = myResourceService.findOne(good.getHeadImg()).getUrl();
         int groupNum = goodGroup.getNum();
-        float totalPrice = goodGroup.getTotalPrice();
+        BigDecimal totalPrice = goodGroup.getTotalPrice();
         List<Map<String, String>> groupMembers = new ArrayList<Map<String, String>>();
         Integer role = 0;
         
@@ -262,6 +263,8 @@ public class GroupsAction {
             groupMember.put("role", groupPartake.getRole() + "");
             groupMember.put("datetime", mySimpleDateFormat.format(groupPartake
                     .getDateTime().toDate()));
+            
+            groupMember.put("isInsteadOfReceiving", groupPartake.getIsInsteadOfReceiving()+"");
             groupMembers.add(groupMember);
             if (openid.equals(requestUser.getOpenid())) {
                 role = groupPartake.getRole();
@@ -287,6 +290,9 @@ public class GroupsAction {
         groupInfoMap.put("adminId", good.getAdminId());
         groupInfoMap.put("stock", good.getStock());
         groupInfoMap.put("salesVolume", good.getSalesVolume());
+        groupInfoMap.put("allowInsteadOfRelief", good.getAllowInsteadOfRelief());
+        groupInfoMap.put("forceInsteadOfRelief", good.getForceInsteadOfRelief());
+        groupInfoMap.put("insteadOfRelief", good.getInsteadOfRelief());
         httpServletRequest.setAttribute("groupInfo", groupInfoMap);
         TemporaryData temporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(requestUser.getOpenid(), "nowgroup" , 1);
         if(temporaryData==null){

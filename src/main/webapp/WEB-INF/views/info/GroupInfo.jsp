@@ -19,6 +19,7 @@
 		 <script src="/js/myscript.js"></script>
 		 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 		 <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+		 <script type="text/javascript" src="/layer/layer.js"></script>
 		 <title>晨曦拼货商城</title>
 	</head>
 	<body>
@@ -215,11 +216,164 @@
 		     	</div>
 	     	</c:if>
      	  </c:if>
+     	  
+     	  
+     	  <div class="good_info_check_detail">
+    	<div class="good_info_check_detail_head">
+    		<div class="good_info_check_detail_head_img">
+    			<img alt="" src="${groupInfo.headImg}">
+    		</div>
+    		
+    		<div class="good_info_check_detail_head_content">
+    			<div class="good_info_check_detail_head_content_tile">${groupInfo.goodName}</div>
+    			<div class="good_info_check_detail_head_content_price">￥45.9</div>
+    		</div>
+    		
+    	</div>
+    	
+    	<div class="good_info_check_detail_items">
+    		<div class="good_info_check_detail_items_i">
+	    		<div class="good_info_check_detail_items_head">找人代收还是自己收货</div>
+	    		<div class="good_info_check_detail_item" id="isInstead">
+	    			<div class="good_info_check_detail_item_apan" value="1" id="instead">找人代收</div>
+	    			
+	    			<div class="good_info_check_detail_item_apan" value="0" id="unInstead">自己收货</div>
+	    
+	    		</div>
+	    	</div>
+	    	
+	    	<div class="good_info_check_detail_items_i" style="display: none;" id="insteadOfReceivingMember">
+	    		<div class="good_info_check_detail_items_head">请选择代收人</div>
+	    		<div class="good_info_check_detail_item">
+		    		<c:forEach items="${groupInfo.groupPartake}" var="member">
+		    			<c:if test="${member.isInsteadOfReceiving==1}">
+			    			<div class="good_info_check_detail_item_img">
+			    				<img src="${member.headImg}">
+			    				<div class="good_info_check_detail_item_img_name">${member.name}</div>
+			    			</div>
+		    			</c:if>
+		    			
+		    		</c:forEach>
+	    		</div>
+	    	
+	    	</div>
+    	
+    	
+    		<div class="good_info_check_detail_items_i">
+	    		<div class="good_info_check_detail_items_head">是否允许代他人收货（他人可以暂时将货寄放在我这里）</div>
+	    		<div class="good_info_check_detail_item" id="good_info_check_detail_item_relief">
+	    			<div class="good_info_check_detail_item_apan" id="allowInstead" value="1">允许（减免40元）</div>
+	    			
+	    			<div class="good_info_check_detail_item_apan" id="unAllowInstead" value="0">不允许</div>
+	    
+	    		</div>
+	    	</div>
+	    
+	    	
+	    	<!--  <div class="good_info_check_detail_items_i">
+	    		<div class="good_info_check_detail_items_head">颜色</div>
+	    		<div class="good_info_check_detail_item">
+	    			<div class="good_info_check_detail_item_img">
+	    				<img src="http://7xlw44.com1.z0.glb.clouddn.com/6d5341fc-1bc2-48d7-a8c4-b7c61056ba51">
+	    			</div>
+	    			<div class="good_info_check_detail_item_img">
+	    				<img src="http://7xlw44.com1.z0.glb.clouddn.com/6d5341fc-1bc2-48d7-a8c4-b7c61056ba51">
+	    			</div>
+	    			<div class="good_info_check_detail_item_img">
+	    				<img src="http://7xlw44.com1.z0.glb.clouddn.com/6d5341fc-1bc2-48d7-a8c4-b7c61056ba51">
+	    			</div>
+	    			<div class="good_info_check_detail_item_img">
+	    				<img src="http://7xlw44.com1.z0.glb.clouddn.com/6d5341fc-1bc2-48d7-a8c4-b7c61056ba51">
+	    			</div>
+	    		</div>
+	    	
+	    	</div>
+	    -->
+    	</div>
+    	
+    	<div class="good_info_check_detail_button">确定</div>
+    </div>
+     	  
+     	  
+     	  
      	</div>
+     	
+     	
+     	
+     	
      	
      	<input type = "hidden" value="${prompt}" name="prompt"></input>
      	<script type="text/javascript">
      		$(document).ready(function(){
+     			
+     				var totalPrice = ${groupInfo.totalPrice};
+     				alert(totalPrice);
+     				function countPrice(price,spanValue){
+     					
+     				}
+     				
+     				setIsInsteadOfReceiving(1);
+     				//设置是否找人代收
+     				function setIsInsteadOfReceiving(isInstead){
+     					
+     					
+     					var insteadItem = $("#isInstead");
+     					var insteadItemChildren = insteadItem.children(".good_info_check_detail_item_apan");
+     					
+     					if(isInstead==1){
+     						//找人代收
+     						$("#insteadOfReceivingMember").css("display","block");
+     						
+     						selectSpan(insteadItemChildren,$("#instead"));
+     						setAllowInstead(0);
+     					}else{
+     						//自己收货
+     						$("#insteadOfReceivingMember").css("display","none");
+     						selectSpan(insteadItemChildren,$("#unInstead"));
+     					}
+     				}
+     				
+     				
+     				//是否允许替他人代收
+     				function setAllowInstead(isAllow){
+     					var allowItem = $("#good_info_check_detail_item_relief");
+     					var allowChildren = allowItem.children(".good_info_check_detail_item_apan");
+     					
+     					var allowInstead = $("#allowInstead");
+     					var unAllowInstead = $("#unAllowInstead");
+     					
+     					var insteadItem = $("#isInstead");
+     					var insteadItemChildren = insteadItem.children(".good_info_check_detail_item_apan");
+     					
+     					if(isAllow==1){
+     						selectSpan(allowChildren,allowInstead);
+     						if(getItemValue(insteadItem)==1){
+     							layer.alert("你已经选择找人代收，自己不能再代收货");
+     							selectSpan(allowChildren,unAllowInstead);
+     						}
+     						
+     					}else{
+     						selectSpan(allowChildren,unAllowInstead);
+     					}
+     				}
+		   			$(".good_info_check_detail").animate({
+						bottom:0
+					},300);
+     			
+		   			
+     			
+		   			var insteadItem = $("#isInstead");
+		   			handleSpanItems(insteadItem,function(spanValue){
+	    				
+		   				setIsInsteadOfReceiving(spanValue);
+	    			});
+		   			
+		   			var allowItem = $("#good_info_check_detail_item_relief");	
+					handleSpanItems(allowItem,function(spanValue){
+	    				
+						setAllowInstead(spanValue);
+	    			});
+		   			
     				setUserToken("${token.id}");
     				wxConfig("${appId}","${signature}","${noncestr}","${datetime}");
     				var groupInfoImg = $("#group_info_img").val();

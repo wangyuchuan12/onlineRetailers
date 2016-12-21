@@ -697,9 +697,9 @@ function handleSpanItems(item,callback){
 	children.each(
 		function(){
 			$(this).click(function(){
+				selectSpan(children,$(this));
 				var value = $(this).attr("value");
 				callback.call($(this),value);
-				selectSpan(children,$(this));
 			});
 		}		
 	);;

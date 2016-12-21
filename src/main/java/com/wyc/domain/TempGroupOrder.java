@@ -23,12 +23,12 @@ public class TempGroupOrder {
     private int role;
     //物流费用
     @Column(name = "flow_price")
-    private float flowPrice;
+    private BigDecimal flowPrice;
     @Column
     private String code;
     //总共付款
     @Column(name = "cost")
-    private float cost;
+    private BigDecimal cost;
     @Column
     private String goodId;
     @Column
@@ -37,7 +37,7 @@ public class TempGroupOrder {
     private String addressId;
     //商品价格
     @Column(name = "good_price")
-    private float goodPrice;
+    private BigDecimal goodPrice;
     @Column
     private Integer num;
     
@@ -72,9 +72,33 @@ public class TempGroupOrder {
     @Column(name="relief_value")
     private BigDecimal reliefValue;
     
+    //是否允许代收0不允许 1允许
+    @Column(name="is_instead_of_receiving")
+    private int isInsteadOfReceiving;
+    
+    //代收货参团者
+    @Column(name="instead_partake_id")
+    private String insteadPartakeId;
     
     
-    public BigDecimal getReliefValue() {
+    
+    public String getInsteadPartakeId() {
+		return insteadPartakeId;
+	}
+
+	public void setInsteadPartakeId(String insteadPartakeId) {
+		this.insteadPartakeId = insteadPartakeId;
+	}
+
+	public int getIsInsteadOfReceiving() {
+		return isInsteadOfReceiving;
+	}
+
+	public void setIsInsteadOfReceiving(int isInsteadOfReceiving) {
+		this.isInsteadOfReceiving = isInsteadOfReceiving;
+	}
+
+	public BigDecimal getReliefValue() {
 		return reliefValue;
 	}
 
@@ -202,11 +226,11 @@ public class TempGroupOrder {
         this.role = role;
     }
 
-    public float getFlowPrice() {
+    public BigDecimal getFlowPrice() {
         return flowPrice;
     }
 
-    public void setFlowPrice(float flowPrice) {
+    public void setFlowPrice(BigDecimal flowPrice) {
         this.flowPrice = flowPrice;
     }
 
@@ -218,15 +242,17 @@ public class TempGroupOrder {
         this.code = code;
     }
 
-    public float getCost() {
-        return cost;
-    }
+   
 
-    public void setCost(float cost) {
-        this.cost = cost;
-    }
+    public BigDecimal getCost() {
+		return cost;
+	}
 
-    public String getGoodId() {
+	public void setCost(BigDecimal cost) {
+		this.cost = cost;
+	}
+
+	public String getGoodId() {
         return goodId;
     }
 
@@ -250,11 +276,11 @@ public class TempGroupOrder {
         this.addressId = addressId;
     }
 
-    public float getGoodPrice() {
+    public BigDecimal getGoodPrice() {
         return goodPrice;
     }
 
-    public void setGoodPrice(float goodPrice) {
+    public void setGoodPrice(BigDecimal goodPrice) {
         this.goodPrice = goodPrice;
     }
 

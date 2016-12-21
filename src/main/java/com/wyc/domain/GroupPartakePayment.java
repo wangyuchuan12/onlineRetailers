@@ -1,5 +1,7 @@
 package com.wyc.domain;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,7 +16,7 @@ public class GroupPartakePayment {
     private String id;
     //总共付款
     @Column(name = "cost")
-    private float cost;
+    private BigDecimal cost;
     
     //退款金额
     @Column(name="refund_amount")
@@ -81,11 +83,11 @@ public class GroupPartakePayment {
         this.id = id;
     }
 
-    public float getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
-    public void setCost(float cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 

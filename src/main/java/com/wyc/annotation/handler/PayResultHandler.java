@@ -1,6 +1,7 @@
 package com.wyc.annotation.handler;
 
 import java.lang.annotation.Annotation;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,6 +99,8 @@ public class PayResultHandler implements Handler{
         if(tempGroupOrder!=null){
             customer = customerService.findByOpenId(tempGroupOrder.getOpenid());
         }
+        
+        //团长组团或者用开团卷开团
         if(tempGroupOrder!=null&&(tempGroupOrder.getGoodOrderType()==0||tempGroupOrder.getGoodOrderType()==2)){
             OpenGroupCoupon openGroupCoupon = null;
             if(tempGroupOrder.getGoodOrderType()==2){
@@ -106,8 +109,8 @@ public class PayResultHandler implements Handler{
                     return null;
                 }
             }
-            Good good = goodService.findOne(tempGroupOrder.getGoodId());
-            float cost = tempGroupOrder.getCost();
+        //    Good good = goodService.findOne(tempGroupOrder.getGoodId());
+            BigDecimal cost = tempGroupOrder.getCost();
             String openid = tempGroupOrder.getOpenid();
             goodOrder = new GoodOrder();
             goodOrder.setAddress(tempGroupOrder.getAddress());
@@ -152,7 +155,8 @@ public class PayResultHandler implements Handler{
             groupPartake.setOrderId(goodOrder.getId());
             groupPartake.setRole(1);
             groupPartake.setType(0);
-           
+            groupPartake.setInsteadNum(0);
+            groupPartake.setIsInsteadOfReceiving(tempGroupOrder.getIsInsteadOfReceiving());
             groupPartake.setGoodStyleId(tempGroupOrder.getGoodStyleId());
             if(tempGroupOrder.getGoodStyleId()!=null){
                 GoodStyle goodStyle = goodStyleService.findOne(tempGroupOrder.getGoodStyleId());
@@ -206,7 +210,7 @@ public class PayResultHandler implements Handler{
             }
             
             
-        
+        //参团购买
         }else if (tempGroupOrder!=null&&tempGroupOrder.getGoodOrderType()==3) {
             
             String groupId = tempGroupOrder.getGroupId();
@@ -226,6 +230,7 @@ public class PayResultHandler implements Handler{
                 groupPartake.setPersonName(tempGroupOrder.getPersonName());
                 groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
                 groupPartake.setGoodStyleId(tempGroupOrder.getGoodStyleId());
+                groupPartake.setInsteadNum(0);
                 if(tempGroupOrder.getGoodStyleId()!=null){
                     GoodStyle goodStyle = goodStyleService.findOne(tempGroupOrder.getGoodStyleId());
                     if(goodStyle!=null){

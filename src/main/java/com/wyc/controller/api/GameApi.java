@@ -121,7 +121,7 @@ public class GameApi {
             NewsArticleItem newsArticleItem = new NewsArticleItem();
             newsArticleItem.setArticleId(pushArticle.getId());
             newsArticleItem.setDescription("获得一张免费开团劵，用此卷可以免费购买开团价为"+
-            good.getGroupDiscount()*good.getGroupOriginalCost()+"元的（"+good.getName()+"）商品");
+            good.getGroupDiscount().multiply(good.getGroupOriginalCost())+"元的（"+good.getName()+"）商品");
             MyResource myResource = myResourceService.findOne(good.getHeadImg());
             newsArticleItem.setPicurl(myResource.getUrl());
             newsArticleItem.setUrl("http://www.chengxihome.com/info/coupon");

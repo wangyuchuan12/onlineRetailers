@@ -48,11 +48,19 @@ public class GroupPartake {
     private String goodStyleId;
     @Column(name="good_style_name")
     private String goodStyleName;
+    
+    
+    //是否允许代收
+    @Column(name="is_instead_of_receiving")
+    private int isInsteadOfReceiving;
     //参加时间
     @Column(name = "date_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime dateTime;
     
+    //代收数量
+    @Column(name="instead_num")
+    private int insteadNum;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
@@ -60,8 +68,31 @@ public class GroupPartake {
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
     
+    //代收货参团者
+    @Column(name="instead_partake_id")
+    private String insteadPartakeId;
     
-    public String getGoodStyleName() {
+    
+    
+    public String getInsteadPartakeId() {
+		return insteadPartakeId;
+	}
+	public void setInsteadPartakeId(String insteadPartakeId) {
+		this.insteadPartakeId = insteadPartakeId;
+	}
+	public int getInsteadNum() {
+		return insteadNum;
+	}
+	public void setInsteadNum(int insteadNum) {
+		this.insteadNum = insteadNum;
+	}
+	public int getIsInsteadOfReceiving() {
+		return isInsteadOfReceiving;
+	}
+	public void setIsInsteadOfReceiving(int isInsteadOfReceiving) {
+		this.isInsteadOfReceiving = isInsteadOfReceiving;
+	}
+	public String getGoodStyleName() {
         return goodStyleName;
     }
     public void setGoodStyleName(String goodStyleName) {
