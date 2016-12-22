@@ -212,7 +212,7 @@
 	     	<c:if test="${groupInfo.role==0}">
 				<div class="footer3">
 		                <i class="fa fa-home" onclick="javascript:skipToGoodList();"></i>
-		                <a class="goto_gootlist" href="javascript:skipToGoodPay('${groupInfo.goodId}','3','${token.id}','${groupInfo.id}','${groupInfo.totalPrice}')">点击参团</a>
+		                <a class="goto_gootlist" href="javascript:takepart();">点击参团</a>
 		     	</div>
 	     	</c:if>
      	  </c:if>
@@ -226,7 +226,7 @@
     		
     		<div class="good_info_check_detail_head_content">
     			<div class="good_info_check_detail_head_content_tile">${groupInfo.goodName}</div>
-    			<div class="good_info_check_detail_head_content_price">￥45.9</div>
+    			<div class="good_info_check_detail_head_content_price">￥0</div>
     		</div>
     		
     	</div>
@@ -235,7 +235,7 @@
     		<div class="good_info_check_detail_items_i">
 	    		<div class="good_info_check_detail_items_head">找人代收还是自己收货</div>
 	    		<div class="good_info_check_detail_item" id="isInstead">
-	    			<div class="good_info_check_detail_item_apan" value="1" id="instead">找人代收</div>
+	    			<div class="good_info_check_detail_item_apan" value="1" id="instead">找人代收(减免<b>${groupInfo.insteadOfRelief}</b>)元</div>
 	    			
 	    			<div class="good_info_check_detail_item_apan" value="0" id="unInstead">自己收货</div>
 	    
@@ -244,10 +244,10 @@
 	    	
 	    	<div class="good_info_check_detail_items_i" style="display: none;" id="insteadOfReceivingMember">
 	    		<div class="good_info_check_detail_items_head">请选择代收人</div>
-	    		<div class="good_info_check_detail_item">
+	    		<div class="good_info_check_detail_item" id="member" type="image">
 		    		<c:forEach items="${groupInfo.groupPartake}" var="member">
 		    			<c:if test="${member.isInsteadOfReceiving==1}">
-			    			<div class="good_info_check_detail_item_img">
+			    			<div class="good_info_check_detail_item_img" value="${member.groupPartakeId}">
 			    				<img src="${member.headImg}">
 			    				<div class="good_info_check_detail_item_img_name">${member.name}</div>
 			    			</div>
@@ -291,26 +291,118 @@
 	    -->
     	</div>
     	
-    	<div class="good_info_check_detail_button">确定</div>
+    	<div class="good_info_check_detail_button" onclick="orderSubmit();">确定</div>
     </div>
      	  
      	  
      	  
      	</div>
      	
-     	
-     	
-     	
-     	
      	<input type = "hidden" value="${prompt}" name="prompt"></input>
+     	<input type = "text" value="${groupInfo.goodId}" id="goodId"></input>
+     	<input type = "text" value="${token.id}" id="tokenId"></input>
+     	<input type = "text" value="${groupInfo.id}" id="groupId"></input>
+     	<input type = "text" value="${groupInfo.totalPrice}" id=totalPrice></input>
+     	<input type = "text" value="${groupInfo.goodPrice}" id=goodPrice></input>
+     	<input type = "text" value="${groupInfo.allowInsteadOfRelief}" id=allowInsteadOfRelief></input>
+     	<input type = "text" value="${groupInfo.isReceiveGoodsTogether}" id=isReceiveGoodsTogether></input>
+     	<input type = "text" value="${groupInfo.insteadOfRelief}" id=insteadOfRelief></input>
      	<script type="text/javascript">
+     	
+     	var groupPartakeId;
+     	var isCheckGroupPartake = false;
+     	function orderSubmit(){
+     		var goodId = $("#goodId").val();
+ 			var tokenId = $("#tokenId").val();
+ 			var groupId = $("#groupId").val();
+ 			var totalPrice = $("#totalPrice").val();
+ 			var goodPrice = $("#goodPrice").val();
+ 			
+ 			
+ 			var insteadOfRelief = $("#insteadOfRelief").val();
+ 			var insteadItem = $("#isInstead");
+ 			var isInstead = getItemValue(insteadItem);
+ 			var allowItem = $("#good_info_check_detail_item_relief");
+ 			var isAllow = getItemValue(allowItem);
+ 			var params = new Object();
+ 			params.reliefType = isInstead;
+ 			params.isInsteadOfReceiving = isAllow;
+ 			params.insteadPartakeId = groupPartakeId;
+ 			if(isCheckGroupPartake||isInstead=="0"){
+ 				skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
+ 			}else{
+ 				layer.alert("请选择代收人，如果无可选代收人则选择自己收货");
+ 			}
+ 			
+     	}
+     	function takepart(){
+     			var goodId = $("#goodId").val();
+     			var tokenId = $("#tokenId").val();
+     			var groupId = $("#groupId").val();
+     			var totalPrice = $("#totalPrice").val();
+     			var goodPrice = $("#goodPrice").val();
+     			var allowInsteadOfRelief = $("#allowInsteadOfRelief").val();
+     			var isReceiveGoodsTogether = $("#isReceiveGoodsTogether").val();
+     			var insteadOfRelief = $("#insteadOfRelief").val();
+     			var insteadItem = $("#isInstead");
+     			var isInstead = getItemValue(insteadItem);
+     			var allowItem = $("#good_info_check_detail_item_relief");
+     			var isAllow = getItemValue(allowItem);
+				if(isReceiveGoodsTogether=="1"){
+					skipToGoodPay(goodId,3,tokenId,groupId,totalPrice);
+				}else{
+					$(".good_info_check_detail").animate({
+						bottom:0
+					},300);
+				}
+			}
      		$(document).ready(function(){
      			
+     				
+     				
      				var goodPrice = ${groupInfo.goodPrice};
-     				alert(goodPrice);
-     				function countPrice(price,spanValue){
+     			
+     				function countPrice(){
+     					var cost;
+     					var totalPrice = $("#totalPrice").val();
+     					totalPrice = parseFloat(totalPrice);
+     					totalPrice = totalPrice.toFixed(2);
+     					var insteadOfRelief = $("#insteadOfRelief").val();
+     					insteadOfRelief = parseFloat(insteadOfRelief);
+     					insteadOfRelief = insteadOfRelief.toFixed(2);
+     					var insteadItem = $("#isInstead");
+     					var isInstead = getItemValue(insteadItem);
+     					
+     					if(isInstead==1){
+     						cost = totalPrice - insteadOfRelief;
+     					}else{
+     						var allowItem = $("#good_info_check_detail_item_relief");
+     						var isAllow = getItemValue(allowItem);
+     						if(isAllow ==1){
+     							var allowInsteadOfRelief = $("#allowInsteadOfRelief").val();
+     							allowInsteadOfRelief = parseFloat(allowInsteadOfRelief);
+     							allowInsteadOfRelief = allowInsteadOfRelief.toFixed(2);
+     							cost = totalPrice - allowInsteadOfRelief;
+     						}else{
+     							cost = totalPrice;
+     						}
+     					}
+     					
+     					cost = parseFloat(cost);
+     					cost = cost.toFixed(2);
+     					
+     					$(".good_info_check_detail_head_content_price").text("￥"+cost);
      					
      				}
+     				
+     				
+     				var memberItem = $("#member");
+     				
+					handleSpanItems(memberItem,function(spanValue){
+						groupPartakeId = spanValue;
+						isCheckGroupPartake = true;
+	    			});
+     				
      				
      				setIsInsteadOfReceiving(1);
      				//设置是否找人代收
@@ -331,6 +423,7 @@
      						$("#insteadOfReceivingMember").css("display","none");
      						selectSpan(insteadItemChildren,$("#unInstead"));
      					}
+     					countPrice();
      				}
      				
      				
@@ -355,10 +448,9 @@
      					}else{
      						selectSpan(allowChildren,unAllowInstead);
      					}
+     					countPrice();
      				}
-		   			$(".good_info_check_detail").animate({
-						bottom:0
-					},300);
+		   			
      			
 		   			
      			

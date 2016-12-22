@@ -451,6 +451,8 @@ public class GoodsAction {
             	}
             }
             if(payType.equals("3")){
+            	String isInsteadOfReceiving = httpRequest.getParameter("isInsteadOfReceiving");
+            	String insteadPartakeId = httpRequest.getParameter("insteadPartakeId");
                 tempGroupOrder.setGroupId(httpRequest.getParameter("group_id"));
             }else if (httpRequest.getParameter("group_id")!=null) {
                 tempGroupOrder.setGroupId(httpRequest.getParameter("group_id"));

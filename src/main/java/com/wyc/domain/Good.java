@@ -92,9 +92,14 @@ public class Good {
     @Column(name="force_instead_relief",nullable=false)
     private BigDecimal forceInsteadOfRelief;
     
-    //替人代收减免
+    //找人代收 本人减免
     @Column(name="instead_relief",nullable=false)
     private BigDecimal insteadOfRelief;
+    
+    //找人代收 代收人减免
+   /* @Column(name="instead_relief",nullable=false)
+    private BigDecimal receiverInsteadOfRelief;
+    */
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;

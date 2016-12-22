@@ -260,7 +260,7 @@ public class GroupsAction {
             groupMember.put("role", groupPartake.getRole() + "");
             groupMember.put("datetime", mySimpleDateFormat.format(groupPartake
                     .getDateTime().toDate()));
-            
+            groupMember.put("groupPartakeId", groupPartake.getId());
             groupMember.put("isInsteadOfReceiving", groupPartake.getIsInsteadOfReceiving()+"");
             groupMembers.add(groupMember);
             if (openid.equals(requestUser.getOpenid())) {
@@ -289,6 +289,7 @@ public class GroupsAction {
         groupInfoMap.put("salesVolume", good.getSalesVolume());
         groupInfoMap.put("allowInsteadOfRelief", good.getAllowInsteadOfRelief());
         groupInfoMap.put("forceInsteadOfRelief", good.getForceInsteadOfRelief());
+        groupInfoMap.put("isReceiveGoodsTogether", goodGroup.getIsReceiveGoodsTogether());
         groupInfoMap.put("insteadOfRelief", good.getInsteadOfRelief());
         groupInfoMap.put("goodPrice", goodGroup.getGoodPrice());
         httpServletRequest.setAttribute("groupInfo", groupInfoMap);

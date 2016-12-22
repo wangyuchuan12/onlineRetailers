@@ -693,16 +693,41 @@ function onChooseWXPay(appid,pack,nonceStr,paySign,signType,timestamp,goodId,pay
 
 
 function handleSpanItems(item,callback){
-	var children = item.children(".good_info_check_detail_item_apan");
-	children.each(
-		function(){
-			$(this).click(function(){
-				selectSpan(children,$(this));
-				var value = $(this).attr("value");
-				callback.call($(this),value);
-			});
-		}		
-	);;
+	
+	if(item.attr("type")=="image"){
+		var children = item.children(".good_info_check_detail_item_img");
+		
+		children.each(
+				function(){
+					$(this).click(function(){
+						selectImage(children,$(this));
+						var value = $(this).attr("value");
+						callback.call($(this),value);
+					});
+				}		
+			);;
+	}else{
+		var children = item.children(".good_info_check_detail_item_apan");
+		children.each(
+			function(){
+				$(this).click(function(){
+					selectSpan(children,$(this));
+					var value = $(this).attr("value");
+					callback.call($(this),value);
+				});
+			}		
+		);;
+	}
+	
+}
+
+function selectImage(children,image){
+	children.each(function(){
+		$(this).css("background-color","white");
+		$(this).attr("isSelected",false);
+	});
+	image.css("background-color","red");
+	image.attr("isSelected",true);
 }
 
 function selectSpan(children,span){

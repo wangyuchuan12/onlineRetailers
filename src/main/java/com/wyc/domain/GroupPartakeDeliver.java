@@ -18,11 +18,31 @@ public class GroupPartakeDeliver {
     //0表示未发货，1表示已发货，2表示已签收
     @Column
     private int status;
+    
+    //是否允许发货
+    @Column(name="is_allow_deliver")
+    private int isAllowDeliver=0;
+    
+    //是否允许签收
+    @Column(name="is_allow_sign")
+    private int isAllowSign=0;
+    
+    //是否允许提醒发货
+    @Column(name="is_allow_remind_deviery")
+    private int isAllowRemindDeviery=0;
+    
     @Column(name="group_partake_id")
     private String groupPartakeId;
+    
+    //退款发货时间
     @Column(name = "refund_devivery_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime refundDeviveryTime;
+    
+    
+    
+    
+    //退款签收时间
     @Column(name = "refund_sign_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime refundSignTime;
