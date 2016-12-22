@@ -306,8 +306,8 @@
      	<script type="text/javascript">
      		$(document).ready(function(){
      			
-     				var totalPrice = ${groupInfo.totalPrice};
-     				alert(totalPrice);
+     				var goodPrice = ${groupInfo.goodPrice};
+     				alert(goodPrice);
      				function countPrice(price,spanValue){
      					
      				}

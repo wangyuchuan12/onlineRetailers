@@ -35,7 +35,7 @@ public class TempGroupOrder {
     private String address;
     @Column(name="address_id")
     private String addressId;
-    //商品价格
+    //商品价格 是原价*折扣（不计算物流架构）
     @Column(name = "good_price")
     private BigDecimal goodPrice;
     @Column

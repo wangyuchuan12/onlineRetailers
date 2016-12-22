@@ -57,9 +57,18 @@ public class GoodGroup {
     @Column(name="relief_value")
     private BigDecimal reliefValue;
     
+    @Column(name="good_price")
+    private BigDecimal goodPrice;
     
     
-    public BigDecimal getReliefValue() {
+    
+    public BigDecimal getGoodPrice() {
+		return goodPrice;
+	}
+	public void setGoodPrice(BigDecimal goodPrice) {
+		this.goodPrice = goodPrice;
+	}
+	public BigDecimal getReliefValue() {
 		return reliefValue;
 	}
 	public void setReliefValue(BigDecimal reliefValue) {

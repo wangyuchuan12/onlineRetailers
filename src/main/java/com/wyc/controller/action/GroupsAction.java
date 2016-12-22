@@ -293,6 +293,7 @@ public class GroupsAction {
         groupInfoMap.put("allowInsteadOfRelief", good.getAllowInsteadOfRelief());
         groupInfoMap.put("forceInsteadOfRelief", good.getForceInsteadOfRelief());
         groupInfoMap.put("insteadOfRelief", good.getInsteadOfRelief());
+        groupInfoMap.put("goodPrice", goodGroup.getGoodPrice());
         httpServletRequest.setAttribute("groupInfo", groupInfoMap);
         TemporaryData temporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(requestUser.getOpenid(), "nowgroup" , 1);
         if(temporaryData==null){
