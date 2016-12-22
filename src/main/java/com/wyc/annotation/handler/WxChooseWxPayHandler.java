@@ -45,12 +45,12 @@ public class WxChooseWxPayHandler implements Handler{
     @Override
     public Object handle(HttpServletRequest httpServletRequest)throws Exception{
         MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpServletRequest;
-        float cost = 0;
+        BigDecimal cost = new BigDecimal(0);
         System.out.println("........cost:"+httpServletRequest.getParameter("cost"));
         if(httpServletRequest.getAttribute("cost")!=null){
-            cost = (Float)httpServletRequest.getAttribute("cost");
+            cost = (BigDecimal)httpServletRequest.getAttribute("cost");
         }else{
-            cost = Float.parseFloat(httpServletRequest.getParameter("cost"));
+            cost = new BigDecimal(httpServletRequest.getParameter("cost"));
             httpServletRequest.setAttribute("cost", cost);
         }
         System.out.println("cost&&&&&&&&:"+cost);
@@ -89,9 +89,8 @@ public class WxChooseWxPayHandler implements Handler{
 	        }
 	        String spbillCreateIp = httpServletRequest.getRemoteAddr();
 	        String datetime = String.valueOf(System.currentTimeMillis() / 1000);
-	        float totalFee = cost*100;
-	        BigDecimal bigDecimal = new BigDecimal(totalFee);
-	        Long totalFeeLong = bigDecimal.setScale(0, BigDecimal.ROUND_HALF_UP).longValue();
+	        BigDecimal totalFee = cost.multiply(new BigDecimal(100));
+	        Long totalFeeLong = totalFee.setScale(0, BigDecimal.ROUND_HALF_UP).longValue();
 	        
 	        System.out.println("totalFeeStr...........:"+totalFeeLong);
 	        String tradeType = "JSAPI";

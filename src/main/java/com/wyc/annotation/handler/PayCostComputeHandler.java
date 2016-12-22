@@ -36,20 +36,24 @@ public class PayCostComputeHandler implements Handler{
         }else{
         	reliefValue = new BigDecimal(0);
         }
+        logger.debug("检测payType为："+payType);
         BigDecimal cost = new BigDecimal(0);
-        //0表示团购 1表示单独买 2表示开团劵购买
+        //0表示团购 1表示单独买 2表示开团劵购买 3参团购买
         if(payType.equals("0")||payType.equals("3")){
         	cost = good.getGroupDiscount().multiply(good.getGroupOriginalCost());
         
         	cost = cost.add(good.getFlowPrice());
-        	cost.subtract(reliefValue);
+        	cost = cost.subtract(reliefValue);
+        	
+        	logger.debug("检测cost为："+cost);
+        	logger.debug("检测reliefValue为："+reliefValue);
             
         }else if (payType.equals("1")) {
         	
         	cost = good.getAloneDiscount().multiply(good.getAloneOriginalCost());
             
         	cost = cost.add(good.getFlowPrice());
-        	cost.subtract(reliefValue);
+        	cost = cost.subtract(reliefValue);
         }else if (payType.equals("2")) {
             cost = good.getFlowPrice();
         }

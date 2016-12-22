@@ -372,6 +372,7 @@ public class GoodsAction {
 	        payType = httpRequest.getParameter("state");
 	    }
 	    
+	   logger.debug("发送过来的payType为："+payType);
 	    String reliefType = httpRequest.getParameter("reliefType");
 
 	    String goodId = httpRequest.getParameter("good_id");
