@@ -137,7 +137,7 @@ public class GroupsAction {
             calendar.add(Calendar.HOUR, goodGroup.getTimeLong());
             if(calendar.getTime().getTime()<new Date().getTime()){
                 goodGroup.setResult(0);
-                goodGroup = goodGroupService.save(goodGroup);
+                goodGroup = goodGroupService.update(goodGroup);
                 OrderDetail orderDetail = orderDetailService.findByGruopId(goodGroup.getId());
                 GoodOrder goodOrder = goodOrderService.findOne(orderDetail.getOrderId());
                 goodOrder.setStatus(5);
@@ -185,7 +185,7 @@ public class GroupsAction {
             } else if (groupNum == count + 1) {
                 goodGroup.setResult(2);
             }
-            goodGroupService.save(goodGroup);
+            goodGroupService.update(goodGroup);
             groupPartakeService.add(groupPartake);
             return groupInfo(myHttpServletRequest);
         }
@@ -230,7 +230,6 @@ public class GroupsAction {
         String prompt = httpServletRequest.getParameter("prompt");
         
         UserInfo requestUser = myHttpServletRequest.getUserInfo();
-        
         String id = httpServletRequest.getParameter("id");
         GoodGroup goodGroup = goodGroupService.findOne(id);
         goodGroup = checkTimeout(goodGroup);
@@ -254,12 +253,10 @@ public class GroupsAction {
         
         for (GroupPartake groupPartake : groupPartakes) {
             Map<String, String> groupMember = new HashMap<String, String>();
-            String customerId = groupPartake.getCustomerid();
-            Customer customer = customerService.findOne(customerId);
-            String openid = customer.getOpenId();
-            UserInfo userInfo = wxUserInfoService.findByOpenid(openid);
-            groupMember.put("name", userInfo.getNickname());
-            groupMember.put("headImg", userInfo.getHeadimgurl());
+ 
+            String openid = groupPartake.getOpenid();
+            groupMember.put("name",groupPartake.getNickname());
+            groupMember.put("headImg", groupPartake.getHeadimgurl());
             groupMember.put("role", groupPartake.getRole() + "");
             groupMember.put("datetime", mySimpleDateFormat.format(groupPartake
                     .getDateTime().toDate()));

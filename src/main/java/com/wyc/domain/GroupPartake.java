@@ -1,5 +1,7 @@
 package com.wyc.domain;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,6 +23,8 @@ public class GroupPartake {
     private String id;
     @Column(name = "customerid")
     private String customerid;
+    @Column
+    private String openid;
     @Column(name = "group_id")
     private String groupId;
     @Column(name="customer_address")
@@ -72,9 +76,56 @@ public class GroupPartake {
     @Column(name="instead_partake_id")
     private String insteadPartakeId;
     
+    //0自己接收 1允许他人代收 2全部统一收货
+    @Column(name="relief_type")
+    private Integer reliefType;
+    
+    //减免金额
+    @Column(name="relief_value")
+    private BigDecimal reliefValue;
+    
+    //微信别呢
+    @Column
+    private String nickname;
+    
+    //头像
+    @Column
+    private String headimgurl;
     
     
-    public String getInsteadPartakeId() {
+    
+    
+    public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getHeadimgurl() {
+		return headimgurl;
+	}
+	public void setHeadimgurl(String headimgurl) {
+		this.headimgurl = headimgurl;
+	}
+	public String getOpenid() {
+		return openid;
+	}
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+	public Integer getReliefType() {
+		return reliefType;
+	}
+	public void setReliefType(Integer reliefType) {
+		this.reliefType = reliefType;
+	}
+	public BigDecimal getReliefValue() {
+		return reliefValue;
+	}
+	public void setReliefValue(BigDecimal reliefValue) {
+		this.reliefValue = reliefValue;
+	}
+	public String getInsteadPartakeId() {
 		return insteadPartakeId;
 	}
 	public void setInsteadPartakeId(String insteadPartakeId) {

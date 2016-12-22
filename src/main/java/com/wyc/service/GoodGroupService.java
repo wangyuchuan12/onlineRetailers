@@ -20,7 +20,7 @@ public class GoodGroupService {
         return goodGroupRepository.save(goodGroup);
     }
     
-    public GoodGroup save(GoodGroup goodGroup){
+    public GoodGroup update(GoodGroup goodGroup){
     	goodGroup.setUpdateAt(new DateTime());
         return goodGroupRepository.save(goodGroup);
     }

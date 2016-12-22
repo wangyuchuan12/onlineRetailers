@@ -80,9 +80,33 @@ public class TempGroupOrder {
     @Column(name="instead_partake_id")
     private String insteadPartakeId;
     
+    //用户别呢
+    @Column
+    private String nickname;
+    
+    //用户头像
+    @Column
+    private String headImg;
     
     
-    public String getInsteadPartakeId() {
+    
+    public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getHeadImg() {
+		return headImg;
+	}
+
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
+	}
+
+	public String getInsteadPartakeId() {
 		return insteadPartakeId;
 	}
 

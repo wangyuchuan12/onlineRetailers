@@ -77,7 +77,7 @@ public class GoodViewService {
             calendar.add(Calendar.HOUR, goodGroup.getTimeLong());
             if(calendar.getTime().getTime()<new Date().getTime()){
                 goodGroup.setResult(0);
-                goodGroup = goodGroupService.save(goodGroup);
+                goodGroup = goodGroupService.update(goodGroup);
                 OrderDetail orderDetail = orderDetailService.findByGruopId(goodGroup.getId());
                 GoodOrder goodOrder = goodOrderService.findOne(orderDetail.getOrderId());
                 goodOrder.setStatus(5);

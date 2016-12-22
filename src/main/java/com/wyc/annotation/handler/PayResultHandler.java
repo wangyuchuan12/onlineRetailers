@@ -132,15 +132,19 @@ public class PayResultHandler implements Handler{
             
             goodGroup = new GoodGroup();
             goodGroup.setGoodId(tempGroupOrder.getGoodId());
-            goodGroup.setGroupHead(customer.getId());
+            goodGroup.setGroupHeadCustomerId(customer.getId());
             goodGroup.setNum(tempGroupOrder.getNum());
             goodGroup.setResult(1);
             goodGroup.setStartTime(new DateTime());
             goodGroup.setTimeLong(tempGroupOrder.getTimeLong());
             goodGroup.setTotalPrice(tempGroupOrder.getGoodPrice().add(tempGroupOrder.getFlowPrice()));
-            goodGroup.setReliefType(tempGroupOrder.getReliefType());
             goodGroup.setAdminId(tempGroupOrder.getAdminId());
-            goodGroup.setReliefValue(tempGroupOrder.getReliefValue());
+            
+            if(tempGroupOrder.getReliefType()==2){
+            	goodGroup.setIsReceiveGoodsTogether(1);
+            }else{
+            	goodGroup.setIsReceiveGoodsTogether(0);
+            }
             goodGroup.setGoodPrice(tempGroupOrder.getGoodPrice());
             goodGroup = goodGroupService.add(goodGroup);
             goodOrder.setGroupId(goodGroup.getId());
@@ -159,7 +163,12 @@ public class PayResultHandler implements Handler{
             groupPartake.setType(0);
             groupPartake.setInsteadNum(0);
             groupPartake.setIsInsteadOfReceiving(tempGroupOrder.getIsInsteadOfReceiving());
+            groupPartake.setReliefType(tempGroupOrder.getReliefType());
+            groupPartake.setReliefValue(tempGroupOrder.getReliefValue());
             groupPartake.setGoodStyleId(tempGroupOrder.getGoodStyleId());
+            groupPartake.setOpenid(openid);
+            groupPartake.setNickname(tempGroupOrder.getNickname());
+            groupPartake.setHeadimgurl(tempGroupOrder.getHeadImg());
             if(tempGroupOrder.getGoodStyleId()!=null){
                 GoodStyle goodStyle = goodStyleService.findOne(tempGroupOrder.getGoodStyleId());
                 if(goodStyle!=null){
@@ -169,6 +178,10 @@ public class PayResultHandler implements Handler{
             groupPartake.setIsDel(0);
             groupPartake = groupPartakeService.add(groupPartake);
             
+            goodGroup.setGroupHeadGroupPartakeId(groupPartake.getId());
+            goodGroup.setTogetherReceiver(groupPartake.getId());
+            
+            goodGroupService.update(goodGroup);
             GroupPartakeDeliver groupPartakeDeliver = new GroupPartakeDeliver();
             groupPartakeDeliver.setGroupPartakeId(groupPartake.getId());
             
@@ -233,6 +246,7 @@ public class PayResultHandler implements Handler{
                 groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
                 groupPartake.setGoodStyleId(tempGroupOrder.getGoodStyleId());
                 groupPartake.setInsteadNum(0);
+                groupPartake.setOpenid(openid);
                 if(tempGroupOrder.getGoodStyleId()!=null){
                     GoodStyle goodStyle = goodStyleService.findOne(tempGroupOrder.getGoodStyleId());
                     if(goodStyle!=null){
@@ -249,7 +263,7 @@ public class PayResultHandler implements Handler{
                 }
                 if(partNum+1==groupNum){
                    goodGroup.setResult(2);
-                   goodGroupService.save(goodGroup);
+                   goodGroupService.update(goodGroup);
                    Iterable<GroupPartake> groupPartakes = groupPartakeService.findAllByGroupIdOrderByRoleAsc(groupId);
                    Good good = goodService.findOne(goodGroup.getGoodId());
                    MyResource myResource = myResourceService.findOne(good.getGoodInfoHeadImg());
@@ -345,6 +359,7 @@ public class PayResultHandler implements Handler{
             groupPartake.setPersonName(tempGroupOrder.getPersonName());
             groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
             groupPartake.setGoodStyleId(tempGroupOrder.getGoodStyleId());
+            groupPartake.setOpenid(tempGroupOrder.getOpenid());
             if(tempGroupOrder.getGoodStyleId()!=null){
                 GoodStyle goodStyle = goodStyleService.findOne(tempGroupOrder.getGoodStyleId());
                 if(goodStyle!=null){

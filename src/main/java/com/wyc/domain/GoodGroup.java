@@ -15,9 +15,12 @@ public class GoodGroup {
     //0表示组团失败1表示正在组团 2表示组团成功3表示组团超时
     @Column(name = "result")
     private int result;
-    //团长
-    @Column(name = "group_head")
-    private String groupHead;
+    //团长 指向customer表
+    @Column(name = "group_head_customer_id")
+    private String groupHeadCustomerId;
+    
+    @Column(name = "group_head_group_partake_id")
+    private String groupHeadGroupPartakeId;
     @Column(name="total_price")
     private BigDecimal totalPrice;
     //沙发
@@ -51,34 +54,47 @@ public class GoodGroup {
     @Column(name="is_disused")
     private int isDisused = 0;
     
-    @Column(name="relief_type")
-    private Integer reliefType;
+    //是否统一收货 0否 1是
+    @Column(name="is_receive_goods_together")
+    private Integer isReceiveGoodsTogether;
     
-    @Column(name="relief_value")
-    private BigDecimal reliefValue;
-    
+    //统一收货人 指向了partake 的id
+    @Column(name="together_receiver")
+    private String togetherReceiver;
     @Column(name="good_price")
     private BigDecimal goodPrice;
     
     
     
-    public BigDecimal getGoodPrice() {
+    public String getGroupHeadCustomerId() {
+		return groupHeadCustomerId;
+	}
+	public void setGroupHeadCustomerId(String groupHeadCustomerId) {
+		this.groupHeadCustomerId = groupHeadCustomerId;
+	}
+	public String getGroupHeadGroupPartakeId() {
+		return groupHeadGroupPartakeId;
+	}
+	public void setGroupHeadGroupPartakeId(String groupHeadGroupPartakeId) {
+		this.groupHeadGroupPartakeId = groupHeadGroupPartakeId;
+	}
+	public String getTogetherReceiver() {
+		return togetherReceiver;
+	}
+	public void setTogetherReceiver(String togetherReceiver) {
+		this.togetherReceiver = togetherReceiver;
+	}
+	public Integer getIsReceiveGoodsTogether() {
+		return isReceiveGoodsTogether;
+	}
+	public void setIsReceiveGoodsTogether(Integer isReceiveGoodsTogether) {
+		this.isReceiveGoodsTogether = isReceiveGoodsTogether;
+	}
+	public BigDecimal getGoodPrice() {
 		return goodPrice;
 	}
 	public void setGoodPrice(BigDecimal goodPrice) {
 		this.goodPrice = goodPrice;
-	}
-	public BigDecimal getReliefValue() {
-		return reliefValue;
-	}
-	public void setReliefValue(BigDecimal reliefValue) {
-		this.reliefValue = reliefValue;
-	}
-	public Integer getReliefType() {
-		return reliefType;
-	}
-	public void setReliefType(Integer reliefType) {
-		this.reliefType = reliefType;
 	}
 	public int getIsDisused() {
         return isDisused;
@@ -141,12 +157,6 @@ public class GoodGroup {
     }
     public void setResult(int result) {
         this.result = result;
-    }
-    public String getGroupHead() {
-        return groupHead;
-    }
-    public void setGroupHead(String groupHead) {
-        this.groupHead = groupHead;
     }
     public String getGroupSofa() {
         return groupSofa;

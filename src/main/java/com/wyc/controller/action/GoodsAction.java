@@ -323,7 +323,7 @@ public class GoodsAction {
 	            	groupInfo.put("startTime",
 	                        mySimpleDateFormat.format(goodGroup.getStartTime().toDate()));
 	            	groupInfo.put("timeLong", goodGroup.getTimeLong());
-	            	Customer groupCustomer = customerService.findOne(goodGroup.getGroupHead());
+	            	Customer groupCustomer = customerService.findOne(goodGroup.getGroupHeadCustomerId());
 	            	UserInfo customerUserInfo = wxUserInfoService.findByOpenid(groupCustomer.getOpenId());
 	            	groupInfo.put("nickname", customerUserInfo.getNickname());
 	            	groupInfo.put("headImg", customerUserInfo.getHeadimgurl());
@@ -425,6 +425,8 @@ public class GoodsAction {
             tempGroupOrder.setCustomerAddress(customerAddress.getId());
             tempGroupOrder.setFlowPrice(good.getFlowPrice());
             tempGroupOrder.setGoodId(goodId);
+            tempGroupOrder.setNickname(userInfo.getNickname());
+            tempGroupOrder.setHeadImg(userInfo.getHeadimgurl());
             if(tempGroupOrder.getGoodOrderType()==1){
             	tempGroupOrder.setGoodPrice(good.getAloneDiscount().multiply(good.getAloneOriginalCost()));
             }else{
