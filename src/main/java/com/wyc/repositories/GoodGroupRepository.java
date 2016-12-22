@@ -12,8 +12,8 @@ public interface GoodGroupRepository extends CrudRepository<GoodGroup, String>{
     @Query("select g from com.wyc.domain.GoodGroup g where g.createAt = (select max(createAt) from com.wyc.domain.GoodGroup)")
     public GoodGroup selectLastestGoodGroup();
     
-    @Query("select g from com.wyc.domain.GoodGroup g where g.createAt = (select max(g2.createAt) from com.wyc.domain.GoodGroup g2 where g2.GroupHeadCustomerId=:GroupHeadCustomerId)")
-    public GoodGroup selectLastestGoodGroupByGroupHeadCustomerId(@Param("GroupHeadCustomerId") String GroupHeadCustomerId);
+    @Query("select g from com.wyc.domain.GoodGroup g where g.createAt = (select max(g2.createAt) from com.wyc.domain.GoodGroup g2 where g2.groupHeadCustomerId=:groupHeadCustomerId)")
+    public GoodGroup selectLastestGoodGroupByGroupHeadCustomerId(@Param("groupHeadCustomerId") String groupHeadCustomerId);
 
 
     public Iterable<GoodGroup> findAllByIdInOrderByCreateAtDesc(
