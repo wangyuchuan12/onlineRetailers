@@ -23,8 +23,17 @@ public class PayCostComputeHandler implements Handler{
         String goodId = httpServletRequest.getParameter("good_id");
         String payType=httpServletRequest.getParameter("pay_type");
         String isInsteadOfReceiving = httpServletRequest.getParameter("isInsteadOfReceiving");
+        if(isInsteadOfReceiving==null){
+        	isInsteadOfReceiving = httpServletRequest.getSession().getAttribute("isInsteadOfReceiving").toString();
+        }
         String isFindOtherInsteadOfReceiving = httpServletRequest.getParameter("isFindOtherInsteadOfReceiving");
+        if(isFindOtherInsteadOfReceiving==null){
+        	isFindOtherInsteadOfReceiving = httpServletRequest.getSession().getAttribute("isFindOtherInsteadOfReceiving").toString();
+        }
         String isReceiveGoodsTogether = httpServletRequest.getParameter("isReceiveGoodsTogether");
+        if(isReceiveGoodsTogether==null){
+        	isReceiveGoodsTogether = httpServletRequest.getSession().getAttribute("isReceiveGoodsTogether").toString();
+        }
         Good good = goodService.findOne(goodId);
         BigDecimal reliefValue = null;
         if(payType.equals("0")){

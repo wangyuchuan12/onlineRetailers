@@ -352,6 +352,26 @@ public class GoodsAction {
 	    Customer customer = customerService.findByOpenId(userInfo.getOpenid());
 	    String defaultAddress = customer.getDefaultAddress();
 	    CustomerAddress customerAddress = null;
+	    
+	    String isInsteadOfReceiving = httpRequest.getParameter("isInsteadOfReceiving");
+        if(isInsteadOfReceiving==null){
+        	isInsteadOfReceiving = httpRequest.getSession().getAttribute("isInsteadOfReceiving").toString();
+        }else{
+        	httpRequest.getSession().setAttribute("isInsteadOfReceiving",isInsteadOfReceiving);
+        }
+        String isFindOtherInsteadOfReceiving = httpRequest.getParameter("isFindOtherInsteadOfReceiving");
+        if(isFindOtherInsteadOfReceiving==null){
+        	isFindOtherInsteadOfReceiving = httpRequest.getSession().getAttribute("isFindOtherInsteadOfReceiving").toString();
+        }else{
+        	httpRequest.getSession().setAttribute("isFindOtherInsteadOfReceiving",isFindOtherInsteadOfReceiving);
+        }
+        String isReceiveGoodsTogether = httpRequest.getParameter("isReceiveGoodsTogether");
+        if(isReceiveGoodsTogether==null){
+        	isReceiveGoodsTogether = httpRequest.getSession().getAttribute("isReceiveGoodsTogether").toString();
+        }else{
+        	httpRequest.getSession().setAttribute("isReceiveGoodsTogether",isReceiveGoodsTogether);
+        }
+        
 	    if(defaultAddress!=null&&!defaultAddress.trim().equals("")){
 	        customerAddress = customerAddressService.findOne(defaultAddress);
 	    }
@@ -440,10 +460,6 @@ public class GoodsAction {
             tempGroupOrder.setPersonName(customerAddress.getName());
             tempGroupOrder.setPhonenumber(customerAddress.getPhonenumber());
             tempGroupOrder.setReliefValue((BigDecimal)httpRequest.getAttribute("reliefValue"));
-            
-            String isInsteadOfReceiving = httpRequest.getParameter("isInsteadOfReceiving");
-            String isFindOtherInsteadOfReceiving = httpRequest.getParameter("isFindOtherInsteadOfReceiving");
-            String isReceiveGoodsTogether = httpRequest.getParameter("isReceiveGoodsTogether");
             tempGroupOrder.setIsInsteadOfReceiving(Integer.parseInt(isInsteadOfReceiving));
             tempGroupOrder.setIsFindOtherOfReceiving(Integer.parseInt(isFindOtherInsteadOfReceiving));
            
