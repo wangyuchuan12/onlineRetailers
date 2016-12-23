@@ -252,7 +252,7 @@ public class GroupsAction {
         Integer role = 0;
         String myGroupPartakeId = null;
         for (GroupPartake groupPartake : groupPartakes) {
-        	if(groupPartake.getOpenid().equals(groupPartake.getOpenid())){
+        	if(requestUser.getOpenid().equals(groupPartake.getOpenid())){
         		myGroupPartakeId = groupPartake.getId();
         	}
             Map<String, String> groupMember = new HashMap<String, String>();
