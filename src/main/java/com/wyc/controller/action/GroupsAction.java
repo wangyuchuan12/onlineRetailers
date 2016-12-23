@@ -250,8 +250,11 @@ public class GroupsAction {
         BigDecimal totalPrice = goodGroup.getTotalPrice();
         List<Map<String, String>> groupMembers = new ArrayList<Map<String, String>>();
         Integer role = 0;
-        
+        String myGroupPartakeId = null;
         for (GroupPartake groupPartake : groupPartakes) {
+        	if(groupPartake.getOpenid().equals(groupPartake.getOpenid())){
+        		myGroupPartakeId = groupPartake.getId();
+        	}
             Map<String, String> groupMember = new HashMap<String, String>();
  
             String openid = groupPartake.getOpenid();
@@ -292,6 +295,7 @@ public class GroupsAction {
         groupInfoMap.put("isReceiveGoodsTogether", goodGroup.getIsReceiveGoodsTogether());
         groupInfoMap.put("insteadOfRelief", good.getInsteadOfRelief());
         groupInfoMap.put("goodPrice", goodGroup.getGoodPrice());
+        groupInfoMap.put("myGroupPartakeId", myGroupPartakeId);
         httpServletRequest.setAttribute("groupInfo", groupInfoMap);
         TemporaryData temporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(requestUser.getOpenid(), "nowgroup" , 1);
         if(temporaryData==null){

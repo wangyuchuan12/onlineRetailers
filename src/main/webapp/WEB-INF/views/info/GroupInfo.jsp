@@ -73,12 +73,10 @@
 					<div class="group_goodinfo_detail">
 						<div class="group_goodinfo_detail_title">${groupInfo.goodName}</div>
 						<div class="group_goodinfo_footer">&gt</div>
-						<div class="group_goodinfo_detail_price">${groupInfo.groupNum}人团：原价 <span class="group_goodinfo_detail_price2" style="TEXT-DECORATION: line-through">
+						<div class="group_goodinfo_detail_price">${groupInfo.groupNum}人团：原价 <span class="group_goodinfo_detail_price2" style="TEXT-DECORATION: line-through">￥${groupInfo.totalPrice}</span>
 						<br/>
-
-						￥${groupInfo.totalPrice}</span> 
 						<c:if test="${groupInfo.isReceiveGoodsTogether==1}">
-							统一发货
+							<b style="font-size: 15px;">团长统一收货</b>
 						</c:if>优惠价<span class="group_goodinfo_detail_price2" id="discountPrice">￥${groupInfo.goodPrice}</span></div>
 						<div class="group_goodinfo_detail_notice" style="color: black;">${groupInfo.notice} </div>
 						
@@ -118,7 +116,7 @@
 				<ul>
 					<c:forEach items="${groupInfo.groupPartake}" var="member">
 						<li>
-							<div class="member">
+							<div class="member" onclick="scrollToItem('${member.groupPartakeId}');">
 								<img src="${member.headImg}"/>
 								<c:if test="${member.role==1}">
 									<div class="member_role">
@@ -167,13 +165,8 @@
 										<li>十点十一分使用</li>
 									</ul>
 								</div>
-								
-								
 							</div>
-							
-						</li>
-							
-						
+						</li>	
 					</c:forEach>
 				</ul>
 			</div>
@@ -332,9 +325,15 @@
      	<input type = "hidden" value="${groupInfo.allowInsteadOfRelief}" id=allowInsteadOfRelief></input>
      	<input type = "hidden" value="${groupInfo.isReceiveGoodsTogether}" id=isReceiveGoodsTogether></input>
      	<input type = "hidden" value="${groupInfo.insteadOfRelief}" id=insteadOfRelief></input>
+     	<input type="hidden" value="${groupInfo.myGroupPartakeId}" id="myGroupPartakeId"></input>
      	<script type="text/javascript">
      	
-     	
+     	function scrollToItem(groupPartakeId){
+     		var height = $("#member_item_"+groupPartakeId).position().top-$(".member_list").position().top
+
+     		$(".member_list").animate({scrollTop:height},"slow");
+     		memberItemOnClick(groupPartakeId);
+     	}
      	
      	function memberItemOnClick(partakeId){
      		var memberItemLog = $("#member_item_log_"+partakeId);
@@ -403,6 +402,8 @@
 				}
 			}
      		$(document).ready(function(){
+     			
+     				scrollToItem($("#myGroupPartakeId").val());
      				var goodPrice = ${groupInfo.goodPrice};
      			
      				function countPrice(){

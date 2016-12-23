@@ -780,10 +780,15 @@
 	color:red;
 	font-weight:bold;
 	position:relative;
-	display:block;
-	height:30%;
-	top:-10px;
-	padding-bottom: 10px;
+	padding-bottom:10px;
+	width:70%;
+	overflow : hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	
+	
 }
 
 .group_info_good_chat{
@@ -961,6 +966,9 @@
 .member_list{
 	min-height: 50px;
 	background-color: white;
+	
+	max-height: 700px;
+	overflow: auto;
 }
 
 .member_list ul li{
