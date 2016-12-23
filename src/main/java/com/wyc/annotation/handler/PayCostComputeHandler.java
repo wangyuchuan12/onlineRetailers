@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleIfStatement.ElseIf;
 import com.wyc.domain.Good;
 import com.wyc.service.GoodService;
 
@@ -21,20 +22,23 @@ public class PayCostComputeHandler implements Handler{
     public Object handle(HttpServletRequest httpServletRequest)throws Exception{
         String goodId = httpServletRequest.getParameter("good_id");
         String payType=httpServletRequest.getParameter("pay_type");
-        
+        String isInsteadOfReceiving = httpServletRequest.getParameter("isInsteadOfReceiving");
+        String isFindOtherInsteadOfReceiving = httpServletRequest.getParameter("isFindOtherInsteadOfReceiving");
+        String isReceiveGoodsTogether = httpServletRequest.getParameter("isReceiveGoodsTogether");
         Good good = goodService.findOne(goodId);
         BigDecimal reliefValue = null;
         if(payType.equals("0")){
-        	String reliefType = httpServletRequest.getParameter("reliefType");
-        	if(reliefType.equals("1")){
-        		reliefValue = good.getAllowInsteadOfRelief();
-        	}else if(reliefType.equals("2")){
+        	if(isReceiveGoodsTogether.equals("1")){
         		reliefValue = good.getForceInsteadOfRelief();
-        	}else{
-        		reliefValue = new BigDecimal(0);
+        	}else if(isInsteadOfReceiving.equals("1")){
+        		reliefValue = good.getAllowInsteadOfRelief();
         	}
-        }else{
-        	reliefValue = new BigDecimal(0);
+        }else if(payType.equals("3")){
+        	if(isFindOtherInsteadOfReceiving.equals("1")){
+        		reliefValue = good.getInsteadOfRelief();
+        	}else if(isInsteadOfReceiving.equals("1")){
+        		reliefValue = good.getAllowInsteadOfRelief();
+        	}
         }
         logger.debug("检测payType为："+payType);
         BigDecimal cost = new BigDecimal(0);
@@ -47,6 +51,7 @@ public class PayCostComputeHandler implements Handler{
         	
         	logger.debug("检测cost为："+cost);
         	logger.debug("检测reliefValue为："+reliefValue);
+        	
             
         }else if (payType.equals("1")) {
         	

@@ -65,9 +65,6 @@ public class TempGroupOrder {
     @Column(name="good_style_id")
     private String goodStyleId;
     
-    //减价类型 0不允许代收 1允许代收 2所有人强制统一收货
-    @Column(name="relief_type")
-    private Integer reliefType;
     
     @Column(name="relief_value")
     private BigDecimal reliefValue;
@@ -75,6 +72,14 @@ public class TempGroupOrder {
     //是否允许代收0不允许 1允许
     @Column(name="is_instead_of_receiving")
     private int isInsteadOfReceiving;
+    
+    //是否脱他人代收 0不允许 1允许
+    @Column(name="is_find_other_receiving")
+    private int isFindOtherOfReceiving;
+    
+    //是否统一收货
+    @Column(name="is_receive_goods_together")
+    private int isReceiveGoodsTogether;
     
     //代收货参团者
     @Column(name="instead_partake_id")
@@ -90,7 +95,23 @@ public class TempGroupOrder {
     
     
     
-    public String getNickname() {
+    public int getIsReceiveGoodsTogether() {
+		return isReceiveGoodsTogether;
+	}
+
+	public void setIsReceiveGoodsTogether(int isReceiveGoodsTogether) {
+		this.isReceiveGoodsTogether = isReceiveGoodsTogether;
+	}
+
+	public int getIsFindOtherOfReceiving() {
+		return isFindOtherOfReceiving;
+	}
+
+	public void setIsFindOtherOfReceiving(int isFindOtherOfReceiving) {
+		this.isFindOtherOfReceiving = isFindOtherOfReceiving;
+	}
+
+	public String getNickname() {
 		return nickname;
 	}
 
@@ -130,13 +151,6 @@ public class TempGroupOrder {
 		this.reliefValue = reliefValue;
 	}
 
-	public Integer getReliefType() {
-		return reliefType;
-	}
-
-	public void setReliefType(Integer reliefType) {
-		this.reliefType = reliefType;
-	}
 
 	public String getGoodStyleId() {
         return goodStyleId;

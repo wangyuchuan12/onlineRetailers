@@ -373,7 +373,6 @@ public class GoodsAction {
 	    }
 	    
 	   logger.debug("发送过来的payType为："+payType);
-	    String reliefType = httpRequest.getParameter("reliefType");
 
 	    String goodId = httpRequest.getParameter("good_id");
 	    Good good = goodService.findOne(goodId);
@@ -441,19 +440,24 @@ public class GoodsAction {
             tempGroupOrder.setPersonName(customerAddress.getName());
             tempGroupOrder.setPhonenumber(customerAddress.getPhonenumber());
             tempGroupOrder.setReliefValue((BigDecimal)httpRequest.getAttribute("reliefValue"));
-            //0表示不允许代收，1允许代收，2统一收货
-            if(reliefType!=null&&(reliefType.equals("0")||reliefType.equals("1")||reliefType.equals("2"))){
-            	tempGroupOrder.setReliefType(Integer.parseInt(reliefType));
-            	if(reliefType.equals("1")){
-            		tempGroupOrder.setIsInsteadOfReceiving(1);
-            	}else{
-            		tempGroupOrder.setIsInsteadOfReceiving(0);
-            	}
-            }
-            if(payType.equals("3")){
-            	String isInsteadOfReceiving = httpRequest.getParameter("isInsteadOfReceiving");
+            
+            String isInsteadOfReceiving = httpRequest.getParameter("isInsteadOfReceiving");
+            String isFindOtherInsteadOfReceiving = httpRequest.getParameter("isFindOtherInsteadOfReceiving");
+            String isReceiveGoodsTogether = httpRequest.getParameter("isReceiveGoodsTogether");
+            tempGroupOrder.setIsInsteadOfReceiving(Integer.parseInt(isInsteadOfReceiving));
+            tempGroupOrder.setIsFindOtherOfReceiving(Integer.parseInt(isFindOtherInsteadOfReceiving));
+           
+            
+            if(payType.equals("0")){
+            	 tempGroupOrder.setIsReceiveGoodsTogether(Integer.parseInt(isReceiveGoodsTogether));
+            	 tempGroupOrder.setIsInsteadOfReceiving(Integer.parseInt(isInsteadOfReceiving));
+            	 tempGroupOrder.setIsFindOtherOfReceiving(0);
+            }else if(payType.equals("3")){
             	String insteadPartakeId = httpRequest.getParameter("insteadPartakeId");
                 tempGroupOrder.setGroupId(httpRequest.getParameter("group_id"));
+                tempGroupOrder.setInsteadPartakeId(insteadPartakeId);
+                tempGroupOrder.setIsInsteadOfReceiving(Integer.parseInt(isInsteadOfReceiving));
+           	 	tempGroupOrder.setIsFindOtherOfReceiving(Integer.parseInt(isFindOtherInsteadOfReceiving));
             }else if (httpRequest.getParameter("group_id")!=null) {
                 tempGroupOrder.setGroupId(httpRequest.getParameter("group_id"));
             }

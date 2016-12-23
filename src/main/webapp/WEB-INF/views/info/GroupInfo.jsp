@@ -324,10 +324,12 @@
  			var isInstead = getItemValue(insteadItem);
  			var allowItem = $("#good_info_check_detail_item_relief");
  			var isAllow = getItemValue(allowItem);
+ 			var isForce = 0;
  			var params = new Object();
- 			params.reliefType = isInstead;
  			params.isInsteadOfReceiving = isAllow;
+ 			params.isFindOtherInsteadOfReceiving = isInstead;
  			params.insteadPartakeId = groupPartakeId;
+ 			params.isReceiveGoodsTogether = isForce;
  			if(isCheckGroupPartake||isInstead=="0"){
  				skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
  			}else{
@@ -348,8 +350,13 @@
      			var isInstead = getItemValue(insteadItem);
      			var allowItem = $("#good_info_check_detail_item_relief");
      			var isAllow = getItemValue(allowItem);
+     			
+     			params.isInsteadOfReceiving = isAllow;
+     			params.isFindOtherInsteadOfReceiving = isInstead;
+
+     			params.isReceiveGoodsTogether = isReceiveGoodsTogether;
 				if(isReceiveGoodsTogether=="1"){
-					skipToGoodPay(goodId,3,tokenId,groupId,totalPrice);
+					skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
 				}else{
 					$(".good_info_check_detail").animate({
 						bottom:0

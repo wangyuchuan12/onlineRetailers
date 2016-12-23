@@ -57,6 +57,9 @@ public class GroupPartake {
     //是否允许代收
     @Column(name="is_instead_of_receiving")
     private int isInsteadOfReceiving;
+    
+    @Column(name="is_find_other_instead_receiving")
+    private int isFindOtherInsteadOfReceiving;
     //参加时间
     @Column(name = "date_time")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
@@ -75,10 +78,7 @@ public class GroupPartake {
     //代收货参团者
     @Column(name="instead_partake_id")
     private String insteadPartakeId;
-    
-    //0自己接收 1允许他人代收 2全部统一收货
-    @Column(name="relief_type")
-    private Integer reliefType;
+   
     
     //减免金额
     @Column(name="relief_value")
@@ -113,11 +113,15 @@ public class GroupPartake {
 	public void setOpenid(String openid) {
 		this.openid = openid;
 	}
-	public Integer getReliefType() {
-		return reliefType;
+	
+	
+	
+	
+	public int getIsFindOtherInsteadOfReceiving() {
+		return isFindOtherInsteadOfReceiving;
 	}
-	public void setReliefType(Integer reliefType) {
-		this.reliefType = reliefType;
+	public void setIsFindOtherInsteadOfReceiving(int isFindOtherInsteadOfReceiving) {
+		this.isFindOtherInsteadOfReceiving = isFindOtherInsteadOfReceiving;
 	}
 	public BigDecimal getReliefValue() {
 		return reliefValue;
