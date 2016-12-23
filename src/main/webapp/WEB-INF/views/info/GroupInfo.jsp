@@ -350,7 +350,7 @@
      			var isInstead = getItemValue(insteadItem);
      			var allowItem = $("#good_info_check_detail_item_relief");
      			var isAllow = getItemValue(allowItem);
-     			
+     			var params = new Object();
      			params.isInsteadOfReceiving = isAllow;
      			params.isFindOtherInsteadOfReceiving = isInstead;
 
