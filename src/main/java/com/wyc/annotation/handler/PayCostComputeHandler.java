@@ -32,6 +32,8 @@ public class PayCostComputeHandler implements Handler{
         		reliefValue = good.getForceInsteadOfRelief();
         	}else if(isInsteadOfReceiving.equals("1")){
         		reliefValue = good.getAllowInsteadOfRelief();
+        	}else{
+        		reliefValue = new BigDecimal(0);
         	}
         }else if(payType.equals("3")){
         	if(isFindOtherInsteadOfReceiving.equals("1")){
@@ -39,6 +41,8 @@ public class PayCostComputeHandler implements Handler{
         	}else if(isInsteadOfReceiving.equals("1")){
         		reliefValue = good.getAllowInsteadOfRelief();
         	}
+        }else{
+        	reliefValue = new BigDecimal(0);
         }
         logger.debug("检测payType为："+payType);
         BigDecimal cost = new BigDecimal(0);

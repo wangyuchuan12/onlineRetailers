@@ -262,9 +262,18 @@
     			var button = $(".good_info_check_detail_button")
     			button.click(function(){
     				var reliefItemValue = getItemValue($("#good_info_check_detail_item_relief"));
-    				
     				var params = new Object();
-    				params.reliefType = reliefItemValue;
+    				params.isFindOtherInsteadOfReceiving = 0;
+    				if(reliefItemValue=="2"){
+    					params.isReceiveGoodsTogether = 1;
+    					params.isInsteadOfReceiving = 1;
+    				}else if(reliefItemValue=="0"){
+    					params.isInsteadOfReceiving = 0;
+    					params.isReceiveGoodsTogether = 0;
+    				}else{
+    					params.isInsteadOfReceiving = 1;
+    					params.isReceiveGoodsTogether = 0;
+    				}
         			skipToGoodPay('${good.id}',0,'${token.id}',null,null,params);
     			});
     			setUserToken("${token.id}");
