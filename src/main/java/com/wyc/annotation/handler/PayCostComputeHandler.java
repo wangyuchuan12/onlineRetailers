@@ -78,7 +78,7 @@ public class PayCostComputeHandler implements Handler{
             cost = good.getFlowPrice();
         }
         if(cost.intValue()<0){
-        	cost = new BigDecimal(0);
+        	cost = new BigDecimal(0.01);
         }
         
         logger.debug("the cost is:{}",cost);

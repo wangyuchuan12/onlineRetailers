@@ -73,7 +73,13 @@
 					<div class="group_goodinfo_detail">
 						<div class="group_goodinfo_detail_title">${groupInfo.goodName}</div>
 						<div class="group_goodinfo_footer">&gt</div>
-						<div class="group_goodinfo_detail_price">${groupInfo.groupNum}人团：<span class="group_goodinfo_detail_price2">￥${groupInfo.totalPrice}</span></div>
+						<div class="group_goodinfo_detail_price">${groupInfo.groupNum}人团：原价 <span class="group_goodinfo_detail_price2" style="TEXT-DECORATION: line-through">
+						<br/>
+
+						￥${groupInfo.totalPrice}</span> 
+						<c:if test="${groupInfo.isReceiveGoodsTogether==1}">
+							统一发货
+						</c:if>优惠价<span class="group_goodinfo_detail_price2" id="discountPrice">￥${groupInfo.goodPrice}</span></div>
 						<div class="group_goodinfo_detail_notice" style="color: black;">${groupInfo.notice} </div>
 						
 					</div>
@@ -98,6 +104,16 @@
 			<div class="group_info_good_chat" onclick="javascript:skipToChat('${groupInfo.adminId}','3','','','${groupInfo.id}','${token.id}')">
                 				<img src="http://script.suning.cn/project/pdsWeb/images/online.gif"/>
                </div>
+               
+           <c:if test="${groupInfo.result==1}">
+				<div class="groupinfo_situation" id="groupinfo_in">
+					<div class="groupinfo_situation_title" id="groupinfo_situation_title">还差<b>${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}</b>人，盼你如南方人盼暖气</div>
+					<div class="groupinfo_situation_time">剩余<b id="group_info_hour">00</b><b id="group_info_min">00</b><b id="group_info_second">00</b>结束</div>
+				</div>
+				<script type="text/javascript">
+		     		initGroupInvalidDate("${groupInfo.startTime}","${groupInfo.timeLong}");
+		     	</script>
+			</c:if>
 			<div class="members">
 				<ul>
 					<c:forEach items="${groupInfo.groupPartake}" var="member">
@@ -105,13 +121,17 @@
 							<div class="member">
 								<img src="${member.headImg}"/>
 								<c:if test="${member.role==1}">
+									<div class="member_role">
 									<span class="member_obvious">团 </span>
 									<span class="member_kind">长</span>
+									</div>
 								</c:if>
 								
 								<c:if test="${member.role==2}">
+									<div class="member_role">
 									<span class="member_sofa">沙</span>
 									<span class="member_kind">发</span>
+									</div>
 								</c:if>
 								
 							</div>
@@ -133,26 +153,31 @@
 				<ul>
 					<c:forEach items="${groupInfo.groupPartake}" var="member">
 						<li>
-							<div class="member_item">
+							<div class="member_item" onclick="memberItemOnClick('${member.groupPartakeId}');" id="member_item_${member.groupPartakeId}">
 								<img src="${member.headImg}"/>
 								<div class="member_item_name"><b>${member.name}</b></div>
 								<div class="member_item_time"><b>${member.datetime}<c:if test="${member.role!=1}">参团</c:if><c:if test="${member.role==1}">开团</c:if></b></div>
+								<em class="vcon"></em>
+								<div id="member_item_log_${member.groupPartakeId}" style="display: none;" flag="1">
+									<ul>
+										<li>十点十一分使用</li>
+										<li>十点十一分使用</li>
+										<li>十点十一分使用</li>
+										<li>十点十一分使用</li>
+										<li>十点十一分使用</li>
+									</ul>
+								</div>
+								
+								
 							</div>
+							
 						</li>
 							
 						
 					</c:forEach>
 				</ul>
 			</div>
-			<c:if test="${groupInfo.result==1}">
-				<div class="groupinfo_situation" id="groupinfo_in">
-					<div class="groupinfo_situation_title" id="groupinfo_situation_title">还差<b>${groupInfo.groupNum-fn:length(groupInfo.groupPartake)}</b>人，盼你如南方人盼暖气</div>
-					<div class="groupinfo_situation_time">剩余<b id="group_info_hour">00</b><b id="group_info_min">00</b><b id="group_info_second">00</b>结束</div>
-				</div>
-				<script type="text/javascript">
-		     		initGroupInvalidDate("${groupInfo.startTime}","${groupInfo.timeLong}");
-		     	</script>
-			</c:if>
+			
 			
 			<c:if test="${groupInfo.result==0}">
 				<div style="color:red;margin: 0 auto;position:relative;text-align: center;">很遗憾，组团失败了</div>
@@ -299,16 +324,30 @@
      	</div>
      	
      	<input type = "hidden" value="${prompt}" name="prompt"></input>
-     	<input type = "text" value="${groupInfo.goodId}" id="goodId"></input>
-     	<input type = "text" value="${token.id}" id="tokenId"></input>
-     	<input type = "text" value="${groupInfo.id}" id="groupId"></input>
-     	<input type = "text" value="${groupInfo.totalPrice}" id=totalPrice></input>
-     	<input type = "text" value="${groupInfo.goodPrice}" id=goodPrice></input>
-     	<input type = "text" value="${groupInfo.allowInsteadOfRelief}" id=allowInsteadOfRelief></input>
-     	<input type = "text" value="${groupInfo.isReceiveGoodsTogether}" id=isReceiveGoodsTogether></input>
-     	<input type = "text" value="${groupInfo.insteadOfRelief}" id=insteadOfRelief></input>
+     	<input type = "hidden" value="${groupInfo.goodId}" id="goodId"></input>
+     	<input type = "hidden" value="${token.id}" id="tokenId"></input>
+     	<input type = "hidden" value="${groupInfo.id}" id="groupId"></input>
+     	<input type = "hidden" value="${groupInfo.totalPrice}" id=totalPrice></input>
+     	<input type = "hidden" value="${groupInfo.goodPrice}" id=goodPrice></input>
+     	<input type = "hidden" value="${groupInfo.allowInsteadOfRelief}" id=allowInsteadOfRelief></input>
+     	<input type = "hidden" value="${groupInfo.isReceiveGoodsTogether}" id=isReceiveGoodsTogether></input>
+     	<input type = "hidden" value="${groupInfo.insteadOfRelief}" id=insteadOfRelief></input>
      	<script type="text/javascript">
      	
+     	
+     	
+     	function memberItemOnClick(partakeId){
+     		var memberItemLog = $("#member_item_log_"+partakeId);
+     		if(memberItemLog.attr("flag")=="1"){
+     			memberItemLog.slideDown();
+     			memberItemLog.attr("flag","0");
+     			$("#member_item_"+partakeId+" em").addClass("v2");
+     		}else{
+     			memberItemLog.slideUp();
+     			memberItemLog.attr("flag","1");
+     			$("#member_item_"+partakeId+" em").removeClass("v2");
+     		}
+     	}
      	var groupPartakeId;
      	var isCheckGroupPartake = false;
      	function orderSubmit(){
@@ -364,9 +403,6 @@
 				}
 			}
      		$(document).ready(function(){
-     			
-     				
-     				
      				var goodPrice = ${groupInfo.goodPrice};
      			
      				function countPrice(){
@@ -399,6 +435,7 @@
      					cost = cost.toFixed(2);
      					
      					$(".good_info_check_detail_head_content_price").text("￥"+cost);
+     					$(".discountPrice").text("￥"+cost);
      					
      				}
      				

@@ -492,12 +492,12 @@
 }
 
 .group_goodinfo_footer{
-	font-size: 30px;
+	font-size: 20px;
 	float: right;
 	margin: 0 auto;
 	position: absolute;
 	right: 10px;
-	top:10px; 
+	top:-10px; 
 	
 }
 
@@ -743,16 +743,16 @@
 	height: auto;
 }
 .group_goodinfo_img{
-	height:93px;
+	height:90px;
 	float:left;
 	padding-top:10px;
 	width:93px;
-	left:10px;
+	left:20px;
 	position:relative;
 	
 }
 .group_goodinfo_img img{
-
+	max-height: 100%;
 }
 .group_goodinfo_detail{
 	display:inline-block;
@@ -842,12 +842,12 @@
 	position:relative;
 	top:0px;
 	display:block;
-	margin-bottom: 20px;
 	text-align: center;
 	width:100%;
 	padding-left:67px;
 	padding-right:67px;
-	margin-top: 20px;
+	background-color: white;
+	padding-top:10px;
 }
 
 .member_obvious{
@@ -861,11 +861,16 @@
 	width:17px;
 	height:17px;
 	float:left;
-	left:27px;
-	top:-40px;
+	left:4px;
 
 }
 
+.member_role{
+	display: inline-block;
+	position: absolute;
+	left:20px;
+	
+}
 .member_sofa{
 	font-size:10px;
 	position:relative;
@@ -877,9 +882,8 @@
 	width:17px;
 	height:17px;
 	float:left;
-	left:27px;
-	top:-40px;
 	line-height:20px;
+	left:4px;
 }
 
 .member_kind{
@@ -890,10 +894,6 @@
 	text-indent: 5px;
 	width:17px;
 	height:17px;
-	float:left;
-	top:-53px;
-	left:7px;
-	line-height:70px;
 }
 
 .members ul{
@@ -916,6 +916,7 @@
 .member_item{
 	background-color:RGBA(215,183, 75,.2);
 	padding-left:10px;
+	border-bottom: 1px solid white;
 }
 
 .member_item img{
@@ -942,8 +943,24 @@
 	left:10px;
 }
 
+.vcon{
+	display:block;
+	width:14px;
+	height:14px;
+	background-image: url("/img/vicon.png");
+	float: right;
+	position: relative;
+	top: 10px;
+	right:10px;
+}
+
+.v2{
+	background-position:0 -16px; 
+}
+
 .member_list{
 	min-height: 50px;
+	background-color: white;
 }
 
 .member_list ul li{
@@ -1776,10 +1793,23 @@
 
 .groupinfo_situation{
 	text-align: center;
+	padding-top: 20px;
+	background-color: white;
+	padding-bottom: 20px;
+	border-bottom:1px solid RGB(241,241,242);
+	border-top:1px solid RGB(241,241,242);
 }
 .groupinfo_situation_time{
 	margin-top: 10px;
 	margin-bottom: 10px;
+}
+
+.groupinfo_situation_title{
+	text-align:center;
+	margin:0 auto;
+	padding-left:50px;
+	display: block;
+	position: relative;
 }
 .groupinfo_situation_title>b{
 	color:red;
