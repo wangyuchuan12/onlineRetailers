@@ -460,8 +460,6 @@ public class GoodsAction {
             tempGroupOrder.setPersonName(customerAddress.getName());
             tempGroupOrder.setPhonenumber(customerAddress.getPhonenumber());
             tempGroupOrder.setReliefValue((BigDecimal)httpRequest.getAttribute("reliefValue"));
-            tempGroupOrder.setIsInsteadOfReceiving(Integer.parseInt(isInsteadOfReceiving));
-            tempGroupOrder.setIsFindOtherOfReceiving(Integer.parseInt(isFindOtherInsteadOfReceiving));
            
             
             if(payType.equals("0")){

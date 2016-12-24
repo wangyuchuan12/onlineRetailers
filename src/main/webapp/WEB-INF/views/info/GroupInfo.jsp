@@ -21,8 +21,6 @@
 		 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 		 <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
 		 <script type="text/javascript" src="/layer/layer.js"></script>
-		 <script type="text/javascript" src="/group_menu/group_menu.js"></script>
-     	 <link rel="stylesheet" href="/group_menu/group_menu.css"/>
 		
 		 <title>晨曦拼货商城</title>
 	</head>
@@ -342,9 +340,18 @@
      	<input type = "hidden" value="${groupInfo.isReceiveGoodsTogether}" id=isReceiveGoodsTogether></input>
      	<input type = "hidden" value="${groupInfo.insteadOfRelief}" id=insteadOfRelief></input>
      	<input type="hidden" value="${groupInfo.myGroupPartakeId}" id="myGroupPartakeId"></input>
+     	<input type="hidden" value="${groupInfo.forceInsteadOfRelief}" id="forceInsteadOfRelief"/>
      	<script type="text/javascript">
      	
      	function scrollToItem(groupPartakeId){
+     		
+     		if(!groupPartakeId){
+     			return;
+     		}else if(!$("#member_item_"+groupPartakeId)){
+     			return;
+     		}else if(!$("#member_item_"+groupPartakeId).position()){
+     			return;
+     		}
      		var height = $("#member_item_"+groupPartakeId).position().top-$(".member_list").position().top
 
      		$(".member_list").animate({scrollTop:height},"slow");
@@ -452,8 +459,13 @@
      					insteadOfRelief = insteadOfRelief.toFixed(2);
      					var insteadItem = $("#isInstead");
      					var isInstead = getItemValue(insteadItem);
-     					
-     					if(isInstead==1){
+     					var isReceiveGoodsTogether = $("#isReceiveGoodsTogether").val();
+     					if(isReceiveGoodsTogether=="1"){
+     						var forceInsteadOfRelief = $("#forceInsteadOfRelief").val();
+     						forceInsteadOfRelief = parseFloat(forceInsteadOfRelief);
+     						forceInsteadOfRelief = forceInsteadOfRelief.toFixed(2);
+     						cost = totalPrice - forceInsteadOfRelief;
+     					}else if(isInstead==1){
      						cost = totalPrice - insteadOfRelief;
      					}else{
      						var allowItem = $("#good_info_check_detail_item_relief");

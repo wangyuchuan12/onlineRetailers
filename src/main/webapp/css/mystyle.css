@@ -1020,11 +1020,13 @@
 	float: left;
 	position: relative;
 	left:20px;
+	display: inline-block;
 }
 
 .member_item_log_content{
 	position: relative;
 	left:40px;
+	display: inline-block;
 }
 
 .footer3{

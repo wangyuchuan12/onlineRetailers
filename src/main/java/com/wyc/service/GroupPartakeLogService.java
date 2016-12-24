@@ -1,5 +1,8 @@
 package com.wyc.service;
 
+import java.util.UUID;
+
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +18,14 @@ public class GroupPartakeLogService {
 
 	public Iterable<GroupPartakeLog> findAllByGroupIdOrderBySeqAsc(String id) {
 		return groupPartakeLogRepository.findAllByGroupIdOrderBySeqAsc(id);
+	}
+
+
+	public void add(GroupPartakeLog groupPartakeLog) {
+		groupPartakeLog.setUpdateAt(new DateTime());
+		groupPartakeLog.setCreateAt(new DateTime());
+		
+		groupPartakeLog.setId(UUID.randomUUID().toString());
+		groupPartakeLogRepository.save(groupPartakeLog);
 	}
 }

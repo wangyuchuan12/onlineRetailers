@@ -45,7 +45,10 @@ public class PayCostComputeHandler implements Handler{
         		reliefValue = new BigDecimal(0);
         	}
         }else if(payType.equals("3")){
-        	if(isFindOtherInsteadOfReceiving.equals("1")){
+        	
+        	if(isReceiveGoodsTogether.equals("1")){
+        		reliefValue = good.getForceInsteadOfRelief();
+        	}else if(isFindOtherInsteadOfReceiving.equals("1")){
         		reliefValue = good.getInsteadOfRelief();
         	}else if(isInsteadOfReceiving.equals("1")){
         		reliefValue = good.getAllowInsteadOfRelief();
