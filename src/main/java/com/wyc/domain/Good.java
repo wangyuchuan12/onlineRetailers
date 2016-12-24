@@ -97,7 +97,7 @@ public class Good {
     private BigDecimal insteadOfRelief;
     
     //找人代收 代收人减免
-    @Column(name="instead_relief",nullable=false)
+    @Column(name="receiver_instead_relief",nullable=false)
     private BigDecimal receiverInsteadOfRelief;
     
     @Column(name = "create_at")

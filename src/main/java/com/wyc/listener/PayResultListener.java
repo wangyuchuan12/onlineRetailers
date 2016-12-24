@@ -97,9 +97,9 @@ public class PayResultListener {
 			GroupPartake insteadPartakeGroupPartake = groupPartakeService.findOne(groupPartake.getInsteadPartakeId());
 			BigDecimal waitForRefund = insteadPartakeGroupPartake.getWaitForRefund();
 			if(waitForRefund==null){
-				waitForRefund = goodGroup.getReceiverInsteadOfRelief();
+				waitForRefund = goodGroup.getInsteadOfRelief();
 			}else{
-				waitForRefund = waitForRefund.add(goodGroup.getReceiverInsteadOfRelief());
+				waitForRefund = waitForRefund.add(goodGroup.getInsteadOfRelief());
 			}
 			insteadPartakeGroupPartake.setWaitForRefund(waitForRefund);
 			groupPartakeService.update(insteadPartakeGroupPartake);
