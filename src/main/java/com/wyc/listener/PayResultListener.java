@@ -59,18 +59,22 @@ public class PayResultListener {
 		groupPartakeLogService.add(groupPartakeLog);
 		
 		
-		GroupPartakeLog reliefLog = new GroupPartakeLog();
+		
 		if(goodGroup.getIsReceiveGoodsTogether()==1){
 			if(groupPartake.getRole()==1){
+				GroupPartakeLog reliefLog = new GroupPartakeLog();
 				reliefLog.setContent("设置统一收货，负责接收所有用户的包裹由团长统一发给大家,优惠了￥"+groupPartake.getReliefValue());
 				reliefLog.setHappenTime(groupPartake.getCreateAt());
 				reliefLog.setGroupId(goodGroup.getId());
 				reliefLog.setGroupPartakeId(groupPartake.getId());
+				groupPartakeLogService.add(reliefLog);
 			}else{
+				GroupPartakeLog reliefLog = new GroupPartakeLog();
 				reliefLog.setContent("团长设置了统一收货，已经验证了团长的手机号，团长负责接收包裹,优惠了￥"+groupPartake.getReliefValue());
 				reliefLog.setHappenTime(groupPartake.getCreateAt());
 				reliefLog.setGroupId(goodGroup.getId());
 				reliefLog.setGroupPartakeId(groupPartake.getId());
+				groupPartakeLogService.add(reliefLog);
 				
 				GroupPartake insteadPartakeGroupPartake = groupPartakeService.findOne(groupPartake.getInsteadPartakeId());
 				BigDecimal waitForRefund = insteadPartakeGroupPartake.getWaitForRefund();
@@ -81,35 +85,50 @@ public class PayResultListener {
 				}
 				insteadPartakeGroupPartake.setWaitForRefund(waitForRefund);
 				groupPartakeService.update(insteadPartakeGroupPartake);
+				
+				GroupPartakeLog receiveGoodGroupPartakeLog = new GroupPartakeLog();
+				receiveGoodGroupPartakeLog.setGroupPartakeId(groupPartake.getInsteadPartakeId());
+				receiveGoodGroupPartakeLog.setGroupId(goodGroup.getId());
+				receiveGoodGroupPartakeLog.setContent(groupPartake.getNickname()+"请求将包裹寄放在我这里，我代该用户接收包谷,目前该订单我拥有￥"+waitForRefund+"返利金额");
+				groupPartakeLogService.add(receiveGoodGroupPartakeLog);
 			}
 		}else if(groupPartake.getIsFindOtherInsteadOfReceiving()==1){
+			GroupPartakeLog reliefLog = new GroupPartakeLog();
 			reliefLog.setContent("已经指定了包裹接收了，到该接收人那里拿货，优惠了￥"+groupPartake.getReliefValue());
 			reliefLog.setHappenTime(groupPartake.getCreateAt());
 			reliefLog.setGroupId(goodGroup.getId());
 			reliefLog.setGroupPartakeId(groupPartake.getId());
 			
-			GroupPartakeLog receiveGoodGroupPartakeLog = new GroupPartakeLog();
-			receiveGoodGroupPartakeLog.setGroupPartakeId(groupPartake.getInsteadPartakeId());
-			receiveGoodGroupPartakeLog.setGroupId(goodGroup.getId());
-			receiveGoodGroupPartakeLog.setContent(groupPartake.getNickname()+"请求将包裹寄放在我这里，我代该用户接收包谷");
-			groupPartakeLogService.add(receiveGoodGroupPartakeLog);
+			
+			
+			
+			
 			
 			GroupPartake insteadPartakeGroupPartake = groupPartakeService.findOne(groupPartake.getInsteadPartakeId());
 			BigDecimal waitForRefund = insteadPartakeGroupPartake.getWaitForRefund();
 			if(waitForRefund==null){
-				waitForRefund = goodGroup.getInsteadOfRelief();
+				waitForRefund = goodGroup.getReceiverInsteadOfRelief();
 			}else{
-				waitForRefund = waitForRefund.add(goodGroup.getInsteadOfRelief());
+				waitForRefund = waitForRefund.add(goodGroup.getReceiverInsteadOfRelief());
 			}
 			insteadPartakeGroupPartake.setWaitForRefund(waitForRefund);
 			groupPartakeService.update(insteadPartakeGroupPartake);
 			
+			
+			GroupPartakeLog receiveGoodGroupPartakeLog = new GroupPartakeLog();
+			receiveGoodGroupPartakeLog.setGroupPartakeId(groupPartake.getInsteadPartakeId());
+			receiveGoodGroupPartakeLog.setGroupId(goodGroup.getId());
+			receiveGoodGroupPartakeLog.setContent(groupPartake.getNickname()+"请求将包裹寄放在我这里，我代该用户接收包谷,目前该订单我拥有￥"+waitForRefund+"返利金额");
+			groupPartakeLogService.add(receiveGoodGroupPartakeLog);
+			
 		}else if(groupPartake.getIsInsteadOfReceiving()==1){
+			GroupPartakeLog reliefLog = new GroupPartakeLog();
 			reliefLog.setContent("设置待他人接收包裹");
 			reliefLog.setHappenTime(groupPartake.getCreateAt());
 			reliefLog.setGroupId(goodGroup.getId());
 			reliefLog.setGroupPartakeId(groupPartake.getId());
+			groupPartakeLogService.add(reliefLog);
 		}
-		groupPartakeLogService.add(reliefLog);
+		
 	}
 }
