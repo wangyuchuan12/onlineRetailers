@@ -34,7 +34,7 @@ public class PayResultListener {
 			GroupPartake groupPartake, GroupPartakeDeliver groupPartakeDeliver, OrderDetail orderDetail) {
 		GroupPartakeLog groupPartakeLog = new GroupPartakeLog();
 		if(groupPartake.getRole()==1){
-			groupPartakeLog.setContent("以团长的身份组团️");
+			groupPartakeLog.setContent("以团长的身份开团️");
 			groupPartakeLog.setHappenTime(groupPartake.getCreateAt());
 			groupPartakeLog.setGroupId(goodGroup.getId());
 			groupPartakeLog.setGroupPartakeId(groupPartake.getId());
@@ -55,7 +55,7 @@ public class PayResultListener {
 		
 		GroupPartakeLog reliefLog = new GroupPartakeLog();
 		if(goodGroup.getIsReceiveGoodsTogether()==1){
-			if(groupPartake.getRole()==0){
+			if(groupPartake.getRole()==1){
 				reliefLog.setContent("设置统一收货，负责接收所有用户的包裹由团长统一发给大家,优惠了￥"+groupPartake.getReliefValue());
 				reliefLog.setHappenTime(groupPartake.getCreateAt());
 				reliefLog.setGroupId(goodGroup.getId());

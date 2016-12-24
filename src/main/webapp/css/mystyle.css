@@ -957,7 +957,6 @@
 }
 
 .member_item_log li{
-	
 }
 
 .vcon{
@@ -1027,6 +1026,7 @@
 	position: relative;
 	left:40px;
 	display: inline-block;
+	width:70%;
 }
 
 .footer3{
