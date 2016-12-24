@@ -74,7 +74,7 @@ public class GoodGroup {
     private BigDecimal forceInsteadOfRelief;
     
     //找人代收 本人减免
-    @Column(name="instead_relief",nullable=false)
+    @Column(name="instead_relief",nullable=true)
     private BigDecimal insteadOfRelief;
     
     
