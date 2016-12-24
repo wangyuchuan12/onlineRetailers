@@ -38,7 +38,7 @@ public class PayResultListener {
 			groupPartakeLog.setHappenTime(groupPartake.getCreateAt());
 			groupPartakeLog.setGroupId(goodGroup.getId());
 			groupPartakeLog.setGroupPartakeId(groupPartake.getId());
-		}else if(groupPartake.getRole()==1){
+		}else if(groupPartake.getRole()==2){
 			groupPartakeLog.setContent("成功占领沙发的位置");
 			groupPartakeLog.setHappenTime(groupPartake.getCreateAt());
 			groupPartakeLog.setGroupId(goodGroup.getId());
