@@ -164,6 +164,12 @@ public class PayResultHandler implements Handler{
                 
                 goodGroup.setIsReceiveGoodsTogether(tempGroupOrder.getIsReceiveGoodsTogether());
                 goodGroup.setGoodPrice(tempGroupOrder.getGoodPrice());
+                
+                
+                goodGroup.setAllowInsteadOfRelief(tempGroupOrder.getAllowInsteadOfRelief());
+                goodGroup.setForceInsteadOfRelief(tempGroupOrder.getForceInsteadOfRelief());
+                goodGroup.setInsteadOfRelief(tempGroupOrder.getInsteadOfRelief());
+                goodGroup.setReceiverInsteadOfRelief(tempGroupOrder.getReceiverInsteadOfRelief());
                 goodGroup = goodGroupService.add(goodGroup);
                 goodOrder.setGroupId(goodGroup.getId());
                 goodOrder.setGoodPrice(tempGroupOrder.getGoodPrice());
@@ -264,6 +270,7 @@ public class PayResultHandler implements Handler{
                     groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
                     groupPartake.setGoodStyleId(tempGroupOrder.getGoodStyleId());
                     groupPartake.setInsteadNum(0);
+                    groupPartake.setReliefValue(tempGroupOrder.getReliefValue());
                     groupPartake.setOpenid(openid);
                     groupPartake.setIsFindOtherInsteadOfReceiving(tempGroupOrder.getIsFindOtherOfReceiving());
                     if(tempGroupOrder.getGoodStyleId()!=null){

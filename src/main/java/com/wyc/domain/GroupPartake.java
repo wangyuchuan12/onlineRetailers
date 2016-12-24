@@ -92,10 +92,20 @@ public class GroupPartake {
     @Column
     private String headimgurl;
     
+    //待退还金额
+    @Column(name="wait_for_refund")
+    private BigDecimal waitForRefund;
     
     
     
-    public String getNickname() {
+    
+    public BigDecimal getWaitForRefund() {
+		return waitForRefund;
+	}
+	public void setWaitForRefund(BigDecimal waitForRefund) {
+		this.waitForRefund = waitForRefund;
+	}
+	public String getNickname() {
 		return nickname;
 	}
 	public void setNickname(String nickname) {

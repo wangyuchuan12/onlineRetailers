@@ -53,4 +53,14 @@ public class GroupPartakeService {
     public Iterable<GroupPartake> findAllByCustomeridOrderByDateTimeDesc(String customerId) {
         return groupPartakeRepository.findAllByCustomeridOrderByDateTimeDesc(customerId);
     }
+
+	public GroupPartake findOne(String id) {
+		return groupPartakeRepository.findOne(id);
+	}
+
+	public void update(GroupPartake insteadPartakeGroupPartake) {
+		insteadPartakeGroupPartake.setUpdateAt(new DateTime());
+		groupPartakeRepository.save(insteadPartakeGroupPartake);
+		
+	}
 }

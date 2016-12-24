@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Column;
 import javax.servlet.http.HttpServletRequest;
 
 import org.joda.time.DateTime;
@@ -452,6 +453,8 @@ public class GoodsAction {
             	tempGroupOrder.setGoodPrice(good.getGroupDiscount().multiply(good.getGroupOriginalCost()));
             }
             
+           
+            
             tempGroupOrder.setNum(good.getGroupNum());
             tempGroupOrder.setOpenid(userInfo.getOpenid());
             tempGroupOrder.setGoodOrderType(Integer.parseInt(payType));
@@ -460,7 +463,10 @@ public class GoodsAction {
             tempGroupOrder.setPersonName(customerAddress.getName());
             tempGroupOrder.setPhonenumber(customerAddress.getPhonenumber());
             tempGroupOrder.setReliefValue((BigDecimal)httpRequest.getAttribute("reliefValue"));
-           
+            tempGroupOrder.setAllowInsteadOfRelief(good.getAllowInsteadOfRelief());
+            tempGroupOrder.setForceInsteadOfRelief(good.getForceInsteadOfRelief());
+            tempGroupOrder.setInsteadOfRelief(good.getInsteadOfRelief());
+            tempGroupOrder.setReceiverInsteadOfRelief(good.getReceiverInsteadOfRelief());
             
             if(payType.equals("0")){
             	 tempGroupOrder.setIsReceiveGoodsTogether(Integer.parseInt(isReceiveGoodsTogether));

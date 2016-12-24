@@ -94,8 +94,61 @@ public class TempGroupOrder {
     private String headImg;
     
     
+  //允许代收货减免
+    @Column(name="allow_instead_relief",nullable=false)
+    private BigDecimal allowInsteadOfRelief;
     
-    public int getIsReceiveGoodsTogether() {
+    //强制代收货减免
+    @Column(name="force_instead_relief",nullable=false)
+    private BigDecimal forceInsteadOfRelief;
+    
+    //找人代收 本人减免
+    @Column(name="instead_relief",nullable=false)
+    private BigDecimal insteadOfRelief;
+    
+    
+    //找人代收 代收人减免
+    @Column(name="instead_relief",nullable=false)
+    private BigDecimal receiverInsteadOfRelief;
+    
+    
+    
+    
+    
+    
+    public BigDecimal getAllowInsteadOfRelief() {
+		return allowInsteadOfRelief;
+	}
+
+	public void setAllowInsteadOfRelief(BigDecimal allowInsteadOfRelief) {
+		this.allowInsteadOfRelief = allowInsteadOfRelief;
+	}
+
+	public BigDecimal getForceInsteadOfRelief() {
+		return forceInsteadOfRelief;
+	}
+
+	public void setForceInsteadOfRelief(BigDecimal forceInsteadOfRelief) {
+		this.forceInsteadOfRelief = forceInsteadOfRelief;
+	}
+
+	public BigDecimal getInsteadOfRelief() {
+		return insteadOfRelief;
+	}
+
+	public void setInsteadOfRelief(BigDecimal insteadOfRelief) {
+		this.insteadOfRelief = insteadOfRelief;
+	}
+
+	public BigDecimal getReceiverInsteadOfRelief() {
+		return receiverInsteadOfRelief;
+	}
+
+	public void setReceiverInsteadOfRelief(BigDecimal receiverInsteadOfRelief) {
+		this.receiverInsteadOfRelief = receiverInsteadOfRelief;
+	}
+
+	public int getIsReceiveGoodsTogether() {
 		return isReceiveGoodsTogether;
 	}
 

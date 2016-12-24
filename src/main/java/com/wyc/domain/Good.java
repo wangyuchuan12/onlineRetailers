@@ -97,15 +97,24 @@ public class Good {
     private BigDecimal insteadOfRelief;
     
     //找人代收 代收人减免
-   /* @Column(name="instead_relief",nullable=false)
+    @Column(name="instead_relief",nullable=false)
     private BigDecimal receiverInsteadOfRelief;
-    */
+    
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createAt;
     @Column(name = "update_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime updateAt;
+    
+    
+    
+	public BigDecimal getReceiverInsteadOfRelief() {
+		return receiverInsteadOfRelief;
+	}
+	public void setReceiverInsteadOfRelief(BigDecimal receiverInsteadOfRelief) {
+		this.receiverInsteadOfRelief = receiverInsteadOfRelief;
+	}
 	public String getId() {
 		return id;
 	}

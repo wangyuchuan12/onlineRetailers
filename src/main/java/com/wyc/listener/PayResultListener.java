@@ -1,5 +1,7 @@
 package com.wyc.listener;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import com.wyc.domain.OpenGroupCoupon;
 import com.wyc.domain.OrderDetail;
 import com.wyc.domain.TempGroupOrder;
 import com.wyc.service.GroupPartakeLogService;
+import com.wyc.service.GroupPartakeService;
 
 
 @Service
@@ -20,6 +23,9 @@ public class PayResultListener {
 	
 	@Autowired
 	private GroupPartakeLogService groupPartakeLogService;
+	
+	@Autowired
+	private GroupPartakeService groupPartakeService;
 
 	public void payFailure(TempGroupOrder tempGroupOrder){
 		
@@ -65,6 +71,16 @@ public class PayResultListener {
 				reliefLog.setHappenTime(groupPartake.getCreateAt());
 				reliefLog.setGroupId(goodGroup.getId());
 				reliefLog.setGroupPartakeId(groupPartake.getId());
+				
+				GroupPartake insteadPartakeGroupPartake = groupPartakeService.findOne(groupPartake.getInsteadPartakeId());
+				BigDecimal waitForRefund = insteadPartakeGroupPartake.getWaitForRefund();
+				if(waitForRefund==null){
+					waitForRefund = goodGroup.getReceiverInsteadOfRelief();
+				}else{
+					waitForRefund = waitForRefund.add(goodGroup.getReceiverInsteadOfRelief());
+				}
+				insteadPartakeGroupPartake.setWaitForRefund(waitForRefund);
+				groupPartakeService.update(insteadPartakeGroupPartake);
 			}
 		}else if(groupPartake.getIsFindOtherInsteadOfReceiving()==1){
 			reliefLog.setContent("已经指定了包裹接收了，到该接收人那里拿货，优惠了￥"+groupPartake.getReliefValue());
@@ -77,6 +93,17 @@ public class PayResultListener {
 			receiveGoodGroupPartakeLog.setGroupId(goodGroup.getId());
 			receiveGoodGroupPartakeLog.setContent(groupPartake.getNickname()+"请求将包裹寄放在我这里，我代该用户接收包谷");
 			groupPartakeLogService.add(receiveGoodGroupPartakeLog);
+			
+			GroupPartake insteadPartakeGroupPartake = groupPartakeService.findOne(groupPartake.getInsteadPartakeId());
+			BigDecimal waitForRefund = insteadPartakeGroupPartake.getWaitForRefund();
+			if(waitForRefund==null){
+				waitForRefund = goodGroup.getReceiverInsteadOfRelief();
+			}else{
+				waitForRefund = waitForRefund.add(goodGroup.getReceiverInsteadOfRelief());
+			}
+			insteadPartakeGroupPartake.setWaitForRefund(waitForRefund);
+			groupPartakeService.update(insteadPartakeGroupPartake);
+			
 		}else if(groupPartake.getIsInsteadOfReceiving()==1){
 			reliefLog.setContent("设置待他人接收包裹");
 			reliefLog.setHappenTime(groupPartake.getCreateAt());
