@@ -919,9 +919,13 @@
 }
 
 .member_item{
-	background-color:RGBA(215,183, 75,.2);
-	padding-left:10px;
 	border-bottom: 1px solid white;
+	background: #2980b9;
+	-moz-box-shadow: 0 1px 0 #409ad5 inset, 0 -1px 0 #20638f inset;
+	-webkit-box-shadow: 0 1px 0 #409ad5 inset, 0 -1px 0 #20638f inset;
+	box-shadow: 0 1px 0 #409ad5 inset, 0 -1px 0 #20638f inset;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+	color:white;
 }
 
 .member_item img{
@@ -948,31 +952,79 @@
 	left:10px;
 }
 
-.vcon{
-	display:block;
-	width:14px;
-	height:14px;
-	background-image: url("/img/vicon.png");
-	float: right;
-	position: relative;
-	top: 10px;
-	right:10px;
+.member_item_log{
+	background-color: white;
 }
 
-.v2{
-	background-position:0 -16px; 
+.member_item_log li{
+	
 }
+
+.vcon{
+	width: 0;
+    height: 0;
+    
+    float: right;
+    right:10px;
+    top:10px;
+    position: relative;
+}
+
+.vopen{
+	border-top: 10px solid white;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+}
+
+.vclose{
+   border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 10px solid white;
+}
+
 
 .member_list{
-	min-height: 50px;
-	background-color: white;
+
+
 	
-	max-height: 700px;
-	overflow: auto;
+	
 }
 
 .member_list ul li{
-	margin-right:3px;
+	display: block;
+    color: #6e6e6e;
+    background: white;
+    -moz-box-shadow: 0 1px 0 white inset, 0 -1px 0 #d4d4d4 inset;
+    -webkit-box-shadow: 0 1px 0 white inset, 0 -1px 0 #d4d4d4 inset;
+    box-shadow: 0 1px 0 white inset, 0 -1px 0 #d4d4d4 inset;
+    text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.3);
+    padding: 10px 10px;
+    position: relative;
+}
+
+.member_item_log_index{
+	background-color: black;
+	color:white;
+	width:15px;
+	height:15px;
+	text-align:center;
+	border-radius:15px;
+	float: left;
+	left:20px;
+	
+}
+
+
+.member_item_log_time{
+	color: black;
+	float: left;
+	position: relative;
+	left:20px;
+}
+
+.member_item_log_content{
+	position: relative;
+	left:40px;
 }
 
 .footer3{

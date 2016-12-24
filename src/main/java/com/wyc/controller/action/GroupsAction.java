@@ -6,8 +6,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
@@ -33,6 +35,7 @@ import com.wyc.domain.Good;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodOrder;
 import com.wyc.domain.GroupPartake;
+import com.wyc.domain.GroupPartakeLog;
 import com.wyc.domain.HotGroup;
 import com.wyc.domain.OrderDetail;
 import com.wyc.domain.TemporaryData;
@@ -41,6 +44,7 @@ import com.wyc.service.CustomerService;
 import com.wyc.service.GoodGroupService;
 import com.wyc.service.GoodOrderService;
 import com.wyc.service.GoodService;
+import com.wyc.service.GroupPartakeLogService;
 import com.wyc.service.GroupPartakeService;
 import com.wyc.service.HotGroupService;
 import com.wyc.service.MyResourceService;
@@ -73,6 +77,9 @@ public class GroupsAction {
     private GoodOrderService goodOrderService;
     @Autowired
     private HotGroupService hotGroupService;
+    
+    @Autowired
+    private GroupPartakeLogService groupPartakeLogService;
     final static Logger logger = LoggerFactory.getLogger(GroupsAction.class);
 
     @RequestMapping("/main/group_list")
@@ -239,6 +246,25 @@ public class GroupsAction {
         if(prompt!=null&&result==1){
         	httpServletRequest.setAttribute("prompt", true);
         }
+        
+        Iterable<GroupPartakeLog> groupPartakeLogs = groupPartakeLogService.findAllByGroupIdOrderBySeqAsc(goodGroup.getId());
+        
+        Map<String, List<Map<String, Object>>> groupPartakeLogMap = new HashMap<>();
+        for(GroupPartakeLog groupPartakeLog:groupPartakeLogs){
+        	List<Map<String, Object>> thisGroupPartakeLogs = groupPartakeLogMap.get(groupPartakeLog.getGroupPartakeId());
+        	if(thisGroupPartakeLogs==null){
+        		thisGroupPartakeLogs = new ArrayList<>();
+        		groupPartakeLogMap.put(groupPartakeLog.getGroupPartakeId(),thisGroupPartakeLogs);
+        	}
+        	Map<String, Object> logMap = new HashMap<>();
+        	logMap.put("content", groupPartakeLog.getContent());
+        	logMap.put("groupId", groupPartakeLog.getGroupId());
+        	logMap.put("groupPartakeId", groupPartakeLog.getGroupPartakeId());
+        	logMap.put("getId", groupPartakeLog.getId());
+        	logMap.put("happenTime", mySimpleDateFormat.format(groupPartakeLog.getHappenTime().toDate()));
+        	logMap.put("seq", groupPartakeLog.getSeq());
+        	thisGroupPartakeLogs.add(logMap);
+        }
         Iterable<GroupPartake> groupPartakes = groupPartakeService
                 .findAllByGroupIdOrderByDateTime(id);
         String goodId = goodGroup.getGoodId();
@@ -248,14 +274,14 @@ public class GroupsAction {
         String headImg = myResourceService.findOne(good.getHeadImg()).getUrl();
         int groupNum = goodGroup.getNum();
         BigDecimal totalPrice = goodGroup.getTotalPrice();
-        List<Map<String, String>> groupMembers = new ArrayList<Map<String, String>>();
+        List<Map<String, Object>> groupMembers = new ArrayList<Map<String, Object>>();
         Integer role = 0;
         String myGroupPartakeId = null;
         for (GroupPartake groupPartake : groupPartakes) {
         	if(requestUser.getOpenid().equals(groupPartake.getOpenid())){
         		myGroupPartakeId = groupPartake.getId();
         	}
-            Map<String, String> groupMember = new HashMap<String, String>();
+            Map<String, Object> groupMember = new HashMap<String, Object>();
  
             String openid = groupPartake.getOpenid();
             groupMember.put("name",groupPartake.getNickname());
@@ -265,6 +291,7 @@ public class GroupsAction {
                     .getDateTime().toDate()));
             groupMember.put("groupPartakeId", groupPartake.getId());
             groupMember.put("isInsteadOfReceiving", groupPartake.getIsInsteadOfReceiving()+"");
+            groupMember.put("logs", groupPartakeLogMap.get(groupPartake.getId()));
             groupMembers.add(groupMember);
             if (openid.equals(requestUser.getOpenid())) {
                 role = groupPartake.getRole();

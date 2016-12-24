@@ -3,6 +3,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://www.joda.org/joda/time/tags" prefix="joda" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!doctype html>
 <html>
 	<head>
@@ -20,6 +21,9 @@
 		 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 		 <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
 		 <script type="text/javascript" src="/layer/layer.js"></script>
+		 <script type="text/javascript" src="/group_menu/group_menu.js"></script>
+     	 <link rel="stylesheet" href="/group_menu/group_menu.css"/>
+		
 		 <title>晨曦拼货商城</title>
 	</head>
 	<body>
@@ -155,20 +159,26 @@
 								<img src="${member.headImg}"/>
 								<div class="member_item_name"><b>${member.name}</b></div>
 								<div class="member_item_time"><b>${member.datetime}<c:if test="${member.role!=1}">参团</c:if><c:if test="${member.role==1}">开团</c:if></b></div>
-								<em class="vcon"></em>
-								<div id="member_item_log_${member.groupPartakeId}" style="display: none;" flag="1">
+								<em class="vcon vclose"></em>
+								<div id="member_item_log_${member.groupPartakeId}" style="display: none;" flag="1" class="member_item_log">
 									<ul>
-										<li>十点十一分使用</li>
-										<li>十点十一分使用</li>
-										<li>十点十一分使用</li>
-										<li>十点十一分使用</li>
-										<li>十点十一分使用</li>
+										<c:forEach items="${member.logs}" var="log" varStatus="status">
+											<li>
+												<div class="member_item_log_index">${status.index+1}</div>
+												<div class="member_item_log_time">${log.happenTime}</div>
+												<div class="member_item_log_content">${log.content}</div>
+												
+											
+											</li>
+										</c:forEach>
 									</ul>
 								</div>
 							</div>
-						</li>	
+						</li>
 					</c:forEach>
 				</ul>
+				
+				
 			</div>
 			
 			
@@ -316,6 +326,12 @@
      	  
      	</div>
      	
+     	
+     	 
+     	
+     	
+     	
+     	
      	<input type = "hidden" value="${prompt}" name="prompt"></input>
      	<input type = "hidden" value="${groupInfo.goodId}" id="goodId"></input>
      	<input type = "hidden" value="${token.id}" id="tokenId"></input>
@@ -340,11 +356,13 @@
      		if(memberItemLog.attr("flag")=="1"){
      			memberItemLog.slideDown();
      			memberItemLog.attr("flag","0");
-     			$("#member_item_"+partakeId+" em").addClass("v2");
+     			$("#member_item_"+partakeId+" em").addClass("vopen");
+     			$("#member_item_"+partakeId+" em").removeClass("vclose");
      		}else{
      			memberItemLog.slideUp();
      			memberItemLog.attr("flag","1");
-     			$("#member_item_"+partakeId+" em").removeClass("v2");
+     			$("#member_item_"+partakeId+" em").addClass("vclose");
+     			$("#member_item_"+partakeId+" em").removeClass("vopen");
      		}
      	}
      	var groupPartakeId;
@@ -403,6 +421,24 @@
 			}
      		$(document).ready(function(){
      			
+     				$(".dropdown").click(function(){
+     					var menu = $(this).children(".dropdown-menu");
+     					
+     					if(!menu.hasClass('show')) {
+     						menu.addClass('show');
+     						menu.removeClass('hide');
+     						arrow.addClass('open');
+     						arrow.removeClass('close');
+     						event.preventDefault();
+     					}
+     					else {
+     						menu.removeClass('show');
+     						menu.addClass('hide');
+     						arrow.removeClass('open');
+     						arrow.addClass('close');
+     						event.preventDefault();
+     					}
+     				});
      				scrollToItem($("#myGroupPartakeId").val());
      				var goodPrice = ${groupInfo.goodPrice};
      			
@@ -436,7 +472,7 @@
      					cost = cost.toFixed(2);
      					
      					$(".good_info_check_detail_head_content_price").text("￥"+cost);
-     					$(".discountPrice").text("￥"+cost);
+     					$("#discountPrice").text("￥"+cost);
      					
      				}
      				
