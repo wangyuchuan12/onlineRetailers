@@ -399,10 +399,16 @@
  			params.insteadPartakeId = groupPartakeId;
  			params.isReceiveGoodsTogether = isForce;
  			if(isCheckGroupPartake||isInstead=="0"){
- 				//是否指定代收人，为了避免自动跳转
-				params.isMakeAgent = "1";
-				params.insteadPartakeId = groupPartakeId;
- 				skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
+ 				if(isInstead=="1"){
+ 					//是否指定代收人，为了避免自动跳转
+ 					params.isMakeAgent = "1";
+ 					params.insteadPartakeId = groupPartakeId;
+ 	 				skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
+ 				}else{
+ 					params.isMakeAgent = "0";
+ 					skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
+ 				}
+ 				
  			}else{
  				layer.alert("请选择代收人，如果无可选代收人则选择自己收货");
  			}
