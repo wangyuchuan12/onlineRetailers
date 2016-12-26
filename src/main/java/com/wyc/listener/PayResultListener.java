@@ -127,7 +127,7 @@ public class PayResultListener {
 			
 		}else if(groupPartake.getIsInsteadOfReceiving()==1){
 			GroupPartakeLog reliefLog = new GroupPartakeLog();
-			reliefLog.setContent("设置待他人接收包裹");
+			reliefLog.setContent("设置允许代他人接收包裹"+"优惠￥"+groupPartake.getReliefValue());
 			reliefLog.setHappenTime(groupPartake.getCreateAt());
 			reliefLog.setGroupId(goodGroup.getId());
 			reliefLog.setGroupPartakeId(groupPartake.getId());

@@ -389,6 +389,8 @@ public class GoodsAction {
 	    	GroupPartake agentGroupPartake = groupPartakeService.findOne(insteadPartakeId);
 	    	String agentCustomerAddressId = agentGroupPartake.getCustomerAddress();
 	    	customerAddress = customerAddressService.findOne(agentCustomerAddressId); 
+	    	tempGroupOrder.setInsteadPartakeId(insteadPartakeId);
+	    	tempGroupOrder.setIsFindOtherOfReceiving(1);
 	    }else{
 	    	if(defaultAddress!=null&&!defaultAddress.trim().equals("")){
 		        customerAddress = customerAddressService.findOne(defaultAddress);

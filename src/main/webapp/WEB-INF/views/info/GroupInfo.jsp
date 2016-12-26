@@ -288,7 +288,7 @@
     		<div class="good_info_check_detail_items_i">
 	    		<div class="good_info_check_detail_items_head">是否允许代他人收货（他人可以暂时将货寄放在我这里）</div>
 	    		<div class="good_info_check_detail_item" id="good_info_check_detail_item_relief">
-	    			<div class="good_info_check_detail_item_apan" id="allowInstead" value="1">允许（减免40元）</div>
+	    			<div class="good_info_check_detail_item_apan" id="allowInstead" value="1">允许（减免${groupInfo.allowInsteadOfRelief}元）</div>
 	    			
 	    			<div class="good_info_check_detail_item_apan" id="unAllowInstead" value="0">不允许</div>
 	    
