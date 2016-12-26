@@ -726,8 +726,10 @@ function selectImage(children,image){
 		$(this).css("background-color","white");
 		$(this).attr("isSelected",false);
 	});
-	image.css("background-color","red");
-	image.attr("isSelected",true);
+	if(image){
+		image.css("background-color","red");
+		image.attr("isSelected",true);
+	}
 }
 
 function selectSpan(children,span){

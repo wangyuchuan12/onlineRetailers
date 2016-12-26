@@ -399,12 +399,10 @@
  			params.insteadPartakeId = groupPartakeId;
  			params.isReceiveGoodsTogether = isForce;
  			if(isCheckGroupPartake||isInstead=="0"){
- 				layer.prompt({title:"请输入团长的手机号码，并确认",formType:1},function(phonenumber,index){
- 					
- 					alert(phonenumber);
- 					alert(index);
- 				});
- 				//skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
+ 				//是否指定代收人，为了避免自动跳转
+				params.isMakeAgent = "1";
+				params.insteadPartakeId = groupPartakeId;
+ 				skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
  			}else{
  				layer.alert("请选择代收人，如果无可选代收人则选择自己收货");
  			}
@@ -431,17 +429,16 @@
      			params.isReceiveGoodsTogether = isReceiveGoodsTogether;
 				if(isReceiveGoodsTogether=="1"){
 					//skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
-					layer.prompt({title:"亲，请输入团长的手机号码，并确认😊",formType:0},function(phonenumber,index){
+					layer.prompt({title:"亲，请验证团长的手机号码，并确认",formType:0},function(phonenumber,index){
 	 					layer.close(index);
 	 					var hreadGroupPhonenumber = $("#hreadGroupPhonenumber").val();
 	 					if(phonenumber==hreadGroupPhonenumber){
 	 						//是否指定代收人，为了避免自动跳转
 		 					params.isMakeAgent = "1";
 		 					params.insteadPartakeId = $("#headGroupPartakeId").val();
-		 					alert(params.insteadPartakeId);
 		 					skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
 	 					}else{
-	 						layer.alert("亲，验证手机号码失败哦，请联系团长😊");
+	 						layer.alert("亲，验证手机号码失败哦，请联系团长");
 	 					}
 	 					
 	 				});
@@ -517,8 +514,36 @@
      				var memberItem = $("#member");
      				
 					handleSpanItems(memberItem,function(spanValue){
-						groupPartakeId = spanValue;
-						isCheckGroupPartake = true;
+						var memberPhonenumber = $("#member_object_"+spanValue).attr("phonenumber");
+						var flag = false;
+							layer.prompt({
+									title:"亲，请验证该用户的手机号码，并确认",
+									formType:0,
+									cancel:function(){
+										groupPartakeId = null;
+										selectImage(memberItem.children(".good_info_check_detail_item_img"),null);	 
+									},
+									end:function(){
+										if(!flag){
+											groupPartakeId = null;
+											selectImage(memberItem.children(".good_info_check_detail_item_img"),null);
+										}
+									}
+							},function(phonenumber,index){
+								if(memberPhonenumber==phonenumber){
+									layer.close(index);
+	 								groupPartakeId = spanValue;
+									isCheckGroupPartake = true;
+									flag = true;
+									layer.alert("验证成功，设置该用户为收件人");
+								}else{
+									groupPartakeId = null;
+									layer.close(index);
+									layer.alert("亲，验证失败哦，请你联系该用户确认手机号码是否正确");
+									selectImage(memberItem.children(".good_info_check_detail_item_img"),null);
+								}
+						});
+						
 	    			});
      				
      				
