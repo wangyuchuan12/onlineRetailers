@@ -257,8 +257,12 @@ public class PayResultHandler implements Handler{
                 int partNum = groupPartakeService.countByGroupId(groupId);
                 goodGroup = goodGroupService.findOne(groupId);
                 int groupNum = goodGroup.getNum();
+                
                 if(goodGroup!=null){
                     groupPartake = new GroupPartake();
+                    if(goodGroup.getIsReceiveGoodsTogether()==1){
+                    	groupPartake.setInsteadPartakeId(goodGroup.getTogetherReceiver());
+                    }
                     groupPartake.setCustomerid(customer.getId());
                     orderDetail = orderDetailService.findByGruopId(goodGroup.getId());
                     groupPartake.setOrderId(orderDetail.getOrderId());

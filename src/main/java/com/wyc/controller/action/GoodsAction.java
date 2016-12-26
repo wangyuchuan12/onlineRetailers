@@ -475,9 +475,12 @@ public class GoodsAction {
             }else if(payType.equals("3")){
             	String insteadPartakeId = httpRequest.getParameter("insteadPartakeId");
                 tempGroupOrder.setGroupId(httpRequest.getParameter("group_id"));
-                tempGroupOrder.setInsteadPartakeId(insteadPartakeId);
+                
                 tempGroupOrder.setIsInsteadOfReceiving(Integer.parseInt(isInsteadOfReceiving));
            	 	tempGroupOrder.setIsFindOtherOfReceiving(Integer.parseInt(isFindOtherInsteadOfReceiving));
+           	 	
+           	 	
+           	 	tempGroupOrder.setInsteadPartakeId(insteadPartakeId);
             }else if (httpRequest.getParameter("group_id")!=null) {
                 tempGroupOrder.setGroupId(httpRequest.getParameter("group_id"));
             }
