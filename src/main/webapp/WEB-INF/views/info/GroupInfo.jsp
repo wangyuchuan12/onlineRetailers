@@ -118,7 +118,7 @@
 				<ul>
 					<c:forEach items="${groupInfo.groupPartake}" var="member">
 						<li>
-							<div class="member" onclick="scrollToItem('${member.groupPartakeId}');">
+							<div class="member" onclick="scrollToItem('${member.groupPartakeId}');" id="member_object_${member.groupPartakeId}" phonenumber="${member.phonenumber}">
 								<img src="${member.headImg}"/>
 								<c:if test="${member.role==1}">
 									<div class="member_role">
@@ -341,6 +341,10 @@
      	<input type = "hidden" value="${groupInfo.insteadOfRelief}" id=insteadOfRelief></input>
      	<input type="hidden" value="${groupInfo.myGroupPartakeId}" id="myGroupPartakeId"></input>
      	<input type="hidden" value="${groupInfo.headGroupPartakeId}" id="headGroupPartakeId"></input>
+     	<input type="hidden" value="${groupInfo.hreadGroupPhonenumber}" id="hreadGroupPhonenumber"></input>
+     	
+     	<input type="hidden" value="${groupInfo.agentGroupPartakeId}" id="apentGroupPartakeId"></input>
+     	<input type="hidden" value="${groupInfo.agentGroupPhonenumber}" id="agentGroupPhonenumber"></input>
      	<input type="hidden" value="${groupInfo.forceInsteadOfRelief}" id="forceInsteadOfRelief"/>
      	<script type="text/javascript">
      	
@@ -427,13 +431,19 @@
      			params.isReceiveGoodsTogether = isReceiveGoodsTogether;
 				if(isReceiveGoodsTogether=="1"){
 					//skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
-					layer.prompt({title:"请输入团长的手机号码，并确认",formType:0},function(phonenumber,index){
+					layer.prompt({title:"亲，请输入团长的手机号码，并确认😊",formType:0},function(phonenumber,index){
 	 					layer.close(index);
-	 					//是否指定代收人，为了避免自动跳转
-	 					params.isMakeAgent = "1";
-	 					params.insteadPartakeId = $("#headGroupPartakeId").val();
-	 					alert(params.insteadPartakeId);
-	 					skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
+	 					var hreadGroupPhonenumber = $("#hreadGroupPhonenumber").val();
+	 					if(phonenumber==hreadGroupPhonenumber){
+	 						//是否指定代收人，为了避免自动跳转
+		 					params.isMakeAgent = "1";
+		 					params.insteadPartakeId = $("#headGroupPartakeId").val();
+		 					alert(params.insteadPartakeId);
+		 					skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
+	 					}else{
+	 						layer.alert("亲，验证手机号码失败哦，请联系团长😊");
+	 					}
+	 					
 	 				});
 				}else{
 					$(".good_info_check_detail").animate({

@@ -91,7 +91,9 @@ public class PayResultListener {
 				receiveGoodGroupPartakeLog.setGroupPartakeId(groupPartake.getInsteadPartakeId());
 				receiveGoodGroupPartakeLog.setGroupId(goodGroup.getId());
 				receiveGoodGroupPartakeLog.setHappenTime(new DateTime());
-				receiveGoodGroupPartakeLog.setContent("[<font color='red'>"+groupPartake.getNickname()+"</font>]请求将包裹寄放在我这里，我代该用户接收包谷,目前该订单我拥有￥"+waitForRefund+"返利金额");
+				receiveGoodGroupPartakeLog.setContent("[<font color='red'>"+groupPartake.getNickname()+"</font>]请求将包裹寄放在我这里,"
+						+ "我代该用户接收包谷,返利<font color='red'>￥"+goodGroup.getReceiverInsteadOfRelief()+"</font>,"
+								+ "目前该订单我拥有￥"+waitForRefund+"返利金额");
 				groupPartakeLogService.add(receiveGoodGroupPartakeLog);
 			}
 		}else if(groupPartake.getIsFindOtherInsteadOfReceiving()==1){

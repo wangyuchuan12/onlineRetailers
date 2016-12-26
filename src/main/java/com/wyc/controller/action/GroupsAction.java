@@ -278,6 +278,7 @@ public class GroupsAction {
         Integer role = 0;
         String myGroupPartakeId = null;
         String headGroupPartakeId = null;
+        String hreadGroupPhonenumber = null;
         String myPhonenumber = null;
         for (GroupPartake groupPartake : groupPartakes) {
         	if(requestUser.getOpenid().equals(groupPartake.getOpenid())){
@@ -286,6 +287,7 @@ public class GroupsAction {
         	}
         	if(groupPartake.getRole()==1){
         		headGroupPartakeId = groupPartake.getId();
+        		hreadGroupPhonenumber = groupPartake.getPhonenumber();
         	}
             Map<String, Object> groupMember = new HashMap<String, Object>();
  
@@ -297,6 +299,7 @@ public class GroupsAction {
                     .getDateTime().toDate()));
             groupMember.put("phonenumber", groupPartake.getPhonenumber());
             groupMember.put("groupPartakeId", groupPartake.getId());
+            groupMember.put("phonenumber", groupPartake.getPhonenumber());
             groupMember.put("isInsteadOfReceiving", groupPartake.getIsInsteadOfReceiving()+"");
             groupMember.put("logs", groupPartakeLogMap.get(groupPartake.getId()));
             groupMembers.add(groupMember);
@@ -332,6 +335,7 @@ public class GroupsAction {
         groupInfoMap.put("myGroupPartakeId", myGroupPartakeId);
         groupInfoMap.put("myPhonenumber", myPhonenumber);
         groupInfoMap.put("headGroupPartakeId", headGroupPartakeId);
+        groupInfoMap.put("hreadGroupPhonenumber", hreadGroupPhonenumber);
         httpServletRequest.setAttribute("groupInfo", groupInfoMap);
         TemporaryData temporaryData = temporaryDataService.findByMyKeyAndNameAndStatus(requestUser.getOpenid(), "nowgroup" , 1);
         if(temporaryData==null){
