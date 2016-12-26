@@ -175,7 +175,7 @@ public class PayResultHandler implements Handler{
                 goodOrder.setGoodPrice(tempGroupOrder.getGoodPrice());
                 goodOrder = goodOrderService.save(goodOrder);
                 groupPartake = new GroupPartake();
-                groupPartake.setCustomerAddress(tempGroupOrder.getAddress()+","+tempGroupOrder.getPersonName()+","+tempGroupOrder.getPhonenumber());
+                groupPartake.setCustomerAddress(tempGroupOrder.getCustomerAddress());
                 groupPartake.setAddressContent(tempGroupOrder.getAddress());
                 groupPartake.setPersonName(tempGroupOrder.getPersonName());
                 groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
@@ -268,7 +268,7 @@ public class PayResultHandler implements Handler{
                     groupPartake.setOrderId(orderDetail.getOrderId());
                     groupPartake.setDateTime(new DateTime());
                     groupPartake.setGroupId(goodGroup.getId());
-                    groupPartake.setCustomerAddress(tempGroupOrder.getAddress()+","+tempGroupOrder.getPersonName()+","+tempGroupOrder.getPhonenumber());
+                    groupPartake.setCustomerAddress(tempGroupOrder.getCustomerAddress());
                     groupPartake.setAddressContent(tempGroupOrder.getAddress());
                     groupPartake.setPersonName(tempGroupOrder.getPersonName());
                     groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
@@ -386,7 +386,7 @@ public class PayResultHandler implements Handler{
                 groupPartake.setOrderId(goodOrder.getId());
                 groupPartake.setType(1);
                 groupPartake.setStatus(GroupPartake.BEGIN_STATUS);
-                groupPartake.setCustomerAddress(tempGroupOrder.getAddress()+","+tempGroupOrder.getPersonName()+","+tempGroupOrder.getPhonenumber());
+                groupPartake.setCustomerAddress(tempGroupOrder.getCustomerAddress()); 
                 groupPartake.setAddressContent(tempGroupOrder.getAddress());
                 groupPartake.setPersonName(tempGroupOrder.getPersonName());
                 groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());

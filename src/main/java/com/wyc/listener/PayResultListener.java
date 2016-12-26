@@ -41,12 +41,12 @@ public class PayResultListener {
 			GroupPartake groupPartake, GroupPartakeDeliver groupPartakeDeliver, OrderDetail orderDetail) {
 		GroupPartakeLog groupPartakeLog = new GroupPartakeLog();
 		if(groupPartake.getRole()==1){
-			groupPartakeLog.setContent("以团长的身份开团️");
+			groupPartakeLog.setContent("以<font color='red'>团长</font>的身份开团️");
 			groupPartakeLog.setHappenTime(groupPartake.getCreateAt());
 			groupPartakeLog.setGroupId(goodGroup.getId());
 			groupPartakeLog.setGroupPartakeId(groupPartake.getId());
 		}else if(groupPartake.getRole()==2){
-			groupPartakeLog.setContent("成功占领沙发的位置");
+			groupPartakeLog.setContent("成功占领<font color='red'>沙发</font>的位置");
 			groupPartakeLog.setHappenTime(groupPartake.getCreateAt());
 			groupPartakeLog.setGroupId(goodGroup.getId());
 			groupPartakeLog.setGroupPartakeId(groupPartake.getId());
@@ -120,7 +120,7 @@ public class PayResultListener {
 			GroupPartakeLog receiveGoodGroupPartakeLog = new GroupPartakeLog();
 			receiveGoodGroupPartakeLog.setGroupPartakeId(groupPartake.getInsteadPartakeId());
 			receiveGoodGroupPartakeLog.setGroupId(goodGroup.getId());
-			receiveGoodGroupPartakeLog.setContent("<font color='red'>"+groupPartake.getNickname()+"</font>请求将包裹寄放在我这里，我代该用户接收包谷,目前该订单我拥有￥"+waitForRefund+"返利金额");
+			receiveGoodGroupPartakeLog.setContent("<font color='red'>"+groupPartake.getNickname()+"</font>请求将包裹寄放在我这里，我代该用户接收包谷,目前该订单我拥有<font color='red'>￥"+waitForRefund+"</font>返利金额");
 			groupPartakeLogService.add(receiveGoodGroupPartakeLog);
 			
 		}else if(groupPartake.getIsInsteadOfReceiving()==1){

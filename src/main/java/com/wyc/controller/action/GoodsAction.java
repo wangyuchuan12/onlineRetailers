@@ -32,6 +32,7 @@ import com.wyc.annotation.handler.PayResultHandler;
 import com.wyc.annotation.handler.WxChooseWxPayHandler;
 import com.wyc.defineBean.MySimpleDateFormat;
 import com.wyc.domain.GoodStyle;
+import com.wyc.domain.GroupPartake;
 import com.wyc.domain.SystemAdGoodHeaderImg;
 import com.wyc.domain.SystemCity;
 import com.wyc.domain.Customer;
@@ -349,12 +350,18 @@ public class GoodsAction {
     @AfterHandlerAnnotation(hanlerClasses={AfterGoodTypeHandler.class,NotReadChatHandler.class})
 	public String goodInfoPay(HttpServletRequest httpRequest){
 	    MyHttpServletRequest myHttpServletRequest = (MyHttpServletRequest)httpRequest;
+	    
+	    
+
+	    String insteadPartakeId = httpRequest.getParameter("insteadPartakeId");	
+	    		
 	    UserInfo userInfo = myHttpServletRequest.getUserInfo();
 	    Customer customer = customerService.findByOpenId(userInfo.getOpenid());
 	    String defaultAddress = customer.getDefaultAddress();
 	    CustomerAddress customerAddress = null;
 	    
 	    String isInsteadOfReceiving = httpRequest.getParameter("isInsteadOfReceiving");
+	    String isMakeAgent = httpRequest.getParameter("isMakeAgent");
         if(isInsteadOfReceiving==null){
         	isInsteadOfReceiving = httpRequest.getSession().getAttribute("isInsteadOfReceiving").toString();
         }else{
@@ -372,21 +379,52 @@ public class GoodsAction {
         }else{
         	httpRequest.getSession().setAttribute("isReceiveGoodsTogether",isReceiveGoodsTogether);
         }
-        
-	    if(defaultAddress!=null&&!defaultAddress.trim().equals("")){
-	        customerAddress = customerAddressService.findOne(defaultAddress);
+	    
+	    
+	    Map<String, Object> responseGood = new HashMap<String, Object>();
+	    TempGroupOrder tempGroupOrder = new TempGroupOrder();
+	    if(isReceiveGoodsTogether!=null&&isMakeAgent.equals("1")){
+	    	
+	    	//制定代理接收人
+	    	GroupPartake agentGroupPartake = groupPartakeService.findOne(insteadPartakeId);
+	    	String agentCustomerAddressId = agentGroupPartake.getCustomerAddress();
+	    	customerAddress = customerAddressService.findOne(agentCustomerAddressId); 
+	    }else{
+	    	if(defaultAddress!=null&&!defaultAddress.trim().equals("")){
+		        customerAddress = customerAddressService.findOne(defaultAddress);
+		    }
+	    	
+	    	if(customerAddress==null){
+		        int addressCount = customerAddressService.countByCustomerId(customer.getId());
+		        if(addressCount==0){
+		            String url = "redirect:/info/address_add?prepare_redirect=/info/good_info_pay?state="+httpRequest.getParameter("state")+"&pay_type="+httpRequest.getParameter("pay_type")+"&good_id="+httpRequest.getParameter("good_id")+"&token="+myHttpServletRequest.getToken().getId()+"&group_id="+myHttpServletRequest.getParameter("group_id");
+		            System.out.println(".............url:"+url);
+		            return url;
+		        }else{
+		            return "redirect:/info/address?prepare_redirect=/info/good_info_pay?state="+httpRequest.getParameter("state")+"&pay_type="+httpRequest.getParameter("pay_type")+"&good_id="+httpRequest.getParameter("good_id")+"&token="+myHttpServletRequest.getToken().getId();
+		        }
+		    }
+	    	
+            
 	    }
 	    
-	    if(customerAddress==null){
-	        int addressCount = customerAddressService.countByCustomerId(customer.getId());
-	        if(addressCount==0){
-	            String url = "redirect:/info/address_add?prepare_redirect=/info/good_info_pay?state="+httpRequest.getParameter("state")+"&pay_type="+httpRequest.getParameter("pay_type")+"&good_id="+httpRequest.getParameter("good_id")+"&token="+myHttpServletRequest.getToken().getId()+"&group_id="+myHttpServletRequest.getParameter("group_id");
-	            System.out.println(".............url:"+url);
-	            return url;
-	        }else{
-	            return "redirect:/info/address?prepare_redirect=/info/good_info_pay?state="+httpRequest.getParameter("state")+"&pay_type="+httpRequest.getParameter("pay_type")+"&good_id="+httpRequest.getParameter("good_id")+"&token="+myHttpServletRequest.getToken().getId();
-	        }
-	    }
+	    StringBuffer citySb = new StringBuffer();
+        String cityId = customerAddress.getCity();
+        SystemCity city = null;
+        while((city=cityService.findOne(cityId))!=null){
+            cityId = city.getParentId();
+            citySb.insert(0, city.getName()+"-");
+        }
+        citySb.append(customerAddress.getContent());
+        responseGood.put("address", citySb.toString());
+        tempGroupOrder.setAddress(citySb.toString());
+	    
+	    responseGood.put("person_name", customerAddress.getName());
+        responseGood.put("phonenumber", customerAddress.getPhonenumber());
+        responseGood.put("address_id", customerAddress.getId());
+	    	
+	    	
+	    
 	    logger.debug(httpRequest.getParameter("state"));
 	    String payType=httpRequest.getParameter("pay_type");
 	    if(payType==null){
@@ -398,15 +436,8 @@ public class GoodsAction {
 	    String goodId = httpRequest.getParameter("good_id");
 	    Good good = goodService.findOne(goodId);
 	    MyResource myResource = resourceService.findOne(good.getHeadImg());
-            Map<String, Object> responseGood = new HashMap<String, Object>();
-            StringBuffer citySb = new StringBuffer();
-            String cityId = customerAddress.getCity();
-            SystemCity city = null;
-            while((city=cityService.findOne(cityId))!=null){
-                cityId = city.getParentId();
-                citySb.insert(0, city.getName()+"-");
-            }
-            citySb.append(customerAddress.getContent());
+           
+            
             responseGood.put("id", good.getId());
             responseGood.put("good_id", goodId);
             responseGood.put("instruction", good.getInstruction());
@@ -419,10 +450,7 @@ public class GoodsAction {
             responseGood.put("group_original_cost", good.getGroupOriginalCost());
             responseGood.put("market_price", good.getMarketPrice());
             responseGood.put("coupon_cost", good.getCouponCost());
-            responseGood.put("person_name", customerAddress.getName());
-            responseGood.put("phonenumber", customerAddress.getPhonenumber());
-            responseGood.put("address", citySb.toString());
-            responseGood.put("address_id", customerAddress.getId());
+           
             responseGood.put("group_cost", good.getGroupDiscount().multiply(good.getGroupOriginalCost()));
             responseGood.put("alone_cost", good.getAloneDiscount().multiply(good.getAloneOriginalCost()));
             responseGood.put("pay_type", payType);
@@ -431,14 +459,15 @@ public class GoodsAction {
             responseGood.put("reliefValue", httpRequest.getAttribute("reliefValue"));
             responseGood.put("stock", good.getStock());
             responseGood.put("salesVolume", good.getSalesVolume());
+            responseGood.put("isMakeAgent", isMakeAgent);
             if(payType.equals("3")){
                 responseGood.put("groupId",httpRequest.getParameter("group_id"));
             }
             httpRequest.setAttribute("payGoodInfo", responseGood);
             
-            TempGroupOrder tempGroupOrder = new TempGroupOrder();
+            
             tempGroupOrder.setOutTradeNo(httpRequest.getAttribute("outTradeNo").toString());
-            tempGroupOrder.setAddress(citySb.toString());
+            
             tempGroupOrder.setAddressId(customerAddress.getId());
             tempGroupOrder.setCode(httpRequest.getAttribute("outTradeNo").toString());
             tempGroupOrder.setCost(new BigDecimal(httpRequest.getAttribute("cost").toString()));
@@ -473,7 +502,6 @@ public class GoodsAction {
             	 tempGroupOrder.setIsInsteadOfReceiving(Integer.parseInt(isInsteadOfReceiving));
             	 tempGroupOrder.setIsFindOtherOfReceiving(0);
             }else if(payType.equals("3")){
-            	String insteadPartakeId = httpRequest.getParameter("insteadPartakeId");
                 tempGroupOrder.setGroupId(httpRequest.getParameter("group_id"));
                 
                 tempGroupOrder.setIsInsteadOfReceiving(Integer.parseInt(isInsteadOfReceiving));

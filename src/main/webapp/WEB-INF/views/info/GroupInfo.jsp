@@ -340,6 +340,7 @@
      	<input type = "hidden" value="${groupInfo.isReceiveGoodsTogether}" id=isReceiveGoodsTogether></input>
      	<input type = "hidden" value="${groupInfo.insteadOfRelief}" id=insteadOfRelief></input>
      	<input type="hidden" value="${groupInfo.myGroupPartakeId}" id="myGroupPartakeId"></input>
+     	<input type="hidden" value="${groupInfo.headGroupPartakeId}" id="headGroupPartakeId"></input>
      	<input type="hidden" value="${groupInfo.forceInsteadOfRelief}" id="forceInsteadOfRelief"/>
      	<script type="text/javascript">
      	
@@ -394,7 +395,12 @@
  			params.insteadPartakeId = groupPartakeId;
  			params.isReceiveGoodsTogether = isForce;
  			if(isCheckGroupPartake||isInstead=="0"){
- 				skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
+ 				layer.prompt({title:"请输入团长的手机号码，并确认",formType:1},function(phonenumber,index){
+ 					
+ 					alert(phonenumber);
+ 					alert(index);
+ 				});
+ 				//skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
  			}else{
  				layer.alert("请选择代收人，如果无可选代收人则选择自己收货");
  			}
@@ -413,13 +419,22 @@
      			var isInstead = getItemValue(insteadItem);
      			var allowItem = $("#good_info_check_detail_item_relief");
      			var isAllow = getItemValue(allowItem);
+     			var myGroupPartakeId = $("#myGroupPartakeId").val();
      			var params = new Object();
      			params.isInsteadOfReceiving = isAllow;
      			params.isFindOtherInsteadOfReceiving = isInstead;
 
      			params.isReceiveGoodsTogether = isReceiveGoodsTogether;
 				if(isReceiveGoodsTogether=="1"){
-					skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
+					//skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
+					layer.prompt({title:"请输入团长的手机号码，并确认",formType:0},function(phonenumber,index){
+	 					layer.close(index);
+	 					//是否指定代收人，为了避免自动跳转
+	 					params.isMakeAgent = "1";
+	 					params.insteadPartakeId = $("#headGroupPartakeId").val();
+	 					alert(params.insteadPartakeId);
+	 					skipToGoodPay(goodId,3,tokenId,groupId,totalPrice,params);
+	 				});
 				}else{
 					$(".good_info_check_detail").animate({
 						bottom:0
