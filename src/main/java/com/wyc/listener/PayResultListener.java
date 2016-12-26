@@ -2,6 +2,7 @@ package com.wyc.listener;
 
 import java.math.BigDecimal;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,6 +90,7 @@ public class PayResultListener {
 				GroupPartakeLog receiveGoodGroupPartakeLog = new GroupPartakeLog();
 				receiveGoodGroupPartakeLog.setGroupPartakeId(groupPartake.getInsteadPartakeId());
 				receiveGoodGroupPartakeLog.setGroupId(goodGroup.getId());
+				receiveGoodGroupPartakeLog.setHappenTime(new DateTime());
 				receiveGoodGroupPartakeLog.setContent(groupPartake.getNickname()+"请求将包裹寄放在我这里，我代该用户接收包谷,目前该订单我拥有￥"+waitForRefund+"返利金额");
 				groupPartakeLogService.add(receiveGoodGroupPartakeLog);
 			}

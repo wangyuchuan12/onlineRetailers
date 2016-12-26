@@ -2,6 +2,8 @@ package com.wyc.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,6 +29,7 @@ public class GroupPartakeLog {
 	private String content;
 	//序号
 	@Column
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int seq;
 	
 	//团id
