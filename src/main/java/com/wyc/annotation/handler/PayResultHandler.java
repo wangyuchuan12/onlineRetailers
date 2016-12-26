@@ -279,6 +279,7 @@ public class PayResultHandler implements Handler{
                     groupPartake.setIsFindOtherInsteadOfReceiving(tempGroupOrder.getIsFindOtherOfReceiving());
                     groupPartake.setNickname(tempGroupOrder.getNickname());
                     groupPartake.setHeadimgurl(tempGroupOrder.getHeadImg());
+                    groupPartake.setInsteadPartakeId(tempGroupOrder.getInsteadPartakeId());
                     if(tempGroupOrder.getGoodStyleId()!=null){
                         GoodStyle goodStyle = goodStyleService.findOne(tempGroupOrder.getGoodStyleId());
                         if(goodStyle!=null){

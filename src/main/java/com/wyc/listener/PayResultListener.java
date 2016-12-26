@@ -3,9 +3,10 @@ package com.wyc.listener;
 import java.math.BigDecimal;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.wyc.domain.Customer;
 import com.wyc.domain.GoodGroup;
 import com.wyc.domain.GoodOrder;
@@ -27,6 +28,8 @@ public class PayResultListener {
 	
 	@Autowired
 	private GroupPartakeService groupPartakeService;
+	
+	final static Logger logger = LoggerFactory.getLogger(GroupPartakeLogService.class);
 
 	public void payFailure(TempGroupOrder tempGroupOrder){
 		
@@ -97,12 +100,14 @@ public class PayResultListener {
 				groupPartakeLogService.add(receiveGoodGroupPartakeLog);
 			}
 		}else if(groupPartake.getIsFindOtherInsteadOfReceiving()==1){
+			
+			logger.debug("代他人收货设置");
 			GroupPartakeLog reliefLog = new GroupPartakeLog();
 			reliefLog.setContent("已经指定了包裹接收了，到该接收人那里拿货，优惠了<font color='red'>￥"+groupPartake.getReliefValue()+"</font>");
 			reliefLog.setHappenTime(groupPartake.getCreateAt());
 			reliefLog.setGroupId(goodGroup.getId());
 			reliefLog.setGroupPartakeId(groupPartake.getId());
-			
+			groupPartakeLogService.add(groupPartakeLog);
 			
 			
 			
@@ -124,6 +129,8 @@ public class PayResultListener {
 			receiveGoodGroupPartakeLog.setGroupId(goodGroup.getId());
 			receiveGoodGroupPartakeLog.setContent("<font color='red'>"+groupPartake.getNickname()+"</font>请求将包裹寄放在我这里，我代该用户接收包谷,目前该订单我拥有<font color='red'>￥"+waitForRefund+"</font>返利金额");
 			groupPartakeLogService.add(receiveGoodGroupPartakeLog);
+			
+			logger.debug("包裹寄放在我这里");
 			
 		}else if(groupPartake.getIsInsteadOfReceiving()==1){
 			GroupPartakeLog reliefLog = new GroupPartakeLog();
