@@ -383,7 +383,7 @@ public class GoodsAction {
 	    
 	    Map<String, Object> responseGood = new HashMap<String, Object>();
 	    TempGroupOrder tempGroupOrder = new TempGroupOrder();
-	    if(isReceiveGoodsTogether!=null&&isMakeAgent.equals("1")){
+	    if(isMakeAgent!=null&&isMakeAgent.equals("1")){
 	    	
 	    	//制定代理接收人
 	    	GroupPartake agentGroupPartake = groupPartakeService.findOne(insteadPartakeId);
