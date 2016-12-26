@@ -63,7 +63,8 @@ public class PayResultListener {
 		groupPartakeLogService.add(groupPartakeLog);
 		
 		
-		
+		logger.debug("getIsReceiveGoodsTogether:{}",goodGroup.getIsReceiveGoodsTogether());
+		logger.debug("getIsFindOtherInsteadOfReceiving:{}",groupPartake.getIsFindOtherInsteadOfReceiving());
 		if(goodGroup.getIsReceiveGoodsTogether()==1){
 			if(groupPartake.getRole()==1){
 				GroupPartakeLog reliefLog = new GroupPartakeLog();

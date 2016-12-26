@@ -252,6 +252,8 @@ public class PayResultHandler implements Handler{
             //参团购买
             }else if (tempGroupOrder!=null&&tempGroupOrder.getGoodOrderType()==3) {
                 
+            	
+            	logger.debug("参团购买");
                 String groupId = tempGroupOrder.getGroupId();
                 String openid = tempGroupOrder.getOpenid();
                 int partNum = groupPartakeService.countByGroupId(groupId);
@@ -280,6 +282,7 @@ public class PayResultHandler implements Handler{
                     groupPartake.setNickname(tempGroupOrder.getNickname());
                     groupPartake.setHeadimgurl(tempGroupOrder.getHeadImg());
                     groupPartake.setInsteadPartakeId(tempGroupOrder.getInsteadPartakeId());
+                    logger.debug("设置代发货partakeId为{}",tempGroupOrder.getInsteadPartakeId());
                     if(tempGroupOrder.getGoodStyleId()!=null){
                         GoodStyle goodStyle = goodStyleService.findOne(tempGroupOrder.getGoodStyleId());
                         if(goodStyle!=null){
