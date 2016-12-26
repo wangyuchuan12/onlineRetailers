@@ -7,6 +7,6 @@ import com.wyc.domain.GroupPartakeLog;
 public interface GroupPartakeLogRepository extends CrudRepository<GroupPartakeLog, String>{
 
 
-	Iterable<GroupPartakeLog> findAllByGroupIdOrderBySeqAsc(String id);
+	Iterable<GroupPartakeLog> findAllByGroupIdOrderByHappenTimeAsc(String id);
 
 }

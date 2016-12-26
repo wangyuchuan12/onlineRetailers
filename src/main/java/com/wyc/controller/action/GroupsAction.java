@@ -247,7 +247,7 @@ public class GroupsAction {
         	httpServletRequest.setAttribute("prompt", true);
         }
         
-        Iterable<GroupPartakeLog> groupPartakeLogs = groupPartakeLogService.findAllByGroupIdOrderBySeqAsc(goodGroup.getId());
+        Iterable<GroupPartakeLog> groupPartakeLogs = groupPartakeLogService.findAllByGroupIdOrderByHappenTimeAsc(goodGroup.getId());
         
         Map<String, List<Map<String, Object>>> groupPartakeLogMap = new HashMap<>();
         for(GroupPartakeLog groupPartakeLog:groupPartakeLogs){

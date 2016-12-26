@@ -277,6 +277,8 @@ public class PayResultHandler implements Handler{
                     groupPartake.setReliefValue(tempGroupOrder.getReliefValue());
                     groupPartake.setOpenid(openid);
                     groupPartake.setIsFindOtherInsteadOfReceiving(tempGroupOrder.getIsFindOtherOfReceiving());
+                    groupPartake.setNickname(tempGroupOrder.getNickname());
+                    groupPartake.setHeadimgurl(tempGroupOrder.getHeadImg());
                     if(tempGroupOrder.getGoodStyleId()!=null){
                         GoodStyle goodStyle = goodStyleService.findOne(tempGroupOrder.getGoodStyleId());
                         if(goodStyle!=null){
@@ -390,6 +392,8 @@ public class PayResultHandler implements Handler{
                 groupPartake.setPhonenumber(tempGroupOrder.getPhonenumber());
                 groupPartake.setGoodStyleId(tempGroupOrder.getGoodStyleId());
                 groupPartake.setOpenid(tempGroupOrder.getOpenid());
+                groupPartake.setNickname(tempGroupOrder.getNickname());
+                groupPartake.setHeadimgurl(tempGroupOrder.getHeadImg());
                 if(tempGroupOrder.getGoodStyleId()!=null){
                     GoodStyle goodStyle = goodStyleService.findOne(tempGroupOrder.getGoodStyleId());
                     if(goodStyle!=null){

@@ -16,8 +16,8 @@ public class GroupPartakeLogService {
 	private GroupPartakeLogRepository groupPartakeLogRepository;
 
 
-	public Iterable<GroupPartakeLog> findAllByGroupIdOrderBySeqAsc(String id) {
-		return groupPartakeLogRepository.findAllByGroupIdOrderBySeqAsc(id);
+	public Iterable<GroupPartakeLog> findAllByGroupIdOrderByHappenTimeAsc(String id) {
+		return groupPartakeLogRepository.findAllByGroupIdOrderByHappenTimeAsc(id);
 	}
 
 
