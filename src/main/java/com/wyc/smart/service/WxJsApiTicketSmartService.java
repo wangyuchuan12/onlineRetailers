@@ -37,6 +37,10 @@ public class WxJsApiTicketSmartService {
     
     public boolean currentIsAvailable()throws Exception{
         JsapiTicketBean jsapiTicketBean = getFromDatabase();
+        
+        if(jsapiTicketBean==null){
+        	return false;
+        }
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(jsapiTicketBean.getBeginDateTime().toDate());
         calendar.add(Calendar.SECOND, Integer.parseInt(jsapiTicketBean.getExpires_in())-100);

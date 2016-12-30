@@ -7,17 +7,28 @@ import javax.persistence.Id;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import com.wyc.annotation.IdAnnotation2;
+import com.wyc.annotation.ParamAnnotation2;
+import com.wyc.annotation.ParamEntityAnnotation2;
+
+
+@ParamEntityAnnotation2
 @Entity(name="jsapi_ticket")
 public class JsapiTicketBean {
     @Id
+    @IdAnnotation2
     private String id;
     @Column
+    @ParamAnnotation2
     private String errcode;
     @Column
+    @ParamAnnotation2
     private String errmsg;
     @Column
+    @ParamAnnotation2
     private String ticket;
     @Column
+    @ParamAnnotation2
     private String expires_in;
     @Column(name = "create_at")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")

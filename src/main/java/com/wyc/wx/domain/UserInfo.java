@@ -8,40 +8,62 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wyc.annotation.IdAnnotation2;
+import com.wyc.annotation.ParamAnnotation2;
+import com.wyc.annotation.ParamEntityAnnotation2;
 
+
+@ParamEntityAnnotation2(type=ParamEntityAnnotation2.SESSION_TYPE)
 @Entity(name="user_info")
 public class UserInfo {
     @Id
+    @IdAnnotation2
     private String id;
+    
+    @ParamAnnotation2(type=ParamEntityAnnotation2.SESSION_TYPE)
     @Column(unique=true,updatable=false)
     private String openid;
     @Column
+    @ParamAnnotation2
     private String nickname;
     @Column
+    @ParamAnnotation2
     private String sex;
     @Column
+    @ParamAnnotation2
     private String province;
     @Column
+    @ParamAnnotation2
     private String city;
     @Column
+    @ParamAnnotation2
     private String country;
     @Column
+    @ParamAnnotation2
     private String headimgurl;
     @Column
+    @ParamAnnotation2
     private String[] privilege;
     @Column
+    @ParamAnnotation2
     private String unionid;
     @Column
+    @ParamAnnotation2
     private String language;
     @Column
+    @ParamAnnotation2
     private String remark;
     @Column
+    @ParamAnnotation2
     private String subscribe_time;
     @Column
+    @ParamAnnotation2
     private String groupid;
     @Column
+    @ParamAnnotation2
     private String subscribe;
     @Column(unique=true)
+    @ParamAnnotation2
     private String token;
     
     @Column(name = "create_at")
